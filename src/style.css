@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Inter:wght@400;600&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Inter:wght@400;500;600&family=Open+Sans&display=swap');
 
 
 * {
@@ -9,8 +9,12 @@
 	font-size: 1rem;
 
 	/* VARS */
-	--main-dark-blue: #12213F;
-	--secondary-dark-blue: #1B315D;
+	--main-dark-blue: hsl(220, 45%, 16%);
+	--main-light-gray: hsl(0, 0%, 83%);
+	--secondary-dark-blue: hsl(220, 45%, 18%);
+	--secondary-light-blue: hsl(220, 45%, 41%);
+	--secondary-dark-gray: hsl(0, 0%, 43%);
+	--primary-success: hsl(150, 45%, 31%);
 	--margin-sm: 1.3rem;
 }
 
@@ -24,11 +28,12 @@ body {
 
 /* NAVBAR */
 nav {
-	background-color: lightgray;
+	background-color: var(--main-light-gray);
 	padding: var(--margin-sm);
 	height: 80px;
 	display: flex;
 	justify-content: space-between;
+	border-radius: 0;
 }
 
 nav .nav-links-container {
@@ -38,6 +43,7 @@ nav .nav-links-container {
 	align-items: center;
 	width: 63%;
 	font-size: 1.1rem;
+	max-width: 450px;
 }
 
 .nav-link {
@@ -61,6 +67,7 @@ main {
 }
 
 input, select {
+	background-color: var(--main-light-gray);
 	padding: 0.5rem 0.7rem;
 	margin-block: 0.5rem;
 	margin-inline: 0.5rem 2rem;
@@ -74,12 +81,15 @@ button {
 	font-size: 1.1rem;
 	padding-inline: 1.7em;
 	padding-block: 0.6em;
-	color: darkgray;
+	background-color: var(--secondary-dark-gray);
 	display: block;
 	margin-inline-start: auto;
 	margin-top: 1.2rem;
-	min-width: 100px;
-	color: black;
+	min-width: 150px;
+	/* color: var(--main-light-gray); */
+	background-color: var(--secondary-light-blue);
+	color: white;
+	font-weight: 500;
 }
 
 .form-container {
@@ -87,7 +97,7 @@ button {
 	/* background-color: lightgray; */
 	/* background-color: var(--main-dark-blue); */
 
-	color: white;
+	color: var(--main-light-gray);
 	padding: 1.5rem;
 	/* border: solid darkgray; */
 	margin-top: 1rem;
@@ -95,6 +105,7 @@ button {
 
 .form-container h2 {
 	margin-bottom: 1rem;
+	font-size: 1.3rem;
 }
 
 .form-container label {
@@ -103,7 +114,8 @@ button {
 	min-width: 4rem;
 }
 
-.button-primary {
-	background-color: green;
+.button-success {
+	background-color: var(--primary-success);
+	/* color: var(--main-light-gray); */
 	color: white;
 }
