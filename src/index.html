@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>RECI Importaciones</title>
+  </head>
+  <body>
+    <nav>
+      <div class="logo-container">
+        <img src="./assets/logo.png" alt="" />
+      </div>
+      <div class="nav-links-container">
+        <a class="nav-link" href="/productos">Productos</a>
+        <a class="nav-link" href="/servicios">Servicios</a>
+        <a class="nav-link" href="/clientes">Clientes</a>
+        <a class="nav-link" href="/camiones">Camiones</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Buscar productos -->
+      <div class="form-container">
+        <form class="search-form" action="/productos" method="get">
+          <h2>Buscar productos</h2>
+          <!-- <input id="search-products" type="text"> -->
+          <label for="select-products-category">Tipo: </label>
+          <select name="select-products-category" id="">
+            <option value="equipos">Equipos</option>
+            <option value="carrocerias">Carrocerías</option>
+            <option value="accesorios">Accesorios</option>
+          </select>
+          <!-- if(category==equipos){ -->
+          <label for="select-products-line">Línea: </label>
+          <select name="select-products-line" id="select-products-type">
+            <option value="carrocerias">Truck</option>
+            <option value="equipos">VP Truck</option>
+            <option value="accesorios">Trailer</option>
+          </select>
+          <!-- } -->
+          <button role="submit">Buscar</button>
+        </form>
+      </div>
+
+      <!-- Agregar productos -->
+      <form class="form-container" action="/productos" method="post">
+        <h2>Agregar productos</h2>
+        <label for="add-product-category"> Tipo: </label>
+        <select name="add-product-category" id="add-product-category">
+          <option value="equipos">Equipo</option>
+          <option value="carrocerias">Carrocería</option>
+          <option value="accesorios">Accesorio</option>
+        </select>
+        <!-- if(category==equipos){ -->
+        <label for="add-product-line">Línea: </label>
+        <select name="add-product-line" id="add-product-line">
+          <option value="carrocerias">Truck</option>
+          <option value="equipos">VP Truck</option>
+          <option value="accesorios">Trailer</option>
+        </select>
+        <br />
+        <!-- } -->
+        <label for="add-product-model">Modelo: </label>
+        <!-- <input id="add-product-model" type="text" name="add-product-model"> -->
+        <input type="text" name="" placeholder="ej. V-500 MAX" />
+        <button class="button-primary" role="submit">Agregar</button>
+      </form>
+    </main>
+  </body>
+</html>

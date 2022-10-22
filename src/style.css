@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Inter:wght@400;600&family=Open+Sans&display=swap');
+
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	border-radius: 0.3rem;
+	font-size: 1rem;
+
+	/* VARS */
+	--main-dark-blue: #12213F;
+	--secondary-dark-blue: #1B315D;
+	--margin-sm: 1.3rem;
+}
+
+body {
+	background-color: var(--main-dark-blue);
+	/* background-color: var(--secondary-dark-blue); */
+	font-family: Inter, sans-serif;
+}
+
+
+
+/* NAVBAR */
+nav {
+	background-color: lightgray;
+	padding: var(--margin-sm);
+	height: 80px;
+	display: flex;
+	justify-content: space-between;
+}
+
+nav .nav-links-container {
+	/* border: solid red; */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 63%;
+	font-size: 1.1rem;
+}
+
+.nav-link {
+	text-decoration: none;
+	color: var(--main-dark-blue);
+	font-weight: bold;
+}
+
+nav .logo-container {
+	height: 100%;
+}
+
+.logo-container img {
+	height: 100%;
+}
+
+
+/* MAIN */
+main {
+	margin-inline: var(--margin-sm);
+}
+
+input, select {
+	padding: 0.5rem 0.7rem;
+	margin-block: 0.5rem;
+	margin-inline: 0.5rem 2rem;
+	border: solid 1px darkgray;
+	height: 38px;
+}
+
+button {
+	/* height: 38px; */
+	border: none;
+	font-size: 1.1rem;
+	padding-inline: 1.7em;
+	padding-block: 0.6em;
+	color: darkgray;
+	display: block;
+	margin-inline-start: auto;
+	margin-top: 1.2rem;
+	min-width: 100px;
+	color: black;
+}
+
+.form-container {
+	background-color: var(--secondary-dark-blue);
+	/* background-color: lightgray; */
+	/* background-color: var(--main-dark-blue); */
+
+	color: white;
+	padding: 1.5rem;
+	/* border: solid darkgray; */
+	margin-top: 1rem;
+}
+
+.form-container h2 {
+	margin-bottom: 1rem;
+}
+
+.form-container label {
+	display: inline-block;
+	margin-bottom: 0.5rem;
+	min-width: 4rem;
+}
+
+.button-primary {
+	background-color: green;
+	color: white;
+}
