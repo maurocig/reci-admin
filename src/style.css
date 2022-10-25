@@ -10,9 +10,10 @@
 
 	/* VARS */
 	--main-dark-blue: hsl(220, 45%, 16%);
-	--main-light-gray: hsl(0, 0%, 83%);
-	--secondary-dark-blue: hsl(220, 45%, 18%);
-	--secondary-light-blue: hsl(220, 45%, 41%);
+	--main-light-gray: hsla(0 0% 83%);
+	--secondary-light-gray: hsla(240, 13%, 68%, 0.265);
+	--secondary-dark-blue: hsl(220, 40%, 20%);
+	--secondary-light-blue: hsl(220, 45%, 51%);
 	--secondary-dark-gray: hsl(0, 0%, 43%);
 	--primary-success: hsl(150, 45%, 31%);
 	--margin-sm: 1.3rem;
@@ -94,12 +95,10 @@ button {
 
 .form-container {
 	background-color: var(--secondary-dark-blue);
-	/* background-color: lightgray; */
-	/* background-color: var(--main-dark-blue); */
 
 	color: var(--main-light-gray);
 	padding: 1.5rem;
-	/* border: solid darkgray; */
+	border: 1px solid var(--secondary-light-gray);
 	margin-top: 1rem;
 }
 
