@@ -53,6 +53,10 @@ nav .nav-links-container {
 	font-weight: bold;
 }
 
+.nav-link:hover {
+	border-bottom: solid 2px var(--main-dark-blue);
+}
+
 nav .logo-container {
 	height: 100%;
 }
@@ -82,14 +86,12 @@ button {
 	font-size: 1.1rem;
 	padding-inline: 1.7em;
 	padding-block: 0.6em;
-	background-color: var(--secondary-dark-gray);
 	display: block;
 	margin-inline-start: auto;
 	margin-top: 1.2rem;
 	min-width: 150px;
 	/* color: var(--main-light-gray); */
 	background-color: var(--secondary-light-blue);
-	color: white;
 	font-weight: 500;
 }
 

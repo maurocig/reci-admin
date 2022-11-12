@@ -25,21 +25,37 @@
       <div class="form-container">
         <form class="search-form" action="/productos" method="get">
           <h2>Buscar productos</h2>
-          <!-- <input id="search-products" type="text"> -->
+
+          <!-- SELECT SEARCH CATEGORY -->
           <label for="select-products-category">Tipo: </label>
           <select name="select-products-category" id="">
             <option value="equipos">Equipos</option>
             <option value="carrocerias">Carrocerías</option>
             <option value="accesorios">Accesorios</option>
           </select>
-          <!-- if(category==equipos){ -->
+
+          <!-- SELECT PRODUCTS LINE -->
           <label for="select-products-line">Línea: </label>
           <select name="select-products-line" id="select-products-type">
-            <option value="carrocerias">Truck</option>
-            <option value="equipos">VP Truck</option>
-            <option value="accesorios">Trailer</option>
+            <!-- if(category==equipos){ -->
+            <option value="truck">Truck</option>
+            <option value="vpTruck">VP Truck</option>
+            <option value="trailer">Trailer</option>
+            <!-- } -->
+            <!-- else if(category==carrocerias){ -->
+            <option value="liderKit">Liderkit</option>
+            <option value="fibrasil">Fibrasil</option>
+            <!-- } -->
           </select>
-          <!-- } -->
+
+          <!-- SELECT PRODUCTS MODEL -->
+          <label for="select-products-model">Modelo: </label>
+          <select name="select-products-model" id="select-products-model">
+            <!-- if(category==equipos) { -->
+            <option value="v500Max">V-500 MAX</option>
+            <!-- } -->
+          </select>
+
           <button role="submit">Buscar</button>
         </form>
       </div>
