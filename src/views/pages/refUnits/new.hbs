@@ -1,0 +1,26 @@
+{{>navbar}}
+
+<main>
+	<form class="form-container" action="/productos" method="post">
+		<h2>Nuevo equipo</h2>
+		<label for="add-product-category"> Tipo: </label>
+		<select name="add-product-category" id="add-product-category">
+			<option value="equipos">Equipo</option>
+			<option value="carrocerias">Carrocería</option>
+			<option value="accesorios">Accesorio</option>
+		</select>
+		<!-- if(category==equipos){ -->
+		<label for="add-product-line">Línea: </label>
+		<select name="add-product-line" id="add-product-line">
+			<option value="carrocerias">Truck</option>
+			<option value="equipos">VP Truck</option>
+			<option value="accesorios">Trailer</option>
+		</select>
+		<br />
+		<!-- } -->
+		<label for="add-product-model">Modelo: </label>
+		<!-- <input id="add-product-model" type="text" name="add-product-model"> -->
+		<input type="text" name="" placeholder="ej. V-500 MAX" />
+		<button class="button-success button-form" role="submit">Guardar</button>
+	</form>
+</main>

@@ -9,4 +9,9 @@ router.use('/clientes', clientsRoutes);
 router.use('/equipos', refUnitsRoutes);
 router.use('/servicios', servicesRoutes);
 
+router.get('/', (req, res) => {
+  // res.render('main', { layout: 'index' });
+  res.send('hola');
+});
+
 module.exports = router;

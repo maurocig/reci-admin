@@ -61,6 +61,32 @@ class RefUnitsController {
       next(error);
     }
   }
+
+  async addServiceToRefUnit(req, res, next) {
+    const { refUnitId, serviceId } = req.params;
+    try {
+      const updatedRefUnit = await refUnitsDao.addService(refUnitId, serviceId);
+      const response = successResponse(updatedRefUnit);
+      res.status(HTTP_STATUS.OK).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async removeServiceFromRefUnit(req, res, next) {
+    const { refUnitId, serviceId } = req.params;
+    try {
+      const updatedRefUnit = await refUnitsDao.removeService(
+        refUnitId,
+        serviceId
+      );
+      const response = successResponse(updatedRefUnit);
+      res.status(HTTP_STATUS.OK).json(response);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
 }
 
 module.exports = new RefUnitsController();

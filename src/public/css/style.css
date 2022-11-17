@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Inter:wght@400;500;600&family=Open+Sans&display=swap');
 
-
 * {
 	padding: 0;
 	margin: 0;
@@ -40,21 +39,27 @@ nav {
 nav .nav-links-container {
 	/* border: solid red; */
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	width: 63%;
 	font-size: 1.1rem;
-	max-width: 450px;
+	max-width: 350px;
 }
 
 .nav-link {
 	text-decoration: none;
 	color: var(--main-dark-blue);
 	font-weight: bold;
+	border-bottom: solid 2px rgba(0, 0, 0, 0)
+}
+
+.nav-link-active {
+	border-bottom: solid 3px var(--main-dark-blue);
 }
 
 .nav-link:hover {
 	border-bottom: solid 2px var(--main-dark-blue);
+	border-radius: 0;
 }
 
 nav .logo-container {
@@ -66,16 +71,18 @@ nav .logo-container {
 }
 
 
+
 /* MAIN */
 main {
 	margin-inline: var(--margin-sm);
+	margin-block: 2rem;
 }
 
 input, select {
 	background-color: var(--main-light-gray);
 	padding: 0.5rem 0.7rem;
-	margin-block: 0.5rem;
-	margin-inline: 0.5rem 2rem;
+	margin-bottom: 1.5em;
+	margin-inline: 0rem 2rem;
 	border: solid 1px darkgray;
 	height: 38px;
 }
@@ -87,32 +94,53 @@ button {
 	padding-inline: 1.7em;
 	padding-block: 0.6em;
 	display: block;
-	margin-inline-start: auto;
-	margin-top: 1.2rem;
+	/* margin-inline-start: auto; */
+	margin-top: 1rem;
 	min-width: 150px;
 	/* color: var(--main-light-gray); */
 	background-color: var(--secondary-light-blue);
 	font-weight: 500;
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+}
+
+.title {
+	color: var(--main-light-gray);
+	font-size: 2rem;
+	padding-block: 1rem;
 }
 
 .form-container {
 	background-color: var(--secondary-dark-blue);
-
 	color: var(--main-light-gray);
 	padding: 1.5rem;
 	border: 1px solid var(--secondary-light-gray);
-	margin-top: 1rem;
+	max-width: 800px;
+	margin: 0;
+	margin-inline: auto;
 }
 
 .form-container h2 {
-	margin-bottom: 1rem;
+	margin-bottom: 1.5rem;
 	font-size: 1.3rem;
 }
 
 .form-container label {
-	display: inline-block;
+	display: block;
 	margin-bottom: 0.5rem;
 	min-width: 4rem;
+}
+
+.form-field {
+	/* border: solid red; */
+	display: inline-block;
+}
+
+.button-form {
+	margin-inline-start: auto;
 }
 
 .button-success {

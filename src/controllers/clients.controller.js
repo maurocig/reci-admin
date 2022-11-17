@@ -1,6 +1,7 @@
 const HTTP_STATUS = require('../constants/api.constants');
 const { ClientsDao } = require('../models/daos/app.daos');
 const { successResponse } = require('../utils/api.utils');
+const getDate = require('../utils/timezone');
 
 const clientsDao = new ClientsDao();
 
@@ -29,7 +30,7 @@ class ClientsController {
   async saveClient(req, res, next) {
     try {
       const client = {
-        timestamp: new Date(),
+        // dateCreated: getDate(),
         ...req.body,
       };
       const newClient = await clientsDao.save(client);
@@ -43,7 +44,11 @@ class ClientsController {
   async updateClient(req, res, next) {
     const { id } = req.params;
     try {
-      const updatedClient = await clientsDao.update(id, req.body);
+      const client = {
+        dateUpdated: getDate(),
+        ...req.body,
+      };
+      const updatedClient = await clientsDao.update(id, client);
       const response = successResponse(updatedClient);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
@@ -58,6 +63,29 @@ class ClientsController {
       const response = successResponse(deletedClient);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
+      next(error);
+    }
+  }
+
+  async addRefUnitToClient(req, res, next) {
+    const { clientId, refUnitId } = req.params;
+    try {
+      const updatedClient = await clientsDao.addRefUnit(clientId, refUnitId);
+      const response = successResponse(updatedClient);
+      res.status(HTTP_STATUS.OK).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async removeRefUnitFromClient(req, res, next) {
+    const { clientId, refUnitId } = req.params;
+    try {
+      const updatedClient = await clientsDao.removeRefUnit(clientId, refUnitId);
+      const response = successResponse(updatedClient);
+      res.status(HTTP_STATUS.OK).json(response);
+    } catch (error) {
+      console.log(error);
       next(error);
     }
   }
