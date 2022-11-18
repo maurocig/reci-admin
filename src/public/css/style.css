@@ -116,6 +116,14 @@ a {
 	text-align: center;
 }
 
+.subtitle {
+	color: var(--main-light-gray);
+	font-size: 1.5rem;
+	padding-block: 1rem;
+	text-align: center;
+	margin-bottom: 0.5rem;
+}
+
 .form-container {
 	background-color: var(--secondary-dark-blue);
 	color: var(--main-light-gray);
@@ -170,10 +178,9 @@ a {
 }
 
 .table-container {
-	border-radius: 7px;
+	border-radius: 4px;
 	padding: 0px;
-	border: solid 2px var(--secondary-dark-gray);
-	margin-top: 2rem;
+	border: solid 1px var(--secondary-dark-gray);
 	margin-inline: auto;
 	margin-bottom: 2rem;
 	width: fit-content;
