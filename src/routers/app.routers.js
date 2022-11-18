@@ -11,7 +11,12 @@ router.use('/servicios', servicesRoutes);
 
 router.get('/', (req, res) => {
   // res.render('main', { layout: 'index' });
-  res.send('hola');
+  res.send('homepage');
+});
+
+router.get('/success', (req, res) => {
+  const { body } = req;
+  res.render('pages/success', { body });
 });
 
 module.exports = router;

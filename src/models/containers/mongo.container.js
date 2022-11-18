@@ -23,7 +23,7 @@ class MongoContainer {
   }
 
   async getById(id) {
-    const document = await this.model.findOne({ _id: id }, { __v: 0 });
+    const document = await this.model.findOne({ _id: id }, { __v: 0 }).lean();
     if (!document) {
       const message = `Resource with id ${id} does not exist in our records.`;
       throw new HttpError(HTTP_STATUS.NOT_FOUND, message);
@@ -32,8 +32,13 @@ class MongoContainer {
   }
 
   async save(item) {
-    const newDocument = new this.model(item);
-    return await newDocument.save();
+    const newDocument = new this.model({
+      _id: new mongoose.Types.ObjectId(),
+      ...item,
+    });
+    console.log(newDocument);
+    await newDocument.save();
+    return await newDocument._id.toString();
   }
 
   async update(id, item) {

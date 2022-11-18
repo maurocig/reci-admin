@@ -1,7 +1,7 @@
 {{>navbar}}
 
 <main>
-	<form class="form-container" action="/api/clientes" method="post">
+	<form class="form-container" action="/clientes" method="post">
 		<h2>Nuevo cliente</h2>
 		<div class="form-field">
 			<label for="name">Razón social:</label>
@@ -18,11 +18,3 @@
 		<button class="button-success button-form" role="submit">Guardar</button>
 	</form>
 </main>
-
-<script>
-	const form = document.querySelector('form')
-
-	form.addEventListener('submit', (event) => {
-		event.preventDefault();
-	})
-</script>

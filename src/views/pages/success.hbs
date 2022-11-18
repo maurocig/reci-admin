@@ -1,0 +1,43 @@
+{{>navbar}}
+
+<h1 class="title">Operación exitosa</h1>
+{{!-- <p>{{response.message}}</p> --}}
+<span class="response-success">El cliente se guardó correctamente</span>
+
+<div class="table-container">
+	<table>
+		<tr>
+			<th>Razón Social</th>
+			<th>E-mail</th>
+			<th>Teléfono</th>
+			<th>Equipos</th>
+		</tr>
+		<tr>
+		<tr class="row">
+			<td>
+				<a href="/clientes/{{response.id}}">{{response.client.name}} </a>
+				<a href="/clientes/{{response.id}}">Gerardo Rosas</a>
+			</td>
+			<td>
+				{{response.client.email}}
+				gerardo@phone.com
+			</td>
+			<td>
+				{{response.client.email}}
+				gerardo@rosas.com
+			</td>
+			<td>
+				<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+			</td>
+		</tr>
+		</tr>
+	</table>
+</div>
+<div class="button-container">
+	<a href="/clientes">
+		<button class="button">Editar</button>
+	</a>
+	<a href="/clientes/nuevo">
+		<button class="button-success button-new">Nuevo cliente</button>
+	</a>
+</div>

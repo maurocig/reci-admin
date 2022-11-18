@@ -1,6 +1,10 @@
-const successResponse = (data) => {
+const successResponse = (
+  data,
+  message = 'Operación realizada exitosamente.'
+) => {
   return {
     success: true,
+    message,
     data,
   };
 };

@@ -5,8 +5,8 @@ const collection = 'clients';
 
 const clientSchema = new Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
     phone: { type: Number },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
     // bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
@@ -31,7 +31,7 @@ class ClientsMongoDao extends MongoContainer {
     }
     const updatedClient = await this.model.updateOne(
       { _id: clientId },
-      { $push: { refUnits: refUnitId } }
+      { $addToSet: { refUnits: refUnitId } } // no agrega duplicados pero no da error :/
     );
     return updatedClient;
   }

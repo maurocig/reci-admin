@@ -7,7 +7,7 @@ const refUnitSchema = new Schema(
   {
     serialNumber: { type: String, unique: true },
     model: { type: String },
-    services: [{ type: Schema.Types.ObjectId, ref: 'services' }],
+    services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
     hours: { type: Number },
     client: { type: Schema.Types.ObjectId, ref: 'clients' },
     plate: { type: String },

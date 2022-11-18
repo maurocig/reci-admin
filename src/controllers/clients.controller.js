@@ -9,8 +9,11 @@ class ClientsController {
   async getClients(req, res, next) {
     try {
       const clients = await clientsDao.getAll();
-      const response = successResponse(clients);
-      res.status(HTTP_STATUS.OK).json(response);
+
+      // const response = successResponse(clients);
+      // res.status(HTTP_STATUS.OK).json(response);
+
+      res.status(HTTP_STATUS.OK).render('pages/clients', { clients: clients });
     } catch (error) {
       next(error);
     }
@@ -20,8 +23,15 @@ class ClientsController {
     const { id } = req.params;
     try {
       const client = await clientsDao.getById(id);
-      const response = successResponse(client);
-      res.status(HTTP_STATUS.OK).json(response);
+
+      // const response = successResponse(client);
+      // res.status(HTTP_STATUS.OK).json(response);
+
+      console.log(client);
+
+      res
+        .status(HTTP_STATUS.OK)
+        .render('pages/clients/show', { client: client });
     } catch (error) {
       next(error);
     }
@@ -29,13 +39,26 @@ class ClientsController {
 
   async saveClient(req, res, next) {
     try {
+      const { name, email, refUnits, phone, createdAt, updatedAt } = req.body;
+      const phoneNumber = parseInt(phone);
       const client = {
-        // dateCreated: getDate(),
-        ...req.body,
+        name,
+        email,
+        refUnits,
+        phone: phoneNumber,
+        createdAt,
+        updatedAt,
       };
-      const newClient = await clientsDao.save(client);
-      const response = successResponse(newClient);
-      res.status(HTTP_STATUS.CREATED).json(response);
+      const newClientId = await clientsDao.save(client);
+
+      const response = {
+        client: client,
+        id: newClientId,
+        message: 'Se creó un nuevo cliente.',
+      };
+      console.log(response);
+
+      res.render('pages/success', { response });
     } catch (error) {
       next(error);
     }

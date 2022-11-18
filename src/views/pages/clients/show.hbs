@@ -1,0 +1,29 @@
+{{>navbar}}
+<main>
+
+	<h1 class="title">Detalle del cliente</h1>
+	<div class="table-container">
+		<table>
+			<tr>
+				<th>R. Social</th>
+				<th>E-mail</th>
+				<th>Teléfono</th>
+			</tr>
+			<tr class="row">
+				<td>
+					<strong>{{client.name}} </strong>
+				</td>
+				<td>
+					{{client.email}}
+				</td>
+				<td class="table-center">
+					{{client.phone}}
+				</td>
+			</tr>
+		</table>
+		</section>
+	</div>
+	<a href="/clientes/nuevo">
+		<button class="button-new">Editar</button>
+	</a>
+</main>

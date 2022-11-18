@@ -1,8 +1,34 @@
 {{>navbar}}
 
 <main>
+
 	<h1 class="title">Clientes</h1>
 	<a href="/clientes/nuevo">
-		<button class="button-success">Nuevo cliente</button>
+		<button class="button-success button-new">Nuevo cliente</button>
 	</a>
+	<div class="table-container">
+		<table>
+			<tr>
+				<th>R. Social</th>
+				<th>E-mail</th>
+				<th>N° Equipos</th>
+			</tr>
+			{{#each clients}}
+			<tr class="row">
+				<td>
+					<a href="/clientes/{{_id}}"><strong>{{name}} </strong></a>
+				</td>
+				<td>
+					<a href="/clientes/{{_id}}">
+						{{email}}
+					</a>
+				</td>
+				<td class="table-center">
+					{{refUnits.length}}
+				</td>
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+
 </main>
