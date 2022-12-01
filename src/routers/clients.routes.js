@@ -9,6 +9,7 @@ router.get('/:id', clientsController.getClientsById);
 router.post('/', clientsController.saveClient);
 router.put('/:id', clientsController.updateClient);
 router.delete('/:id', clientsController.deleteClient);
+// router.post('/:id/agregarEquipo');
 
 router.post('/:clientId/:refUnitId', clientsController.addRefUnitToClient);
 router.delete(

@@ -89,6 +89,7 @@ input, select {
 
 button {
 	/* height: 38px; */
+	width: 190px;
 	border: none;
 	font-size: 1.1rem;
 	padding-inline: 1.7em;
@@ -108,6 +109,11 @@ a {
 	text-decoration: none;
 	color: var(--main-dark-blue)
 }
+
+section {
+	margin-bottom: 3rem;
+}
+
 
 .title {
 	color: var(--main-light-gray);
@@ -150,6 +156,25 @@ a {
 	display: inline-block;
 }
 
+#checkboxByReci {
+	/* Double-sized Checkboxes */
+	-ms-transform: scale(2);
+	/* IE */
+	-moz-transform: scale(2);
+	/* FF */
+	-webkit-transform: scale(2);
+	/* Safari and Chrome */
+	-o-transform: scale(2);
+	/* Opera */
+	transform: scale(2);
+	/* padding: 10px; */
+	margin: 0;
+	margin-inline-start: 0.5rem;
+	padding: 0;
+	display: inline;
+
+}
+
 .button-form {
 	margin-inline-start: auto;
 }
@@ -162,6 +187,7 @@ a {
 
 .button-new {
 	margin-inline: auto;
+	margin-bottom: 1.5rem;
 }
 
 .button-container {
