@@ -24,13 +24,13 @@ class ClientsController {
     try {
       const client = await clientsDao.getById(id);
 
-      // JSON
-      const response = successResponse(client);
-      res.status(HTTP_STATUS.OK).json(response);
+      /* // JSON */
+      /* const response = successResponse(client); */
+      /* res.status(HTTP_STATUS.OK).json(response); */
 
-      // res
-      // .status(HTTP_STATUS.OK)
-      // .render('pages/clients/show', { client: client });
+      res
+        .status(HTTP_STATUS.OK)
+        .render('pages/clients/show', { client: client });
     } catch (error) {
       next(error);
     }
