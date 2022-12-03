@@ -1,5 +1,9 @@
 {{>navbar}}
 <main>
+	<a href="/clientes">
+		<button class="go-back">
+			Ver todos</button>
+	</a>
 
 	<h1 class="title">Detalle del cliente</h1>
 
@@ -29,7 +33,7 @@
 				</tr>
 			</table>
 		</div>
-		<a href="/clientes/editar/{{client._id}}">
+		<a href="/clientes/{{client._id}}/editar">
 			<button class="button-new">Editar</button>
 		</a>
 	</section>
@@ -44,18 +48,26 @@
 					<th>Modelo</th>
 					<th>Servicios</th>
 				</tr>
+				{{#each client.refUnits}}
+				<tr>
+					<td>{{_id}}</td>
+					{{!-- <td>{{this.model}}</td> --}}
+					{{!-- <td>{{this.services.length}}</td> --}}
+				</tr>
+				{{/each}}
 			</table>
 		</div>
 
-		<form class="form-container" action="">
-			<h2>Agregar Equipo</h2>
+		<h2 class="subtitle">Agregar Equipo</h2>
+		{{!-- <form class="form-container" action="/{{client._id}}/"> --}}
+		<form class="form-container" action="/refUnits/new">
 			<div class="form-field">
 				<label for="name">Nº Serie</label>
 				<input type="text" name="serialNumber" placeholder="" />
 			</div>
 			<div class="form-field">
 				<label for="client">ID Cliente:</label>
-				<input type="email" name="client" placeholder="correo@casilla.com" value={{client._id}} />
+				<input type="text" name="client" placeholder="correo@casilla.com" value={{client._id}} />
 			</div>
 			<div class="form-field">
 				<label for="model">Modelo:</label>

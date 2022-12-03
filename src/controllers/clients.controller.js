@@ -24,14 +24,26 @@ class ClientsController {
     try {
       const client = await clientsDao.getById(id);
 
-      // const response = successResponse(client);
-      // res.status(HTTP_STATUS.OK).json(response);
+      // JSON
+      const response = successResponse(client);
+      res.status(HTTP_STATUS.OK).json(response);
 
-      console.log(client);
+      // res
+      // .status(HTTP_STATUS.OK)
+      // .render('pages/clients/show', { client: client });
+    } catch (error) {
+      next(error);
+    }
+  }
 
+  async editClientsById(req, res, next) {
+    const { id } = req.params;
+    try {
+      const client = await clientsDao.getById(id);
       res
         .status(HTTP_STATUS.OK)
-        .render('pages/clients/show', { client: client });
+        .render('pages/clients/edit', { client: client });
+      res;
     } catch (error) {
       next(error);
     }
@@ -71,9 +83,9 @@ class ClientsController {
         dateUpdated: getDate(),
         ...req.body,
       };
+      console.log(`client: ${client}`);
       const updatedClient = await clientsDao.update(id, client);
-      const response = successResponse(updatedClient);
-      res.status(HTTP_STATUS.OK).json(response);
+      res.redirect(`/clientes/${id}`);
     } catch (error) {
       next(error);
     }

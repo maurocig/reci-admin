@@ -1,6 +1,8 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
 const path = require('path');
+const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
 
 const routes = require('./routers/app.routers');
 const errorMiddleware = require('./middleware/error.middleware');
@@ -25,6 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('src/public'));
 app.use(errorMiddleware);
+// put request in html form
+app.use(methodOverride('_method'));
 
 // Routes
 app.use('/', routes);

@@ -11,7 +11,7 @@ router.use('/servicios', servicesRoutes);
 
 router.get('/', (req, res) => {
   // res.render('main', { layout: 'index' });
-  res.send('homepage');
+  res.render('pages/home.hbs');
 });
 
 router.get('/success', (req, res) => {

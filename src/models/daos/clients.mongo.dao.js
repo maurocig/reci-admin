@@ -9,7 +9,7 @@ const clientSchema = new Schema(
     email: { type: String, required: true, unique: true },
     phone: { type: Number },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
-    // bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
+    bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
     dateCreated: { type: Schema.Types.Date },
     dateUpdated: { type: Schema.Types.Date },
   },
