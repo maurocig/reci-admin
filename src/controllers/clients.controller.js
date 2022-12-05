@@ -2,6 +2,7 @@ const HTTP_STATUS = require('../constants/api.constants');
 const { ClientsDao } = require('../models/daos/app.daos');
 const { successResponse } = require('../utils/api.utils');
 const getDate = require('../utils/timezone');
+const mongoose = require('mongoose');
 
 const clientsDao = new ClientsDao();
 
@@ -22,7 +23,8 @@ class ClientsController {
   async getClientsById(req, res, next) {
     const { id } = req.params;
     try {
-      const client = await clientsDao.getById(id);
+      // const client = await clientsDao.getById(id);
+      const client = await clientsDao.getByIdAndPopulate(id);
 
       /* // JSON */
       /* const response = successResponse(client); */
@@ -53,6 +55,7 @@ class ClientsController {
     try {
       const { name, email, refUnits, phone, createdAt, updatedAt } = req.body;
       const phoneNumber = parseInt(phone);
+
       const client = {
         name,
         email,

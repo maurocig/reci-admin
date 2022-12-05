@@ -8,8 +8,12 @@ class RefUnitsController {
   async getRefUnits(req, res, next) {
     try {
       const refUnits = await refUnitsDao.getAll();
-      const response = successResponse(refUnits);
-      res.status(HTTP_STATUS.OK).json(response);
+
+      /* // JSON */
+      /*       const response = successResponse(refUnits); */
+      /*       res.status(HTTP_STATUS.OK).json(response); */
+
+      res.status(HTTP_STATUS.OK).render('pages/refUnits/', { refUnits });
     } catch (error) {
       next(error);
     }
@@ -18,9 +22,9 @@ class RefUnitsController {
   async getRefUnitsById(req, res, next) {
     const { id } = req.params;
     try {
-      const refUnit = await refUnitsDao.getById(id);
-      const response = successResponse(refUnit);
-      res.status(HTTP_STATUS.OK).json(response);
+      // const refUnit = await refUnitsDao.getById(id);
+      const refUnit = await refUnitsDao.getByIdAndPopulate(id);
+      res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit });
     } catch (error) {
       next(error);
     }
@@ -28,16 +32,48 @@ class RefUnitsController {
 
   async saveRefUnit(req, res, next) {
     try {
+      const {
+        serialNumber,
+        model,
+        services,
+        hours,
+        client,
+        plate,
+        soldByReci,
+      } = req.body;
+
       const refUnit = {
-        timestamp: new Date(),
-        ...req.body,
+        serialNumber,
+        model,
+        services,
+        hours,
+        client,
+        plate,
+        soldByReci,
       };
-      const newRefUnit = await refUnitsDao.save(refUnit);
-      const response = successResponse(newRefUnit);
-      res.status(HTTP_STATUS.CREATED).json(response);
+      const newRefUnitId = await refUnitsDao.save(refUnit);
+
+      /* // JSON */
+      /*       const response = successResponse(newRefUnit); */
+      /*       res.status(HTTP_STATUS.CREATED).json(response); */
+
+      const response = {
+        refUnit: refUnit,
+        id: newRefUnitId,
+        message: 'Se creó un nuevo equipo',
+      };
+      console.log(response);
+      res.render('pages/refUnits', { response });
     } catch (error) {
       next(error);
     }
+  }
+
+  async newRefUnitForm(req, res, next) {
+    const { clientId } = req.params;
+    try {
+      res.render('pages/refUnits/new', { clientId });
+    } catch (error) {}
   }
 
   async updateRefUnit(req, res, next) {

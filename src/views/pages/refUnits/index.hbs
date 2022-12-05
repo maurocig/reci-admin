@@ -1,5 +1,41 @@
 {{>navbar}}
 
 <main>
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+
 	<h1 class="title">Equipos</h1>
+	<div class="table-container">
+		<table>
+			<tr>
+				<th>Nº Serie</th>
+				<th>Modelo</th>
+				<th>ID Cliente</th>
+			</tr>
+			{{#each refUnits}}
+			<tr class="row">
+				<td>
+					<a href="/equipos/{{_id}}"><strong>{{serialNumber}} </strong></a>
+				</td>
+				<td>
+					<a href="/equipos/{{_id}}">
+						{{model}}
+					</a>
+				</td>
+				<td class="table-center">
+					<a href="/clientes/{{client}}">
+						{{client.name}}
+					</a>
+				</td>
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+
+	<a href="/equipos/nuevo">
+		<button class="button-success" style="margin-inline: auto;">Nuevo equipo</button>
+	</a>
 </main>

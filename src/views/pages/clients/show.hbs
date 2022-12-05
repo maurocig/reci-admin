@@ -24,7 +24,7 @@
 					<td>
 						{{client.email}}
 					</td>
-					<td class="table-center">
+					<td>
 						{{client.phone}}
 					</td>
 					<td>
@@ -58,7 +58,12 @@
 			</table>
 		</div>
 
-		<h2 class="subtitle">Agregar Equipo</h2>
+		<a href="/equipos/nuevo/{{client._id}}">
+			<button class="button-success" style="margin-inline: auto;">Agregar Equipo</button>
+		</a>
+
+		<!--
+		<h2 class="subtitle">Nuevo equipo</h2>
 		{{!-- <form class="form-container" action="/{{client._id}}/"> --}}
 		<form class="form-container" action="/refUnits/new">
 			<div class="form-field">
@@ -93,5 +98,7 @@
 				<button class="button-success button-form">Agregar Equipo</button>
 			</a>
 		</form>
+		-->
+
 	</section>
 </main>
