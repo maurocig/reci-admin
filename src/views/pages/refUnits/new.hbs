@@ -7,10 +7,14 @@
 	</a>
 
 	<h1 class="title">Nuevo equipo</h1>
-	<form class="form-container" action="/refUnits/new">
+	<form class="form-container" action="/equipos" method="post">
 		<div class="form-field">
 			<label for="client">ID Cliente:</label>
 			<input type="text" name="client" value={{clientId}} />
+		</div>
+		<div class="form-field">
+			<label for="client">Nombre de Cliente:</label>
+			<input type="text" name="clientName" value={{clientName}} />
 		</div>
 		<div class="form-field">
 			<label for="name">Nº Serie</label>
@@ -18,7 +22,7 @@
 		</div>
 		<div class="form-field">
 			<label for="plate-number">Matrícula:</label>
-			<input type="text" id="plate-number" name="client" placeholder="ATP3739" />
+			<input type="text" id="plate-number" name="plate" placeholder="ATP3739" />
 		</div>
 		<div class="form-field">
 			<label for="model">Modelo:</label>
@@ -39,9 +43,7 @@
 			<label for="soldByReci" style="display: inline; margin-block:0; margin-right: 1rem;">Venta RECI: </label>
 			<input type="checkbox" name="soldByReci" id="checkboxByReci">
 		</div>
-		{{!-- <button class="button-success button-form" role="submit">Guardar</button> --}}
-		<a href="/equipos">
-			<button class="button-success button-form">Agregar Equipo</button>
-		</a>
+		<button class="button-success button-form" role="submit">Guardar</button>
+		<button class="button-new">Agregar modelo</button>
 	</form>
 </main>

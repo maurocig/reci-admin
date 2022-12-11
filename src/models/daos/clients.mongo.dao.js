@@ -23,14 +23,14 @@ class ClientsMongoDao extends MongoContainer {
     super(collection, clientSchema);
   }
 
-  async getByIdAndPopulate(clientId) {
-    const client = await this.model
-      .findOne({ _id: clientId })
-      .populate('refUnits')
-      .lean();
-    console.log(client.refUnits);
-    return client;
-  }
+  // async getByIdAndPopulate(clientId) {
+  //   const client = await this.model
+  //     .findOne({ _id: clientId })
+  //     .populate('refUnits')
+  //     .lean();
+  //   console.log(client.refUnits);
+  //   return client;
+  // }
 
   async addRefUnit(clientId, refUnitId) {
     const client = await this.model.findOne({ _id: clientId }, { __v: 0 });

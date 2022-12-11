@@ -1,19 +1,17 @@
 const HTTP_STATUS = require('../constants/api.constants');
 const { ClientsDao } = require('../models/daos/app.daos');
+const { RefUnitsDao } = require('../models/daos/app.daos');
 const { successResponse } = require('../utils/api.utils');
 const getDate = require('../utils/timezone');
 const mongoose = require('mongoose');
 
 const clientsDao = new ClientsDao();
+const refUnitsDao = new RefUnitsDao();
 
 class ClientsController {
   async getClients(req, res, next) {
     try {
       const clients = await clientsDao.getAll();
-
-      // const response = successResponse(clients);
-      // res.status(HTTP_STATUS.OK).json(response);
-
       res.status(HTTP_STATUS.OK).render('pages/clients', { clients: clients });
     } catch (error) {
       next(error);
@@ -23,16 +21,12 @@ class ClientsController {
   async getClientsById(req, res, next) {
     const { id } = req.params;
     try {
-      // const client = await clientsDao.getById(id);
-      const client = await clientsDao.getByIdAndPopulate(id);
-
-      /* // JSON */
-      /* const response = successResponse(client); */
-      /* res.status(HTTP_STATUS.OK).json(response); */
+      const client = await clientsDao.getById(id);
+      const refUnits = await refUnitsDao.getAll({ client: id });
 
       res
         .status(HTTP_STATUS.OK)
-        .render('pages/clients/show', { client: client });
+        .render('pages/clients/show', { client, refUnits });
     } catch (error) {
       next(error);
     }

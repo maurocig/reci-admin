@@ -13,7 +13,7 @@
 			<tr>
 				<th>Nº Serie</th>
 				<th>Modelo</th>
-				<th>ID Cliente</th>
+				<th>Cliente</th>
 			</tr>
 			{{#each refUnits}}
 			<tr class="row">
@@ -25,9 +25,9 @@
 						{{model}}
 					</a>
 				</td>
-				<td class="table-center">
+				<td>
 					<a href="/clientes/{{client}}">
-						{{client.name}}
+						{{clientName}}
 					</a>
 				</td>
 			</tr>

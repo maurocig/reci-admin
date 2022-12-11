@@ -5,10 +5,11 @@ const collection = 'refUnits';
 
 const refUnitSchema = new Schema(
   {
-    client: { type: Schema.Types.ObjectId, ref: 'clients' },
-    serialNumber: { type: String, unique: true },
-    plate: { type: String },
-    model: { type: String },
+    client: { type: Schema.Types.ObjectId, ref: 'clients', required: true },
+    clientName: { type: String },
+    serialNumber: { type: String, unique: true, required: true },
+    plate: { type: String, required: true },
+    model: { type: String, requried: true },
     hours: { type: Number },
     services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },
@@ -23,13 +24,11 @@ class RefUnitsMongoDao extends MongoContainer {
     super(collection, refUnitSchema);
   }
 
-  async getByIdAndPopulate(refUnitId) {
+  async getClientName(refUnitId) {
     const refUnit = await this.model
       .findOne({ _id: refUnitId })
-      // .populate('client', 'name')
-      .lean();
-    console.log(refUnit);
-    return refUnit;
+      .populate('client', 'name');
+    return refUnit.client.name;
   }
 
   async addService(refUnitId, serviceId) {
