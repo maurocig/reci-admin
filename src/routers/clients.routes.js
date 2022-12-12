@@ -7,7 +7,7 @@ router.get('/', clientsController.getClients);
 router.get('/nuevo', (req, res) => res.render('pages/clients/new'));
 router.get('/:id', clientsController.getClientsById);
 router.post('/', clientsController.saveClient);
-router.get('/:id/editar', clientsController.editClientsById);
+router.get('/editar/:id/', clientsController.editClientsById);
 router.put('/:id', clientsController.updateClient);
 router.delete('/:id', clientsController.deleteClient);
 // router.post('/:id/agregarEquipo');

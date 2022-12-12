@@ -1,6 +1,5 @@
 const HTTP_STATUS = require('../constants/api.constants');
-const { RefUnitsDao } = require('../models/daos/app.daos');
-const { ClientsDao } = require('../models/daos/app.daos');
+const { RefUnitsDao, ClientsDao } = require('../models/daos/app.daos');
 const { successResponse } = require('../utils/api.utils');
 
 const refUnitsDao = new RefUnitsDao();
@@ -113,12 +112,17 @@ class RefUnitsController {
   }
 
   async deleteRefUnit(req, res, next) {
+    console.log('delete request received');
     const { id } = req.params;
+    const refUnit = await refUnitsDao.getById(id);
+    console.log(refUnit);
     try {
+      await clientsDao.removeRefUnit(refUnit.client, id);
       const deletedRefUnit = await refUnitsDao.delete(id);
       const response = successResponse(deletedRefUnit);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

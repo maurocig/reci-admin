@@ -14,6 +14,7 @@
 				<th>Nº Serie</th>
 				<th>Modelo</th>
 				<th>Cliente</th>
+				<th> Editar </th>
 			</tr>
 			{{#each refUnits}}
 			<tr class="row">
@@ -30,12 +31,14 @@
 						{{clientName}}
 					</a>
 				</td>
+				<td>
+					<a href="/equipos/editar/{{_id}}">
+						<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+					</a>
+				</td>
 			</tr>
 			{{/each}}
 		</table>
 	</div>
 
-	<a href="/equipos/nuevo">
-		<button class="button-success" style="margin-inline: auto;">Nuevo equipo</button>
-	</a>
 </main>

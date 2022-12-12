@@ -26,17 +26,7 @@
 		</div>
 		<div class="form-field">
 			<label for="model">Modelo:</label>
-
-			{{!-- <select name="model" id=""> --}}
-			{{!-- 	<option value="C-250MAX">C-250 MAX</option> --}}
-			{{!-- 	<option value="V-500">V-500</option> --}}
-			{{!-- 	<option value="V-600">V-600</option> --}}
-			{{!-- 	<option value="V-500MAX">V-500 MAX</option> --}}
-			{{!-- 	<option value="V-600MAX">V-600 MAX</option> --}}
-			{{!-- </select> --}}
-
 			<input type="text" name="model" value="{{refUnit.model}}">
-
 		</div>
 		<div class="form-field">
 			<label for="hours">Horas: </label>
@@ -51,6 +41,49 @@
 			{{/if}}
 		</div>
 		<button class="button-success button-form" role="submit">Guardar</button>
-		<button class="button-new">Agregar modelo</button>
 	</form>
+
+	{{!-- <form id="form-delete" action="clients/{{refUnit.client}}/{{refUnit._id}}" method="DELETE"> --}}
+	{{!-- <button role="submit" class="button-danger center">Eliminar</button> --}}
+	{{!-- </form> --}}
+
+	<button class="button-danger center" onclick="deleteEquipment('{{refUnit._id}}')">Eliminar</button>
+
 </main>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
+
+<script>
+	const deleteButton = document.querySelector('.button-danger')
+
+	function deleteEquipment(id) {
+		console.log(`id: ${id}`);
+		Swal.fire({
+			title: 'Are you sure you want to delete this equipment?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		})
+			.then((result) => {
+				console.log(result.value);
+				if (result.value) {
+					// send a DELETE request to the server
+					const xhr = new XMLHttpRequest();
+					xhr.open("DELETE", '/equipos/' + id, true);
+					xhr.setRequestHeader("X-HTTP-Method-Override", "DELETE");
+					xhr.onloadend = function () {
+						// handle the response
+						Swal.fire(
+							'El equipo fue borrado.',
+							'success'
+						)
+					}
+					xhr.send();
+				}
+			})
+	}
+</script>

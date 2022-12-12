@@ -33,7 +33,7 @@
 				</tr>
 			</table>
 		</div>
-		<a href="/clientes/{{client._id}}/editar">
+		<a href="/clientes/editar/{{client._id}}">
 			<button class="button-new">Editar</button>
 		</a>
 	</section>
@@ -56,6 +56,11 @@
 					</td>
 					<td>{{this.model}}</td>
 					<td>{{this.services.length}}</td>
+					<td>
+						<a href="/equipos/editar/{{this._id}}">
+							<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+						</a>
+					</td>
 				</tr>
 				{{/each}}
 			</table>
