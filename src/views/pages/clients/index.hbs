@@ -8,27 +8,31 @@
 	</a>
 
 	<h1 class="title">Clientes</h1>
+	{{#if clients}}
 	<div class="table-container">
 		<table>
-			<tr>
+			<tr class="table-headers-row">
 				<th>R. Social</th>
 				<th>E-mail</th>
-				<th>N° Equipos</th>
+				<th>Equipos</th>
+				<th>Editar</th>
 			</tr>
 			{{#each clients}}
 			<tr class="row">
-				<td>
+				<td style="min-width: 170px;">
 					<a href="/clientes/{{_id}}"><strong>{{name}} </strong></a>
 				</td>
-				<td>
+
+				<td class="td-email">
 					<a href="/clientes/{{_id}}">
 						{{email}}
 					</a>
 				</td>
+
 				<td class="table-center">
 					{{refUnits.length}}
 				</td>
-				<td>
+				<td style="min-width: 40px;">
 					<a href="/clientes/editar/{{_id}}">
 						<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
 					</a>
@@ -37,6 +41,9 @@
 			{{/each}}
 		</table>
 	</div>
+	{{else}}
+	<h2 class="subtitle center" style="margin-top: 1rem;">No existen clientes registrados.</h2>
+	{{/if}}
 
 	<a href="/clientes/nuevo">
 		<button class="button-success" style="margin-inline: auto;">Nuevo cliente</button>

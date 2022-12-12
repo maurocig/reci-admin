@@ -8,6 +8,8 @@ class ServicesController {
   async getServices(req, res, next) {
     try {
       const services = await servicesDao.getAll();
+
+      // json
       const response = successResponse(services);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
@@ -19,6 +21,8 @@ class ServicesController {
     const { id } = req.params;
     try {
       const service = await servicesDao.getById(id);
+
+      // json
       const response = successResponse(service);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
@@ -28,11 +32,21 @@ class ServicesController {
 
   async saveService(req, res, next) {
     try {
-      const service = {
-        timestamp: new Date(),
-        ...req.body,
-      };
+      const {
+        orderNumber,
+        parts,
+        fixes,
+        price,
+        refUnit,
+        client,
+        clientName,
+        serviceDate,
+      } = req.body;
+
+      const service = {};
       const newService = await servicesDao.save(service);
+
+      // json
       const response = successResponse(newService);
       res.status(HTTP_STATUS.CREATED).json(response);
     } catch (error) {

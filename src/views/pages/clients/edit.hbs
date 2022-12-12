@@ -6,8 +6,11 @@
 			Volver
 		</button>
 	</a>
+
+	<h1 class="title">Editar Cliente</h1>
+
 	<form class="form-container" action="/clientes/{{client._id}}?_method=PUT" method="POST">
-		<h2>Nuevo cliente</h2>
+		<h2>Información</h2>
 		<div class="form-field">
 			<label for="name">Razón social:</label>
 			<input type="text" name="name" value="{{client.name}}" />
@@ -22,4 +25,49 @@
 		</div>
 		<button class="button-success button-form" role="submit">Guardar</button>
 	</form>
+
+	<button class="button-danger center" onclick="deleteEquipment('{{client._id}}')">Eliminar</button>
+
+	{{!-- Delete confirmation --}}
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
+
+	<script>
+		const deleteButton = document.querySelector('.button-danger')
+
+		function deleteEquipment(id) {
+			console.log(`id: ${id}`);
+			Swal.fire({
+				title: 'Se borrará el cliente',
+				text: "Esta acción no se puede revertir.",
+				icon: 'warning',
+				iconColor: 'red',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				// cancelButtonColor: 'hsl(222, 75%, 65%)',
+				confirmButtonText: 'Borrar',
+				cancelButtonText: 'Cancelar',
+			})
+				.then((result) => {
+					console.log(result.value);
+					if (result.value) {
+						// send a DELETE request to the server
+						const xhr = new XMLHttpRequest();
+						xhr.open("DELETE", '/clientes/' + id, true);
+						xhr.setRequestHeader("X-HTTP-Method-Override", "DELETE");
+						xhr.onloadend = function () {
+							// handle the response
+							Swal.fire({
+								title: 'El cliente fue borrado.',
+								icon: 'success',
+								confirmButtonColor: 'hsl(150, 45%, 31%)',
+							}
+							)
+						}
+						xhr.send();
+					}
+				})
+		}
+	</script>
+
 </main>

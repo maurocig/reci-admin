@@ -5,12 +5,14 @@ const collection = 'services';
 
 const serviceSchema = new Schema(
   {
-    orderNumber: { type: Number, unique: true },
+    orderNumber: { type: Number, unique: true, required: true },
     parts: [{ type: String }],
-    fixes: [{ type: String }],
+    fixes: [{ type: String, required: true }],
     price: { type: Number },
     refUnit: { type: Schema.Types.ObjectId, ref: 'refUnits' },
     client: { type: Schema.Types.ObjectId, ref: 'clients' },
+    clientName: { type: String },
+    serviceDate: { type: Schema.Types.Date },
   },
   {
     timestamps: true,

@@ -10,8 +10,6 @@ const clientSchema = new Schema(
     phone: { type: Number },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
     bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
-    dateCreated: { type: Schema.Types.Date },
-    dateUpdated: { type: Schema.Types.Date },
   },
   {
     timestamps: true,
@@ -22,15 +20,6 @@ class ClientsMongoDao extends MongoContainer {
   constructor() {
     super(collection, clientSchema);
   }
-
-  // async getByIdAndPopulate(clientId) {
-  //   const client = await this.model
-  //     .findOne({ _id: clientId })
-  //     .populate('refUnits')
-  //     .lean();
-  //   console.log(client.refUnits);
-  //   return client;
-  // }
 
   async addRefUnit(clientId, refUnitId) {
     const client = await this.model.findOne({ _id: clientId }, { __v: 0 });
@@ -46,11 +35,8 @@ class ClientsMongoDao extends MongoContainer {
   }
 
   async removeRefUnit(clientId, refUnitId) {
-    console.log('removeRefUnit');
     const client = await this.model.findOne({ _id: clientId }, { __v: 0 });
-    console.log(client);
     if (!client) {
-      console.log('el cliente que querés eliminar no existe');
       const message = `Client with id ${clientId} does not exist in our records.`;
       throw new HttpError(HTTP_STATUS.NOT_FOUND, message);
     }

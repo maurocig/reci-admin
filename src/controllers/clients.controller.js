@@ -1,9 +1,7 @@
 const HTTP_STATUS = require('../constants/api.constants');
-const { ClientsDao } = require('../models/daos/app.daos');
-const { RefUnitsDao } = require('../models/daos/app.daos');
+const { ClientsDao, RefUnitsDao } = require('../models/daos/app.daos');
 const { successResponse } = require('../utils/api.utils');
 const getDate = require('../utils/timezone');
-const mongoose = require('mongoose');
 
 const clientsDao = new ClientsDao();
 const refUnitsDao = new RefUnitsDao();
@@ -12,7 +10,7 @@ class ClientsController {
   async getClients(req, res, next) {
     try {
       const clients = await clientsDao.getAll();
-      res.status(HTTP_STATUS.OK).render('pages/clients', { clients: clients });
+      res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
     } catch (error) {
       next(error);
     }

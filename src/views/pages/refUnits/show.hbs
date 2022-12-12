@@ -2,7 +2,13 @@
 <main>
 	<a href="/equipos">
 		<button class="go-back">
-			Ver todos</button>
+			Ver todos
+		</button>
+	</a>
+	<a href="/clientes/{{refUnit.client}}">
+		<button class="go-back">
+			Ver cliente
+		</button>
 	</a>
 
 	<h1 class="title">Detalle del equipo</h1>
@@ -26,6 +32,12 @@
 				<tr>
 					<th>Horas:</th>
 					<td>{{refUnit.hours}}</td>
+				</tr>
+				<tr>
+					<th>Matrícula</th>
+					<td>
+						{{refUnit.plate}}
+					</td>
 				</tr>
 				<tr>
 					<th>Nombre Cliente:</th>
@@ -63,6 +75,7 @@
 
 	<section>
 		<h2 class="subtitle">Servicios</h2>
+		{{#if refUnit.services}}
 		<div class="table-container">
 			<table>
 				<tr>
@@ -80,6 +93,11 @@
 				{{/each}}
 			</table>
 		</div>
+		{{else}}
+		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">No hay servicios registrados en
+			este
+			equipo.</h3>
+		{{/if}}
 
 		<h2 class="subtitle">Agregar Servicio</h2>
 		<form class="form-container" action="/refUnits/new">

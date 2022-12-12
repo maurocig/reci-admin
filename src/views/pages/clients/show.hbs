@@ -11,7 +11,7 @@
 		<h2 class="subtitle">Información</h2>
 		<div class="table-container">
 			<table>
-				<tr>
+				<tr class="table-headers-row">
 					<th>R. Social</th>
 					<th>E-mail</th>
 					<th>Teléfono</th>
@@ -40,12 +40,15 @@
 
 	<section>
 		<h2 class="subtitle">Equipos</h2>
+
+		{{#if refUnits}}
 		<div class="table-container">
 			<table>
-				<tr>
+				<tr class="table-headers-row">
 					<th>N° Serie</th>
 					<th>Modelo</th>
 					<th>Servicios</th>
+					<th>Editar</th>
 				</tr>
 				{{#each refUnits}}
 				<tr>
@@ -54,20 +57,33 @@
 							{{this.serialNumber}}
 						</a>
 					</td>
-					<td>{{this.model}}</td>
+					<td>
+						<a href="/equipos/{{this._id}} ">
+							{{this.model}}
+						</a>
+					</td>
 					<td>{{this.services.length}}</td>
 					<td>
 						<a href="/equipos/editar/{{this._id}}">
-							<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+							<span class="table-icon-container">
+								<img src="/assets/edit-icon.png" alt="">
+							</span>
 						</a>
 					</td>
 				</tr>
 				{{/each}}
 			</table>
 		</div>
+		{{else}}
+		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">
+			Este cliente no tiene equipos registrados.
+		</h3>
+		{{/if}}
 
 		<a href="/equipos/nuevo/{{client._id}}">
-			<button class="button-success" style="margin-inline: auto;">Agregar Equipo</button>
+			<button class="button-success" style="margin-inline: auto;">
+				Agregar Equipo
+			</button>
 		</a>
 
 		<!--

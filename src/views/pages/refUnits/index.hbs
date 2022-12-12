@@ -8,9 +8,10 @@
 	</a>
 
 	<h1 class="title">Equipos</h1>
+	{{#if refUnits}}
 	<div class="table-container">
 		<table>
-			<tr>
+			<tr class="table-headers-row">
 				<th>Nº Serie</th>
 				<th>Modelo</th>
 				<th>Cliente</th>
@@ -40,5 +41,8 @@
 			{{/each}}
 		</table>
 	</div>
+	{{else}}
+	<h2 class="subtitle center" style="margin-top: 1rem;">No hay equipos registrados.</h2>
+	{{/if}}
 
 </main>
