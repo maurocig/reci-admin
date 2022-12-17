@@ -106,6 +106,7 @@ input, select {
 
 input[readonly], select[readonly] {
 	color: var(--primary-success);
+	border: solid 2px var(--primary-success);
 	cursor: default;
 	background-color: var(--secondary-main-gray);
 }
@@ -189,6 +190,34 @@ section {
 	display: inline-block;
 }
 
+/* NEW SERVICE */
+.service-info-container {
+	/* border: solid red; */
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 2rem;
+	row-gap: 1.4rem;
+	margin-bottom: 2.5rem;
+}
+
+.service-info-container input {
+	width: 100%;
+	margin: 0;
+}
+
+.service-info-container label {
+	margin-top: 0;
+}
+
+#fixesContainer, #partsContainer {
+	display: flex;
+	/* grid-template-columns: 10fr 1fr; */
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+	margin-bottom: 1.5rem;
+}
+
 .parts-row {
 	display: flex;
 	justify-content: space-between;
@@ -200,21 +229,18 @@ section {
 	width: 100%;
 }
 
-#partsInputsContainer input {
+#partsInputsContainer input[type=number] {
 	margin: .3rem !important;
-	width: 50%;
+	width: 30%;
+}
+
+#partsInputsContainer input[type=text] {
+	margin: .3rem !important;
+	width: 70%;
 }
 
 #addPartRowButton {
 	align-self: end;
-}
-
-#fixesContainer, #partsContainer {
-	display: flex;
-	/* grid-template-columns: 10fr 1fr; */
-	justify-content: space-between;
-	width: 100%;
-	align-items: center;
 }
 
 #fixesInputsContainer {
@@ -236,8 +262,8 @@ section {
 .item-number {
 	text-align: center;
 	font-weight: bold;
-	width: 80px !important;
-	color: var(--tertiary-light-gray);
+	width: 40px !important;
+	color: var(--secondary-light-gray);
 	display: inline;
 }
 
@@ -248,7 +274,8 @@ section {
 }
 
 .icon-add-item {
-	color: var(--primary-success);
+	/* color: var(--primary-success); */
+	color: var(--secondary-light-gray);
 	margin-bottom: 0;
 	padding: 0;
 	margin: 0;
@@ -341,7 +368,7 @@ section {
 	background-color: var(--main-dark-blue);
 	border: solid var(--secondary-light-gray) 1px;
 	margin: 0 .2rem 1.5rem;
-	color: var(--secondary-light-gray);
+	color: var(--main-light-gray);
 	padding-inline: 1rem;
 	width: fit-content;
 	height: 40px;

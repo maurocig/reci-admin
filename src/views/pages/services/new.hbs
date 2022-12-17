@@ -13,29 +13,31 @@
 
 	{{!-- <h2 class="subtitle">Información</h2> --}}
 	<form class="form-container" action="/servicios" method="post">
-		<div class="form-field">
-			<label for="clientName">Nombre de Cliente:</label>
-			<input type="text" name="clientName" id="clientNameInput" value="{{refUnit.client.name}}" readonly />
-		</div>
-		<div class="form-field">
-			<label for="client">Cliente ID:</label>
-			<input type="text" name="client" id="clientInput" value={{refUnit.client._id}} readonly />
-		</div>
-		<div class="form-field">
-			<label for="refUnit">Nº Serie:</label>
-			<input type="email" name="refUnit" id="refUnitInput" value="{{refUnit.serialNumber}}" readonly />
-		</div>
-		<div class="form-field">
-			<label for="refUnit">Modelo:</label>
-			<input type="email" name="refUnit" id="refUnitInput" value="{{refUnit.model}}" readonly />
-		</div>
-		<div class="form-field">
-			<label for="orderNumber">Nº Orden:</label>
-			<input type="number" name="orderNumber" id="orderNumberInput" placeholder="12345678" />
-		</div>
-		<div class="form-field">
-			<label for="serviceDate">Fecha del servicio:</label>
-			<input type="date" name="serviceDate" id="serviceDateInput" placeholder="correo@casilla.com" />
+		<div class="service-info-container">
+			<div class="form-field">
+				<label for="clientName">Cliente:</label>
+				<input type="text" name="clientName" id="clientNameInput" value="{{refUnit.client.name}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="refUnit">Nº Serie:</label>
+				<input type="email" name="refUnit" id="refUnitInput" value="{{refUnit.serialNumber}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="refUnit">Modelo:</label>
+				<input type="email" name="refUnit" id="refUnitInput" value="{{refUnit.model}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="orderNumber">Nº Orden:</label>
+				<input type="number" name="orderNumber" id="orderNumberInput" placeholder="12345678" />
+			</div>
+			<div class="form-field">
+				<label for="serviceDate">Fecha del servicio:</label>
+				<input type="date" name="serviceDate" id="serviceDateInput" placeholder="correo@casilla.com" />
+			</div>
+			<div class="form-field">
+				<label for="hours">Horas:</label>
+				<input type="number" name="horas" id="horasInput" />
+			</div>
 		</div>
 
 		{{!-- PARTS --}}
@@ -96,12 +98,28 @@
 		`
 		partsInputsContainer.appendChild(partsRow); // Add the row to the container
 		partsInputCount++; // Increment the input count
+
+		// Get all the input elements
+		const partNumberInputs =
+			document.querySelectorAll('[id^="partNumber"]');
+		const partNameInputs = document.querySelectorAll('[id^="partName"]');
+
+		// Iterate through the input elements and create an object for each one
+		for (let i = 0; i < partNumberInputs.length; i++) {
+			const partNumber = partNumberInputs[i].value;
+			const partName = partNameInputs[i].value;
+			if (partNumber && partName) {
+				parts.push({ partNumber, partName });
+			}
+		}
+		console.log(parts); // Output the parts array to the console
 	});
 
 	// ADD FIXES
 	let fixesInputCount = 2;
 	const fixesContainer = document.getElementById('fixesInputsContainer');
 	const addFixRowButton = document.getElementById('addFixesRowButton');
+	const parts = []; // Initialize the parts array
 
 	addFixRowButton.addEventListener('click', () => {
 		const fixesRow = document.createElement('div')
@@ -112,6 +130,7 @@
 `
 		fixesContainer.appendChild(fixesRow);
 		fixesInputCount++;
+
 	})
 
 </script>
