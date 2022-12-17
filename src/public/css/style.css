@@ -11,6 +11,7 @@
 	--main-dark-blue: hsl(220, 45%, 16%);
 	--main-light-gray: hsla(0 0% 83%);
 	--secondary-light-gray: hsla(240, 13%, 68%, 0.265);
+	--tertiary-light-gray: hsla(0 0% 73%);
 	--secondary-dark-blue: hsl(220, 40%, 20%);
 	--secondary-light-blue: hsl(222, 75%, 65%);
 	--secondary-dark-gray: hsl(0, 0%, 43%);
@@ -50,7 +51,6 @@ nav {
 }
 
 .nav-links-container {
-	/* border: solid red; */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -81,6 +81,7 @@ nav {
 
 .logo-container img {
 	height: 100%;
+	max-width: 130px;
 }
 
 
@@ -96,21 +97,26 @@ main {
 input, select {
 	background-color: var(--main-light-gray);
 	padding: 0.5rem 0.7rem;
-	margin-bottom: 1.5em;
+	margin-bottom: 1.8em;
 	margin-inline: 0rem 2rem;
 	border: solid 1px darkgray;
 	height: 38px;
+	cursor: auto;
+}
+
+input[readonly], select[readonly] {
+	color: var(--primary-success);
+	cursor: default;
+	background-color: var(--secondary-main-gray);
 }
 
 button {
-	min-width: 80px;
 	border: none;
 	font-size: 1.1rem;
 	padding-inline: 1.8em;
 	padding-block: 0.6em;
 	display: block;
 	margin-top: 1rem;
-	min-width: 150px;
 	background-color: var(--secondary-light-blue);
 	font-weight: 600;
 	cursor: pointer;
@@ -138,6 +144,7 @@ section {
 	padding-block: 1rem;
 	/* text-align: start; */
 	text-align: center;
+	margin-bottom: 1rem;
 }
 
 .subtitle {
@@ -145,6 +152,7 @@ section {
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
 	margin-top: 2rem;
+	/* text-align: center; */
 }
 
 .no-elements {
@@ -160,7 +168,8 @@ section {
 	padding: 1.5rem;
 	border: 1px solid var(--secondary-light-gray);
 	max-width: 1000px;
-	margin: 0;
+	margin-top: 0;
+	margin-bottom: 3rem;
 	margin-inline: auto;
 }
 
@@ -173,11 +182,82 @@ section {
 	display: block;
 	margin-bottom: 0.5rem;
 	min-width: 4rem;
+	font-weight: bold;
 }
 
 .form-field {
-	/* border: solid red; */
 	display: inline-block;
+}
+
+.parts-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+#partsInputsContainer {
+	width: 100%;
+}
+
+#partsInputsContainer input {
+	margin: .3rem !important;
+	width: 50%;
+}
+
+#addPartRowButton {
+	align-self: end;
+}
+
+#fixesContainer, #partsContainer {
+	display: flex;
+	/* grid-template-columns: 10fr 1fr; */
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+}
+
+#fixesInputsContainer {
+	width: 100%;
+}
+
+.fixes-row {
+	display: flex;
+	justify-content: space-between;
+	width: 100% !important;
+	align-items: center;
+}
+
+.fixes-row input {
+	margin: .3rem;
+	width: 100%;
+}
+
+.item-number {
+	text-align: center;
+	font-weight: bold;
+	width: 80px !important;
+	color: var(--tertiary-light-gray);
+	display: inline;
+}
+
+#addFixesRowButton {
+	width: fit-content;
+	height: fit-content;
+	align-self: end;
+}
+
+.icon-add-item {
+	color: var(--primary-success);
+	margin-bottom: 0;
+	padding: 0;
+	margin: 0;
+	display: inline;
+}
+
+.icon-add-item:hover {
+	color: var(--primary-success-brighter);
+	cursor: pointer;
 }
 
 #checkboxByReci {
@@ -196,21 +276,20 @@ section {
 	margin-inline-start: 0.5rem;
 	padding: 0;
 	display: inline;
+	cursor: pointer;
 
 }
 
 .button-form {
+	min-width: 150px;
 	margin-inline-start: auto;
 }
 
 .button-success {
+	min-width: 150px;
 	background-color: var(--secondary-dark-blue);
 	border: solid var(--primary-success-brighter);
 	color: var(--primary-success-brighter);
-
-	/* color: var(--main-light-gray); */
-	/* background-color: var(--primary-success); */
-	/* color: white; */
 }
 
 .button-success:hover {
@@ -257,16 +336,19 @@ section {
 	margin: 0;
 }
 
+
 .go-back {
 	background-color: var(--main-dark-blue);
 	border: solid var(--secondary-light-gray) 1px;
-	margin-top: 0;
-	margin-bottom: 1.5rem;
-	color: var(--main-light-gray);
+	margin: 0 .2rem 1.5rem;
+	color: var(--secondary-light-gray);
 	padding-inline: 1rem;
 	width: fit-content;
+	height: 40px;
 	min-width: 4rem;
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .go-back:hover {
@@ -294,6 +376,7 @@ table {
 	/* border: solid 1px var(--main-light-gray); */
 	/* border: none; */
 	width: 100%;
+	overflow-x: scroll;
 }
 
 tr {

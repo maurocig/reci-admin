@@ -1,0 +1,117 @@
+{{>navbar}}
+
+<main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+
+	<h1 class="title">Nuevo servicio</h1>
+
+	{{!-- <h2 class="subtitle">Información</h2> --}}
+	<form class="form-container" action="/servicios" method="post">
+		<div class="form-field">
+			<label for="clientName">Nombre de Cliente:</label>
+			<input type="text" name="clientName" id="clientNameInput" value="{{refUnit.client.name}}" readonly />
+		</div>
+		<div class="form-field">
+			<label for="client">Cliente ID:</label>
+			<input type="text" name="client" id="clientInput" value={{refUnit.client._id}} readonly />
+		</div>
+		<div class="form-field">
+			<label for="refUnit">Nº Serie:</label>
+			<input type="email" name="refUnit" id="refUnitInput" value="{{refUnit.serialNumber}}" readonly />
+		</div>
+		<div class="form-field">
+			<label for="refUnit">Modelo:</label>
+			<input type="email" name="refUnit" id="refUnitInput" value="{{refUnit.model}}" readonly />
+		</div>
+		<div class="form-field">
+			<label for="orderNumber">Nº Orden:</label>
+			<input type="number" name="orderNumber" id="orderNumberInput" placeholder="12345678" />
+		</div>
+		<div class="form-field">
+			<label for="serviceDate">Fecha del servicio:</label>
+			<input type="date" name="serviceDate" id="serviceDateInput" placeholder="correo@casilla.com" />
+		</div>
+
+		{{!-- PARTS --}}
+		<div class="form-field add-parts-container" style="width: 100%">
+			<label for="parts">Repuestos:</label>
+			<div id="partsContainer">
+				<div id="partsInputsContainer">
+					<div class="parts-row">
+						<div class="item-number"> #1. </div>
+						<input type="number" name="partNumber1" id="partNumber1" placeholder="Nº de Repuesto 1" />
+						<input type="text" name="partName1" id="partName1" placeholder="Nombre de Repuesto 1" />
+					</div>
+				</div>
+				<a id="addPartRowButton">
+					<i class="material-icons icon-add-item" style="font-size: 3rem;">add_box</i>
+				</a>
+			</div>
+
+		</div>
+
+		{{!-- FIXES --}}
+		<div class="form-field" style="width: 100%">
+			<label for="parts">Reparaciones:</label>
+			<div id="fixesContainer">
+				<div id="fixesInputsContainer">
+					<div class="fixes-row">
+						<div class="item-number"> #1. </div>
+						<input type="text" name="fix1" id="fix1" placeholder="Descripción 1" />
+					</div>
+				</div>
+				<a id="addFixesRowButton">
+					<i class="material-icons icon-add-item" style="padding: 0; margin: 0;  font-size: 3rem;">add_box</i>
+				</a>
+			</div>
+
+			<button class="button-success button-form" role="submit">Guardar</button>
+		</div>
+	</form>
+</main>
+
+{{!-- <script src="./addParts.js"></script> --}}
+<script>
+
+	// ADD PARTS
+	let partsInputCount = 2; // Keep track of the number of inputs
+	const addPartRowButton = document.getElementById('addPartRowButton');
+	const partsInputsContainer = document.getElementById('partsInputsContainer');
+
+	addPartRowButton.addEventListener('click', () => {
+
+		// Create new row of inputs
+		const partsRow = document.createElement('div')
+		partsRow.classList.add('parts-row')
+		partsRow.innerHTML = `
+					<div class="item-number">#${partsInputCount}.</div>
+					<input type="number" name="partNumber${partsInputCount}" id="partNumber${partsInputCount}" placeholder="Nº de Repuesto ${partsInputCount}" />
+					<input type="text" name="partName${partsInputCount}" id="partName${partsInputCount}" placeholder="Nombre de Repuesto ${partsInputCount}" />
+		`
+		partsInputsContainer.appendChild(partsRow); // Add the row to the container
+		partsInputCount++; // Increment the input count
+	});
+
+	// ADD FIXES
+	let fixesInputCount = 2;
+	const fixesContainer = document.getElementById('fixesInputsContainer');
+	const addFixRowButton = document.getElementById('addFixesRowButton');
+
+	addFixRowButton.addEventListener('click', () => {
+		const fixesRow = document.createElement('div')
+		fixesRow.classList.add('fixes-row')
+		fixesRow.innerHTML = `
+					<div class="item-number"> #${fixesInputCount}. </div>
+					<input type="text" name="fixInput${fixesInputCount}" id="fixInput${fixesInputCount}" placeholder="Descripción ${fixesInputCount}" />
+`
+		fixesContainer.appendChild(fixesRow);
+		fixesInputCount++;
+	})
+
+</script>

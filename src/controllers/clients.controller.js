@@ -75,10 +75,8 @@ class ClientsController {
     const { id } = req.params;
     try {
       const client = {
-        dateUpdated: getDate(),
         ...req.body,
       };
-      console.log(`client: ${client}`);
       const updatedClient = await clientsDao.update(id, client);
       res.redirect(`/clientes/${id}`);
     } catch (error) {

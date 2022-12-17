@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parts List</title>
+  </head>
+  <body>
+    <h1>Parts List</h1>
+    <form id="partsForm">
+      <div id="inputContainer">
+        <input type="text" id="partNumber1" name="partNumber1" />
+        <input type="text" id="partName1" name="partName1" />
+      </div>
+      <button type="button" id="addRowButton">Add Row</button>
+      <button role="submit">Enviar</button>
+    </form>
+    <script>
+      let inputCount = 2; // Keep track of the number of inputs
+
+      const addRowButton = document.getElementById('addRowButton');
+      const inputContainer = document.getElementById('inputContainer');
+      const partsForm = document.getElementById('partsForm');
+
+      addRowButton.addEventListener('click', () => {
+        // Create two new inputs
+        const newPartNumberInput = document.createElement('input');
+        newPartNumberInput.type = 'text';
+        newPartNumberInput.id = `partNumber${inputCount}`;
+        newPartNumberInput.name = `partNumber${inputCount}`;
+        const newPartNameInput = document.createElement('input');
+        newPartNameInput.type = 'text';
+        newPartNameInput.id = `partName${inputCount}`;
+        newPartNameInput.name = `partName${inputCount}`;
+
+        // Add the inputs to the container
+        inputContainer.appendChild(newPartNumberInput);
+        inputContainer.appendChild(newPartNameInput);
+
+        inputCount++; // Increment the input count
+      });
+
+      partsForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const parts = []; // Initialize the parts array
+
+        // Get all the input elements
+        const partNumberInputs =
+          document.querySelectorAll('[id^="partNumber"]');
+        const partNameInputs = document.querySelectorAll('[id^="partName"]');
+
+        // Iterate through the input elements and create an object for each one
+        for (let i = 0; i < partNumberInputs.length; i++) {
+          const partNumber = partNumberInputs[i].value;
+          const partName = partNameInputs[i].value;
+          if (partNumber && partName) {
+            parts.push({ partNumber, partName });
+          }
+        }
+
+        console.log(parts); // Output the parts array to the console
+      });
+    </script>
+  </body>
+</html>

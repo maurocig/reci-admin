@@ -1,32 +1,69 @@
 {{>navbar}}
 <main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
 	<a href="/equipos">
 		<button class="go-back">
-			Ver todos
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
+			</span>
+			Equipos
 		</button>
 	</a>
-	<a href="/clientes/{{refUnit.client}}">
+	<a href="/clientes/{{refUnit.client._id}}">
 		<button class="go-back">
-			Ver cliente
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+			</span>
+			Ver Cliente
 		</button>
 	</a>
 
-	<h1 class="title">Detalle del equipo</h1>
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
+	<h1 class="title">Información del equipo</h1>
 
 	<section>
-		{{!-- <h2 class="subtitle">Información</h2> --}}
 		<div class="table-container" style="max-width: 500px;">
 			<table>
 				<tr>
-					<th>Nº Serie</th>
+					<th>Nombre Cliente:</th>
+					<td>
+						<a href="/clientes/{{refUnit.client._id}}">
+							{{refUnit.client.name}}
+						</a>
+					</td>
+				</tr>
+				<tr>
+
+					{{!-- <!-- IDs--> --}}
+					{{!-- 	<th>ID del Cliente:</th> --}}
+					{{!-- 	<td> --}}
+					{{!-- 		<a href="/clientes/{{refUnit.client._id}}"> --}}
+					{{!-- 			{{refUnit.client._id}} --}}
+					{{!-- 		</a> --}}
+					{{!-- 	</td> --}}
+					{{!-- </tr> --}}
+					{{!-- <tr> --}}
+					{{!-- 	<th>ID del Equipo:</th> --}}
+					{{!-- 	<td> --}}
+					{{!-- 		{{refUnit._id}} --}}
+					{{!-- 	</td> --}}
+					{{!-- </tr> --}}
+
+				<tr>
+					<th>Nº Serie:</th>
 					<td> {{refUnit.serialNumber}} </td>
 				</tr>
 				<tr>
-					<th>Modelo</th>
+					<th>Modelo:</th>
 					<td> {{refUnit.model}} </td>
 				</tr>
 				<tr>
-					<th>Servicios</th>
+					<th>Servicios:</th>
 					<td>{{refUnit.services.length}}</td>
 				</tr>
 				<tr>
@@ -34,29 +71,13 @@
 					<td>{{refUnit.hours}}</td>
 				</tr>
 				<tr>
-					<th>Matrícula</th>
+					<th>Matrícula:</th>
 					<td>
 						{{refUnit.plate}}
 					</td>
 				</tr>
 				<tr>
-					<th>Nombre Cliente:</th>
-					<td>
-						<a href="/clientes/{{refUnit.client}}">
-							{{clientName}}
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<th>ID Cliente</th>
-					<td>
-						<a href="/clientes/{{refUnit.client}}">
-							{{refUnit.client}}
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<th>Venta RECI</th>
+					<th>Venta RECI:</th>
 					<td>
 						{{#if refUnit.soldByReci}}
 						Sí
@@ -73,8 +94,15 @@
 		</a>
 	</section>
 
+
+
 	<section>
-		<h2 class="subtitle">Servicios</h2>
+		<h2 class="subtitle" style="display: flex;">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build</i>
+			Servicios
+		</h2>
+
 		{{#if refUnit.services}}
 		<div class="table-container">
 			<table>
@@ -93,46 +121,18 @@
 				{{/each}}
 			</table>
 		</div>
+
 		{{else}}
 		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">No hay servicios registrados en
 			este
 			equipo.</h3>
 		{{/if}}
 
-		<h2 class="subtitle">Agregar Servicio</h2>
-		<form class="form-container" action="/refUnits/new">
-			<div class="form-field">
-				<label for="name">Nº Serie</label>
-				<input type="text" name="serialNumber" placeholder="" />
-			</div>
-			<div class="form-field">
-				<label for="client">ID Cliente:</label>
-				<input type="text" name="client" placeholder="correo@casilla.com" value={{client._id}} />
-			</div>
-			<div class="form-field">
-				<label for="model">Modelo:</label>
-				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
-				<select name="model" id="">
-					<option value="C-250MAX">C-250 MAX</option>
-					<option value="V-500">V-500</option>
-					<option value="V-600">V-600</option>
-					<option value="V-500MAX">V-500 MAX</option>
-					<option value="V-600MAX">V-600 MAX</option>
-				</select>
-			</div>
-			<div class="form-field">
-				<label for="plate">Matrícula:</label>
-				<input type="text" name="plate" placeholder="AAZ3757" />
-			</div>
-			<div class="form-field" style="display: flex; align-items: center;">
-				<label for="soldByReci" style="display: inline; margin-block:0; margin-right: 1rem;">Venta RECI: </label>
-				<input type="checkbox" name="soldByReci" id="checkboxByReci">
-			</div>
-			{{!-- <button class="button-success button-form" role="submit">Guardar</button> --}}
-			<a href="/equipos">
-				<button class="button-success button-form">Agregar Equipo</button>
-			</a>
-		</form>
+		<a href="/servicios/nuevo/{{refUnit._id}}">
+			<button class="button-success center">
+				Agregar servicio
+			</button>
+		</a>
 	</section>
 
 </main>

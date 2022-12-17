@@ -1,9 +1,9 @@
 {{>navbar}}
 
 <main>
-	<a href="/clientes/{{client._id}}">
+	<a onclick="window.history.back()">
 		<button class="go-back">
-			Volver
+			<i class="material-icons">arrow_back</i>
 		</button>
 	</a>
 
@@ -17,7 +17,7 @@
 		</div>
 		<div class="form-field">
 			<label for="email">E-mail:</label>
-			<input type="email" name="email" value={{client.email}} />
+			<input type="email" name="email" value={{client.email}} style="text-transform: lowercase;" />
 		</div>
 		<div class="form-field">
 			<label for="phone">Teléfono:</label>

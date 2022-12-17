@@ -1,21 +1,37 @@
 {{>navbar}}
 <main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
 	<a href="/clientes">
 		<button class="go-back">
-			Ver todos</button>
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style=" display: inline; margin-right: .5rem;">group</i>
+			</span>
+			Clientes
+		</button>
 	</a>
 
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">person</i>
 	<h1 class="title">Detalle del cliente</h1>
 
 	<section>
-		<h2 class="subtitle">Información</h2>
+		<h2 class="subtitle" style="display: flex;">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">info_outline</i>
+			Información
+		</h2>
+
 		<div class="table-container">
 			<table>
 				<tr class="table-headers-row">
 					<th>R. Social</th>
 					<th>E-mail</th>
 					<th>Teléfono</th>
-					<th>Equipos</th>
+					<th class="center">Equipos</th>
 				</tr>
 				<tr class="row">
 					<td>
@@ -27,7 +43,7 @@
 					<td>
 						{{client.phone}}
 					</td>
-					<td>
+					<td class="center">
 						{{client.refUnits.length}}
 					</td>
 				</tr>
@@ -39,19 +55,29 @@
 	</section>
 
 	<section>
-		<h2 class="subtitle">Equipos</h2>
+		<h2 class="subtitle" style="display: flex;">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">ac_unit</i>
+			Equipos
+		</h2>
 
 		{{#if refUnits}}
 		<div class="table-container">
 			<table>
 				<tr class="table-headers-row">
+					<th>Matrícula</th>
 					<th>N° Serie</th>
 					<th>Modelo</th>
-					<th>Servicios</th>
-					<th>Editar</th>
+					<th class="center">Servicios</th>
+					<th class="center">Editar</th>
 				</tr>
 				{{#each refUnits}}
 				<tr>
+					<td>
+						<a href="/equipos/{{this._id}} ">
+							{{this.plate}}
+						</a>
+					</td>
 					<td>
 						<a href="/equipos/{{this._id}} ">
 							{{this.serialNumber}}
@@ -62,7 +88,9 @@
 							{{this.model}}
 						</a>
 					</td>
-					<td>{{this.services.length}}</td>
+					<td class="center">
+						{{this.services.length}}
+					</td>
 					<td>
 						<a href="/equipos/editar/{{this._id}}">
 							<span class="table-icon-container">
@@ -85,44 +113,6 @@
 				Agregar Equipo
 			</button>
 		</a>
-
-		<!--
-		<h2 class="subtitle">Nuevo equipo</h2>
-		{{!-- <form class="form-container" action="/{{client._id}}/"> --}}
-		<form class="form-container" action="/refUnits/new">
-			<div class="form-field">
-				<label for="name">Nº Serie</label>
-				<input type="text" name="serialNumber" placeholder="" />
-			</div>
-			<div class="form-field">
-				<label for="client">ID Cliente:</label>
-				<input type="text" name="client" placeholder="correo@casilla.com" value={{client._id}} />
-			</div>
-			<div class="form-field">
-				<label for="model">Modelo:</label>
-				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
-				<select name="model" id="">
-					<option value="C-250MAX">C-250 MAX</option>
-					<option value="V-500">V-500</option>
-					<option value="V-600">V-600</option>
-					<option value="V-500MAX">V-500 MAX</option>
-					<option value="V-600MAX">V-600 MAX</option>
-				</select>
-			</div>
-			<div class="form-field">
-				<label for="plate">Matrícula:</label>
-				<input type="text" name="plate" placeholder="AAZ3757" />
-			</div>
-			<div class="form-field" style="display: flex; align-items: center;">
-				<label for="soldByReci" style="display: inline; margin-block:0; margin-right: 1rem;">Venta RECI: </label>
-				<input type="checkbox" name="soldByReci" id="checkboxByReci">
-			</div>
-			{{!-- <button class="button-success button-form" role="submit">Guardar</button> --}}
-			<a href="/equipos">
-				<button class="button-success button-form">Agregar Equipo</button>
-			</a>
-		</form>
-		-->
 
 	</section>
 </main>

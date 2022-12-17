@@ -1,20 +1,21 @@
 {{>navbar}}
 
 <main>
-	<a href="/equipos">
+	<a onclick="window.history.back()">
 		<button class="go-back">
-			Ver equipos</button>
+			<i class="material-icons">arrow_back</i>
+		</button>
 	</a>
 
 	<h1 class="title">Nuevo equipo</h1>
 	<form class="form-container" action="/equipos" method="post">
 		<div class="form-field">
 			<label for="client">Nombre de Cliente:</label>
-			<input type="text" name="clientName" value="{{clientName}}" />
+			<input type="text" name="clientName" value="{{clientName}}" style="text-transform: uppercase;" readonly />
 		</div>
 		<div class="form-field">
 			<label for="client">ID Cliente:</label>
-			<input type="text" name="client" value={{clientId}} />
+			<input type="text" name="client" value={{clientId}} readonly />
 		</div>
 		<div class="form-field">
 			<label for="name">Nº Serie</label>
@@ -22,7 +23,7 @@
 		</div>
 		<div class="form-field">
 			<label for="plate-number">Matrícula:</label>
-			<input type="text" id="plate-number" name="plate" placeholder="ATP3739" />
+			<input type="text" id="plate-number" name="plate" placeholder="ATP3739" style="text-transform: uppercase;" />
 		</div>
 		<div class="form-field">
 			<label for="model">Modelo:</label>
@@ -44,6 +45,5 @@
 			<input type="checkbox" name="soldByReci" id="checkboxByReci">
 		</div>
 		<button class="button-success button-form" role="submit">Guardar</button>
-		<button class="button-new">Agregar modelo</button>
 	</form>
 </main>

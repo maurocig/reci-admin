@@ -1,20 +1,22 @@
 {{>navbar}}
 
 <main>
-	<a href="/equipos">
+	<a onclick="window.history.back()">
 		<button class="go-back">
-			Ver equipos</button>
+			<i class="material-icons">arrow_back</i>
+		</button>
 	</a>
 
 	<h1 class="title">Editar equipo</h1>
 	<form class="form-container" action="/equipos/{{refUnit._id}}?_method=PUT" method="POST">
 		<div class="form-field">
 			<label for="client">Nombre de Cliente:</label>
-			<input type="text" disabled name="clientName" value="{{refUnit.clientName}}" />
+			<input type="text" readonly name="clientName" value="{{refUnit.client.name}}"
+				style="text-transform: uppercase;" />
 		</div>
 		<div class="form-field">
 			<label for="client">ID Cliente:</label>
-			<input disabled type="text" name="client" value={{refUnit.client}} />
+			<input readonly type="text" name="client" value={{refUnit.client._id}} />
 		</div>
 		<div class="form-field">
 			<label for="name">Nº Serie</label>
@@ -22,7 +24,7 @@
 		</div>
 		<div class="form-field">
 			<label for="plate-number">Matrícula:</label>
-			<input type="text" id="plate-number" name="plate" value={{refUnit.plate}} />
+			<input type="text" id="plate-number" name="plate" value={{refUnit.plate}} style="text-transform: uppercase;" />
 		</div>
 		<div class="form-field">
 			<label for="model">Modelo:</label>

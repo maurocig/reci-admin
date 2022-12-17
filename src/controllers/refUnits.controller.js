@@ -8,11 +8,12 @@ const clientsDao = new ClientsDao();
 class RefUnitsController {
   async getRefUnits(req, res, next) {
     try {
-      const refUnits = await refUnitsDao.getAll();
+      const refUnits = await refUnitsDao.getAllAndPopulate();
+      console.log(refUnits);
 
-      /* // JSON */
-      /*       const response = successResponse(refUnits); */
-      /*       res.status(HTTP_STATUS.OK).json(response); */
+      // // JSON
+      // const response = successResponse(refUnits);
+      // res.status(HTTP_STATUS.OK).json(response);
 
       res.status(HTTP_STATUS.OK).render('pages/refUnits/', { refUnits });
     } catch (error) {
@@ -23,12 +24,9 @@ class RefUnitsController {
   async getRefUnitsById(req, res, next) {
     const { id } = req.params;
     try {
-      const refUnit = await refUnitsDao.getById(id);
-      const clientName = await refUnitsDao.getClientName(id);
+      const refUnit = await refUnitsDao.getByIdAndPopulate(id);
 
-      res
-        .status(HTTP_STATUS.OK)
-        .render('pages/refUnits/show', { refUnit, clientName });
+      res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit });
     } catch (error) {
       next(error);
     }
@@ -36,18 +34,9 @@ class RefUnitsController {
 
   async saveRefUnit(req, res, next) {
     try {
-      let {
-        serialNumber,
-        model,
-        services,
-        hours,
-        client,
-        clientName,
-        plate,
-        soldByReci,
-      } = req.body;
+      let { serialNumber, model, services, hours, client, plate, soldByReci } =
+        req.body;
 
-      // soldByReci = req.body.soldByReci === 'on' ? true : false;
       soldByReci = Boolean(req.body.soldByReci);
 
       const refUnit = {
@@ -56,12 +45,13 @@ class RefUnitsController {
         services,
         hours,
         client,
-        clientName,
         plate,
         soldByReci,
       };
 
       const newRefUnitId = await refUnitsDao.save(refUnit);
+
+      // add refUnit to clients.refUnits array.
       const addedRefUnit = await clientsDao.addRefUnit(
         refUnit.client,
         newRefUnitId
@@ -74,7 +64,7 @@ class RefUnitsController {
         message: 'Se creó un nuevo equipo',
       };
       console.log(response);
-      // res.render('pages/refUnits', { response });
+
       res.redirect(`/equipos/${newRefUnitId}`);
     } catch (error) {
       next(error);
@@ -82,17 +72,17 @@ class RefUnitsController {
   }
 
   async newRefUnitForm(req, res, next) {
-    const { clientId } = req.params;
-    const client = await clientsDao.getById(clientId);
-    const clientName = client.name;
     try {
+      const { clientId } = req.params;
+      const client = await clientsDao.getById(clientId);
+      const clientName = client.name;
       res.render('pages/refUnits/new', { clientId, clientName });
     } catch (error) {}
   }
 
   async editRefUnitForm(req, res, next) {
-    const { clientId } = req.params;
-    const refUnit = await refUnitsDao.getById(clientId);
+    const { refUnitId } = req.params;
+    const refUnit = await refUnitsDao.getByIdAndPopulate(refUnitId);
     res.render('pages/refUnits/edit', { refUnit });
   }
 

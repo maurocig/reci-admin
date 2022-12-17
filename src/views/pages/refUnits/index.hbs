@@ -1,13 +1,21 @@
 {{>navbar}}
 
 <main>
-	<a href="/">
+	<a onclick="window.history.back()">
 		<button class="go-back">
 			<i class="material-icons">arrow_back</i>
 		</button>
 	</a>
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
 
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
 	<h1 class="title">Equipos</h1>
+
 	{{#if refUnits}}
 	<div class="table-container">
 		<table>
@@ -15,7 +23,8 @@
 				<th>Nº Serie</th>
 				<th>Modelo</th>
 				<th>Cliente</th>
-				<th> Editar </th>
+				<th>Matrícula</th>
+				<th class="center">Editar</th>
 			</tr>
 			{{#each refUnits}}
 			<tr class="row">
@@ -28,11 +37,16 @@
 					</a>
 				</td>
 				<td>
-					<a href="/clientes/{{client}}">
-						{{clientName}}
+					<a href="/clientes/{{client._id}}">
+						{{client.name}}
 					</a>
 				</td>
 				<td>
+					<a href="/equipos/{{this._id}} ">
+						{{this.plate}}
+					</a>
+				</td>
+				<td class="center">
 					<a href="/equipos/editar/{{_id}}">
 						<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
 					</a>

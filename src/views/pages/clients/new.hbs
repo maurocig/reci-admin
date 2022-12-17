@@ -1,9 +1,18 @@
 {{>navbar}}
 
 <main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
 	<a href="/clientes">
 		<button class="go-back">
-			Ver clientes</button>
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style=" display: inline; margin-right: .5rem;">group</i>
+			</span>
+			Clientes
+		</button>
 	</a>
 
 	<h1 class="title">Nuevo cliente</h1>
@@ -12,11 +21,11 @@
 	<form class="form-container" action="/clientes" method="post">
 		<div class="form-field">
 			<label for="name">Razón social:</label>
-			<input type="text" name="name" placeholder="RECI Importaciones" />
+			<input type="text" name="name" placeholder="RECI Importaciones" style="text-transform: uppercase" />
 		</div>
 		<div class="form-field">
 			<label for="email">E-mail:</label>
-			<input type="email" name="email" placeholder="correo@casilla.com" />
+			<input type="email" name="email" placeholder="correo@casilla.com" style="text-transform: lowercase;" />
 		</div>
 		<div class="form-field">
 			<label for="phone">Teléfono:</label>
