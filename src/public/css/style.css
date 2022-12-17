@@ -63,7 +63,8 @@ nav {
 	text-decoration: none;
 	color: var(--main-dark-blue);
 	font-weight: bold;
-	border-bottom: solid 2px rgba(0, 0, 0, 0)
+	border-bottom: solid 3px rgba(0, 0, 0, 0);
+	/* text-transform: uppercase; */
 }
 
 .nav-link-active {
@@ -315,7 +316,7 @@ section {
 .button-success {
 	min-width: 150px;
 	background-color: var(--secondary-dark-blue);
-	border: solid var(--primary-success-brighter);
+	border: solid 2px var(--primary-success-brighter);
 	color: var(--primary-success-brighter);
 }
 
@@ -331,7 +332,7 @@ section {
 	margin-bottom: 1.5rem;
 	/* background-color: var(--secondary-dark-blue); */
 	background-color: var(--main-dark-blue);
-	border: solid var(--secondary-light-blue);
+	border: solid 2px var(--secondary-light-blue);
 	color: var(--secondary-light-blue);
 }
 
@@ -342,7 +343,7 @@ section {
 
 .button-danger {
 	background-color: var(--main-dark-blue);
-	border: solid var(--primary-danger);
+	border: solid 2px var(--primary-danger);
 	color: var(--primary-danger);
 	margin-top: 4rem;
 }
@@ -441,10 +442,17 @@ th {
 
 td {
 	overflow-x: hidden;
-	padding-block: .8em;
-	padding-inline: 1em;
 	border: none;
 	height: 50px;
+	padding: 0 !important;
+}
+
+td a {
+	width: 100% !important;
+	height: 100% !important;
+	padding-block: .8em;
+	padding-inline: 1em;
+	display: inline-block;
 }
 
 .td-email {

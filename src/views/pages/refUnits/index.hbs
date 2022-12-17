@@ -28,24 +28,28 @@
 			</tr>
 			{{#each refUnits}}
 			<tr class="row">
-				<td>
-					<a href="/equipos/{{_id}}"><strong>{{serialNumber}} </strong></a>
-				</td>
-				<td>
-					<a href="/equipos/{{_id}}">
-						{{model}}
-					</a>
-				</td>
-				<td>
-					<a href="/clientes/{{client._id}}">
-						{{client.name}}
-					</a>
-				</td>
-				<td>
-					<a href="/equipos/{{this._id}} ">
-						{{this.plate}}
-					</a>
-				</td>
+				<a href="/equipos/{{_id}}">
+					<td>
+						<a href="/equipos/{{_id}}">
+							<strong>{{serialNumber}} </strong>
+						</a>
+					</td>
+					<td>
+						<a href="/equipos/{{_id}}">
+							{{model}}
+						</a>
+					</td>
+					<td>
+						<a href="/equipos/{{_id}}">
+							{{client.name}}
+						</a>
+					</td>
+					<td>
+						<a href="/equipos/{{this._id}} ">
+							{{this.plate}}
+						</a>
+					</td>
+				</a>
 				<td class="center">
 					<a href="/equipos/editar/{{_id}}">
 						<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
