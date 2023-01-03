@@ -43,47 +43,48 @@ class ServicesController {
   }
 
   async saveService(req, res, next) {
+    console.log('reached saveService controller.');
+
+    console.log(req.body);
     const {
+      client,
+      refUnit,
       orderNumber,
+      hours,
+      serviceDate,
       parts,
       fixes,
-      price,
-      refUnit,
-      client,
-      clientName,
-      serviceDate,
+      // hasWarranty,
     } = req.body;
 
     try {
       const service = {
+        client,
+        refUnit,
         orderNumber,
+        serviceDate,
+        hours,
         parts,
         fixes,
-        price,
-        refUnit,
-        client,
-        clientName,
-        serviceDate,
+        // hasWarranty,
       };
 
-      const newServiceId = await servicesDao.save(service);
+      // console.log(service);
 
-      // Add Service to refUnit.services array.
-      const addedService = await refUnitsDao.addService(
-        service.client,
-        newServiceId
-      );
-      console.log(addedService);
-
-      const response = {
-        service,
-        id: newServiceId,
-        message: 'Se creó un nuevo servicio',
-      };
-      console.log(response);
-
-      // json
-      res.status(HTTP_STATUS.CREATED).json(response);
+      //       const newServiceId = await servicesDao.save(service);
+      //
+      //       // Add Service to refUnit.services array.
+      //       const addedService = await refUnitsDao.addService(service.client, newServiceId);
+      //       console.log(addedService);
+      //
+      //       const response = {
+      //         service,
+      //         id: newServiceId,
+      //         message: 'Se creó un nuevo servicio',
+      //       };
+      //
+      //       console.log(response);
+      //       res.send(response.id);
 
       // res.redirect(`/servicios/${newServiceId}`);
     } catch (error) {
@@ -95,7 +96,11 @@ class ServicesController {
     try {
       const { refUnitId } = req.params;
       const refUnit = await refUnitsDao.getByIdAndPopulate(refUnitId);
-      res.render('pages/services/new', { refUnit });
+      const scripts = [
+        { script: '/js/newServiceFormHandler.js' },
+        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+      ];
+      res.render('pages/services/new', { refUnit, scripts });
     } catch (error) {
       console.log(error);
     }

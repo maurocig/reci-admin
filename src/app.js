@@ -29,6 +29,8 @@ app.use(express.static('src/public'));
 app.use(errorMiddleware);
 // put request in html form
 app.use(methodOverride('_method'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes
 app.use('/', routes);

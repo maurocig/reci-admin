@@ -124,9 +124,10 @@ input[type=number] {
 
 input[readonly], select[readonly] {
 	color: var(--primary-success-brighter);
-	border: solid 2px var(--secondary-light-gray);
+	/* border: solid 1px var(--secondary-light-gray); */
+	border: none;
 	cursor: default;
-	background-color: var(--secondary-dark-blue);
+	background-color: rgba(255, 255, 255, 0.07);
 	font-weight: 500;
 	/* background-color: var(--secondary-main-gray); */
 }
@@ -293,15 +294,18 @@ section {
 	display: inline;
 }
 
-#addFixesRowButton {
+#addFixesRowButton, #addPartRowButton {
 	width: fit-content;
 	height: fit-content;
 	align-self: end;
+	padding: 0;
+	margin: 0;
+	background: none;
 }
 
 .icon-add-item {
-	/* color: var(--primary-success); */
-	color: var(--secondary-light-gray);
+	color: var(--primary-success);
+	/* color: var(--secondary-light-gray); */
 	margin-bottom: 0;
 	padding: 0;
 	margin: 0;

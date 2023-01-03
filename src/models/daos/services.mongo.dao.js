@@ -9,9 +9,9 @@ const serviceSchema = new Schema(
     refUnit: { type: Schema.Types.ObjectId, ref: 'refUnits' },
     orderNumber: { type: Number, unique: true, required: true },
     serviceDate: { type: Schema.Types.Date },
-    parts: [{ type: String }],
-    fixes: [{ type: String, required: true }],
-    price: { type: Number },
+    hours: { type: Number },
+    parts: [{ type: Object }],
+    fixes: [{ type: Object, required: true }],
   },
   {
     timestamps: true,
