@@ -34,7 +34,7 @@
 					<th class="center">Equipos</th>
 				</tr>
 				<tr class="row">
-					<td>
+					<td id="client-name-td">
 						<strong>{{client.name}} </strong>
 					</td>
 					<td>
@@ -50,7 +50,10 @@
 			</table>
 		</div>
 		<a href="/clientes/editar/{{client._id}}">
-			<button class="button-new">Editar</button>
+			<button class="button-new">
+				<i class="material-icons clients-icon center">edit</i>
+				Editar
+			</button>
 		</a>
 	</section>
 
@@ -65,8 +68,8 @@
 		<div class="table-container">
 			<table>
 				<tr class="table-headers-row">
-					<th>Matrícula</th>
 					<th>N° Serie</th>
+					<th>Matrícula</th>
 					<th>Modelo</th>
 					<th class="center">Servicios</th>
 					<th class="center">Editar</th>
@@ -75,12 +78,14 @@
 				<tr>
 					<td>
 						<a href="/equipos/{{this._id}} ">
-							{{this.plate}}
+							<strong>
+								{{this.serialNumber}}
+							</strong>
 						</a>
 					</td>
 					<td>
 						<a href="/equipos/{{this._id}} ">
-							{{this.serialNumber}}
+							{{this.plate}}
 						</a>
 					</td>
 					<td>
@@ -110,6 +115,7 @@
 
 		<a href="/equipos/nuevo/{{client._id}}">
 			<button class="button-success" style="margin-inline: auto;">
+				<i class="material-icons clients-icon center">add</i>
 				Agregar Equipo
 			</button>
 		</a>

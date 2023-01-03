@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Inter:wght@400;500;600&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Noto+Sans:wght@200;300;400;500&display=swap');
 
 * {
 	padding: 0;
@@ -6,6 +7,8 @@
 	box-sizing: border-box;
 	border-radius: 0.3rem;
 	font-size: 1rem;
+	font-family: 'Noto Sans';
+	font-weight: 300;
 
 	/* VARS */
 	--main-dark-blue: hsl(220, 45%, 16%);
@@ -55,14 +58,15 @@ nav {
 	justify-content: space-between;
 	align-items: center;
 	width: 53%;
-	font-size: 1.1rem;
 	max-width: 350px;
 }
 
 .nav-link {
 	text-decoration: none;
 	color: var(--main-dark-blue);
-	font-weight: bold;
+	font-family: 'Barlow';
+	font-weight: 500;
+	font-size: 1.2rem;
 	border-bottom: solid 3px rgba(0, 0, 0, 0);
 	/* text-transform: uppercase; */
 }
@@ -105,11 +109,30 @@ input, select {
 	cursor: auto;
 }
 
+/* REMOVE NUMBER BUTTONS */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
 input[readonly], select[readonly] {
-	color: var(--primary-success);
-	border: solid 2px var(--primary-success);
+	color: var(--primary-success-brighter);
+	border: solid 2px var(--secondary-light-gray);
 	cursor: default;
-	background-color: var(--secondary-main-gray);
+	background-color: var(--secondary-dark-blue);
+	font-weight: 500;
+	/* background-color: var(--secondary-main-gray); */
+}
+
+strong {
+	font-weight: 500;
 }
 
 button {
@@ -120,7 +143,7 @@ button {
 	display: block;
 	margin-top: 1rem;
 	background-color: var(--secondary-light-blue);
-	font-weight: 600;
+	font-weight: 400;
 	cursor: pointer;
 	color: white;
 }
@@ -132,7 +155,6 @@ a {
 
 a :hover {
 	text-decoration: underline;
-	color: red !important;
 }
 
 section {
@@ -141,6 +163,8 @@ section {
 
 
 .title {
+	font-family: 'Barlow', sans-serif;
+	font-weight: 500;
 	color: var(--main-light-gray);
 	font-size: 2rem;
 	padding-block: 1rem;
@@ -150,11 +174,12 @@ section {
 }
 
 .subtitle {
+	font-family: 'Barlow', sans-serif;
+	font-weight: 500;
 	color: var(--main-light-gray);
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
 	margin-top: 2rem;
-	/* text-align: center; */
 }
 
 .no-elements {
@@ -184,7 +209,7 @@ section {
 	display: block;
 	margin-bottom: 0.5rem;
 	min-width: 4rem;
-	font-weight: bold;
+	font-weight: 400;
 }
 
 .form-field {
@@ -308,32 +333,47 @@ section {
 
 }
 
-.button-form {
-	min-width: 150px;
-	margin-inline-start: auto;
-}
-
 .button-success {
 	min-width: 150px;
-	background-color: var(--secondary-dark-blue);
+	background-color: var(--main-dark-blue);
 	border: solid 2px var(--primary-success-brighter);
+	font-weight: 500;
 	color: var(--primary-success-brighter);
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: center;
 }
 
 .button-success:hover {
 	background-color: var(--primary-success-brighter);
 	border: solid var(--primary-success-brighter);
 	color: var(--main-dark-blue);
-
 }
+
+.button-success i {
+	margin-right: .5rem;
+}
+
+.button-form {
+	min-width: 150px;
+	margin-inline-start: auto;
+	background-color: var(--secondary-dark-blue);
+}
+
 
 .button-new {
 	margin-inline: auto;
 	margin-bottom: 1.5rem;
-	/* background-color: var(--secondary-dark-blue); */
 	background-color: var(--main-dark-blue);
 	border: solid 2px var(--secondary-light-blue);
 	color: var(--secondary-light-blue);
+	display: flex;
+	align-content: center;
+}
+
+.button-new i {
+	margin-right: .4rem;
 }
 
 .button-new:hover {
@@ -430,7 +470,8 @@ tr:hover {
 
 .table-icon-container img {
 	object-fit: contain;
-	width: 100%;
+	/* width: 100%; */
+	width: 1rem;
 	height: 100%;
 }
 
@@ -438,21 +479,33 @@ th {
 	padding: 1em;
 	text-align: start;
 	border-radius: 3px;
+	font-weight: 500;
 }
 
 td {
 	overflow-x: hidden;
 	border: none;
 	height: 50px;
-	padding: 0 !important;
+	border-radius: 0;
+	max-width: 30vw;
 }
 
 td a {
-	width: 100% !important;
-	height: 100% !important;
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	/* max-height: 2rem; */
+	white-space: nowrap;
+	overflow-x: hidden;
+	width: 100%;
+	height: 100%;
 	padding-block: .8em;
 	padding-inline: 1em;
-	display: inline-block;
+}
+
+#client-name-td {
+	padding-block: .8em;
+	padding-inline: 1em;
 }
 
 .td-email {
@@ -461,6 +514,12 @@ td a {
 
 .table-headers-row:hover {
 	background-color: var(--main-light-gray);
+}
+
+.card-home-title {
+	font-family: 'Barlow';
+	font-weight: 500;
+	font-size: 1.3rem;
 }
 
 .grid-icons-home {

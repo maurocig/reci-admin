@@ -32,28 +32,9 @@
 				<tr>
 					<th>Nombre Cliente:</th>
 					<td>
-						<a href="/clientes/{{refUnit.client._id}}">
-							{{refUnit.client.name}}
-						</a>
+						{{refUnit.client.name}}
 					</td>
 				</tr>
-				<tr>
-
-					{{!-- <!-- IDs--> --}}
-					{{!-- 	<th>ID del Cliente:</th> --}}
-					{{!-- 	<td> --}}
-					{{!-- 		<a href="/clientes/{{refUnit.client._id}}"> --}}
-					{{!-- 			{{refUnit.client._id}} --}}
-					{{!-- 		</a> --}}
-					{{!-- 	</td> --}}
-					{{!-- </tr> --}}
-					{{!-- <tr> --}}
-					{{!-- 	<th>ID del Equipo:</th> --}}
-					{{!-- 	<td> --}}
-					{{!-- 		{{refUnit._id}} --}}
-					{{!-- 	</td> --}}
-					{{!-- </tr> --}}
-
 				<tr>
 					<th>Nº Serie:</th>
 					<td> {{refUnit.serialNumber}} </td>
@@ -90,7 +71,10 @@
 		</div>
 
 		<a href="/equipos/editar/{{refUnit._id}}">
-			<button class="button-new">Editar</button>
+			<button class="button-new">
+				<i class="material-icons clients-icon center">edit</i>
+				Editar
+			</button>
 		</a>
 	</section>
 
@@ -130,6 +114,7 @@
 
 		<a href="/servicios/nuevo/{{refUnit._id}}">
 			<button class="button-success center">
+				<i class="material-icons clients-icon center">build</i>
 				Agregar servicio
 			</button>
 		</a>
