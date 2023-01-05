@@ -106,9 +106,14 @@ form.addEventListener('submit', (e) => {
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onload = function () {
     // handle the response
-    // Swal.fire('El servicio fue guardado', 'success');
-    console.log('load end');
-    console.log(xhr.response);
+    console.log('server response: ' + xhr.response);
+    if (xhr.response) {
+      Swal.fire('El servicio fue guardado', 'success');
+      console.log('load end');
+      console.log(xhr.response);
+    } else {
+      Swal.fire('Hubo un error ');
+    }
   };
   xhr.send(JSON.stringify(service));
 });

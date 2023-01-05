@@ -26,7 +26,7 @@ class MongoContainer {
     const document = await this.model.findOne({ _id: id }, { __v: 0 }).lean();
     if (!document) {
       const message = `Resource with id ${id} does not exist in our records.`;
-      throw new HttpError(HTTP_STATUS.NOT_FOUND, message);
+      throw new HttpError(404, message);
     }
     return document;
   }
@@ -42,10 +42,7 @@ class MongoContainer {
   }
 
   async update(id, item) {
-    const updatedDocument = await this.model.updateOne(
-      { _id: id },
-      { $set: { ...item } }
-    );
+    const updatedDocument = await this.model.updateOne({ _id: id }, { $set: { ...item } });
     if (!updatedDocument.matchedCount) {
       const message = `Resource with id ${id} does not exist in our records.`;
       throw new HttpError(HTTP_STATUS.NOT_FOUND, message);

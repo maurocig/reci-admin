@@ -69,24 +69,14 @@ class ServicesController {
         // hasWarranty,
       };
 
-      // console.log(service);
+      const newServiceId = await servicesDao.save(service);
+      console.log('id', newServiceId);
 
-      //       const newServiceId = await servicesDao.save(service);
-      //
-      //       // Add Service to refUnit.services array.
-      //       const addedService = await refUnitsDao.addService(service.client, newServiceId);
-      //       console.log(addedService);
-      //
-      //       const response = {
-      //         service,
-      //         id: newServiceId,
-      //         message: 'Se creó un nuevo servicio',
-      //       };
-      //
-      //       console.log(response);
-      //       res.send(response.id);
+      // Add Service to refUnit.services array.
+      const addedService = await refUnitsDao.addService(service.refUnit, newServiceId);
+      console.log(addedService);
 
-      // res.redirect(`/servicios/${newServiceId}`);
+      res.status(200).send(newServiceId);
     } catch (error) {
       next(error);
     }
