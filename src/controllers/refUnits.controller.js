@@ -102,7 +102,6 @@ class RefUnitsController {
 
     try {
       const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
-      console.log(formattedWarrantyDate);
       const soldByReciBool = Boolean(soldByReci);
 
       const updatedRefUnit = {
