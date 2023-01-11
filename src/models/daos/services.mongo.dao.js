@@ -8,7 +8,11 @@ const serviceSchema = new Schema(
     client: { type: Schema.Types.ObjectId, ref: 'clients' },
     refUnit: { type: Schema.Types.ObjectId, ref: 'refUnits' },
     orderNumber: { type: Number, unique: true, required: true },
-    serviceDate: { type: Schema.Types.Date },
+    serviceDate: {
+      type: Date,
+      // get: (date) => date.toLocaleDateString('en-GB'),
+    },
+    stringDate: { type: String },
     hours: { type: Number },
     parts: [{ type: Object }],
     fixes: [{ type: Object, required: true }],
@@ -21,6 +25,15 @@ const serviceSchema = new Schema(
 class ServicesMongoDao extends MongoContainer {
   constructor() {
     super(collection, serviceSchema);
+  }
+
+  async getByIdAndPopulate(id) {
+    const service = await this.model
+      .findById(id)
+      .populate('client', 'name')
+      .populate('refUnit', ['model', 'serialNumber'])
+      .lean();
+    return service;
   }
 }
 

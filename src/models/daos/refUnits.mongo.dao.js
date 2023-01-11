@@ -13,13 +13,12 @@ const refUnitSchema = new Schema(
       uppercase: true,
       required: true,
     },
-    clientName: { type: String, uppercase: true },
     serialNumber: { type: String, unique: true, required: true },
     plate: { type: String, uppercase: true, required: true },
     model: { type: String, uppercase: true, requried: true },
-    hours: { type: Number },
     services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },
+    warrantyDate: { type: Date },
   },
   {
     timestamps: true,
@@ -32,7 +31,11 @@ class RefUnitsMongoDao extends MongoContainer {
   }
 
   async getByIdAndPopulate(id) {
-    const refUnit = await this.model.findById(id).populate('client', 'name').lean();
+    const refUnit = await this.model
+      .findById(id)
+      .populate('client', 'name')
+      .populate('services', ['stringDate', 'orderNumber', 'fixes', 'parts'])
+      .lean();
     return refUnit;
   }
 
@@ -43,7 +46,6 @@ class RefUnitsMongoDao extends MongoContainer {
 
   async addService(refUnitId, serviceId) {
     const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
-    console.log(refUnit);
 
     if (!refUnit) {
       const message = `RefUnit with id ${refUnitId} does not exist in our records.`;

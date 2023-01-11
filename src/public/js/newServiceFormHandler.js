@@ -84,19 +84,23 @@ form.addEventListener('submit', (e) => {
   const serviceDateInput = document.getElementById('serviceDateInput');
   const hoursInput = document.getElementById('hoursInput');
 
+  const serviceDate = serviceDateInput.value;
+  const stringDate = serviceDate;
+
   const service = {
     refUnit: refUnitId.value,
     client: clientId.value,
     orderNumber: +orderNumberInput.value,
-    serviceDate: serviceDateInput.value,
+    serviceDate,
+    stringDate,
     hours: +hoursInput.value,
     parts,
     fixes,
   };
 
-  const formData = new FormData();
-  formData.append('service', JSON.stringify(service));
-  console.log(formData);
+  // const formData = new FormData();
+  // formData.append('service', JSON.stringify(service));
+  // console.log(formData);
 
   // console.log(formData);
 
@@ -104,16 +108,16 @@ form.addEventListener('submit', (e) => {
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '/servicios', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onload = function () {
+  xhr.onreadystatechange = function () {
     // handle the response
     console.log('server response: ' + xhr.response);
-    if (xhr.response) {
-      Swal.fire('El servicio fue guardado', 'success');
-      console.log('load end');
-      console.log(xhr.response);
-    } else {
-      Swal.fire('Hubo un error ');
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      window.location = `/servicios/${xhr.response}`;
     }
+
+    // else {
+    //       Swal.fire('Hubo un error con la petición.');
+    //     }
   };
   xhr.send(JSON.stringify(service));
 });

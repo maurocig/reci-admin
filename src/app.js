@@ -1,5 +1,5 @@
 const express = require('express');
-const { engine } = require('express-handlebars');
+const Handlebars = require('express-handlebars');
 const path = require('path');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
@@ -8,6 +8,7 @@ const routes = require('./routers/app.routers');
 const errorMiddleware = require('./middleware/error.middleware');
 
 const app = express();
+const { engine } = Handlebars;
 
 // View engine
 app.set('view engine', 'hbs');
@@ -18,6 +19,7 @@ app.engine(
     layoutsDir: __dirname + '/views/layouts',
     partialsDir: __dirname + '/views/partials',
     extname: 'hbs',
+    helpers: require('./public/js/formatDate.js'),
   })
 );
 app.set('views', './src/views');

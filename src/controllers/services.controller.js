@@ -24,19 +24,13 @@ class ServicesController {
   async getServicesById(req, res, next) {
     const { id } = req.params;
     try {
-      const service = await servicesDao.getById(id);
-      const clientName = await servicesDao.getClientName(id);
+      const service = await servicesDao.getByIdAndPopulate(id);
 
-      // json
-      const response = successResponse(service);
-      /////////////////////
-      console.log(`Nombre del cliente: ${clientName}`);
-      /////////////////////
-      res.status(HTTP_STATUS.OK).json(response);
+      // // json
+      // const response = successResponse(service);
+      // res.status(HTTP_STATUS.OK).json(response);
 
-      // res
-      //   .status(HTTP_STATUS.OK)
-      //   .render('pages/services/show', { service, clientName });
+      res.status(HTTP_STATUS.OK).render('pages/services/show', { service });
     } catch (error) {
       next(error);
     }
@@ -52,6 +46,7 @@ class ServicesController {
       orderNumber,
       hours,
       serviceDate,
+      stringDate,
       parts,
       fixes,
       // hasWarranty,
@@ -62,19 +57,20 @@ class ServicesController {
         client,
         refUnit,
         orderNumber,
-        serviceDate,
         hours,
+        serviceDate,
+        stringDate,
         parts,
         fixes,
         // hasWarranty,
       };
 
       const newServiceId = await servicesDao.save(service);
-      console.log('id', newServiceId);
+      // console.log('id', newServiceId);
 
       // Add Service to refUnit.services array.
       const addedService = await refUnitsDao.addService(service.refUnit, newServiceId);
-      console.log(addedService);
+      // console.log(addedService);
 
       res.status(200).send(newServiceId);
     } catch (error) {

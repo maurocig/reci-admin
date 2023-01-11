@@ -1,0 +1,109 @@
+{{>navbar}}
+<main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+	<a href="/clientes/{{service.client._id}}">
+		<button class="go-back">
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+			</span>
+			Ver Cliente
+		</button>
+	</a>
+	<a href="/equipos/{{service.refUnit._id}}">
+		<button class="go-back">
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
+			</span>
+			Ver Equipo
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+	<h1 class="title">Información del servicio</h1>
+
+	<section>
+		<div class="table-container" style="max-width: 500px;">
+			<table>
+				<tr>
+					<th>Nombre Cliente:</th>
+					<td>
+						{{service.client.name}}
+					</td>
+				</tr>
+				<tr>
+					<th>Modelo:</th>
+					<td> {{service.refUnit.model}} </td>
+				</tr>
+				<tr>
+					<th>Nº Serie:</th>
+					<td>
+						{{service.refUnit.serialNumber}}
+					</td>
+				</tr>
+				<tr>
+					<th>Nº Orden:</th>
+					<td><strong> {{service.orderNumber}}</strong> </td>
+				</tr>
+				<tr>
+					<th>Horas:</th>
+					<td>{{service.hours}}</td>
+				</tr>
+				<tr>
+					<th>Venta RECI:</th>
+					<td>
+						{{#if refUnit.soldByReci}}
+						Sí
+						{{else}}
+						No
+						{{/if}}
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<a href="/servicios/editar/{{refUnit._id}}">
+			<button class="button-new">
+				<i class="material-icons clients-icon center">edit</i>
+				Editar
+			</button>
+		</a>
+	</section>
+
+	<section>
+		<h2 class="subtitle" style="display: flex;">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">healing</i>
+			Reparaciones
+		</h2>
+
+		{{#if service.fixes}}
+		<div class="table-container" style="width: fit-content; min-width: 300px;">
+			<table>
+				<tr>
+					<th>Descripción</th>
+				</tr>
+				{{#each service.fixes}}
+				<tr>
+					<td>{{this.fixName}}</td>
+				</tr>
+				{{/each}}
+			</table>
+		</div>
+
+		{{else}}
+		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">No hay reparaciones registradas en este
+			servicio.</h3>
+		{{/if}}
+
+		<a href="/servicios/nuevo/{{refUnit._id}}">
+			<button class="button-success center">
+				<i class="material-icons clients-icon center">build</i>
+				Agregar servicio
+			</button>
+		</a>
+	</section>
+</main>

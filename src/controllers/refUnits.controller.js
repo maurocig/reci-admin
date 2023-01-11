@@ -1,3 +1,5 @@
+const moment = require('moment-timezone');
+
 const HTTP_STATUS = require('../constants/api.constants');
 const { RefUnitsDao, ClientsDao } = require('../models/daos/app.daos');
 const { successResponse } = require('../utils/api.utils');
@@ -25,8 +27,12 @@ class RefUnitsController {
     const { id } = req.params;
     try {
       const refUnit = await refUnitsDao.getByIdAndPopulate(id);
+      const scripts = [
+        { script: '/js/formatDate.js' },
+        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+      ];
 
-      res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit });
+      res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit, scripts });
     } catch (error) {
       next(error);
     }
@@ -34,10 +40,11 @@ class RefUnitsController {
 
   async saveRefUnit(req, res, next) {
     try {
-      let { serialNumber, model, services, hours, client, plate, soldByReci } =
+      let { serialNumber, model, services, hours, client, plate, soldByReci, warrantyDate } =
         req.body;
 
-      soldByReci = Boolean(req.body.soldByReci);
+      const soldByReciBool = Boolean(soldByReci);
+      const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
 
       const refUnit = {
         serialNumber,
@@ -46,16 +53,14 @@ class RefUnitsController {
         hours,
         client,
         plate,
-        soldByReci,
+        soldByReci: soldByReciBool,
+        warrantyDate: formattedWarrantyDate,
       };
 
       const newRefUnitId = await refUnitsDao.save(refUnit);
 
       // add refUnit to clients.refUnits array.
-      const addedRefUnit = await clientsDao.addRefUnit(
-        refUnit.client,
-        newRefUnitId
-      );
+      const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
       console.log(addedRefUnit);
 
       const response = {
@@ -83,14 +88,31 @@ class RefUnitsController {
   async editRefUnitForm(req, res, next) {
     const { refUnitId } = req.params;
     const refUnit = await refUnitsDao.getByIdAndPopulate(refUnitId);
-    res.render('pages/refUnits/edit', { refUnit });
+    const scripts = [
+      { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+      { script: '/js/formatDate.js' },
+    ];
+    res.render('pages/refUnits/edit', { refUnit, scripts });
   }
 
   async updateRefUnit(req, res, next) {
     const { id } = req.params;
+
+    const { model, plate, warrantyDate, soldByReci, serialNumber } = req.body;
+
     try {
-      req.body.soldByReci = Boolean(req.body.soldByReci);
-      const updatedRefUnit = await refUnitsDao.update(id, req.body);
+      const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
+      const soldByReciBool = Boolean(soldByReci);
+
+      const updatedRefUnit = {
+        serialNumber,
+        model,
+        plate,
+        warrantyDate: formattedWarrantyDate,
+        soldByReci: soldByReciBool,
+      };
+
+      await refUnitsDao.update(id, updatedRefUnit);
 
       // const response = successResponse(updatedRefUnit);
       // res.status(HTTP_STATUS.OK).json(response);
@@ -131,10 +153,7 @@ class RefUnitsController {
   async removeServiceFromRefUnit(req, res, next) {
     const { refUnitId, serviceId } = req.params;
     try {
-      const updatedRefUnit = await refUnitsDao.removeService(
-        refUnitId,
-        serviceId
-      );
+      const updatedRefUnit = await refUnitsDao.removeService(refUnitId, serviceId);
       const response = successResponse(updatedRefUnit);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {

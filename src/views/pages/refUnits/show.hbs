@@ -48,22 +48,30 @@
 					<td>{{refUnit.services.length}}</td>
 				</tr>
 				<tr>
-					<th>Horas:</th>
-					<td>{{refUnit.hours}}</td>
-				</tr>
-				<tr>
 					<th>Matrícula:</th>
 					<td>
 						{{refUnit.plate}}
 					</td>
 				</tr>
 				<tr>
+					<th>
+						Fecha límite de garantía:
+					</th>
+					<td>
+						{{formatDate refUnit.warrantyDate}}
+					</td>
+				</tr>
+				<tr>
 					<th>Venta RECI:</th>
 					<td>
 						{{#if refUnit.soldByReci}}
-						Sí
+						<span style="font-weight: 600; color: var(--primary-success);">
+							Sí
+						</span>
 						{{else}}
-						No
+						<span style="font-weight: 500; color: var(--primary-danger);">
+							No
+						</span>
 						{{/if}}
 					</td>
 				</tr>
@@ -80,6 +88,7 @@
 
 
 
+	{{!-- SERVICIOS --}}
 	<section>
 		<h2 class="subtitle" style="display: flex;">
 			<i class="material-icons icon-clients center"
@@ -88,19 +97,20 @@
 		</h2>
 
 		{{#if refUnit.services}}
-		<div class="table-container">
+		<div class="table-container" style="width: fit-content; min-width: 300px;">
 			<table>
 				<tr>
-					<th>N° Serie</th>
-					<th>Línea</th>
-					<th>Modelo</th>
-					<th>Servicios</th>
+					<th>N° Orden</th>
+					<th>Fecha</th>
+					<th>Reparaciones</th>
+					<th>Repuestos</th>
 				</tr>
-				{{#each refUnits}}
+				{{#each refUnit.services}}
 				<tr>
-					<td>{{_id}}</td>
-					{{!-- <td>{{this.model}}</td> --}}
-					{{!-- <td>{{this.services.length}}</td> --}}
+					<td><a href="/servicios/{{this._id}}"><strong>{{this.orderNumber}}</strong></a></td>
+					<td>{{formatDate this.stringDate}}</td>
+					<td>{{this.fixes.length}}</td>
+					<td>{{this.parts.length}}</td>
 				</tr>
 				{{/each}}
 			</table>
@@ -121,3 +131,7 @@
 	</section>
 
 </main>
+
+{{#each scripts}}
+<script src="{{script}}"></script>
+{{/each}}
