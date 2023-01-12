@@ -27,7 +27,7 @@
 	<h1 class="title">Información del equipo</h1>
 
 	<section>
-		<div class="table-container" style="max-width: 500px;">
+		<div class="table-container" style="width: 500px;">
 			<table>
 				<tr>
 					<th>Nombre Cliente:</th>
@@ -97,20 +97,20 @@
 		</h2>
 
 		{{#if refUnit.services}}
-		<div class="table-container" style="width: fit-content; min-width: 300px;">
+		<div class="table-container" style="width: 100%; min-width: 300px;">
 			<table>
 				<tr>
 					<th>N° Orden</th>
 					<th>Fecha</th>
-					<th>Reparaciones</th>
-					<th>Repuestos</th>
+					<th style="text-align: center;">Reparaciones</th>
+					<th style="text-align: center;">Repuestos</th>
 				</tr>
 				{{#each refUnit.services}}
 				<tr>
 					<td><a href="/servicios/{{this._id}}"><strong>{{this.orderNumber}}</strong></a></td>
-					<td>{{formatDate this.stringDate}}</td>
-					<td>{{this.fixes.length}}</td>
-					<td>{{this.parts.length}}</td>
+					<td><a href="/servicios/{{this._id}}">{{formatDate this.stringDate}}</a></td>
+					<td style="text-align: center;"><a href="/servicios/{{this._id}}">{{this.fixes.length}}</a></td>
+					<td style="text-align: center;"><a href="/servicios/{{this._id}}">{{this.parts.length}}</a></td>
 				</tr>
 				{{/each}}
 			</table>

@@ -1,0 +1,125 @@
+{{>navbar}}
+
+<main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+
+	{{!-- INFORMACIÓN --}}
+	<h1 class="title">Editar servicio</h1>
+	<form class="form-container" action="/servicios/{{service._id}}?_method=PUT" method="POST">
+		<div class="service-info-container">
+			<div class="form-field">
+				<label for="clientNameInput">Cliente:</label>
+				<input type="text" name="clientName" id="clientNameInput" value="{{service.client.name}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="refUnitInput">Nº Serie:</label>
+				<input type="number" name="serialNumber" id="refUnitInput" value={{service.refUnit.serialNumber}} readonly />
+			</div>
+			<div class="form-field">
+				<label for="refUnit">Modelo:</label>
+				<input type="text" name="model" id="refUnitModelInput" value="{{service.refUnit.model}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="orderNumber">Nº Orden:</label>
+				<input type="number" name="orderNumber" id="orderNumberInput" value={{service.orderNumber}} required />
+			</div>
+			<div class="form-field">
+				<label for="serviceDate">Fecha del servicio:</label>
+				<input type="date" name="serviceDate" id="serviceDateInput" value="{{formatDateValue service.serviceDate}}"
+					required />
+			</div>
+			<div class="form-field">
+				<label for="hours">Horas:</label>
+				<input type="number" name="hours" id="hoursInput" value={{service.hours}} />
+			</div>
+			<div class="form-field" style="display: flex; align-items: center;">
+				<label for="isInWarranty" style="display: inline; margin-block:0; margin-right: 1rem;">Está
+					en garantía:
+				</label>
+				{{#if service.isInWarranty}}
+				<input checked type="checkbox" class="checkbox" name="isInWarranty" id="isInWarranty"
+					style="width: fit-content;">
+				{{else}}
+				<input type="checkbox" class="checkbox" name="isInWarranty" id="isInWarranty" style="width: fit-content;">
+				{{/if}}
+			</div>
+		</div>
+
+		{{!-- 		{{!-- PARTS --}} --}}
+		{{!-- 		<div class="form-field add-parts-container" style="width: 100%"> --}}
+		{{!-- 			<label for="parts">Repuestos:</label> --}}
+		{{!-- 			<div id="partsContainer"> --}}
+		{{!-- 				<div id="partsInputsContainer"> --}}
+		{{!-- 					{{#if service.parts}} --}}
+		{{!-- 					{{#each service.parts}} --}}
+		{{!-- 					<div class="parts-row"> --}}
+		{{!-- 						<div class="item-number">{{@index}}: {{this}}</div> --}}
+		{{!-- 						<input type="number" name="partNumber1" id="partNumber1" placeholder="Nº de Repuesto 1" readonly /> --}}
+		{{!-- 						<input type="text" name="partName1" id="partName1" placeholder="Nombre de Repuesto 1" --}}
+		{{!-- 							style="text-transform: uppercase;" readonly /> --}}
+		{{!-- 					</div> --}}
+		{{!-- 					{{/each}} --}}
+		{{!-- 					{{else}} --}}
+		{{!-- 					<div class="parts-row"> --}}
+		{{!-- 						<div class="item-number">#1. </div> --}}
+		{{!-- 						<input type="number" name="partNumber1" id="partNumber1" placeholder="Nº de Repuesto 1" /> --}}
+		{{!-- 						<input type="text" name="partName1" id="partName1" placeholder="Nombre de Repuesto 1" --}}
+		{{!-- 							style="text-transform: uppercase;" /> --}}
+		{{!-- 					</div> --}}
+		{{!-- 					{{/if}} --}}
+		{{!-- 				</div> --}}
+		{{!--  --}}
+		{{!-- 				<button id="addPartRowButton" tabindex="0" type="button"> --}}
+		{{!-- 					<i class="material-icons icon-add-item" style="font-size: 3rem;">add_box</i> --}}
+		{{!-- 				</button> --}}
+		{{!-- 			</div> --}}
+		{{!-- 		</div> --}}
+		{{!--  --}}
+		{{!-- 		{{!-- FIXES --}} --}}
+		{{!-- 		<div class="form-field" style="width: 100%"> --}}
+		{{!-- 			<label for="parts">Reparaciones:</label> --}}
+		{{!-- 			<div id="fixesContainer"> --}}
+		{{!-- 				<div id="fixesInputsContainer"> --}}
+		{{!-- 					{{#if service.fixes}} --}}
+		{{!-- 					{{#each service.fixes}} --}}
+		{{!-- 					<div class="fixes-row"> --}}
+		{{!-- 						<div class="item-number">#{{@index }}. </div> --}}
+		{{!-- 						<input type="text" name="fixInput1" id="fixInput1" value="{{this.fixName}}" --}}
+		{{!-- 							style="text-transform: uppercase" readonly /> --}}
+		{{!-- 					</div> --}}
+		{{!-- 					{{/each}} --}}
+		{{!-- 					{{else}} --}}
+		{{!-- 					<div class="fixes-row"> --}}
+		{{!-- 						<div class="item-number"> #1. </div> --}}
+		{{!-- 						<input type="text" name="fixInput1" id="fixInput1" placeholder="Descripción 1" --}}
+		{{!-- 							style="text-transform: uppercase" /> --}}
+		{{!-- 					</div> --}}
+		{{!-- 					{{/if}} --}}
+		{{!-- 				</div> --}}
+		{{!-- 				<button id="addFixesRowButton" tabindex="0" type="button"> --}}
+		{{!-- 					<i class="material-icons icon-add-item" style="padding: 0; margin: 0;  font-size: 3rem;">add_box</i> --}}
+		{{!-- 				</button> --}}
+		{{!-- 			</div> --}}
+		{{!--  --}}
+		<button class="button-success button-form" role="submit" style="margin-top: 3rem;">Guardar</button>
+		{{!-- 		</div> --}}
+		{{!--  --}}
+		{{!-- HIDDEN --}}
+		<input type="text" name="refUnit" id="refUnitId" value={{service.refUnit._id}} hidden>
+		<input type="text" name="client" id="clientId" value={{service.client._id}} hidden>
+		{{!-- 	</form> --}}
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
+
+{{#each scripts}}
+<script src="{{script}}"></script>
+{{/each}}

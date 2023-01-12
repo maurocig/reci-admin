@@ -15,7 +15,7 @@
 		<div class="service-info-container">
 			<div class="form-field">
 				<label for="refUnitInput">Nº Serie:</label>
-				<input type="email" name="serialNumber" id="refUnitInput" value="{{refUnit.serialNumber}}" readonly />
+				<input type="number" name="serialNumber" id="refUnitInput" value={{refUnit.serialNumber}} readonly />
 			</div>
 			<div class="form-field">
 				<label for="clientNameInput">Cliente:</label>
@@ -36,6 +36,12 @@
 			<div class="form-field">
 				<label for="hours">Horas:</label>
 				<input type="number" name="hours" id="hoursInput" />
+			</div>
+			<div class="form-field" style="display: flex; align-items: center;">
+				<label for="isInWarranty" style="display: inline; margin-block:0; margin-right: 1rem;">Está
+					en garantía:
+				</label>
+				<input type="checkbox" class="checkbox" name="isInWarranty" id="isInWarranty" style="width: fit-content;">
 			</div>
 		</div>
 

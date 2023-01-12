@@ -29,6 +29,32 @@
 		<div class="table-container" style="max-width: 500px;">
 			<table>
 				<tr>
+					<th>Nº Orden:</th>
+					<td><strong> {{service.orderNumber}}</strong> </td>
+				</tr>
+				<tr>
+					<th>Fecha de servicio: </th>
+					<td>{{formatDate service.serviceDate}}</td>
+				</tr>
+				<tr>
+					<th>Horas:</th>
+					<td>{{service.hours}}</td>
+				</tr>
+				<tr>
+					<th>En garantía:</th>
+					<td>
+						{{#if service.isInWarranty}}
+						<span style="font-weight: 600; color: var(--primary-success);">
+							Sí
+						</span>
+						{{else}}
+						<span style="font-weight: 500; color: var(--primary-danger);">
+							No
+						</span>
+						{{/if}}
+					</td>
+				</tr>
+				<tr>
 					<th>Nombre Cliente:</th>
 					<td>
 						{{service.client.name}}
@@ -45,27 +71,23 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Nº Orden:</th>
-					<td><strong> {{service.orderNumber}}</strong> </td>
-				</tr>
-				<tr>
-					<th>Horas:</th>
-					<td>{{service.hours}}</td>
-				</tr>
-				<tr>
 					<th>Venta RECI:</th>
 					<td>
-						{{#if refUnit.soldByReci}}
-						Sí
+						{{#if service.refUnit.soldByReci}}
+						<span style="font-weight: 600; color: var(--primary-success);">
+							Sí
+						</span>
 						{{else}}
-						No
+						<span style="font-weight: 500; color: var(--primary-danger);">
+							No
+						</span>
 						{{/if}}
 					</td>
 				</tr>
 			</table>
 		</div>
 
-		<a href="/servicios/editar/{{refUnit._id}}">
+		<a href="/servicios/editar/{{service._id}}">
 			<button class="button-new">
 				<i class="material-icons clients-icon center">edit</i>
 				Editar
@@ -73,6 +95,7 @@
 		</a>
 	</section>
 
+	{{!-- Fixes --}}
 	<section>
 		<h2 class="subtitle" style="display: flex;">
 			<i class="material-icons icon-clients center"
@@ -81,14 +104,14 @@
 		</h2>
 
 		{{#if service.fixes}}
-		<div class="table-container" style="width: fit-content; min-width: 300px;">
+		<div class="table-container" style="width: 100%; min-width: 300px;">
 			<table>
 				<tr>
 					<th>Descripción</th>
 				</tr>
 				{{#each service.fixes}}
 				<tr>
-					<td>{{this.fixName}}</td>
+					<td style="padding-left: 1rem;">{{this.fixName}}</td>
 				</tr>
 				{{/each}}
 			</table>
@@ -99,11 +122,34 @@
 			servicio.</h3>
 		{{/if}}
 
-		<a href="/servicios/nuevo/{{refUnit._id}}">
-			<button class="button-success center">
-				<i class="material-icons clients-icon center">build</i>
-				Agregar servicio
-			</button>
-		</a>
+	</section>
+
+	<section>
+		<h2 class="subtitle" style="display: flex;">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build_circle</i>
+			Repuestos
+		</h2>
+
+		{{#if service.parts}}
+		<div class="table-container" style="width: 100%; min-width: 300px;">
+			<table>
+				<tr>
+					<th>Código</th>
+					<th>Descripción</th>
+				</tr>
+				{{#each service.parts}}
+				<tr>
+					<td style="padding-left: 1rem;"><strong>{{this.partNumber}}</strong></td>
+					<td style="padding-left: 1rem;">{{this.partName}}</td>
+				</tr>
+				{{/each}}
+			</table>
+		</div>
+		{{else}}
+		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">No hay reparaciones registradas en este
+			servicio.</h3>
+		{{/if}}
+
 	</section>
 </main>

@@ -114,9 +114,6 @@ class RefUnitsController {
 
       await refUnitsDao.update(id, updatedRefUnit);
 
-      // const response = successResponse(updatedRefUnit);
-      // res.status(HTTP_STATUS.OK).json(response);
-
       res.redirect(`/equipos/${id}`);
     } catch (error) {
       next(error);

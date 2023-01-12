@@ -317,7 +317,7 @@ section {
 	cursor: pointer;
 }
 
-#checkboxByReci {
+.checkbox {
 	/* Double-sized Checkboxes */
 	-ms-transform: scale(2);
 	/* IE */

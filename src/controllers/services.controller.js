@@ -1,3 +1,5 @@
+const moment = require('moment-timezone');
+
 const HTTP_STATUS = require('../constants/api.constants');
 const { ServicesDao } = require('../models/daos/app.daos');
 const { RefUnitsDao } = require('../models/daos/app.daos');
@@ -14,8 +16,6 @@ class ServicesController {
       // JSON
       const response = successResponse(services);
       res.status(HTTP_STATUS.OK).json(response);
-
-      // res.status(HTTP_STATUS.OK).render('pages/services/', { services });
     } catch (error) {
       next(error);
     }
@@ -25,10 +25,6 @@ class ServicesController {
     const { id } = req.params;
     try {
       const service = await servicesDao.getByIdAndPopulate(id);
-
-      // // json
-      // const response = successResponse(service);
-      // res.status(HTTP_STATUS.OK).json(response);
 
       res.status(HTTP_STATUS.OK).render('pages/services/show', { service });
     } catch (error) {
@@ -40,17 +36,11 @@ class ServicesController {
     console.log('reached saveService controller.');
 
     console.log(req.body);
-    const {
-      client,
-      refUnit,
-      orderNumber,
-      hours,
-      serviceDate,
-      stringDate,
-      parts,
-      fixes,
-      // hasWarranty,
-    } = req.body;
+    const { client, refUnit, orderNumber, hours, serviceDate, parts, fixes, isInWarranty } =
+      req.body;
+
+    const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
+    const isInWarrantyBoolean = Boolean(isInWarranty);
 
     try {
       const service = {
@@ -58,11 +48,10 @@ class ServicesController {
         refUnit,
         orderNumber,
         hours,
-        serviceDate,
-        stringDate,
+        serviceDate: formattedServiceDate,
         parts,
         fixes,
-        // hasWarranty,
+        isInWarranty: isInWarrantyBoolean,
       };
 
       const newServiceId = await servicesDao.save(service);
@@ -92,12 +81,42 @@ class ServicesController {
     }
   }
 
+  async editServiceForm(req, res, next) {
+    const { serviceId } = req.params;
+    const service = await servicesDao.getByIdAndPopulate(serviceId);
+    const scripts = [
+      { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+      { script: '/js/newServiceFormHandler.js' },
+      { script: '/js/formatDate.js' },
+    ];
+    res.render('pages/services/edit', { service, scripts });
+  }
+
   async updateService(req, res, next) {
     const { id } = req.params;
+    const { orderNumber, serviceDate, hours, isInWarranty } = req.body;
+
+    const oldService = await servicesDao.getById(id);
+    const { client, refUnit, parts, fixes } = oldService;
+
+    const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
+    const isInWarrantyBoolean = Boolean(isInWarranty);
+
     try {
-      const updatedService = await servicesDao.update(id, req.body);
-      const response = successResponse(updatedService);
-      res.status(HTTP_STATUS.OK).json(response);
+      const updatedService = {
+        orderNumber,
+        serviceDate: formattedServiceDate,
+        hours,
+        isInWarranty: isInWarrantyBoolean,
+        client,
+        refUnit,
+        parts,
+        fixes,
+      };
+
+      await servicesDao.update(id, updatedService);
+
+      res.redirect(`/servicios/${id}`);
     } catch (error) {
       next(error);
     }
