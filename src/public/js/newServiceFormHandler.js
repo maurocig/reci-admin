@@ -15,7 +15,7 @@ addPartRowButton.addEventListener('click', () => {
   partsRow.classList.add('parts-row');
   partsRow.innerHTML = `
 					<div class="item-number">#${partsInputCount}.</div>
-					<input type="number" name="partNumber${partsInputCount}" id="partNumber${partsInputCount}" placeholder="Nº de Repuesto ${partsInputCount}" />
+					<input type="text" name="partNumber${partsInputCount}" id="partNumber${partsInputCount}" placeholder="Nº de Repuesto ${partsInputCount}" style="text-transform: uppercase"/>
 					<input type="text" name="partName${partsInputCount}" id="partName${partsInputCount}" placeholder="Nombre de Repuesto ${partsInputCount}" style="text-transform: uppercase;"/>
 		`;
   if (

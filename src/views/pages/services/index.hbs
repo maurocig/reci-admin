@@ -1,5 +1,69 @@
 {{>navbar}}
 
 <main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicios</h1>
+
+	{{#if services}}
+	<div class="table-container">
+		<table>
+			<tr class="table-headers-row">
+				<th>Nº Orden</th>
+				<th>Fecha</th>
+				<th>Cliente</th>
+				<th>Matrícula</th>
+				<th>Modelo</th>
+				<th>Editar</th>
+			</tr>
+			{{#each services}}
+			<tr>
+				<td>
+					<a href="/servicios/{{_id}}">
+						<strong>{{orderNumber}} </strong>
+					</a>
+				</td>
+				<td>
+					<a href="/servicios/{{_id}}">
+						{{formatDate serviceDate}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios/{{_id}}">
+						{{this.client.name}}
+					</a>
+				</td>
+				<td class="center">
+					<a href="/servicios/{{this._id}} ">
+						{{refUnit.plate}}
+					</a>
+				</td>
+				<td class="center">
+					<a href="/servicios/{{this._id}} ">
+						{{refUnit.model}}
+					</a>
+				</td>
+				<td class="center">
+					<a href="/servicios/editar/{{_id}}">
+						<span class="table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+					</a>
+				</td>
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+	{{else}}
+	<h2 class="subtitle center" style="margin-top: 1rem;">No hay servicios registrados.</h2>
+	{{/if}}
+
 </main>

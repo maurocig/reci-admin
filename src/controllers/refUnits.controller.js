@@ -11,11 +11,6 @@ class RefUnitsController {
   async getRefUnits(req, res, next) {
     try {
       const refUnits = await refUnitsDao.getAllAndPopulate();
-      console.log(refUnits);
-
-      // // JSON
-      // const response = successResponse(refUnits);
-      // res.status(HTTP_STATUS.OK).json(response);
 
       res.status(HTTP_STATUS.OK).render('pages/refUnits/', { refUnits });
     } catch (error) {
@@ -62,13 +57,6 @@ class RefUnitsController {
       // add refUnit to clients.refUnits array.
       const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
       console.log(addedRefUnit);
-
-      const response = {
-        refUnit: refUnit,
-        id: newRefUnitId,
-        message: 'Se creó un nuevo equipo',
-      };
-      console.log(response);
 
       res.redirect(`/equipos/${newRefUnitId}`);
     } catch (error) {
@@ -121,17 +109,14 @@ class RefUnitsController {
   }
 
   async deleteRefUnit(req, res, next) {
-    console.log('delete request received');
     const { id } = req.params;
     const refUnit = await refUnitsDao.getById(id);
-    console.log(refUnit);
     try {
       await clientsDao.removeRefUnit(refUnit.client, id);
       const deletedRefUnit = await refUnitsDao.delete(id);
       const response = successResponse(deletedRefUnit);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

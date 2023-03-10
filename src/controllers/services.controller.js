@@ -11,11 +11,10 @@ const refUnitsDao = new RefUnitsDao();
 class ServicesController {
   async getServices(req, res, next) {
     try {
-      const services = await servicesDao.getAll();
+      const services = await servicesDao.getAllAndPopulate();
+      const scripts = [{ script: '/js/formatDate.js' }];
 
-      // JSON
-      const response = successResponse(services);
-      res.status(HTTP_STATUS.OK).json(response);
+      res.render('pages/services/index.hbs', { services, scripts });
     } catch (error) {
       next(error);
     }
@@ -41,13 +40,15 @@ class ServicesController {
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
     const isInWarrantyBoolean = Boolean(isInWarranty);
+    const parsedHours = +hours;
+    const parsedOrderNumber = +orderNumber;
 
     try {
       const service = {
         client,
         refUnit,
-        orderNumber,
-        hours,
+        orderNumber: parsedOrderNumber,
+        hours: parsedHours,
         serviceDate: formattedServiceDate,
         parts,
         fixes,
@@ -86,7 +87,8 @@ class ServicesController {
     const service = await servicesDao.getByIdAndPopulate(serviceId);
     const scripts = [
       { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-      { script: '/js/newServiceFormHandler.js' },
+      // { script: '/js/newServiceFormHandler.js' },
+      { script: '/js/deleteServiceHandler.js' },
       { script: '/js/formatDate.js' },
     ];
     res.render('pages/services/edit', { service, scripts });
@@ -101,12 +103,14 @@ class ServicesController {
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
     const isInWarrantyBoolean = Boolean(isInWarranty);
+    const parsedHours = +hours;
+    const parsedOrderNumber = +orderNumber;
 
     try {
       const updatedService = {
-        orderNumber,
+        orderNumber: parsedOrderNumber,
         serviceDate: formattedServiceDate,
-        hours,
+        hours: parsedHours,
         isInWarranty: isInWarrantyBoolean,
         client,
         refUnit,
@@ -125,6 +129,8 @@ class ServicesController {
   async deleteService(req, res, next) {
     const { id } = req.params;
     try {
+      const service = await servicesDao.getById(id);
+      await refUnitsDao.removeService(service.refUnit, id);
       const deletedService = await servicesDao.delete(id);
       const response = successResponse(deletedService);
       res.status(HTTP_STATUS.OK).json(response);

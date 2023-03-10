@@ -29,9 +29,19 @@ class ServicesMongoDao extends MongoContainer {
     const service = await this.model
       .findById(id)
       .populate('client', 'name')
-      .populate('refUnit', ['model', 'serialNumber'])
+      .populate('refUnit', ['model', 'serialNumber', 'plate'])
       .lean();
     return service;
+  }
+
+  async getAllAndPopulate() {
+    const services = await this.model
+      .find({})
+      .sort({ serviceDate: 'desc' })
+      .populate('client', 'name')
+      .populate('refUnit', ['plate', 'model'])
+      .lean();
+    return services;
   }
 }
 

@@ -6,8 +6,8 @@ const collection = 'clients';
 const clientSchema = new Schema(
   {
     name: { type: String, uppercase: true, required: true, unique: true },
-    email: { type: String, lowercase: true, required: true, unique: true },
-    phone: { type: Number },
+    email: { type: String, lowercase: true, required: false, unique: true },
+    phone: { type: String, required: false },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
     bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
   },

@@ -41,7 +41,11 @@
 						{{client.email}}
 					</td>
 					<td>
+						{{#if client.phone}}
 						{{client.phone}}
+						{{else}}
+						-
+						{{/if}}
 					</td>
 					<td class="center">
 						{{client.refUnits.length}}
@@ -72,7 +76,6 @@
 					<th>Matrícula</th>
 					<th>Modelo</th>
 					<th class="center">Servicios</th>
-					<th class="center">Venta RECI</th>
 					<th class="center">Editar</th>
 				</tr>
 				{{#each refUnits}}
@@ -97,15 +100,6 @@
 					<td class="center">
 						<a href="/equipos/{{this._id}}">
 							{{this.services.length}}
-						</a>
-					</td>
-					<td>
-						<a href="/equipos/{{this._id}}" class="center">
-							{{#if this.soldByReci}}
-							Sí
-							{{else}}
-							No
-							{{/if}}
 						</a>
 					</td>
 					<td>

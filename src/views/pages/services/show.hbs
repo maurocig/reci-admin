@@ -41,7 +41,7 @@
 					<td>{{service.hours}}</td>
 				</tr>
 				<tr>
-					<th>En garantía:</th>
+					<th>Equipo en garantía:</th>
 					<td>
 						{{#if service.isInWarranty}}
 						<span style="font-weight: 600; color: var(--primary-success);">
@@ -61,27 +61,15 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Modelo:</th>
-					<td> {{service.refUnit.model}} </td>
-				</tr>
-				<tr>
 					<th>Nº Serie:</th>
 					<td>
 						{{service.refUnit.serialNumber}}
 					</td>
 				</tr>
 				<tr>
-					<th>Venta RECI:</th>
+					<th>Matrícula: </th>
 					<td>
-						{{#if service.refUnit.soldByReci}}
-						<span style="font-weight: 600; color: var(--primary-success);">
-							Sí
-						</span>
-						{{else}}
-						<span style="font-weight: 500; color: var(--primary-danger);">
-							No
-						</span>
-						{{/if}}
+						{{service.refUnit.plate}}
 					</td>
 				</tr>
 			</table>

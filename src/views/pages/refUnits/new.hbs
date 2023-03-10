@@ -18,22 +18,25 @@
 			<input type="text" name="client" value={{clientId}} readonly />
 		</div>
 		<div class="form-field">
-			<label for="name">Nº Serie</label>
-			<input type="text" name="serialNumber" placeholder="29384729" />
+			<label for="name">Nº Serie: (*)</label>
+			<input type="text" name="serialNumber" placeholder="0000000000" id="serial-number" maxlength="10" required />
 		</div>
 		<div class="form-field">
-			<label for="plate-number">Matrícula:</label>
-			<input type="text" id="plate-number" name="plate" placeholder="ATP3739" style="text-transform: uppercase;" />
+			<label for="plate-number">Matrícula: (*)</label>
+			<input type="text" id="plate-number" name="plate" placeholder="ATP1234" style="text-transform: uppercase; "
+				required maxlength="7" pattern="^[A-Za-z]{1,3}[0-9]{1,4}" />
 		</div>
 		<div class="form-field">
-			<label for="model">Modelo:</label>
+			<label for="model">Modelo: (*)</label>
 			{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
-			<select name="model" id="">
+			<select name="model" id="" required>
 				<option value="C-250MAX">C-250 MAX</option>
 				<option value="V-500">V-500</option>
 				<option value="V-600">V-600</option>
 				<option value="V-500MAX">V-500 MAX</option>
 				<option value="V-600MAX">V-600 MAX</option>
+				<option value="T-600">T-600</option>
+				<option value="Otro"></option>
 			</select>
 		</div>
 		<div class="form-field">
