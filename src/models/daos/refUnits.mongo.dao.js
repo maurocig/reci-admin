@@ -1,9 +1,8 @@
 const { Schema } = require('mongoose');
 const MongoContainer = require('../containers/mongo.container');
-const { httperror } = require('../../utils/api.utils');
-const { http_status } = require('../../constants/api.constants');
+const { HttpError } = require('../../utils/api.utils');
 
-const collection = 'refunits';
+const collection = 'refUnits';
 
 const refUnitSchema = new Schema(
   {
