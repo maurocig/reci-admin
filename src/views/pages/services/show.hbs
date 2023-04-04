@@ -125,11 +125,13 @@
 				<tr>
 					<th>Código</th>
 					<th>Descripción</th>
+					<th>Cantidad</th>
 				</tr>
 				{{#each service.parts}}
 				<tr>
 					<td style="padding-left: 1rem;"><strong>{{this.partNumber}}</strong></td>
 					<td style="padding-left: 1rem;">{{this.partName}}</td>
+					<td style="padding-left: 3rem;">{{this.partQty}}</td>
 				</tr>
 				{{/each}}
 			</table>

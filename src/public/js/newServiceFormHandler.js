@@ -9,6 +9,7 @@ addPartRowButton.addEventListener('click', () => {
   // Get all the input elements
   const partNumberInputs = document.querySelectorAll('[id^="partNumber"]');
   const partNameInputs = document.querySelectorAll('[id^="partName"]');
+  const partQtyInputs = document.querySelectorAll('[id^="partQty"]');
 
   // Create new row of inputs
   const partsRow = document.createElement('div');
@@ -17,6 +18,7 @@ addPartRowButton.addEventListener('click', () => {
 					<div class="item-number">#${partsInputCount}.</div>
 					<input type="text" name="partNumber${partsInputCount}" id="partNumber${partsInputCount}" placeholder="Nº de Repuesto ${partsInputCount}" style="text-transform: uppercase"/>
 					<input type="text" name="partName${partsInputCount}" id="partName${partsInputCount}" placeholder="Nombre de Repuesto ${partsInputCount}" style="text-transform: uppercase;"/>
+						<input type="number" name="partQty1" id="partQty1" placeholder="Cant." style="max-width: 70px;">
 		`;
   if (
     partNumberInputs[partNumberInputs.length - 1].value &&
@@ -30,11 +32,13 @@ addPartRowButton.addEventListener('click', () => {
   for (let i = 0; i < partNumberInputs.length; i++) {
     const partNumber = partNumberInputs[i].value;
     const partName = partNameInputs[i].value.toUpperCase();
+    const partQty = partQtyInputs[i].value;
     // partNameInputs[i].value = partName;
     if (partNumber && partName && !parts[i]) {
-      parts.push({ partNumber, partName });
+      parts.push({ partNumber, partName, partQty });
       partNameInputs[i].readOnly = true;
       partNumberInputs[i].readOnly = true;
+      partQtyInputs[i].readOnly = true;
     }
   }
   console.log(parts); // Output the parts array to the console

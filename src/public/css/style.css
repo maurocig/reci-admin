@@ -217,6 +217,22 @@ section {
 	display: inline-block;
 }
 
+.form-login {
+	max-width: 400px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 4rem 0 4rem 0;
+}
+
+.form-login button {
+	background-color: var(--secondary-dark-blue);
+}
+
+.form-login input {
+	width: 100%;
+}
+
 /* NEW SERVICE */
 .service-info-container {
 	/* border: solid red; */

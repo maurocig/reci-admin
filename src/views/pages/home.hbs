@@ -2,7 +2,7 @@
 {{>navbar}}
 
 <script src="https://kit.fontawesome.com/29f13514cf.js" crossorigin="anonymous"></script>
-<main>
+<main style="height: calc(100vh - 100px); position: relative">
 	<h1 class='title'>RECI Soporte</h1>
 	<div class="grid-icons-home">
 		<a href="/clientes">
@@ -29,6 +29,12 @@
 				<i class="material-icons icon-clients" style="font-size: 90px">add</i>
 				<span class="card-home-title">Nuevo cliente</span>
 			</div>
+		</a>
+	</div>
+	<div
+		style="bottom: 0; margin-bottom: 0; position: absolute; text-align: center; width: 100%; margin-bottom: 10px; color: white;">
+		<a href="/auth/logout">
+			Cerrar sesión
 		</a>
 	</div>
 </main>

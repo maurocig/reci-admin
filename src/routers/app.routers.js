@@ -1,16 +1,33 @@
 const { Router } = require('express');
+
 const clientsRoutes = require('./clients.routes');
 const refUnitsRoutes = require('./refUnits.routes');
 const servicesRoutes = require('./services.routes');
+const authRoutes = require('./auth.routes');
+const isAuthorized = require('../middleware/auth.middleware');
 
 const router = Router();
+
+router.get('/login', (req, res) => {
+  res.render('pages/login');
+});
+
+router.get('/signin-error', (req, res) => {
+  res.render('pages/signin-error');
+});
+
+router.use('/auth', authRoutes);
+router.use(isAuthorized);
 
 router.use('/clientes', clientsRoutes);
 router.use('/equipos', refUnitsRoutes);
 router.use('/servicios', servicesRoutes);
 
 router.get('/', (req, res) => {
-  // res.render('main', { layout: 'index' });
+  const user = req.user;
+  if (!user) {
+    res.sendFile('login.html', { root: 'src/public' });
+  }
   res.render('pages/home.hbs');
 });
 

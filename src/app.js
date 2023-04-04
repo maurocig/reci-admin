@@ -3,6 +3,12 @@ const Handlebars = require('express-handlebars');
 const path = require('path');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+
+const envConfig = require('./config');
+const dbConfig = require('./DB/db.config');
+const passport = require('./middleware/passport');
 
 const routes = require('./routers/app.routers');
 const errorMiddleware = require('./middleware/error.middleware');
@@ -12,6 +18,7 @@ const { engine } = Handlebars;
 
 // View engine
 app.set('view engine', 'hbs');
+app.set('views', './src/views');
 app.engine(
   'hbs',
   engine({
@@ -22,7 +29,26 @@ app.engine(
     helpers: require('./public/js/formatDate.js'),
   })
 );
-app.set('views', './src/views');
+
+app.use(express.static(__dirname + '/public'));
+app.use(
+  session({
+    name: 'user-session',
+    secret: envConfig.SESSION_SECRET,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 48,
+    },
+    rolling: true,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: dbConfig.mongodb.uri,
+      dbName: 'main',
+      ttl: 60,
+    }),
+  })
+);
+app.use(passport.session());
 
 // Middleware
 app.use(express.json());
