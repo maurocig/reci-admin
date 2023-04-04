@@ -108,7 +108,7 @@
 				{{#each refUnit.services}}
 				<tr>
 					<td><a href="/servicios/{{this._id}}"><strong>{{this.orderNumber}}</strong></a></td>
-					<td><a href="/servicios/{{this._id}}">{{formatDate this.stringDate}}</a></td>
+					<td><a href="/servicios/{{this._id}}">{{formatDate this.serviceDate}}</a></td>
 					<td style="text-align: center;"><a href="/servicios/{{this._id}}">{{this.fixes.length}}</a></td>
 					<td style="text-align: center;"><a href="/servicios/{{this._id}}">{{this.parts.length}}</a></td>
 				</tr>

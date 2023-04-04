@@ -1,9 +1,9 @@
 const { Schema } = require('mongoose');
 const MongoContainer = require('../containers/mongo.container');
-const { HttpError } = require('../../utils/api.utils');
-const { HTTP_STATUS } = require('../../constants/api.constants');
+const { httperror } = require('../../utils/api.utils');
+const { http_status } = require('../../constants/api.constants');
 
-const collection = 'refUnits';
+const collection = 'refunits';
 
 const refUnitSchema = new Schema(
   {
@@ -34,7 +34,7 @@ class RefUnitsMongoDao extends MongoContainer {
     const refUnit = await this.model
       .findById(id)
       .populate('client', 'name')
-      .populate('services', ['stringDate', 'orderNumber', 'fixes', 'parts'])
+      .populate('services', ['stringDate', 'serviceDate', 'orderNumber', 'fixes', 'parts'])
       .lean();
     return refUnit;
   }
