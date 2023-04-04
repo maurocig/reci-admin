@@ -94,6 +94,10 @@
 
 
 
+<script>
+	const datePicker = document.querySelector('#serviceDateInput')
+	datePicker.max = new Date().toISOString().split("T")[0];
+</script>
 {{#each scripts}}
 <script src="{{script}}"></script>
 {{/each}}
