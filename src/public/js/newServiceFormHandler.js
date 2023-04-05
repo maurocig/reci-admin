@@ -40,7 +40,7 @@ addPartRowButton.addEventListener('click', () => {
     const partName = partNameInputs[i].value.toUpperCase();
     const partQty = partQtyInputs[i].value;
     // partNameInputs[i].value = partName;
-    if (partNumber && partName && !parts[i]) {
+    if (partNumber && partName && partQty && !parts[i]) {
       parts.push({ partNumber, partName, partQty });
       partNameInputs[i].readOnly = true;
       partNumberInputs[i].readOnly = true;
