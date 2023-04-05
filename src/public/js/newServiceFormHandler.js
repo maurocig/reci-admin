@@ -5,13 +5,18 @@ const partsInputsContainer = document.getElementById('partsInputsContainer');
 const parts = [];
 let partCount = 0;
 
+let partNumberInputs = [];
+let partNameInputs = [];
+let partQtyInputs = [];
+
+let fixNameInputs = [];
+
 addPartRowButton.addEventListener('click', () => {
   // Get all the input elements
   const partNumberInputs = document.querySelectorAll('[id^="partNumber"]');
-  const partNameInputs = document.querySelectorAll('[id^="partName"]');
+  const partNameInputs = document.querySelectorAll('[id^="partName"]'); // Create new row of inputs
   const partQtyInputs = document.querySelectorAll('[id^="partQty"]');
 
-  // Create new row of inputs
   const partsRow = document.createElement('div');
   partsRow.classList.add('parts-row');
   partsRow.innerHTML = `
@@ -53,7 +58,7 @@ const fixes = []; // Initialize the parts array
 
 addFixRowButton.addEventListener('click', () => {
   // Get all the input elements
-  const fixNameInputs = document.querySelectorAll('[id^="fixInput"]');
+  fixNameInputs = document.querySelectorAll('[id^="fixInput"]');
 
   if (fixNameInputs[fixNameInputs.length - 1].value) {
     const fixesRow = document.createElement('div');
@@ -104,26 +109,30 @@ form.addEventListener('submit', (e) => {
     fixes,
   };
 
-  // const formData = new FormData();
-  // formData.append('service', JSON.stringify(service));
-  // console.log(formData);
+  partNumberInputs = document.querySelectorAll('[id^="partNumber"]');
+  partNameInputs = document.querySelectorAll('[id^="partName"]'); // Create new row of inputs
+  partQtyInputs = document.querySelectorAll('[id^="partQty"]');
+  fixNameInputs = document.querySelectorAll('[id^="fixInput"]');
 
-  // console.log(formData);
-
-  // Send Form
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/servicios', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onreadystatechange = function () {
-    // handle the response
-    console.log('server response: ' + xhr.response);
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      window.location = `/servicios/${xhr.response}`;
-    }
-
-    // else {
-    //       Swal.fire('Hubo un error con la petición.');
-    //     }
-  };
-  xhr.send(JSON.stringify(service));
+  if (
+    fixNameInputs[fixNameInputs.length - 1].value ||
+    partNumberInputs[partNumberInputs.length - 1].value ||
+    partNameInputs[partNameInputs.length - 1].value ||
+    partQtyInputs[partNameInputs.length - 1].value
+  ) {
+    alert('Hay reparaciones y/o repuestos sin agregar');
+  } else {
+    // Send Form
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/servicios', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+      // handle the response
+      console.log('server response: ' + xhr.response);
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        window.location = `/servicios/${xhr.response}`;
+      }
+    };
+    xhr.send(JSON.stringify(service));
+  }
 });

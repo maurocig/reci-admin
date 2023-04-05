@@ -20,7 +20,7 @@ function deleteService(id) {
       xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
       xhr.onloadend = function () {
         // handle the response
-        Swal.fire('El servicio fue borrado.', 'success');
+        Swal.fire('El servicio fue borrado.', 'Click en guardar para restaurarlo.');
       };
       xhr.send();
     }
