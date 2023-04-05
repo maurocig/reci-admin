@@ -39,12 +39,16 @@
 				<label for="hours">Horas:</label>
 				<input type="text" name="hours" id="hoursInput" value={{service.hours}} maxlength="2" />
 			</div>
+			<div class="form-field">
+				<label for="ticket">Nº Factura</label>
+				<input type="text" name="ticket" id="ticketInput" value="{{service.ticket}}" />
+			</div>
 			<div class="form-field" style="display: flex; align-items: center;">
 				<label for="isInWarranty" style="display: inline; margin-block:0; margin-right: 1rem;">Está
 					en garantía:
 				</label>
 				{{#if service.isInWarranty}}
-				<input checked type="checkbox" class="checkbox" name="isInWarranty" id="isInWarranty"
+				<input checked type="checkbox" class="checkbox" name="isInWarranty" id="isInWarrantyInput"
 					style="width: fit-content;">
 				{{else}}
 				<input type="checkbox" class="checkbox" name="isInWarranty" id="isInWarranty" style="width: fit-content;">
@@ -54,7 +58,7 @@
 		<button type="submit" class="button-form button-success">Guardar</button>
 	</form>
 
-	<button class="button-danger center" onclick="deleteService('{{refUnit._id}}')">Eliminar</button>
+	<button class="button-danger center" onclick="deleteService('{{service._id}}')">Eliminar</button>
 </main>
 
 
@@ -64,3 +68,35 @@
 {{#each scripts}}
 <script src="{{script}}"></script>
 {{/each}}
+
+<script>
+	const deleteButton = document.querySelector('.button-danger');
+
+	function deleteService(id) {
+		console.log(`id: ${id}`);
+		Swal.fire({
+			title: 'Se borrará el servicio',
+			text: 'Esta acción no se puede revertir.',
+			icon: 'warning',
+			iconColor: 'red',
+			showCancelButton: true,
+			confirmButtonColor: '#d33',
+			confirmButtonText: 'Borrar',
+			cancelButtonText: 'Cancelar',
+		})
+			.then((result) => {
+				console.log(result.value);
+				if (result.value) {
+					// send a DELETE request to the server
+					const xhr = new XMLHttpRequest();
+					xhr.open('DELETE', '/servicios/' + id, true);
+					xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
+					xhr.onloadend = function () {
+						// handle the response
+						Swal.fire('El servicio fue borrado.', 'success');
+					};
+					xhr.send();
+				}
+			});
+	}
+</script>

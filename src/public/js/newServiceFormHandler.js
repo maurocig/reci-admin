@@ -77,27 +77,26 @@ addFixRowButton.addEventListener('click', () => {
 
 // Submit handler
 const form = document.querySelector('form');
-// const refUnitId = document.querySelector('#refUnitId');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const refUnitId = document.getElementById('refUnitId');
   const clientId = document.getElementById('clientId');
+  const refUnitId = document.getElementById('refUnitId');
   const orderNumberInput = document.getElementById('orderNumberInput');
   const serviceDateInput = document.getElementById('serviceDateInput');
   const hoursInput = document.getElementById('hoursInput');
-
-  const serviceDate = serviceDateInput.value;
-  const stringDate = serviceDate;
+  const ticketInput = document.getElementById('ticketInput');
+  const isInWarrantyInput = document.getElementById('isInWarrantyInput');
 
   const service = {
-    refUnit: refUnitId.value,
     client: clientId.value,
+    refUnit: refUnitId.value,
     orderNumber: +orderNumberInput.value,
-    serviceDate,
-    stringDate,
+    serviceDate: serviceDateInput.value,
     hours: +hoursInput.value,
+    ticket: ticketInput.value,
+    isInWarranty: isInWarrantyInput.value,
     parts,
     fixes,
   };

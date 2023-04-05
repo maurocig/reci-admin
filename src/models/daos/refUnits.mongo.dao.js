@@ -33,7 +33,7 @@ class RefUnitsMongoDao extends MongoContainer {
     const refUnit = await this.model
       .findById(id)
       .populate('client', 'name')
-      .populate('services', ['stringDate', 'serviceDate', 'orderNumber', 'fixes', 'parts'])
+      .populate('services', ['serviceDate', 'orderNumber', 'fixes', 'parts'])
       .lean();
     return refUnit;
   }
@@ -61,15 +61,15 @@ class RefUnitsMongoDao extends MongoContainer {
 
   async removeService(refUnitId, serviceId) {
     const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
-    if (!refUnit) {
-      const message = `RefUnit with id ${refUnitId} does not exist in our records.`;
-      throw new HttpError(HTTP_STATUS.NOT_FOUND, message);
+    if (refUnit) {
+      const updatedRefUnit = await this.model.updateOne(
+        { id: refUnitId },
+        { $pull: { services: serviceId } }
+      );
+      return updatedRefUnit;
+    } else {
+      return refUnit;
     }
-    const updatedRefUnit = await this.model.updateOne(
-      { id: refUnitId },
-      { $pull: { services: serviceId } }
-    );
-    return updatedRefUnit;
   }
 }
 

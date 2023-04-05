@@ -32,10 +32,7 @@ class ServicesController {
   }
 
   async saveService(req, res, next) {
-    console.log('reached saveService controller.');
-
-    console.log(req.body);
-    const { client, refUnit, orderNumber, hours, serviceDate, parts, fixes, isInWarranty } =
+    const { client, refUnit, orderNumber, serviceDate, hours, ticket, isInWarranty, parts, fixes } =
       req.body;
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
@@ -48,11 +45,12 @@ class ServicesController {
         client,
         refUnit,
         orderNumber: parsedOrderNumber,
-        hours: parsedHours,
         serviceDate: formattedServiceDate,
+        hours: parsedHours,
+        ticket,
+        isInWarranty: isInWarrantyBoolean,
         parts,
         fixes,
-        isInWarranty: isInWarrantyBoolean,
       };
 
       const newServiceId = await servicesDao.save(service);
@@ -96,7 +94,7 @@ class ServicesController {
 
   async updateService(req, res, next) {
     const { id } = req.params;
-    const { orderNumber, serviceDate, hours, isInWarranty } = req.body;
+    const { orderNumber, serviceDate, hours, ticket, isInWarranty } = req.body;
 
     const oldService = await servicesDao.getById(id);
     const { client, refUnit, parts, fixes } = oldService;
@@ -108,12 +106,13 @@ class ServicesController {
 
     try {
       const updatedService = {
+        client,
+        refUnit,
         orderNumber: parsedOrderNumber,
         serviceDate: formattedServiceDate,
         hours: parsedHours,
+        ticket,
         isInWarranty: isInWarrantyBoolean,
-        client,
-        refUnit,
         parts,
         fixes,
       };
@@ -127,10 +126,14 @@ class ServicesController {
   }
 
   async deleteService(req, res, next) {
+    console.log('deleteService controller');
     const { id } = req.params;
     try {
       const service = await servicesDao.getById(id);
-      await refUnitsDao.removeService(service.refUnit, id);
+      console.log(service);
+      if (service.refUnit) {
+        await refUnitsDao.removeService(service.refUnit, id);
+      }
       const deletedService = await servicesDao.delete(id);
       const response = successResponse(deletedService);
       res.status(HTTP_STATUS.OK).json(response);

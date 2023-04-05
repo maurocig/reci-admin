@@ -25,6 +25,46 @@
 	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Información del servicio</h1>
 
+
+	<div class="table-container" style="max-width: 500px;">
+		<table>
+			<tr>
+				<th>Nombre Cliente:</th>
+				<td>
+
+					<span style="font-weight: 500; color: var(--primary-success);">
+						{{service.client.name}}
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<th>Matrícula: </th>
+				<td>
+					<span style="font-weight: 500; color: var(--primary-success);">
+						{{service.refUnit.plate}}
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<th>Nº Serie:</th>
+				<td>
+					<span style="font-weight: 500; color: var(--primary-success);">
+						{{service.refUnit.serialNumber}}
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<th>Modelo:</th>
+				<td>
+					<span style="font-weight: 500; color: var(--primary-success);">
+						{{service.refUnit.model}}
+					</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
 	<section>
 		<div class="table-container" style="max-width: 500px;">
 			<table>
@@ -41,6 +81,10 @@
 					<td>{{service.hours}}</td>
 				</tr>
 				<tr>
+					<th>Nº Factura</th>
+					<td>{{service.ticket}}</td>
+				</tr>
+				<tr>
 					<th>Equipo en garantía:</th>
 					<td>
 						{{#if service.isInWarranty}}
@@ -52,24 +96,6 @@
 							No
 						</span>
 						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Nombre Cliente:</th>
-					<td>
-						{{service.client.name}}
-					</td>
-				</tr>
-				<tr>
-					<th>Nº Serie:</th>
-					<td>
-						{{service.refUnit.serialNumber}}
-					</td>
-				</tr>
-				<tr>
-					<th>Matrícula: </th>
-					<td>
-						{{service.refUnit.plate}}
 					</td>
 				</tr>
 			</table>
