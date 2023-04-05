@@ -36,16 +36,15 @@ class ClientsMongoDao extends MongoContainer {
 
   async removeRefUnit(clientId, refUnitId) {
     const client = await this.model.findOne({ _id: clientId }, { __v: 0 });
-    if (!client) {
-      const message = `Client with id ${clientId} does not exist in our records.`;
-      throw new HttpError(HTTP_STATUS.NOT_FOUND, message);
+    if (client) {
+      const updatedClient = await this.model.updateOne(
+        { _id: clientId },
+        { $pull: { refUnits: refUnitId } }
+      );
+      return updatedClient;
+    } else {
+      return;
     }
-    const updatedClient = await this.model.updateOne(
-      { _id: clientId },
-      { $pull: { refUnits: refUnitId } }
-    );
-    console.log('updated');
-    return updatedClient;
   }
 }
 
