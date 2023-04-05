@@ -27,7 +27,8 @@ addPartRowButton.addEventListener('click', () => {
 		`;
   if (
     partNumberInputs[partNumberInputs.length - 1].value &&
-    partNameInputs[partNameInputs.length - 1].value
+    partNameInputs[partNameInputs.length - 1].value &&
+    partQtyInputs[partQtyInputs.length - 1].value
   ) {
     partsInputsContainer.appendChild(partsRow); // Add the row to the container
     partsInputCount++; // Increment the input count
@@ -120,7 +121,17 @@ form.addEventListener('submit', (e) => {
     partNameInputs[partNameInputs.length - 1].value ||
     partQtyInputs[partNameInputs.length - 1].value
   ) {
-    alert('Hay reparaciones y/o repuestos sin agregar');
+    // alert('Hay reparaciones y/o repuestos sin agregar');
+
+    Swal.fire({
+      title: 'Hay reparaciones y/o repuestos sin agregar',
+      text: 'Click en "+" para confirmar los ítems agregados.',
+      icon: 'warning',
+      iconColor: 'red',
+      showCancelButton: false,
+      confirmButtonColor: 'green',
+      confirmButtonText: 'Entendido',
+    });
   } else {
     // Send Form
     const xhr = new XMLHttpRequest();

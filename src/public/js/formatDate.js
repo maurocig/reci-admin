@@ -6,7 +6,7 @@ module.exports = {
     return formattedDate;
   },
   formatDateValue: function (date) {
-    formattedDate = moment(date).format('YYYY/MM/DD').replaceAll('/', '-');
+    formattedDate = moment(date).format('DD/MM/YYYY').replaceAll('/', '-');
     return formattedDate;
   },
 };

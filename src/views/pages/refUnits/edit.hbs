@@ -6,6 +6,14 @@
 			<i class="material-icons">arrow_back</i>
 		</button>
 	</a>
+	<a href="/clientes/{{refUnit.client._id}}">
+		<button class="go-back">
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+			</span>
+			Ver Cliente
+		</button>
+	</a>
 
 	<h1 class="title">Editar equipo</h1>
 	<form class="form-container" action="/equipos/{{refUnit._id}}?_method=PUT" method="POST">
@@ -41,10 +49,6 @@
 		</div>
 		<button class="button-success button-form" role="submit">Guardar</button>
 	</form>
-
-	{{!-- <form id="form-delete" action="clients/{{refUnit.client}}/{{refUnit._id}}" method="DELETE"> --}}
-	{{!-- <button role="submit" class="button-danger center">Eliminar</button> --}}
-	{{!-- </form> --}}
 
 	<button class="button-danger center" onclick="deleteEquipment('{{refUnit._id}}')">Eliminar</button>
 
