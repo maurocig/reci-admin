@@ -48,6 +48,7 @@ addPartRowButton.addEventListener('click', () => {
 const fixesContainer = document.getElementById('fixesInputsContainer');
 const addFixRowButton = document.getElementById('addFixesRowButton');
 let fixInputCount = 1;
+let fixCount = 2;
 const fixes = []; // Initialize the parts array
 
 addFixRowButton.addEventListener('click', () => {
@@ -58,9 +59,11 @@ addFixRowButton.addEventListener('click', () => {
     const fixesRow = document.createElement('div');
     fixesRow.classList.add('fixes-row');
     fixesRow.innerHTML = `
-					<div class="item-number"> #${fixInputCount}. </div>
-					<input type="text" name="fixInput${fixInputCount}" id="fixInput${fixInputCount}" placeholder="Descripción ${fixInputCount}" style="text-transform: uppercase" autofocus />
+					<div class="item-number"> #${fixCount}. </div>
+					<input type="text" name="fixInput${fixInputCount}" id="fixInput${fixInputCount}" placeholder="Descripción ${fixCount}" style="text-transform: uppercase" autofocus />
 `;
+    fixInputCount++;
+    fixCount++;
     fixesContainer.appendChild(fixesRow);
   }
 
