@@ -58,7 +58,11 @@
 						Fecha límite de garantía:
 					</th>
 					<td>
+						{{#if refUnit.warrantyDate}}
 						{{formatDate refUnit.warrantyDate}}
+						{{else}}
+						Sin garantía
+						{{/if}}
 					</td>
 				</tr>
 				<tr>

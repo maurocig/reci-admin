@@ -17,7 +17,7 @@ const refUnitSchema = new Schema(
     model: { type: String, uppercase: true, requried: true },
     services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },
-    warrantyDate: { type: Date },
+    warrantyDate: { type: Date || null, default: undefined },
   },
   {
     timestamps: true,

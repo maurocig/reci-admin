@@ -39,7 +39,6 @@ class RefUnitsController {
         req.body;
 
       const soldByReciBool = Boolean(soldByReci);
-      const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
 
       const refUnit = {
         serialNumber,
@@ -49,8 +48,14 @@ class RefUnitsController {
         client,
         plate,
         soldByReci: soldByReciBool,
-        warrantyDate: formattedWarrantyDate,
       };
+
+      if (warrantyDate) {
+        const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
+        refUnit.warrantyDate = formattedWarrantyDate;
+      } else {
+        refUnit.warrantyDate = null;
+      }
 
       const newRefUnitId = await refUnitsDao.save(refUnit);
 
@@ -70,7 +75,9 @@ class RefUnitsController {
       const client = await clientsDao.getById(clientId);
       const clientName = client.name;
       res.render('pages/refUnits/new', { clientId, clientName });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async editRefUnitForm(req, res, next) {
@@ -89,17 +96,21 @@ class RefUnitsController {
     const { model, plate, warrantyDate, soldByReci, serialNumber } = req.body;
 
     try {
-      const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
       const soldByReciBool = Boolean(soldByReci);
 
       const updatedRefUnit = {
         serialNumber,
         model,
         plate,
-        warrantyDate: formattedWarrantyDate,
         soldByReci: soldByReciBool,
       };
 
+      if (warrantyDate) {
+        const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
+        updatedRefUnit.warrantyDate = formattedWarrantyDate;
+      } else {
+        updatedRefUnit.warrantyDate = null;
+      }
       await refUnitsDao.update(id, updatedRefUnit);
 
       res.redirect(`/equipos/${id}`);
