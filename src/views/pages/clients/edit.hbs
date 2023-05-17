@@ -6,6 +6,14 @@
 			<i class="material-icons">arrow_back</i>
 		</button>
 	</a>
+	<a href="/clientes/{{client._id}}">
+		<button class="go-back">
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+			</span>
+			Ver cliente
+		</button>
+	</a>
 
 	<h1 class="title">Editar Cliente</h1>
 
@@ -29,7 +37,7 @@
 		</div> <button class="button-success button-form" role="submit">Guardar</button>
 	</form>
 
-	<button class="button-danger center" onclick="deleteEquipment('{{client._id}}')">Eliminar</button>
+	{{!-- <button class="button-danger center" onclick="deleteEquipment('{{client._id}}')">Eliminar</button> --}}
 
 	{{!-- Delete confirmation --}}
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
