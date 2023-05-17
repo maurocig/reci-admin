@@ -39,6 +39,16 @@ class ClientsController {
     }
   }
 
+  async getClientsForm(req, res, next) {
+    try {
+      const clients = await clientsDao.getAll();
+      const clientNumber = clients.length + 1;
+      res.render('pages/clients/new', { clientNumber });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async saveClient(req, res, next) {
     try {
       const { name, email, refUnits, phone, createdAt, updatedAt } = req.body;
