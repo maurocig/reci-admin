@@ -51,7 +51,7 @@ class ClientsController {
 
   async saveClient(req, res, next) {
     try {
-      const { name, email, refUnits, phone, createdAt, updatedAt } = req.body;
+      const { name, email, refUnits, phone, createdAt, updatedAt, clientNumber } = req.body;
       const phoneNumber = parseInt(phone);
 
       const client = {
@@ -59,7 +59,7 @@ class ClientsController {
         email,
         refUnits,
         phone: phoneNumber,
-        clientNumber,
+        clientNumber: +clientNumber,
         createdAt,
         updatedAt,
       };
