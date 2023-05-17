@@ -7,7 +7,7 @@ const clientSchema = new Schema(
   {
     name: { type: String, uppercase: true, required: true, unique: true },
     email: { type: String, lowercase: true, required: false, unique: true },
-    phone: { type: String, required: false },
+    phone: { type: String || null, required: false },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
     bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
     clientNumber: { type: Number, required: true, unique: true },

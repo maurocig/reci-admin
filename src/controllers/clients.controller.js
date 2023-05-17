@@ -52,7 +52,8 @@ class ClientsController {
   async saveClient(req, res, next) {
     try {
       const { name, email, refUnits, phone, createdAt, updatedAt, clientNumber } = req.body;
-      const phoneNumber = parseInt(phone);
+
+      const phoneNumber = phone ? parseInt(phone) : null;
 
       const client = {
         name,
@@ -63,16 +64,18 @@ class ClientsController {
         createdAt,
         updatedAt,
       };
+
       const newClientId = await clientsDao.save(client);
 
-      const response = {
-        client: client,
-        id: newClientId,
-        message: 'Se creó un nuevo cliente.',
-      };
-      console.log(response);
+      /* const response = { */
+      /*   client: client, */
+      /*   id: newClientId, */
+      /*   message: 'Se creó un nuevo cliente.', */
+      /* }; */
+      /* console.log(response); */
 
-      res.render('pages/success', { response });
+      // res.render('pages/success', { response });
+      res.redirect(`/clientes/${newClientId}`);
     } catch (error) {
       next(error);
     }
