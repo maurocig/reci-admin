@@ -20,17 +20,17 @@
 	<div class="table-container">
 		<table>
 			<tr class="table-headers-row">
-				<th>Nº Serie</th>
+				<th>Matrícula</th>
 				<th>Modelo</th>
 				<th>Cliente</th>
-				<th>Matrícula</th>
+				<th>Nº Serie</th>
 				<th class="center">Editar</th>
 			</tr>
 			{{#each refUnits}}
 			<tr>
-				<td>
-					<a href="/equipos/{{_id}}">
-						<strong>{{serialNumber}} </strong>
+				<td class="center">
+					<a href="/equipos/{{this._id}} ">
+						{{this.plate}}
 					</a>
 				</td>
 				<td>
@@ -43,9 +43,9 @@
 						{{client.name}}
 					</a>
 				</td>
-				<td class="center">
-					<a href="/equipos/{{this._id}} ">
-						{{this.plate}}
+				<td>
+					<a href="/equipos/{{_id}}">
+						<strong>{{serialNumber}} </strong>
 					</a>
 				</td>
 				<td class="center">
