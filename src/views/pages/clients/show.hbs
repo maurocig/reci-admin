@@ -27,19 +27,24 @@
 
 		<div class="table-container">
 			<table>
-				<tr class="table-headers-row">
+				<tr>
 					<th>R. Social</th>
-					<th>E-mail</th>
-					<th>Teléfono</th>
-					<th class="center">Equipos</th>
-				</tr>
-				<tr class="row">
-					<td id="client-name-td">
+					<td>
 						<strong>{{client.name}} </strong>
 					</td>
+				</tr>
+				<tr>
+					<th>Nº Cliente</th>
+					<td>{{client.clientNumber}}</td>
+				</tr>
+				<tr>
+					<th>E-mail</th>
 					<td>
 						{{client.email}}
 					</td>
+				</tr>
+				<tr>
+					<th>Teléfono</th>
 					<td>
 						{{#if client.phone}}
 						{{client.phone}}
@@ -47,7 +52,10 @@
 						-
 						{{/if}}
 					</td>
-					<td class="center">
+				</tr>
+				<tr>
+					<th>Equipos</th>
+					<td>
 						{{client.refUnits.length}}
 					</td>
 				</tr>

@@ -10,6 +10,7 @@ const clientSchema = new Schema(
     phone: { type: String, required: false },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
     bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
+    clientNumber: { type: Number, required: true, unique: true },
   },
   {
     timestamps: true,

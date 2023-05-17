@@ -22,9 +22,7 @@ class ClientsController {
       const client = await clientsDao.getById(id);
       const refUnits = await refUnitsDao.getAll({ client: id });
 
-      res
-        .status(HTTP_STATUS.OK)
-        .render('pages/clients/show', { client, refUnits });
+      res.status(HTTP_STATUS.OK).render('pages/clients/show', { client, refUnits });
     } catch (error) {
       next(error);
     }
@@ -34,9 +32,7 @@ class ClientsController {
     const { id } = req.params;
     try {
       const client = await clientsDao.getById(id);
-      res
-        .status(HTTP_STATUS.OK)
-        .render('pages/clients/edit', { client: client });
+      res.status(HTTP_STATUS.OK).render('pages/clients/edit', { client: client });
       res;
     } catch (error) {
       next(error);
@@ -53,6 +49,7 @@ class ClientsController {
         email,
         refUnits,
         phone: phoneNumber,
+        clientNumber,
         createdAt,
         updatedAt,
       };
