@@ -3,6 +3,7 @@ const { Router } = require('express');
 const clientsRoutes = require('./clients.routes');
 const refUnitsRoutes = require('./refUnits.routes');
 const servicesRoutes = require('./services.routes');
+const pendingTasksRoutes = require('./pendingTasks.routes');
 const authRoutes = require('./auth.routes');
 const isAuthorized = require('../middleware/auth.middleware');
 
@@ -22,6 +23,7 @@ router.use(isAuthorized);
 router.use('/clientes', clientsRoutes);
 router.use('/equipos', refUnitsRoutes);
 router.use('/servicios', servicesRoutes);
+router.use('/pendientes', pendingTasksRoutes);
 
 router.get('/', (req, res) => {
   const user = req.user;

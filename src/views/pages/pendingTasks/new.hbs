@@ -1,0 +1,47 @@
+{{>navbar}}
+
+<main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+
+	<h1 class="title">Próximo servicio</h1>
+
+	<div class="service-info-container">
+		<div class="form-field">
+			<label for="refUnitInput">Nº Serie:</label>
+			<input type="number" name="serialNumber" id="refUnitInput" value={{refUnit.serialNumber}} readonly />
+		</div>
+		<div class="form-field">
+			<label for="clientNameInput">Cliente:</label>
+			<input type="text" name="clientName" id="clientNameInput" value="{{refUnit.client.name}}" readonly />
+		</div>
+		<div class="form-field">
+			<label for="refUnit">Modelo:</label>
+			<input type="text" name="model" id="refUnitModelInput" value="{{refUnit.model}}" readonly />
+		</div>
+	</div>
+
+	{{!-- NEXT SERVICE FIXES --}}
+	<div class="form-field" style="width: 100%">
+		<label for="parts">Tareas Pendientes</label>
+		<div id="nextServiceContainer">
+			<div id="nextServiceInputsContainer">
+				<div class="fixes-row">
+					<div class="item-number"> #1. </div>
+					<input type="text" name="nextServiceInput1" id="nextServiceInput1" placeholder="Descripción 1"
+						style="text-transform: uppercase" />
+				</div>
+			</div>
+			<button id="addNextServiceRowButton" tabindex="0" type="button">
+				<i class="material-icons icon-add-item" style="padding: 0; margin: 0;  font-size: 3rem;">add_box</i>
+			</button>
+		</div>
+	</div>
+
+
+</main>

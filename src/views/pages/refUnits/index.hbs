@@ -13,8 +13,25 @@
 	</a>
 
 	<i class="material-icons icon-clients center"
-		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
+		style="font-size: 50px; display: block; margin-bottom: .2rem;">ac_unit</i>
 	<h1 class="title">Equipos</h1>
+
+
+	<div class="grid grid-cols-3 mb-4 items-center">
+		<label for="refUnitsFilter" class="text-gray-300 align-self-center mr-2 w-100 text-end">
+			<strong>
+				Filtrar:
+			</strong>
+		</label>
+		<select name="refUnitsFilter" id="refUnitsFilter" class="m-0 h-10 w-48 bg-gray-200 mx-auto px-2">
+			<option value="all">Todos</option>
+			<option value="pendingTasks">Tareas pendientes</option>
+			{{!-- <option value=""></option> --}}
+			{{!-- <option value=""></option> --}}
+		</select>
+		<div></div>
+	</div>
+
 
 	{{#if refUnits}}
 	<div class="table-container">
@@ -62,3 +79,22 @@
 	{{/if}}
 
 </main>
+<script>
+
+	async function fetchData(url) {
+		try {
+			const response = await fetch(url)
+			const data = response.text()
+			console.log(data)
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
+	const select = document.getElementById('refUnitsFilter');
+	select.addEventListener('change', async (e) => {
+		const selectedValue = this.value;
+		const data = await fetchData(selectedValue)
+	})
+</script>
+{{!-- <script src="https://cdn.tailwindcss.com"></script> --}}

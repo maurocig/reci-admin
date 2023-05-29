@@ -66,7 +66,7 @@ nav {
 	color: var(--main-dark-blue);
 	font-family: 'Barlow';
 	font-weight: 500;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	border-bottom: solid 3px rgba(0, 0, 0, 0);
 	/* text-transform: uppercase; */
 }
@@ -99,14 +99,15 @@ main {
 	max-width: 800px;
 }
 
-input, select {
+form input, form select {
 	background-color: var(--main-light-gray);
-	padding: 0.5rem 0.7rem;
-	margin-bottom: 1.8em;
-	margin-inline: 0rem 2rem;
+	padding: 0.5rem 0.7rem !important;
+	margin-bottom: 1.8em !important;
+	margin-inline: 0rem 2rem !important;
 	border: solid 1px darkgray;
 	height: 38px;
 	cursor: auto;
+	color: black;
 }
 
 /* REMOVE NUMBER BUTTONS */
@@ -167,8 +168,8 @@ section {
 	font-family: 'Barlow', sans-serif;
 	font-weight: 500;
 	color: var(--main-light-gray);
-	font-size: 2rem;
-	padding-block: 1rem;
+	font-size: 1.4rem;
+	padding-block: .5rem;
 	/* text-align: start; */
 	text-align: center;
 	margin-bottom: 1rem;
@@ -252,7 +253,7 @@ section {
 	margin-top: 0;
 }
 
-#fixesContainer, #partsContainer {
+#fixesContainer, #partsContainer, #nextServiceContainer {
 	display: flex;
 	/* grid-template-columns: 10fr 1fr; */
 	justify-content: space-between;
@@ -286,7 +287,7 @@ section {
 	align-self: end;
 }
 
-#fixesInputsContainer {
+#fixesInputsContainer, #nextServiceInputsContainer {
 	width: 100%;
 }
 
@@ -310,7 +311,7 @@ section {
 	display: inline;
 }
 
-#addFixesRowButton, #addPartRowButton {
+#addFixesRowButton, #addPartRowButton, #addNextServiceRowButton {
 	width: fit-content;
 	height: fit-content;
 	align-self: end;
@@ -354,6 +355,8 @@ section {
 }
 
 .button-success {
+	padding-inline: 1em;
+	padding-block: .5em;
 	min-width: 150px;
 	background-color: var(--main-dark-blue);
 	border: solid 2px var(--primary-success-brighter);
@@ -383,6 +386,8 @@ section {
 
 
 .button-new {
+	padding-inline: 1em;
+	padding-block: .5em;
 	margin-inline: auto;
 	margin-bottom: 1.5rem;
 	background-color: var(--main-dark-blue);
@@ -402,10 +407,13 @@ section {
 }
 
 .button-danger {
+	padding-inline: 1em;
+	padding-block: .5em;
 	background-color: var(--main-dark-blue);
 	border: solid 2px var(--primary-danger);
 	color: var(--primary-danger);
-	margin-top: 4rem;
+	margin-top: 3rem;
+	margin-bottom: 2rem;
 }
 
 .button-danger:hover {
@@ -539,20 +547,20 @@ td a {
 .card-home-title {
 	font-family: 'Barlow';
 	font-weight: 500;
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 }
 
 .grid-icons-home {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 1rem;
+	gap: 1.7rem;
 	/* border: solid red; */
 }
 
 .container-icon-home {
 	border: solid var(--secondary-light-gray);
 	width: 100%;
-	height: 170px;
+	height: 150px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -570,7 +578,7 @@ td a {
 
 .container-icon-home span {
 	color: var(--main-light-gray);
-	font-size: 1.3rem;
+	font-size: 1.15rem;
 	/* margin-bottom: 1rem; */
 	bottom: 0;
 }

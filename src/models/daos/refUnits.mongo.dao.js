@@ -16,6 +16,7 @@ const refUnitSchema = new Schema(
     plate: { type: String, uppercase: true, required: true },
     model: { type: String, uppercase: true, requried: true },
     services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
+    pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks' }],
     soldByReci: { type: Schema.Types.Boolean },
     warrantyDate: { type: Date || null, default: undefined },
   },
@@ -34,12 +35,13 @@ class RefUnitsMongoDao extends MongoContainer {
       .findById(id)
       .populate('client', 'name')
       .populate('services', ['serviceDate', 'orderNumber', 'fixes', 'parts'])
+      // .populate('pendingTasks')
       .lean();
     return refUnit;
   }
 
   async getAllAndPopulate() {
-    const refUnits = await this.model.find().populate('client', 'name').lean();
+    const refUnits = await this.model.find().populate('client', ['name', '_id']).lean();
     return refUnits;
   }
 
@@ -65,6 +67,35 @@ class RefUnitsMongoDao extends MongoContainer {
       const updatedRefUnit = await this.model.updateOne(
         { id: refUnitId },
         { $pull: { services: serviceId } }
+      );
+      return updatedRefUnit;
+    } else {
+      return refUnit;
+    }
+  }
+
+  async addPendingTask(refUnitId, pendingTaskId) {
+    const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
+
+    if (!refUnit) {
+      const message = `RefUnit with id ${refUnitId} does not exist in our records.`;
+      throw new HttpError(404, message);
+    }
+
+    const updatedRefUnit = await this.model.updateOne(
+      { _id: refUnitId },
+      { $addToSet: { pendingTasks: pendingTaskId } }
+    );
+
+    return updatedRefUnit;
+  }
+
+  async removePendingTask(refUnitId, pendingTaskId) {
+    const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
+    if (refUnit) {
+      const updatedRefUnit = await this.model.updateOne(
+        { id: refUnitId },
+        { $pull: { pendingTasks: pendingTaskId } }
       );
       return updatedRefUnit;
     } else {

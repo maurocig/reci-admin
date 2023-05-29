@@ -28,7 +28,7 @@ class ServicesMongoDao extends MongoContainer {
   async getByIdAndPopulate(id) {
     const service = await this.model
       .findById(id)
-      .populate('client', 'name')
+      .populate('client', ['name'])
       .populate('refUnit', ['model', 'serialNumber', 'plate'])
       .lean();
     return service;

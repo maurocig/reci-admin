@@ -129,13 +129,74 @@
 		<a href="/servicios/nuevo/{{refUnit._id}}">
 			<button class="button-success center">
 				<i class="material-icons clients-icon center">build</i>
-				Agregar servicio
+				Nuevo servicio
 			</button>
 		</a>
 	</section>
 
+	{{!-- Tareas Pendientes --}}
+	<section>
+		<h2 class="subtitle" style="display: flex;">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">schedule</i>
+			Tareas pendientes
+		</h2>
+
+		{{#if pendingTasks}}
+		<div class="table-container" style="width: 100%; min-width: 300px;">
+			<table>
+				<tr>
+					<th>Descripción</th>
+					<th>Completada</th>
+				</tr>
+				{{#each refUnit.pendingTasks}}
+				<tr>
+					<td>
+						{{this.taskDescription}}
+					</td>
+				</tr>
+				{{/each}}
+			</table>
+		</div>
+
+		{{else}}
+		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">
+			No hay tareas pendientes en este equipo.
+		</h3>
+		{{/if}}
+
+		{{!-- ADD PENDING TASK FORM --}}
+		<form action="/pendientes" method="POST">
+			<div class="grid grid-cols-4 justify-center items-center mb-4">
+				<label for="task-description" class="text-white text-end mr-2">Descripción: </label>
+				<input type="text" name="taskDescription" class="uppercase m-0 w-full col-span-3 sm:col-span-2"
+					style="margin: 0 !important;">
+			</div>
+
+			{{!-- Hidden Inputs --}}
+			<input type="hidden" value="{{refUnit._id}}" name="refUnit">
+			<input type="hidden" value="{{refUnit.client._id}}" name="client">
+
+			<button class="button-success center" type="submit">
+				<i class="material-icons clients-icon center ml-0">schedule</i>
+				Agregar
+			</button>
+		</form>
+
+	</section>
 </main>
 
 {{#each scripts}}
 <script src="{{script}}"></script>
 {{/each}}
+
+{{!-- Add task --}}
+
+<script>
+
+// 	const newTaskButton = document.querySelector('#new-task');
+// 	newTaskButton.addEventListener('click', (e) => {
+// 		e.preventDefault();
+// 	})
+
+</script>

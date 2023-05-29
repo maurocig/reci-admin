@@ -11,6 +11,7 @@
 
 	{{!-- INFORMACIÓN --}}
 	<h1 class="title">Nuevo servicio</h1>
+
 	<form class="form-container" action="/servicios" method="post">
 		<div class="service-info-container">
 			<div class="form-field">
@@ -46,7 +47,8 @@
 				<label for="isInWarranty" style="display: inline; margin-block:0; margin-right: 1rem;">Está
 					en garantía:
 				</label>
-				<input type="checkbox" class="checkbox" name="isInWarranty" id="isInWarrantyInput" style="width: fit-content;">
+				<input type="checkbox" class="checkbox" name="isInWarranty" id="isInWarrantyInput"
+					style="width: fit-content; margin: 0 !important;">
 			</div>
 		</div>
 
@@ -78,16 +80,16 @@
 					<div class="fixes-row">
 						<div class="item-number"> #1. </div>
 						<input type="text" name="fixInput1" id="fixInput1" placeholder="Descripción 1"
-							style="text-transform: uppercase" />
+							style="text-transform: uppercase; margin: 0 .3rem 0 .3rem !important" />
 					</div>
 				</div>
 				<button id="addFixesRowButton" tabindex="0" type="button">
 					<i class="material-icons icon-add-item" style="padding: 0; margin: 0;  font-size: 3rem;">add_box</i>
 				</button>
 			</div>
-
-			<button class="button-success button-form" role="submit" style="margin-top: 3rem;">Guardar</button>
 		</div>
+
+		<button class="button-success button-form" role="submit" style="margin-top: 3rem;">Guardar</button>
 
 		{{!-- HIDDEN --}}
 		<input type="text" name="refUnit" id="refUnitId" value="{{refUnit._id}}" hidden>
