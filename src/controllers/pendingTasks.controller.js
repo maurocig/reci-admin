@@ -42,11 +42,7 @@ class PendingTasksController {
       const pendingTaskId = await PendingTasksDao.save(pendingTask);
 
       // Add Pending task to refUnit.pendingTasks array.
-      const addedPendingTask = await refUnitsMongoDao.addPendingTask(
-        refUnit,
-        client,
-        pendingTaskId.toString()
-      );
+      const addedPendingTask = await refUnitsMongoDao.addPendingTask(refUnit, pendingTaskId);
 
       res.redirect(`/equipos/${pendingTask.refUnit}`);
     } catch (error) {

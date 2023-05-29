@@ -16,7 +16,7 @@ const refUnitSchema = new Schema(
     plate: { type: String, uppercase: true, required: true },
     model: { type: String, uppercase: true, requried: true },
     services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
-    pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks' }],
+    pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },
     warrantyDate: { type: Date || null, default: undefined },
   },
@@ -35,7 +35,7 @@ class RefUnitsMongoDao extends MongoContainer {
       .findById(id)
       .populate('client', 'name')
       .populate('services', ['serviceDate', 'orderNumber', 'fixes', 'parts'])
-      // .populate('pendingTasks')
+      .populate('pendingTasks')
       .lean();
     return refUnit;
   }
