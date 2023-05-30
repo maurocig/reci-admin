@@ -12,7 +12,7 @@ class PendingTasksDao extends MongoContainer {
     const pendingTask = await this.model
       .findById(id)
       .populate('client', 'name')
-      .populate('refUnit', ['model', 'serialNumber', 'plate'])
+      .populate('refUnit', ['model', 'serialNumber', 'plate', '_id'])
       .lean();
     return pendingTask;
   }

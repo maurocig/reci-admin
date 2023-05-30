@@ -135,7 +135,7 @@
 	</section>
 
 	{{!-- Tareas Pendientes --}}
-	<section>
+	<section id="pendingTasks">
 		<h2 class="subtitle" style="display: flex;">
 			<i class="material-icons icon-clients center"
 				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">schedule</i>
@@ -179,8 +179,8 @@
 					{{/if}}
 
 					<td>
-						<a href="/pendientes/editar/{{this._id}}">
-							<i class="material-icons">edit</i>
+						<a href="/tareas/editar/{{this._id}}">
+							<span class="table-icon-container flex justify-center"><img src="/assets/edit-icon.png" alt=""></span>
 						</a>
 					</td>
 
@@ -196,7 +196,7 @@
 		{{/if}}
 
 		{{!-- ADD PENDING TASK FORM --}}
-		<form action="/pendientes" method="POST">
+		<form action="/tareas" method="POST">
 			<div class="grid grid-cols-4 justify-center items-center mb-4">
 				<label for="task-description" class="text-white text-end mr-2">Descripción: </label>
 				<input type="text" name="taskDescription" class="uppercase m-0 w-full col-span-3 sm:col-span-2"
@@ -219,79 +219,3 @@
 {{#each scripts}}
 <script src="{{script}}"></script>
 {{/each}}
-
-
-<script>
-
-	// Mark completed alert
-	const markCompletedButtons = document.querySelectorAll('.mark-completed-button')
-
-	for (let button of markCompletedButtons) {
-		button.addEventListener('click', (e) => {
-
-			const taskId = e.target.id
-			console.log(taskId)
-
-			Swal.fire({
-				title: 'Editar estado',
-				text: 'La tarea pasará a estar completada',
-				icon: 'success',
-				iconColor: '#15A34A',
-				showCancelButton: true,
-				confirmButtonColor: '#15A34A',
-				confirmButtonText: 'Confirmar',
-				cancelButtonText: 'Cancelar',
-
-			})
-				.then((result) => {
-					// Send a POST request to /pendientes/[id]
-					if (result.value) {
-						const xhr = new XMLHttpRequest();
-						xhr.open('POST', `/pendientes/${e.target.id}`, true);
-						xhr.onloadend = function () {
-							// handle the response
-							Swal.fire('El servicio fue editado.', 'success');
-						};
-						xhr.send();
-						location.reload()
-					}
-
-				})
-		})
-	}
-
-	// Mark pending alert
-	const markPendingButtons = document.querySelectorAll('.mark-pending-button')
-
-	for (let button of markPendingButtons) {
-		button.addEventListener('click', (e) => {
-			const taskId = e.target.id
-			console.log(taskId)
-
-			Swal.fire({
-				title: 'Editar estado',
-				text: 'La tarea pasará a estar pendiente',
-				icon: 'warning',
-				iconColor: '#CA8A05',
-				showCancelButton: true,
-				confirmButtonColor: '#CA8A05',
-				confirmButtonText: 'Confirmar',
-				cancelButtonText: 'Cancelar',
-			})
-				.then((result) => {
-					// Send a POST request to /pendientes/[id]
-					if (result.value) {
-						const xhr = new XMLHttpRequest();
-						xhr.open('POST', `/pendientes/${e.target.id}`, true);
-						xhr.onloadend = function () {
-							// handle the response
-							Swal.fire('El servicio fue editado.', 'success');
-							location.reload()
-						};
-						xhr.send();
-					}
-
-				})
-		})
-	}
-</script>

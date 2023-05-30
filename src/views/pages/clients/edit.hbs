@@ -15,26 +15,31 @@
 		</button>
 	</a>
 
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">person</i>
 	<h1 class="title">Editar Cliente</h1>
 
 	<form class="form-container" action="/clientes/{{client._id}}?_method=PUT" method="POST">
 		<h2 class="subtitle">Información</h2>
-		<div class="form-field">
-			<label for="name">Razón social:</label>
-			<input type="text" name="name" value="{{client.name}}" />
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+			<div class="form-field">
+				<label for="name">Razón social:</label>
+				<input type="text" name="name" value="{{client.name}}" />
+			</div>
+			<div class="form-field">
+				<label for="email">E-mail:</label>
+				<input type="email" name="email" value='{{client.email}}' style="text-transform: lowercase;" />
+			</div>
+			<div class="form-field">
+				<label for="phone">Teléfono:</label>
+				<input type="number" name="phone" value='{{client.phone}}' />
+			</div>
+			<div class="form-field">
+				<label for="phone">Número de cliente:</label>
+				<input type="number" name="clientNumber" value="{{client.clientNumber}}" readonly />
+			</div>
 		</div>
-		<div class="form-field">
-			<label for="email">E-mail:</label>
-			<input type="email" name="email" value='{{client.email}}' style="text-transform: lowercase;" />
-		</div>
-		<div class="form-field">
-			<label for="phone">Teléfono:</label>
-			<input type="number" name="phone" value='{{client.phone}}' />
-		</div>
-		<div class="form-field">
-			<label for="phone">Número de cliente:</label>
-			<input type="number" name="clientNumber" value="{{client.clientNumber}}" readonly />
-		</div> <button class="button-success button-form" role="submit">Guardar</button>
+		<button class="button-success button-form" role="submit">Guardar</button>
 	</form>
 
 	{{!-- <button class="button-danger center" onclick="deleteEquipment('{{client._id}}')">Eliminar</button> --}}

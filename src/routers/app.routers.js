@@ -23,7 +23,7 @@ router.use(isAuthorized);
 router.use('/clientes', clientsRoutes);
 router.use('/equipos', refUnitsRoutes);
 router.use('/servicios', servicesRoutes);
-router.use('/pendientes', pendingTasksRoutes);
+router.use('/tareas', pendingTasksRoutes);
 
 router.get('/', (req, res) => {
   const user = req.user;

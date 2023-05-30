@@ -15,37 +15,41 @@
 		</button>
 	</a>
 
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
 	<h1 class="title">Editar equipo</h1>
-	<form class="form-container" action="/equipos/{{refUnit._id}}?_method=PUT" method="POST">
-		<div class="form-field">
-			<label for="client">Nombre de Cliente:</label>
-			<input type="text" readonly name="clientName" value="{{refUnit.client.name}}"
-				style="text-transform: uppercase;" />
-		</div>
-		<div class="form-field">
-			<label for="name">Nº Serie</label>
-			<input type="text" name="serialNumber" value={{refUnit.serialNumber}} />
-		</div>
-		<div class="form-field">
-			<label for="plate-number">Matrícula:</label>
-			<input type="text" id="plate-number" name="plate" value={{refUnit.plate}} style="text-transform: uppercase;" />
-		</div>
-		<div class="form-field">
-			<label for="model">Modelo:</label>
-			<input type="text" name="model" value="{{refUnit.model}}">
-		</div>
-		<div class="form-field">
-			<label for="warrantyDate">Fecha límite de garantía: </label>
-			<input type="date" id="warranty-date" name="warrantyDate" value="{{formatDateValue refUnit.warrantyDate}}" />
-			{{!-- <input type="date" id="warranty-date" name="warrantyDate" value="2022-12-09" /> --}}
-		</div>
-		<div class="form-field" style="display: flex; align-items: center;">
-			<label for="soldByReci" style="display: inline; margin-block:0; margin-right: 1rem;">Venta RECI: </label>
-			{{#if refUnit.soldByReci}}
-			<input type="checkbox" class="checkbox" checked name="soldByReci" id="checkboxByReci">
-			{{else}}
-			<input type="checkbox" class="checkbox" name="soldByReci" id="checkboxByReci">
-			{{/if}}
+	<form class="form-container " action="/equipos/{{refUnit._id}}?_method=PUT" method="POST">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
+			<div class="form-field">
+				<label for="client">Nombre de Cliente:</label>
+				<input type="text" readonly name="clientName" value="{{refUnit.client.name}}"
+					style="text-transform: uppercase;" />
+			</div>
+			<div class="form-field">
+				<label for="name">Nº Serie</label>
+				<input type="text" name="serialNumber" value={{refUnit.serialNumber}} />
+			</div>
+			<div class="form-field">
+				<label for="plate-number">Matrícula:</label>
+				<input type="text" id="plate-number" name="plate" value={{refUnit.plate}} style="text-transform: uppercase;" />
+			</div>
+			<div class="form-field">
+				<label for="model">Modelo:</label>
+				<input type="text" name="model" value="{{refUnit.model}}">
+			</div>
+			<div class="form-field">
+				<label for="warrantyDate">Fecha límite de garantía: </label>
+				<input type="date" id="warranty-date" name="warrantyDate" value="{{formatDateValue refUnit.warrantyDate}}" />
+				{{!-- <input type="date" id="warranty-date" name="warrantyDate" value="2022-12-09" /> --}}
+			</div>
+			<div class="form-field">
+				<label for="soldByReci">Venta RECI: </label>
+				{{#if refUnit.soldByReci}}
+				<input type="checkbox" class="checkbox" checked name="soldByReci" id="checkboxByReci">
+				{{else}}
+				<input type="checkbox" class="checkbox h-4 " name="soldByReci" id="checkboxByReci">
+				{{/if}}
+			</div>
 		</div>
 		<button class="button-success button-form" role="submit">Guardar</button>
 	</form>
