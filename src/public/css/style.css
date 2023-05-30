@@ -346,7 +346,7 @@ section {
 	/* Opera */
 	transform: scale(2);
 	/* padding: 10px; */
-	margin: 0;
+	margin: 0 !important;
 	margin-inline-start: 0.5rem;
 	padding: 0;
 	display: inline;

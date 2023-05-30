@@ -147,13 +147,43 @@
 			<table>
 				<tr>
 					<th>Descripción</th>
-					<th>Completada</th>
+					<th class="text-center">Estado</th>
+					<th>Editar</th>
 				</tr>
+
 				{{#each refUnit.pendingTasks}}
 				<tr>
-					<td>
+					<td class="px-4 uppercase w-10/12">
 						{{this.taskDescription}}
 					</td>
+
+					{{#if this.completed}}
+					<td class="px-4 flex justify-start items-center hover:cursor-pointer mark-pending-button" id="{{this._id}}">
+						<i class="material-icons clients-icon center m-0 text-green-600 hover:text-green-500">
+							{{!-- check_circle --}}
+							check
+						</i>
+						<span class="ml-2 text-green-600 font-medium">
+							Completada
+						</span>
+
+						{{else}}
+					<td class="px-4 flex justify-start items-center hover:cursor-pointer mark-completed-button" id="{{this._id}}">
+						<i class="material-icons clients-icon center m-0 text-yellow-600">
+							warning
+						</i>
+						<span class="ml-2 text-yellow-600 font-medium">
+							Pendiente
+						</span>
+					</td>
+					{{/if}}
+
+					<td>
+						<a href="/pendientes/editar/{{this._id}}">
+							<i class="material-icons">edit</i>
+						</a>
+					</td>
+
 				</tr>
 				{{/each}}
 			</table>
@@ -190,13 +220,78 @@
 <script src="{{script}}"></script>
 {{/each}}
 
-{{!-- Add task --}}
 
 <script>
 
-// 	const newTaskButton = document.querySelector('#new-task');
-// 	newTaskButton.addEventListener('click', (e) => {
-// 		e.preventDefault();
-// 	})
+	// Mark completed alert
+	const markCompletedButtons = document.querySelectorAll('.mark-completed-button')
 
+	for (let button of markCompletedButtons) {
+		button.addEventListener('click', (e) => {
+
+			const taskId = e.target.id
+			console.log(taskId)
+
+			Swal.fire({
+				title: 'Editar estado',
+				text: 'La tarea pasará a estar completada',
+				icon: 'success',
+				iconColor: '#15A34A',
+				showCancelButton: true,
+				confirmButtonColor: '#15A34A',
+				confirmButtonText: 'Confirmar',
+				cancelButtonText: 'Cancelar',
+
+			})
+				.then((result) => {
+					// Send a POST request to /pendientes/[id]
+					if (result.value) {
+						const xhr = new XMLHttpRequest();
+						xhr.open('POST', `/pendientes/${e.target.id}`, true);
+						xhr.onloadend = function () {
+							// handle the response
+							Swal.fire('El servicio fue editado.', 'success');
+						};
+						xhr.send();
+						location.reload()
+					}
+
+				})
+		})
+	}
+
+	// Mark pending alert
+	const markPendingButtons = document.querySelectorAll('.mark-pending-button')
+
+	for (let button of markPendingButtons) {
+		button.addEventListener('click', (e) => {
+			const taskId = e.target.id
+			console.log(taskId)
+
+			Swal.fire({
+				title: 'Editar estado',
+				text: 'La tarea pasará a estar pendiente',
+				icon: 'warning',
+				iconColor: '#CA8A05',
+				showCancelButton: true,
+				confirmButtonColor: '#CA8A05',
+				confirmButtonText: 'Confirmar',
+				cancelButtonText: 'Cancelar',
+			})
+				.then((result) => {
+					// Send a POST request to /pendientes/[id]
+					if (result.value) {
+						const xhr = new XMLHttpRequest();
+						xhr.open('POST', `/pendientes/${e.target.id}`, true);
+						xhr.onloadend = function () {
+							// handle the response
+							Swal.fire('El servicio fue editado.', 'success');
+							location.reload()
+						};
+						xhr.send();
+					}
+
+				})
+		})
+	}
 </script>

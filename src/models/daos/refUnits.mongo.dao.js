@@ -35,7 +35,7 @@ class RefUnitsMongoDao extends MongoContainer {
       .findById(id)
       .populate('client', 'name')
       .populate('services', ['serviceDate', 'orderNumber', 'fixes', 'parts'])
-      .populate('pendingTasks')
+      .populate('pendingTasks', ['taskDescription', 'completed'])
       .lean();
     return refUnit;
   }

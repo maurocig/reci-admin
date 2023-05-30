@@ -1,0 +1,50 @@
+{{>navbar}}
+
+<main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+
+	<h1 class="title">Editar tarea</h1>
+
+	<form class="form-container" action="/pendientes/{{pendingTask._id}}?_method=PUT" method="POST">
+		<div class="form-field">
+			<label for="client">Nombre de Cliente:</label>
+			<input type="text" readonly name="clientName" value="{{pendingTask.client.name}}"
+				style="text-transform: uppercase;" />
+		</div>
+		<div class="form-field">
+			<label for="serialNumber">Nº Serie</label>
+			<input type="text" name="serialNumber" value={{pendingTask.refUnit.serialNumber}} readonly />
+		</div>
+		<div class="form-field">
+			<label for="plate-number">Matrícula:</label>
+			<input type="text" id="plate-number" name="plate" value={{pendingTask.refUnit.plate}}
+				style="text-transform: uppercase;" readonly />
+		</div>
+		<div class="form-field">
+			<label for="model">Modelo:</label>
+			<input type="text" name="model" value="{{pendingTask.refUnit.model}}" readonly>
+		</div>
+		<div class="form-field">
+			<label for="taskDescription">Descripción</label>
+			<input type="text" name="taskDescription" value="{{pendingTask.taskDescription}}" />
+		</div>
+		<div class="form-field">
+			<label for="completed" class="mr-4">Completado: </label>
+			{{#if pendingTask.completed}}
+			<input checked type="checkbox" id="completedCheckbox" class="checkbox" name="completed"
+				style="margin:0 !important;" />
+			{{else}}
+			<input type="checkbox" id="completedCheckbox" class="checkbox " name="completed" />
+			{{/if}}
+		</div>
+
+		<button class="button-success button-form" role="submit">Guardar</button>
+	</form>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>

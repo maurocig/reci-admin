@@ -54,11 +54,9 @@ class ServicesController {
       };
 
       const newServiceId = await servicesDao.save(service);
-      // console.log('id', newServiceId);
 
       // Add Service to refUnit.services array.
       const addedService = await refUnitsDao.addService(service.refUnit, newServiceId);
-      // console.log(addedService);
 
       res.status(200).send(newServiceId);
     } catch (error) {
@@ -126,11 +124,9 @@ class ServicesController {
   }
 
   async deleteService(req, res, next) {
-    console.log('deleteService controller');
     const { id } = req.params;
     try {
       const service = await servicesDao.getById(id);
-      console.log(service);
       if (service.refUnit) {
         await refUnitsDao.removeService(service.refUnit, id);
       }
