@@ -20,10 +20,10 @@
 		<table>
 			<tr class="table-headers-row">
 				<th>Nº Orden</th>
-				<th>Fecha</th>
-				<th>Cliente</th>
 				<th>Matrícula</th>
+				<th>Cliente</th>
 				<th>Modelo</th>
+				<th>Fecha</th>
 				<th>Editar</th>
 			</tr>
 			{{#each services}}
@@ -33,9 +33,9 @@
 						<strong>{{orderNumber}} </strong>
 					</a>
 				</td>
-				<td>
-					<a href="/servicios/{{_id}}">
-						{{formatDate serviceDate}}
+				<td class="center">
+					<a href="/servicios/{{this._id}} ">
+						{{refUnit.plate}}
 					</a>
 				</td>
 				<td>
@@ -45,12 +45,12 @@
 				</td>
 				<td class="center">
 					<a href="/servicios/{{this._id}} ">
-						{{refUnit.plate}}
+						{{refUnit.model}}
 					</a>
 				</td>
-				<td class="center">
-					<a href="/servicios/{{this._id}} ">
-						{{refUnit.model}}
+				<td>
+					<a href="/servicios/{{_id}}">
+						{{formatDate serviceDate}}
 					</a>
 				</td>
 				<td class="center">

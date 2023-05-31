@@ -19,7 +19,7 @@
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
 	<h1 class="title">Editar equipo</h1>
 	<form class="form-container " action="/equipos/{{refUnit._id}}?_method=PUT" method="POST">
-		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-6">
 			<div class="form-field">
 				<label for="client">Nombre de Cliente:</label>
 				<input type="text" readonly name="clientName" value="{{refUnit.client.name}}"
