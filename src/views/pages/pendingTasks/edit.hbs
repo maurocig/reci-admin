@@ -62,14 +62,21 @@
 
 	function deletePendingTask(id) {
 		Swal.fire({
-			title: 'Se borrará la tarea',
+			title: 'La tarea será eliminada',
 			text: 'Esta acción no se puede revertir.',
 			icon: 'warning',
 			iconColor: 'red',
 			showCancelButton: true,
-			confirmButtonColor: '#d33',
-			confirmButtonText: 'Borrar',
+			// confirmButtonColor: '#d33',
+			confirmButtonText: 'Eliminar',
 			cancelButtonText: 'Cancelar',
+			//	cancelButtonText: 'Cancelar',
+			customClass: {
+				confirmButton: 'button-alert-danger',
+				cancelButton: 'button-alert-cancel'
+			},
+			buttonsStyling: false,
+
 		})
 			.then((result) => {
 				if (result.value) {

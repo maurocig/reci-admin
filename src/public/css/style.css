@@ -433,6 +433,23 @@ section {
 	margin: 0;
 }
 
+.button-alert-danger {
+	padding-inline: 1em;
+	padding-block: .5em;
+	background-color: var(--primary-danger) !important;
+	border: solid 2px var(--primary-danger);
+	color: white;
+	margin-right: 1.5rem;
+	min-width: 120px;
+}
+
+.button-alert-cancel {
+	padding-inline: 1.2em;
+	padding-block: .5em;
+	background-color: gray !important;
+	color: white;
+	min-width: 120px;
+}
 
 .go-back {
 	background-color: var(--main-dark-blue);
