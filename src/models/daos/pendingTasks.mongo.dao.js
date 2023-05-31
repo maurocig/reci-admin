@@ -1,5 +1,8 @@
 const MongoContainer = require('../containers/mongo.container');
 const PendingTasksSchema = require('../schemas/PendingTasks.schema');
+const { RefUnitsDao } = require('./app.daos');
+
+const refUnitsDao = new RefUnitsDao();
 
 const collection = 'pendingtasks';
 

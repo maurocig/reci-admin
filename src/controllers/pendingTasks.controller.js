@@ -1,9 +1,7 @@
-const mongoose = require('mongoose');
 const PendingTasksDao = require('../models/daos/pendingTasks.mongo.dao');
 const RefUnitsMongoDao = require('../models/daos/refUnits.mongo.dao');
-const pendingTasksMongoDao = require('../models/daos/pendingTasks.mongo.dao');
 
-const refUnitsMongoDao = new RefUnitsMongoDao();
+const refUnitsDao = new RefUnitsMongoDao();
 
 class PendingTasksController {
   async getPendingTasks(req, res, next) {
@@ -30,9 +28,9 @@ class PendingTasksController {
       const pendingTaskId = await PendingTasksDao.save(pendingTask);
 
       // Add Pending task to refUnit.pendingTasks array.
-      const addedPendingTask = await refUnitsMongoDao.addPendingTask(refUnit, pendingTaskId);
+      const addedPendingTask = await refUnitsDao.addPendingTask(refUnit, pendingTaskId);
 
-      res.redirect(`/equipos/${pendingTask.refUnit}`);
+      res.redirect(`/equipos/${pendingTask.refUnit}#pendingTasks`);
     } catch (error) {
       next(error);
     }
@@ -54,11 +52,29 @@ class PendingTasksController {
     }
   }
 
+  async deletePendingTask(req, res, next) {
+    const { id } = req.params;
+    try {
+      const pendingTask = await PendingTasksDao.getById(id);
+      if (pendingTask.refUnit) {
+        const updatedRefUnit = await refUnitsDao.removePendingTask(pendingTask.refUnit, id);
+        await PendingTasksDao.delete(id);
+        res.status(200).send({ message: 'task successfully deleted' });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async editTaskForm(req, res, next) {
     const { id } = req.params;
     try {
       const pendingTask = await PendingTasksDao.getByIdAndPopulate(id);
-      res.render('pages/pendingTasks/edit', { pendingTask });
+      const scripts = [
+        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+        // { script: 'https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js' },
+      ];
+      res.render('pages/pendingTasks/edit', { pendingTask, scripts });
     } catch (error) {
       next(error);
     }

@@ -48,6 +48,43 @@
 		<button class="button-success button-form" role="submit">Guardar</button>
 	</form>
 
+	<button class="button-danger center" onclick="deletePendingTask('{{pendingTask._id}}')">Eliminar</button>
 </main>
 
+{{#each scripts}}
+<script src="{{script}}"></script>
+{{/each}}
 <script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
+<script>
+	const deleteButton = document.querySelector('.button-danger');
+
+	function deletePendingTask(id) {
+		Swal.fire({
+			title: 'Se borrará la tarea',
+			text: 'Esta acción no se puede revertir.',
+			icon: 'warning',
+			iconColor: 'red',
+			showCancelButton: true,
+			confirmButtonColor: '#d33',
+			confirmButtonText: 'Borrar',
+			cancelButtonText: 'Cancelar',
+		})
+			.then((result) => {
+				if (result.value) {
+					// send a DELETE request to the server
+					const xhr = new XMLHttpRequest();
+					xhr.open('DELETE', '/tareas/' + id, true);
+					xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
+					xhr.onloadend = function () {
+						// handle the response
+						Swal.fire('La tarea fue borrada.', 'success');
+					};
+					xhr.send();
+				}
+			}).then((result) => {
+				setTimeout(() => {
+					window.location = '/equipos/{{pendingTask.refUnit._id}}#pendingTasks'
+				}, 600)
+			});
+	}
+</script>

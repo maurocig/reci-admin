@@ -8,5 +8,6 @@ router.get('/', pendingTasksController.getPendingTasks);
 router.get('/editar/:id', pendingTasksController.editTaskForm);
 router.post('/', pendingTasksController.savePendingTask);
 router.put('/:id', pendingTasksController.updatePendingTask);
+router.delete('/:id', pendingTasksController.deletePendingTask);
 
 module.exports = router;

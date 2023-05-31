@@ -1,0 +1,94 @@
+{{>navbar}}
+
+<main>
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">schedule</i>
+	<h1 class="title">Tareas</h1>
+
+	{{#if pendingTasks}}
+	<div class="table-container">
+		<table>
+			<tr class="table-headers-row">
+				<th>Descripción</th>
+				<th>Cliente</th>
+				<th>Matrícula</th>
+				<th>Estado</th>
+				<th>Añadida</th>
+				{{!-- <th>Editar</th> --}}
+			</tr>
+			{{#each pendingTasks}}
+			<tr>
+				<td>
+					<a href="/equipos/{{this.refUnit._id}}#pendingTasks">
+						<strong class="uppercase">{{this.taskDescription}} </strong>
+					</a>
+				</td>
+				<td>
+					<a href="/equipos/{{this.refUnit._id}}#pendingTasks">
+						{{this.client.name}}
+					</a>
+				</td>
+				<td class="center">
+					<a href="/equipos/{{this.refUnit._id}}#pendingTasks">
+						{{this.refUnit.plate}}
+					</a>
+				</td>
+
+				{{#if this.completed}}
+				<td class="flex justify-start items-center mark-pending-button" id="{{this._id}}">
+					<a href="/equipos/{{this.refUnit._id}}#pendingTasks" class="flex items-center">
+						<i class="material-icons clients-icon center m-0 text-green-600 hover:text-green-500">
+							{{!-- check_circle --}}
+							check
+						</i>
+						<span class="ml-2 text-green-600 font-medium">
+							Completada
+						</span>
+					</a>
+				</td>
+
+				{{else}}
+				<td class="flex justify-start items-center mark-completed-button" id="{{this._id}}">
+					<a href="/equipos/{{this.refUnit._id}}#pendingTasks" class="flex items-center">
+						<i class="material-icons clients-icon center m-0 text-yellow-600">
+							warning
+						</i>
+						<span class="ml-2 text-yellow-600 font-medium">
+							Pendiente
+						</span>
+					</a>
+				</td>
+				{{/if}}
+				</a>
+				<td>
+					<a href="/equipos/{{this.refUnit._id}}#pendingTasks">
+						{{formatDate this.createdAt}}
+					</a>
+				</td>
+
+				{{!-- <td class="center"> --}}
+				{{!-- 	<a href="/tareas/editar/{{this._id}}"> --}}
+				{{!-- 		<span class="table-icon-container flex justify-center"><img src="/assets/edit-icon.png" alt=""></span> --}}
+				{{!-- 	</a> --}}
+				{{!-- </td> --}}
+
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+	{{else}}
+	<h2 class="subtitle center" style="margin-top: 1rem;">No hay tareas registradas.</h2>
+	{{/if}}
+
+</main>
