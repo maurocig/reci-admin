@@ -71,7 +71,7 @@ class PendingTasksController {
     try {
       const pendingTask = await PendingTasksDao.getByIdAndPopulate(id);
       const scripts = [
-        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+        // { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
         // { script: 'https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js' },
       ];
       res.render('pages/pendingTasks/edit', { pendingTask, scripts });
