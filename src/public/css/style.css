@@ -483,7 +483,8 @@ section {
 }
 
 table {
-	background-color: var(--main-light-gray);
+	/* background-color: var(--main-light-gray); */
+	background-color: #E5E7EB;
 	padding: 2em;
 	padding-bottom: 4rem;
 	border-collapse: collapse;
