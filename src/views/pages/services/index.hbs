@@ -12,8 +12,19 @@
 		</button>
 	</a>
 
-	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicios</h1>
+
+	<div class="grid items-center grid-cols-1 mb-4 sm:grid-cols-3">
+		<form action="/servicios/search" method="GET" class="flex items-center gap-2">
+			<input name="q" placeholder="N° de Orden" type="number"
+				class="inline w-3/4 h-10 px-2 m-0 mx-auto mb-0 bg-gray-200" style="margin: 0 !important;">
+			</input>
+			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
+					class="inline text-white material-icons">search</i></button>
+		</form>
+	</div>
 
 	{{#if services}}
 	<div class="table-container">
@@ -55,7 +66,7 @@
 				</td>
 				<td class="center">
 					<a href="/servicios/editar/{{_id}}">
-						<span class="table-icon-container flex justify-center"><img src="/assets/edit-icon.png" alt=""></span>
+						<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
 					</a>
 				</td>
 			</tr>

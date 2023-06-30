@@ -7,7 +7,7 @@ const serviceSchema = new Schema(
   {
     client: { type: Schema.Types.ObjectId, ref: 'clients' },
     refUnit: { type: Schema.Types.ObjectId, ref: 'refUnits' },
-    orderNumber: { type: Number, unique: true, required: true },
+    orderNumber: { type: Number, unique: true, required: true, index: true },
     serviceDate: { type: Date },
     hours: { type: Number },
     ticket: { type: String },
@@ -19,6 +19,7 @@ const serviceSchema = new Schema(
     timestamps: true,
   }
 );
+serviceSchema.index({ '$**': 'text' });
 
 class ServicesMongoDao extends MongoContainer {
   constructor() {
@@ -42,6 +43,15 @@ class ServicesMongoDao extends MongoContainer {
       .populate('refUnit', ['plate', 'model'])
       .lean();
     return services;
+  }
+
+  async findNumber(filter = {}, collectionRef = '') {
+    const documents = await this.model
+      .find(filter, { __v: 0 })
+      .populate('client', 'name')
+      .populate('refUnit', ['plate', 'model'])
+      .lean();
+    return documents;
   }
 }
 

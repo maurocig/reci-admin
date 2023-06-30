@@ -137,6 +137,22 @@ class ServicesController {
       next(error);
     }
   }
+
+  async searchService(req, res, next) {
+    let query = req.query.q;
+    try {
+      if (!query) {
+        const services = await servicesDao.getAllAndPopulate();
+        res.status(HTTP_STATUS.OK).render('pages/services', { services });
+      } else {
+        const services = await servicesDao.findNumber({ orderNumber: { $eq: +query } }, 'refUnit');
+        res.status(HTTP_STATUS.OK).render('pages/services', { services });
+      }
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
 }
 
 module.exports = new ServicesController();
