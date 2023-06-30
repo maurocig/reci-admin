@@ -5,7 +5,7 @@ const collection = 'clients';
 
 const clientSchema = new Schema(
   {
-    name: { type: String, uppercase: true, required: true, unique: true },
+    name: { type: String, uppercase: true, required: true, unique: true, index: 'text' },
     email: { type: String, lowercase: true, required: false, unique: true },
     phone: { type: String || null, required: false },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
@@ -16,6 +16,7 @@ const clientSchema = new Schema(
     timestamps: true,
   }
 );
+clientSchema.index({ '$**': 'text' });
 
 class ClientsMongoDao extends MongoContainer {
   constructor() {

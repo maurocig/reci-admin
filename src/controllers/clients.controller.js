@@ -1,5 +1,6 @@
 const HTTP_STATUS = require('../constants/api.constants');
 const { ClientsDao, RefUnitsDao } = require('../models/daos/app.daos');
+const ClientsMongoDao = require('../models/daos/clients.mongo.dao');
 const { successResponse } = require('../utils/api.utils');
 const getDate = require('../utils/timezone');
 
@@ -67,14 +68,6 @@ class ClientsController {
 
       const newClientId = await clientsDao.save(client);
 
-      /* const response = { */
-      /*   client: client, */
-      /*   id: newClientId, */
-      /*   message: 'Se creó un nuevo cliente.', */
-      /* }; */
-      /* console.log(response); */
-
-      // res.render('pages/success', { response });
       res.redirect(`/clientes/${newClientId}`);
     } catch (error) {
       next(error);
@@ -122,6 +115,22 @@ class ClientsController {
       const updatedClient = await clientsDao.removeRefUnit(clientId, refUnitId);
       const response = successResponse(updatedClient);
       res.status(HTTP_STATUS.OK).json(response);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  async searchClient(req, res, next) {
+    let query = req.query.clientName;
+    try {
+      if (!query) {
+        const clients = await clientsDao.getAll();
+        res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
+      } else {
+        const clients = await clientsDao.find({ $text: { $search: query } });
+        res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
+      }
     } catch (error) {
       console.log(error);
       next(error);

@@ -12,8 +12,20 @@
 		</button>
 	</a>
 
-	<i class="material-icons icon-clients center" style="font-size: 50px; display: block; margin-bottom: .2rem;">group</i>
+	<i class="material-icons icon-clients center"
+		style="font-size: 50px; display: block; margin-bottom: .2rem;">group</i>
 	<h1 class="title">Clientes</h1>
+
+	<div class="grid grid-cols-1 sm:grid-cols-3 mb-4 items-center">
+		<form action="/clientes/search" method="GET" class="flex gap-2 items-center">
+			<input name="clientName" placeholder="Buscar" class="m-0 h-10 w-3/4 bg-gray-200 mx-auto mb-0 px-2 inline"
+				style="margin: 0 !important;">
+			</input>
+			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
+					class="material-icons text-white inline">search</i></button>
+		</form>
+	</div>
+
 	{{#if clients}}
 	<div class="table-container">
 		<table>
@@ -54,7 +66,7 @@
 		</table>
 	</div>
 	{{else}}
-	<h2 class="subtitle center" style="margin-top: 1rem;">No existen clientes registrados.</h2>
+	<h2 class="subtitle center" style="margin-top: 3rem;">No se encontraron clientes.</h2>
 	{{/if}}
 
 	<a href="/clientes/nuevo">

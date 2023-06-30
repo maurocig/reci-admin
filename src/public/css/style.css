@@ -138,18 +138,18 @@ strong {
 	font-weight: 500;
 }
 
-button {
-	border: none;
-	font-size: 1.1rem;
-	padding-inline: 1.8em;
-	padding-block: 0.6em;
-	display: block;
-	margin-top: 1rem;
-	background-color: var(--secondary-light-blue);
-	font-weight: 400;
-	cursor: pointer;
-	color: white;
-}
+/* button { */
+/* 	border: none; */
+/* 	font-size: 1.1rem; */
+/* 	padding-inline: 1.8em; */
+/* 	padding-block: 0.6em; */
+/* 	display: block; */
+/* 	margin-top: 1rem; */
+/* 	background-color: var(--secondary-light-blue); */
+/* 	font-weight: 400; */
+/* 	cursor: pointer; */
+/* 	color: white; */
+/* } */
 
 a {
 	color: var(--main-dark-blue);
