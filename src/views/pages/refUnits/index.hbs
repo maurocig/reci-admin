@@ -17,22 +17,22 @@
 	<h1 class="title">Equipos</h1>
 
 
-	<div class="grid grid-cols-1 sm:grid-cols-3 mb-4 items-center">
-		<form action="/equipos/search" method="GET" class="flex gap-2 items-center">
-			<input name="q" placeholder="Buscar" class="m-0 h-10 w-3/4 bg-gray-200 mx-auto mb-0 px-2 inline"
-				style="margin: 0 !important;">
+	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
+		<form action="/equipos/search" method="GET" class="flex items-center gap-2">
+			<input name="q" placeholder="Matrícula o N° de serie"
+				class="inline w-3/4 h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-full" style="margin: 0 !important;">
 			</input>
 			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
-					class="material-icons text-white inline">search</i></button>
+					class="inline text-white material-icons">search</i></button>
 		</form>
 		<div></div>
 		{{!-- <div> --}}
-		{{!-- 	<label for="refUnitsFilter" class="text-gray-300 align-self-center mr-2 w-100 text-end"> --}}
+		{{!-- 	<label for="refUnitsFilter" class="mr-2 text-gray-300 align-self-center w-100 text-end"> --}}
 		{{!-- 		<strong> --}}
 		{{!-- 			Filtrar: --}}
 		{{!-- 		</strong> --}}
 		{{!-- 	</label> --}}
-		{{!-- 	<select name="refUnitsFilter" id="refUnitsFilter" class="m-0 h-10 w-48 bg-gray-200 mx-auto px-2"> --}}
+		{{!-- 	<select name="refUnitsFilter" id="refUnitsFilter" class="w-48 h-10 px-2 m-0 mx-auto bg-gray-200"> --}}
 		{{!-- 		<option value="all">Todos</option> --}}
 		{{!-- 		<option value="pendingTasks">Tareas pendientes</option> --}}
 		{{!-- 		<option value=""></option> --}}
@@ -76,7 +76,7 @@
 				</td>
 				<td class="center">
 					<a href="/equipos/editar/{{_id}}">
-						<span class="table-icon-container flex justify-center"><img src="/assets/edit-icon.png" alt=""></span>
+						<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
 					</a>
 				</td>
 			</tr>
