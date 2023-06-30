@@ -54,8 +54,8 @@ class MongoContainer {
     return await this.model.deleteOne({ _id: id }); // este método tira un error, por lo que no es necesario agregar nada.
   }
 
-  async find(filter = {}) {
-    const documents = await this.model.find(filter, { __v: 0 }).lean();
+  async find(filter = {}, collectionRef = '') {
+    const documents = await this.model.find(filter, { __v: 0 }).populate(collectionRef).lean();
     return documents;
   }
 }

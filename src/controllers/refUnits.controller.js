@@ -162,7 +162,7 @@ class RefUnitsController {
         const refUnits = await refUnitsDao.getAll();
         res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
       } else {
-        const refUnits = await refUnitsDao.find({ $text: { $search: query } });
+        const refUnits = await refUnitsDao.find({ $text: { $search: query } }, 'client');
         res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
       }
     } catch (error) {
