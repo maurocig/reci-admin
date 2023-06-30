@@ -22,7 +22,6 @@ class RefUnitsController {
     const { id } = req.params;
     try {
       const refUnit = await refUnitsDao.getByIdAndPopulate(id);
-      console.log(refUnit);
       const scripts = [
         { script: '/js/formatDate.js' },
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
@@ -150,6 +149,22 @@ class RefUnitsController {
       const updatedRefUnit = await refUnitsDao.removeService(refUnitId, serviceId);
       const response = successResponse(updatedRefUnit);
       res.status(HTTP_STATUS.OK).json(response);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  async searchRefUnit(req, res, next) {
+    let query = req.query.q;
+    try {
+      if (!query) {
+        const refUnits = await refUnitsDao.getAll();
+        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
+      } else {
+        const refUnits = await refUnitsDao.find({ $text: { $search: query } });
+        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
+      }
     } catch (error) {
       console.log(error);
       next(error);

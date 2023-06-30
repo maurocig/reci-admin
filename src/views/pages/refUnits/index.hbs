@@ -17,22 +17,29 @@
 	<h1 class="title">Equipos</h1>
 
 
-	{{!-- 
-	<div class="grid grid-cols-3 mb-4 items-center">
-		<label for="refUnitsFilter" class="text-gray-300 align-self-center mr-2 w-100 text-end">
-			<strong>
-				Filtrar:
-			</strong>
-		</label>
-		<select name="refUnitsFilter" id="refUnitsFilter" class="m-0 h-10 w-48 bg-gray-200 mx-auto px-2">
-			<option value="all">Todos</option>
-			<option value="pendingTasks">Tareas pendientes</option>
-			<option value=""></option>
-			<option value=""></option>
-		</select>
+	<div class="grid grid-cols-1 sm:grid-cols-3 mb-4 items-center">
+		<form action="/equipos/search" method="GET" class="flex gap-2 items-center">
+			<input name="q" placeholder="Buscar" class="m-0 h-10 w-3/4 bg-gray-200 mx-auto mb-0 px-2 inline"
+				style="margin: 0 !important;">
+			</input>
+			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
+					class="material-icons text-white inline">search</i></button>
+		</form>
 		<div></div>
-	</div> 
-	--}}
+		{{!-- <div> --}}
+		{{!-- 	<label for="refUnitsFilter" class="text-gray-300 align-self-center mr-2 w-100 text-end"> --}}
+		{{!-- 		<strong> --}}
+		{{!-- 			Filtrar: --}}
+		{{!-- 		</strong> --}}
+		{{!-- 	</label> --}}
+		{{!-- 	<select name="refUnitsFilter" id="refUnitsFilter" class="m-0 h-10 w-48 bg-gray-200 mx-auto px-2"> --}}
+		{{!-- 		<option value="all">Todos</option> --}}
+		{{!-- 		<option value="pendingTasks">Tareas pendientes</option> --}}
+		{{!-- 		<option value=""></option> --}}
+		{{!-- 		<option value=""></option> --}}
+		{{!-- 	</select> --}}
+		{{!-- </div> --}}
+	</div>
 
 
 	{{#if refUnits}}
@@ -87,7 +94,6 @@
 		try {
 			const response = await fetch(url)
 			const data = response.text()
-			console.log(data)
 		} catch (err) {
 			console.log(err)
 		}
@@ -99,4 +105,3 @@
 		const data = await fetchData(selectedValue)
 	})
 </script>
-{{!-- <script src="https://cdn.tailwindcss.com"></script> --}}

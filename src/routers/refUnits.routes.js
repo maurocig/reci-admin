@@ -3,6 +3,8 @@ const refUnitsController = require('../controllers/refUnits.controller');
 
 const router = Router();
 
+router.get('/search', refUnitsController.searchRefUnit);
+
 router.get('/', refUnitsController.getRefUnits);
 router.get('/nuevo', (req, res) => res.render('pages/refUnits/new'));
 router.get('/nuevo/:clientId', refUnitsController.newRefUnitForm);
@@ -13,9 +15,6 @@ router.put('/:id', refUnitsController.updateRefUnit);
 router.delete('/:id', refUnitsController.deleteRefUnit);
 
 router.post('/:refUnitId/:serviceId', refUnitsController.addServiceToRefUnit);
-router.delete(
-  '/:refUnitId/:serviceId',
-  refUnitsController.removeServiceFromRefUnit
-);
+router.delete('/:refUnitId/:serviceId', refUnitsController.removeServiceFromRefUnit);
 
 module.exports = router;

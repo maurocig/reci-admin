@@ -24,6 +24,7 @@ const refUnitSchema = new Schema(
     timestamps: true,
   }
 );
+refUnitSchema.index({ '$**': 'text' });
 
 class RefUnitsMongoDao extends MongoContainer {
   constructor() {

@@ -122,7 +122,7 @@ class ClientsController {
   }
 
   async searchClient(req, res, next) {
-    let query = req.query.clientName;
+    let query = req.query.q;
     try {
       if (!query) {
         const clients = await clientsDao.getAll();
