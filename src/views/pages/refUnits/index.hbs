@@ -45,7 +45,7 @@
 	{{#if refUnits}}
 	<div class="table-container">
 		<table>
-			<tr class="table-headers-row">
+			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
 				<th>Matrícula</th>
 				<th>Modelo</th>
 				<th>Cliente</th>
@@ -56,7 +56,9 @@
 			<tr>
 				<td class="center">
 					<a href="/equipos/{{this._id}} ">
-						{{this.plate}}
+						<strong class="text-[--primary-success]">
+							{{this.plate}}
+						</strong>
 					</a>
 				</td>
 				<td>

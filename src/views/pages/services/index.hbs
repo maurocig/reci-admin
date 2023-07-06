@@ -1,11 +1,6 @@
 {{>navbar}}
 
 <main>
-	<a onclick="window.history.back()">
-		<button class="go-back">
-			<i class="material-icons">arrow_back</i>
-		</button>
-	</a>
 	<a href="/">
 		<button class="go-back">
 			<i class="material-icons">home</i>
@@ -13,7 +8,7 @@
 	</a>
 
 	<i class="material-icons icon-clients center"
-		style="font-size: 60px; display: block; margin-bottom: .2rem;">build</i>
+		style="font-size: 50px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicios</h1>
 
 	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
@@ -29,22 +24,21 @@
 	{{#if services}}
 	<div class="table-container">
 		<table>
-			<tr class="table-headers-row">
-				<th>Nº Orden</th>
-				<th>Matrícula</th>
+			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
+				<th class="w-[100px]"># Orden</th>
+				<th class="w-[80px]">Matrícula</th>
 				<th>Cliente</th>
-				<th>Modelo</th>
-				<th>Fecha</th>
-				<th>Editar</th>
+				<th class="w-[80px] hidden sm:table-cell">Modelo</th>
+				<th class="w-[100px] hidden sm:table-cell">Fecha</th>
 			</tr>
 			{{#each services}}
 			<tr>
-				<td>
+				<td class="text-center">
 					<a href="/servicios/{{_id}}">
 						<strong>{{orderNumber}} </strong>
 					</a>
 				</td>
-				<td class="center">
+				<td>
 					<a href="/servicios/{{this._id}} ">
 						{{refUnit.plate}}
 					</a>
@@ -54,21 +48,21 @@
 						{{this.client.name}}
 					</a>
 				</td>
-				<td class="center">
+				<td class="hidden sm:table-cell">
 					<a href="/servicios/{{this._id}} ">
 						{{refUnit.model}}
 					</a>
 				</td>
-				<td>
+				<td class="hidden sm:table-cell">
 					<a href="/servicios/{{_id}}">
 						{{formatDate serviceDate}}
 					</a>
 				</td>
-				<td class="center">
-					<a href="/servicios/editar/{{_id}}">
-						<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
-					</a>
-				</td>
+				{{!-- <td class="center"> --}}
+				{{!-- 	<a href="/servicios/editar/{{_id}}"> --}}
+				{{!-- 		<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span> --}}
+				{{!-- 	</a> --}}
+				{{!-- </td> --}}
 			</tr>
 			{{/each}}
 		</table>
