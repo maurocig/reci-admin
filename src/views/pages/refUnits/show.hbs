@@ -1,5 +1,5 @@
 {{>navbar}}
-<main>
+<main class="mt-[80px]">
 	<a onclick="window.history.back()">
 		<button class="go-back">
 			<i class="material-icons">arrow_back</i>
@@ -7,7 +7,7 @@
 	</a>
 
 	{{!-- Breadcrumbs --}}
-	<div class="inline-flex ml-2 mb-4 items-center place-items-center justify-center text-slate-200">
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
 		<a href="/clientes/{{refUnit.client._id}}">
 			<button class="flex items-center">
 				<span class="button-icon-container">
@@ -16,8 +16,8 @@
 				Cliente
 			</button>
 		</a>
-		<span class="px-2 flex items-center "><i class="material-icons ">chevron_right</i></span>
-		<button class="text-slate-200 cursor-text flex items-center ">
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<button class="flex items-center text-slate-200 cursor-text ">
 			<span class="button-icon-container">
 				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
 			</span>
@@ -27,10 +27,10 @@
 
 	<i class="material-icons icon-clients center"
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
-	<h1 class="title">Información del equipo</h1>
+	<h1 class="title">Equipo {{refUnit.plate}}</h1>
 
-	<section class="mb-4">
-		<div class="table-container" style="width: 500px;">
+	<section class="mx-auto mb-4">
+		<div class="table-container max-w-[600px]" style="">
 			<table>
 				<tr>
 					<th>Nombre Cliente:</th>
@@ -95,10 +95,10 @@
 
 
 
-	<div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2 mb-8">
+	<div class="grid grid-cols-1 gap-8 mb-8 sm:gap-6 md:grid-cols-2">
 		{{!-- SERVICIOS --}}
 		<section>
-			<h2 class="subtitle mt-0" style="display: flex;">
+			<h2 class="mt-0 subtitle" style="display: flex;">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build</i>
 				Servicios
@@ -110,22 +110,24 @@
 					<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
 						<th class="py-2"># Orden</th>
 						<th class="py-2">Fecha</th>
-						<th class="py-2 text-center">Reparaciones</th>
-						<th class="py-2 text-center">Repuestos</th>
+						<th class="hidden py-2 text-center sm:table-cell">Reparaciones</th>
+						<th class="hidden py-2 text-center sm:table-cell">Repuestos</th>
 					</tr>
 					{{#each refUnit.services}}
 					<tr>
 						<td><a href="/servicios/{{this._id}}"><strong>{{this.orderNumber}}</strong></a></td>
 						<td><a href="/servicios/{{this._id}}">{{formatDate this.serviceDate}}</a></td>
-						<td style="text-align: center;"><a href="/servicios/{{this._id}}">{{this.fixes.length}}</a></td>
-						<td style="text-align: center;"><a href="/servicios/{{this._id}}">{{this.parts.length}}</a></td>
+						<td class="hidden sm:table-cell" style="text-align: center;"><a
+								href="/servicios/{{this._id}}">{{this.fixes.length}}</a></td>
+						<td class="hidden sm:table-cell" style="text-align: center;"><a
+								href="/servicios/{{this._id}}">{{this.parts.length}}</a></td>
 					</tr>
 					{{/each}}
 				</table>
 			</div>
 
 			{{else}}
-			<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">No hay servicios registrados en
+			<h3 class="no-elements center" style="font-size: 1.1rem;">No hay servicios registrados en
 				este
 				equipo.</h3>
 			{{/if}}
@@ -140,45 +142,45 @@
 
 		{{!-- Tareas Pendientes --}}
 		<section id="pendingTasks">
-			<h2 class="subtitle mt-0" style="display: flex;">
+			<h2 class="mt-0 subtitle" style="display: flex;">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">schedule</i>
 				Tareas pendientes
 			</h2>
 
 			{{#if refUnit.pendingTasks}}
-			<div class="table-container m-0 mb-3" style="width: 100%; min-width: 300px;">
+			<div class="m-0 mb-3 table-container" style="width: 100%; min-width: 300px;">
 				<table>
 					<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
 						<th class="py-2">Descripción</th>
-						<th class="text-center py-2">Estado</th>
+						<th class="py-2 text-center">Estado</th>
 						<th class="py-2">Editar</th>
 					</tr>
 
 					{{#each refUnit.pendingTasks}}
 					<tr>
-						<td class="px-4 uppercase w-10/12">
+						<td class="w-10/12 px-4 uppercase">
 							{{this.taskDescription}}
 						</td>
 
 						{{#if this.completed}}
-						<td class="px-4 flex justify-start items-center hover:cursor-pointer mark-pending-button"
+						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-pending-button"
 							id="{{this._id}}">
-							<i class="material-icons clients-icon center m-0 text-green-600 hover:text-green-500">
+							<i class="m-0 text-green-600 material-icons clients-icon center hover:text-green-500">
 								{{!-- check_circle --}}
 								check
 							</i>
-							<span class="ml-2 text-green-600 font-medium">
+							<span class="ml-2 font-medium text-green-600">
 								Completada
 							</span>
 
 							{{else}}
-						<td class="px-4 flex justify-start items-center hover:cursor-pointer mark-completed-button"
+						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-completed-button"
 							id="{{this._id}}">
-							<i class="material-icons clients-icon center m-0 text-yellow-600">
+							<i class="m-0 text-yellow-600 material-icons clients-icon center">
 								warning
 							</i>
-							<span class="ml-2 text-yellow-600 font-medium">
+							<span class="ml-2 font-medium text-yellow-600">
 								Pendiente
 							</span>
 						</td>
@@ -186,7 +188,7 @@
 
 						<td>
 							<a href="/tareas/editar/{{this._id}}">
-								<span class="table-icon-container flex justify-center"><img src="/assets/edit-icon.png"
+								<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png"
 										alt=""></span>
 							</a>
 						</td>
@@ -197,17 +199,15 @@
 			</div>
 
 			{{else}}
-			<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">
+			<h3 class="no-elements center" style="font-size: 1.1rem;">
 				No hay tareas pendientes en este equipo.
 			</h3>
 			{{/if}}
 
 			{{!-- ADD PENDING TASK FORM --}}
-			<form action="/tareas" method="POST">
-				<label for="task-description" class="text-slate-200">Nueva
-					tarea:</label>
-				<div class="justify-center items-center mb-4">
-					<input type="text" placeholder="Descripción" name="taskDescription" class="uppercase mt-1 w-full">
+			<form action="/tareas" method="POST" class="flex flex-col items-center w-full">
+				<div class="items-center justify-center mb-4 min-w-[300px] max-w-[400px] ">
+					<input type="text" placeholder="Nueva tarea" name="taskDescription" class="mt-1 uppercase w-grow">
 				</div>
 
 				{{!-- Hidden Inputs --}}
@@ -215,7 +215,7 @@
 				<input type="hidden" value="{{refUnit.client._id}}" name="client">
 
 				<button class="button-success center" type="submit">
-					<i class="material-icons clients-icon center ml-0">schedule</i>
+					<i class="ml-0 material-icons clients-icon center">schedule</i>
 					Agregar
 				</button>
 			</form>

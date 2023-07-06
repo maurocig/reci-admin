@@ -1,6 +1,6 @@
 {{>navbar}}
 
-<main>
+<main class="mt-[80px]">
 	<a onclick="window.history.back()">
 		<button class="go-back">
 			<i class="material-icons">arrow_back</i>
@@ -19,7 +19,7 @@
 
 	<h2 class="subtitle">Información de contacto</h2>
 	<form class="form-container" action="/clientes" method="post">
-		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
+		<div class="grid gap-8 mb-4 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
 				<label for="name">Razón social: <span class="text-red-500">*</span></label>
 				<input type="text" name="name" style="text-transform: uppercase" required />

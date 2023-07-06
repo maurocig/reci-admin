@@ -1,5 +1,5 @@
 {{>navbar}}
-<main>
+<main class="mt-[80px]">
 	<a onclick="/">
 		<button class="go-back">
 			<i class="material-icons">home</i>
@@ -7,7 +7,7 @@
 	</a>
 
 	{{!-- Breadcrumbs --}}
-	<div class="inline-flex ml-2 mb-4 items-center place-items-center justify-center text-slate-200">
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
 		<a href="/clientes/{{service.client._id}}">
 			<button class="flex items-center">
 				<span class="button-icon-container">
@@ -16,17 +16,17 @@
 				Cliente
 			</button>
 		</a>
-		<span class="px-2 flex items-center "><i class="material-icons ">chevron_right</i></span>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
 		<a href="/equipos/{{service.refUnit._id}}">
-			<button class="text-slate-200 flex items-center ">
+			<button class="flex items-center text-slate-200 ">
 				<span class="button-icon-container">
 					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
 				</span>
 				Equipo
 			</button>
 		</a>
-		<span class="px-2 flex items-center "><i class="material-icons ">chevron_right</i></span>
-		<button class="text-slate-200 flex items-center cursor-text ">
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<button class="flex items-center text-slate-200 cursor-text ">
 			<span class="button-icon-container">
 				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">build</i>
 			</span>
@@ -39,14 +39,14 @@
 	<h1 class="title">Servicio #{{service.orderNumber}}</h1>
 
 
-	<div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2 mb-8">
+	<div class="grid grid-cols-1 gap-8 mb-8 sm:gap-6 md:grid-cols-2">
 		<section class="mb-0">
-			<h2 class="subtitle flex mt-0">
+			<h2 class="flex mt-0 subtitle">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build</i>
 				Este servicio
 			</h2>
-			<div class="table-container mb-0" style="">
+			<div class="mb-0 table-container" style="">
 				<table>
 					<tr>
 						<th>Nº Orden:</th>
@@ -65,14 +65,14 @@
 						{{#if service.ticket}}
 						<td>{{service.ticket}}</td>
 						{{else}}
-						<td class="text-red-700 font-bold">No ingresado</td>
+						<td class="font-bold text-red-700">No ingresado</td>
 						{{/if}}
 					</tr>
 					<tr>
 						<th>En garantía:</th>
 						<td>
 							{{#if service.isInWarranty}}
-							<span class="text-green-700 font-bold">
+							<span class="font-bold text-green-700">
 								Sí
 							</span>
 							{{else}}
@@ -87,12 +87,12 @@
 		</section>
 
 		<section class="mb-0">
-			<h2 class="subtitle flex mt-0">
+			<h2 class="flex mt-0 subtitle">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">ac_unit</i>
 				Información del equipo
 			</h2>
-			<div class="table-container mb-0">
+			<div class="mb-0 table-container">
 				<table>
 					<tr>
 						<th>Nombre Cliente:</th>
@@ -144,14 +144,14 @@
 	<div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2">
 		{{!-- Fixes --}}
 		<section class="mb-0">
-			<h2 class="subtitle flex mt-0">
+			<h2 class="flex mt-0 subtitle">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">healing</i>
 				Reparaciones
 			</h2>
 
 			{{#if service.fixes}}
-			<div class="table-container mb-0" style="width: 100%; min-width: 300px;">
+			<div class="mb-0 table-container" style="width: 100%; min-width: 300px;">
 				<table>
 					<tr>
 						<th>Descripción</th>
@@ -172,7 +172,7 @@
 		</section>
 
 		<section class="mb-0">
-			<h2 class="subtitle flex mt-0">
+			<h2 class="flex mt-0 subtitle">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build_circle</i>
 				Repuestos
@@ -204,7 +204,7 @@
 	</div>
 
 	<a href="/servicios/editar/{{service._id}}">
-		<button class="button-new mt-4">
+		<button class="mt-4 button-new">
 			<i class="material-icons clients-icon center ">edit</i>
 			Editar
 		</button>

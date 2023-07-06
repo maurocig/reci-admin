@@ -1,6 +1,6 @@
 {{>navbar}}
 
-<main>
+<main class="mt-[80px]">
 	<a onclick="window.history.back()">
 		<button class="go-back">
 			<i class="material-icons">arrow_back</i>
@@ -12,7 +12,7 @@
 	<h1 class="title">Editar tarea</h1>
 
 	<form class="form-container " action="/tareas/{{pendingTask._id}}?_method=PUT" method="POST">
-		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
+		<div class="grid gap-8 mb-4 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
 				<label for="client">Nombre de Cliente:</label>
 				<input type="text" readonly name="clientName" value="{{pendingTask.client.name}}"
@@ -38,9 +38,9 @@
 			<div class="form-field">
 				<label for="completed" class="mr-4">Completada: </label>
 				{{#if pendingTask.completed}}
-				<input checked type="checkbox" id="completedCheckbox" class="h-8 w-full" name="completed" />
+				<input checked type="checkbox" id="completedCheckbox" class="w-full h-8" name="completed" />
 				{{else}}
-				<input type="checkbox" id="completedCheckbox" class="h-8 w-full " name="completed" />
+				<input type="checkbox" id="completedCheckbox" class="w-full h-8 " name="completed" />
 				{{/if}}
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 {{>navbar}}
 
-<main>
+<main class="mt-[80px]">
 	<a onclick="window.history.back()">
 		<button class="go-back">
 			<i class="material-icons">arrow_back</i>
@@ -9,7 +9,7 @@
 
 	<h1 class="title">Nuevo equipo</h1>
 	<form class="form-container" action="/equipos" method="post" id="form-new-refunit">
-		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
+		<div class="grid gap-8 mb-4 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
 				<label for="client">Nombre de Cliente:</label>
 				<input type="text" name="clientName" value="{{clientName}}" style="text-transform: uppercase;" readonly />
@@ -20,7 +20,8 @@
 			</div>
 			<div class="form-field">
 				<label for="name">Nº Serie: (*)</label>
-				<input type="text" name="serialNumber" placeholder="0000000000" id="serial-number" maxlength="10" required />
+				<input type="text" name="serialNumber" placeholder="0000000000" id="serial-number" maxlength="10"
+					required />
 			</div>
 			<div class="form-field">
 				<label for="plate-number">Matrícula: (*)</label>

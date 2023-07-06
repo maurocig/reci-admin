@@ -1,5 +1,5 @@
 {{>navbar}}
-<main>
+<main class="mt-[80px]">
 	<a onclick="window.history.back()">
 		<button class="go-back">
 			<i class="material-icons">arrow_back</i>
@@ -15,8 +15,8 @@
 	</a>
 
 	{{!-- Breadcrumbs --}}
-	<div class="inline-flex ml-2 mb-4 items-center place-items-center justify-center text-slate-200">
-		<span class="px-2 flex items-center "><i class="material-icons ">chevron_right</i></span>
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
 		<button class="flex items-center cursor-text">
 			<span class="button-icon-container">
 				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
@@ -27,127 +27,121 @@
 
 	<i class="material-icons icon-clients center"
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">person</i>
-	<h1 class="title">Detalle del cliente</h1>
+	<h1 class="title">Cliente #{{client.clientNumber}}</h1>
 
-	<section>
-		<h2 class="subtitle" style="display: flex;">
-			<i class="material-icons icon-clients center"
-				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">info_outline</i>
-			Información
-		</h2>
+	<div class="grid grid-cols-1 gap-8 mb-8 sm:gap-6 md:grid-cols-2">
+		<section class="mt-0 mb-0">
+			<h2 class="mt-0 subtitle" style="display: flex;">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">info_outline</i>
+				Información
+			</h2>
 
-		<div class="table-container">
-			<table>
-				<tr>
-					<th>R. Social</th>
-					<td>
-						<strong>{{client.name}} </strong>
-					</td>
-				</tr>
-				<tr>
-					<th>Nº Cliente</th>
-					<td>
-						<strong>
-							{{client.clientNumber}}
-						</strong>
-					</td>
-				</tr>
-				<tr>
-					<th>E-mail</th>
-					<td>
-						{{client.email}}
-					</td>
-				</tr>
-				<tr>
-					<th>Teléfono</th>
-					<td>
-						{{#if client.phone}}
-						{{client.phone}}
-						{{else}}
-						-
-						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Equipos</th>
-					<td>
-						{{client.refUnits.length}}
-					</td>
-				</tr>
-			</table>
-		</div>
-		<a href="/clientes/editar/{{client._id}}">
-			<button class="button-new">
-				<i class="material-icons clients-icon center">edit</i>
-				Editar
-			</button>
-		</a>
-	</section>
-
-	<section>
-		<h2 class="subtitle" style="display: flex;">
-			<i class="material-icons icon-clients center"
-				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">ac_unit</i>
-			Equipos
-		</h2>
-
-		{{#if refUnits}}
-		<div class="table-container">
-			<table>
-				<tr class="table-headers-row bg-slate-200 hover:bg-slate-300/80">
-					<th>N° Serie</th>
-					<th>Matrícula</th>
-					<th>Modelo</th>
-					<th class="center">Servicios</th>
-					<th class="center">Editar</th>
-				</tr>
-				{{#each refUnits}}
-				<tr>
-					<td>
-						<a href="/equipos/{{this._id}} ">
+			<div class="table-container">
+				<table>
+					<tr>
+						<th>R. Social</th>
+						<td>
+							<strong>{{client.name}} </strong>
+						</td>
+					</tr>
+					<tr>
+						<th>Nº Cliente</th>
+						<td>
 							<strong>
-								{{this.serialNumber}}
+								{{client.clientNumber}}
 							</strong>
-						</a>
-					</td>
-					<td>
-						<a href="/equipos/{{this._id}} ">
-							{{this.plate}}
-						</a>
-					</td>
-					<td>
-						<a href="/equipos/{{this._id}} ">
-							{{this.model}}
-						</a>
-					</td>
-					<td class="center">
-						<a href="/equipos/{{this._id}}">
-							{{this.services.length}}
-						</a>
-					</td>
-					<td>
-						<a href="/equipos/editar/{{this._id}}" class="center">
-							<span class="table-icon-container ">
-								<img src="/assets/edit-icon.png" alt="">
-							</span>
-						</a>
-					</td>
-				</tr>
-				{{/each}}
-			</table>
-		</div>
-		{{else}}
-		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">
-			Este cliente no tiene equipos registrados.
-		</h3>
-		{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>E-mail</th>
+						<td>
+							{{client.email}}
+						</td>
+					</tr>
+					<tr>
+						<th>Teléfono</th>
+						<td>
+							{{#if client.phone}}
+							{{client.phone}}
+							{{else}}
+							-
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Equipos</th>
+						<td>
+							{{client.refUnits.length}}
+						</td>
+					</tr>
+				</table>
+			</div>
+			<a href="/clientes/editar/{{client._id}}">
+				<button class="button-new">
+					<i class="material-icons clients-icon center">edit</i>
+					Editar
+				</button>
+			</a>
+		</section>
 
-		<a href="/equipos/nuevo/{{client._id}}">
-			<button class="button-success" style="margin-inline: auto;">
-				<i class="material-icons clients-icon center">add</i>
-				Agregar Equipo
-			</button>
-		</a>
+		<section class="mt-0">
+			<h2 class="mt-0 subtitle" style="display: flex;">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">ac_unit</i>
+				Equipos
+			</h2>
 
-	</section>
+			{{#if refUnits}}
+			<div class="table-container">
+				<table>
+					<tr class="table-headers-row bg-slate-200 hover:bg-slate-300/80">
+						<th class="py-2">N° Serie</th>
+						<th class="py-2">Matrícula</th>
+						<th class="py-2">Modelo</th>
+						<th class="py-2 center">Servicios</th>
+					</tr>
+					{{#each refUnits}}
+					<tr>
+						<td>
+							<a href="/equipos/{{this._id}} ">
+								<strong>
+									{{this.serialNumber}}
+								</strong>
+							</a>
+						</td>
+						<td>
+							<a href="/equipos/{{this._id}} ">
+								{{this.plate}}
+							</a>
+						</td>
+						<td>
+							<a href="/equipos/{{this._id}} ">
+								{{this.model}}
+							</a>
+						</td>
+						<td class="center">
+							<a href="/equipos/{{this._id}}">
+								{{this.services.length}}
+							</a>
+						</td>
+					</tr>
+					{{/each}}
+				</table>
+			</div>
+			{{else}}
+			<h3 class="no-elements center" style="font-size: 1.1rem;">
+				Este cliente no tiene equipos registrados.
+			</h3>
+			{{/if}}
+
+			<a href="/equipos/nuevo/{{client._id}}">
+				<button class="button-success" style="margin-inline: auto;">
+					<i class="material-icons clients-icon center">add</i>
+					Agregar Equipo
+				</button>
+			</a>
+
+		</section>
+	</div>
 </main>

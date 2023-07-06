@@ -45,12 +45,11 @@ nav {
 	margin-inline: auto;
 	padding-inline: var(--margin-sm);
 	max-width: 1000px;
-	padding-block: var(--margin-sm);
-	height: 75px;
+	height: 70px;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	border-radius: 0;
-	margin-bottom: 1rem;
 }
 
 .nav-links-container {
@@ -82,10 +81,12 @@ nav {
 
 .logo-container {
 	height: 100%;
+	display: flex;
+	align-items: center;
 }
 
 .logo-container img {
-	height: 100%;
+	/* height: 100%; */
 	max-width: 130px;
 }
 
@@ -483,8 +484,8 @@ section {
 }
 
 table {
-	/* background-color: var(--main-light-gray); */
-	background-color: #F3F4F6;
+	background-color: var(--main-light-gray);
+	background-color: #f3f4f6f1;
 	padding: 2em;
 	padding-bottom: 4rem;
 	border-collapse: collapse;
