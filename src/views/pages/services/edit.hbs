@@ -23,8 +23,7 @@
 		</button>
 	</a>
 
-	<i class="material-icons icon-clients center"
-		style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+	<i class="material-icons icon-clients center mb-1 mt-4 block" style="font-size: 60px;">build</i>
 
 	{{!-- INFORMACIÓN --}}
 	<h1 class="title">Editar servicio</h1>
@@ -36,8 +35,7 @@
 			</div>
 			<div class="form-field">
 				<label for="refUnitInput">Nº Serie:</label>
-				<input type="string" name="serialNumber" id="refUnitInput" value="{{service.refUnit.serialNumber}}"
-					readonly />
+				<input type="string" name="serialNumber" id="refUnitInput" value="{{service.refUnit.serialNumber}}" readonly />
 			</div>
 			<div class="form-field">
 				<label for="refUnit">Modelo:</label>
@@ -68,17 +66,101 @@
 				{{#if service.isInWarranty}}
 				<input checked type="checkbox" class="h-8 mt-4 w-fill" name="isInWarranty" id="isInWarrantyInput">
 				{{else}}
-				<input type="checkbox" class="checkbox" name="isInWarranty" id="isInWarranty">
+				<input type="checkbox" class="checkbox" name="isInWarranty" id="isInWarrantyInput">
 				{{/if}}
 			</div>
 		</div>
+
+		{{!-- REPARACIONES --}}
+		<section>
+			<h2 class="flex mt-0 subtitle" style="margin-bottom: .5rem !important;">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">healing</i>
+				Reparaciones
+			</h2>
+
+			{{#each service.fixes}}
+			<div class="fixes-row">
+				<div class="item-number"> #{{addNumber @index 1}}. </div>
+				<input type="text" value="{{this.fixName}}" id="fixInput{{addNumber @index 1}}" class="uppercase font-bold ">
+			</div>
+			{{/each}}
+
+			<div class="fixes-row">
+				<div class="item-number">
+					#{{addNumber service.fixes.length 1}}. </div>
+				<input type="text" id="fixInput{{addNumber service.fixes.length 1}}" placeholder="Descripción"
+					class="uppercase font-bold ">
+			</div>
+			<div class="fixes-row">
+				<div class="item-number">
+					#{{addNumber service.fixes.length 2}}. </div>
+				<input type="text" id="fixInput{{addNumber service.fixes.length 2}}" placeholder="Descripción"
+					class="uppercase font-bold ">
+			</div>
+			<div class="fixes-row">
+				<div class="item-number">
+					#{{addNumber service.fixes.length 3}}. </div>
+				<input type="text" id="fixInput{{addNumber service.fixes.length 3}}" placeholder="Descripción"
+					class="uppercase font-bold ">
+			</div>
+		</section>
+
+		{{!-- PARTES --}}
+		<section>
+			<h2 class="flex subtitle" style="margin-bottom: .5rem !important;">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build</i>
+				Repuestos
+			</h2>
+
+			{{#each service.parts}}
+			<div class="parts-row flex gap-2">
+				<div class="item-number"> #{{addNumber @index 1}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber @index 1 }}" value="{{this.partNumber}}"
+					placeholder="Código" />
+				<input type="text" name="partName1" id="partName{{addNumber @index 1 }}" value="{{this.partName}}"
+					placeholder="Nom. Repuesto" />
+				<input type="number" name="partQty1" id="partQty{{addNumber @index 1 }}" value="{{this.partQty}}"
+					class="max-w-[80px]" placeholder="Cant.">
+			</div>
+			{{/each}}
+
+			<div class="parts-row flex gap-2">
+				<div class="item-number"> #{{addNumber service.parts.length 1}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 1 }}"
+					placeholder="Código" />
+				<input type="text" name="partName1" id="partName{{addNumber service.parts.length 1 }}"
+					placeholder="Nom. Repuesto" />
+				<input type="number" name="partQty1" id="partQty{{addNumber service.parts.length 1 }}" class="max-w-[80px]"
+					placeholder="Cant.">
+			</div>
+			<div class="parts-row flex gap-2">
+				<div class="item-number"> #{{addNumber service.parts.length 2}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 2 }}"
+					placeholder="Código" />
+				<input type="text" id="partName{{addNumber service.parts.length 2 }}" placeholder="Nom. Repuesto" />
+				<input type="number" id="partQty{{addNumber service.parts.length 2 }}" class="max-w-[80px]" placeholder="Cant.">
+			</div>
+			<div class="parts-row flex gap-2">
+				<div class="item-number"> #{{addNumber service.parts.length 3}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 3 }}"
+					placeholder="Código" />
+				<input type="text" id="partName{{addNumber service.parts.length 3 }}" placeholder="Nom. Repuesto" />
+				<input type="number" id="partQty{{addNumber service.parts.length 3 }}" class="max-w-[80px]" placeholder="Cant.">
+			</div>
+
+		</section>
 		<button type="submit" class="button-form button-success">Guardar</button>
+
+		{{!-- HIDDEN --}}
+		<input type="text" name="refUnit" id="refUnitId" value="{{service.refUnit._id}}" hidden>
+		<input type="text" name="client" id="clientId" value="{{service.client._id}}" hidden>
+		<input type="text" name="service" id="serviceId" value="{{service._id}}" hidden>
 	</form>
 
 	<button class="button-danger center" onclick="deleteService('{{service._id}}')">Eliminar</button>
 </main>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
 
@@ -87,33 +169,34 @@
 {{/each}}
 
 <script>
-	const deleteButton = document.querySelector('.button-danger');
 
-	function deleteService(id) {
-		console.log(`id: ${id}`);
-		Swal.fire({
-			title: 'Se borrará el servicio',
-			text: 'Esta acción no se puede revertir.',
-			icon: 'warning',
-			iconColor: 'red',
-			showCancelButton: true,
-			confirmButtonColor: '#d33',
-			confirmButtonText: 'Borrar',
-			cancelButtonText: 'Cancelar',
-		})
-			.then((result) => {
-				console.log(result.value);
-				if (result.value) {
-					// send a DELETE request to the server
-					const xhr = new XMLHttpRequest();
-					xhr.open('DELETE', '/servicios/' + id, true);
-					xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
-					xhr.onloadend = function () {
-						// handle the response
-						Swal.fire('El servicio fue borrado.', 'success');
-					};
-					xhr.send();
-				}
-			});
-	}
+	/* const deleteButton = document.querySelector('.button-danger'); */
+	/* function deleteService(id) { */
+	/* 	console.log(`id: ${id}`); */
+	/* 	Swal.fire({ */
+	/* 		title: 'Se borrará el servicio', */
+	/* 		text: 'Esta acción no se puede revertir.', */
+	/* 		icon: 'warning', */
+	/* 		iconColor: 'red', */
+	/* 		showCancelButton: true, */
+	/* 		confirmButtonColor: '#d33', */
+	/* 		confirmButtonText: 'Borrar', */
+	/* 		cancelButtonText: 'Cancelar', */
+	/* 	}) */
+	/* 		.then((result) => { */
+	/* 			console.log(result.value); */
+	/* 			if (result.value) { */
+	/* 				// send a DELETE request to the server */
+	/* 				const xhr = new XMLHttpRequest(); */
+	/* 				xhr.open('DELETE', '/servicios/' + id, true); */
+	/* 				xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE'); */
+	/* 				xhr.onloadend = function () { */
+	/* 					// handle the response */
+	/* 					Swal.fire('El servicio fue borrado.', 'success'); */
+	/* 				}; */
+	/* 				xhr.send(); */
+	/* 			} */
+	/* 		}); */
+	/* } */
+
 </script>

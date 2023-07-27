@@ -26,7 +26,7 @@ app.engine(
     layoutsDir: __dirname + '/views/layouts',
     partialsDir: __dirname + '/views/partials',
     extname: 'hbs',
-    helpers: require('./public/js/formatDate.js'),
+    helpers: require('./public/js/hbHelpers.js'),
   })
 );
 

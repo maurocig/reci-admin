@@ -12,7 +12,6 @@ function deleteService(id) {
     confirmButtonText: 'Borrar',
     cancelButtonText: 'Cancelar',
   }).then((result) => {
-    console.log(result.value);
     if (result.value) {
       // send a DELETE request to the server
       const xhr = new XMLHttpRequest();

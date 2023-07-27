@@ -126,6 +126,10 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 
+::-webkit-calendar-picker-indicator {
+	filter: invert(1);
+}
+
 input[readonly], select[readonly] {
 	color: var(--primary-success-brighter);
 	/* border: solid 1px var(--secondary-light-gray); */
@@ -272,6 +276,16 @@ section {
 	width: 100%;
 }
 
+.parts-row input {
+	color: var(--primary-success-brighter);
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.parts-row input::placeholder {
+	font-weight: 200;
+}
+
 #partsInputsContainer {
 	width: 100%;
 }
@@ -304,6 +318,13 @@ section {
 .fixes-row input {
 	/* margin: .3rem; */
 	width: 100%;
+	color: var(--primary-success-brighter);
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.fixes-row input::placeholder {
+	font-weight: 200;
 }
 
 .item-number {

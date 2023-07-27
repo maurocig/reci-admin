@@ -83,7 +83,7 @@ class ServicesController {
     const service = await servicesDao.getByIdAndPopulate(serviceId);
     const scripts = [
       { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-      // { script: '/js/newServiceFormHandler.js' },
+      { script: '/js/editServiceFormHandler.js' },
       { script: '/js/deleteServiceHandler.js' },
       { script: '/js/formatDate.js' },
     ];
@@ -92,10 +92,10 @@ class ServicesController {
 
   async updateService(req, res, next) {
     const { id } = req.params;
-    const { orderNumber, serviceDate, hours, ticket, isInWarranty } = req.body;
+    const { orderNumber, serviceDate, hours, ticket, isInWarranty, parts, fixes } = req.body;
 
     const oldService = await servicesDao.getById(id);
-    const { client, refUnit, parts, fixes } = oldService;
+    const { client, refUnit } = oldService;
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
     const isInWarrantyBoolean = Boolean(isInWarranty);
@@ -115,9 +115,9 @@ class ServicesController {
         fixes,
       };
 
-      await servicesDao.update(id, updatedService);
+      const response = await servicesDao.update(id, updatedService);
 
-      res.redirect(`/servicios/${id}`);
+      res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
       next(error);
     }
