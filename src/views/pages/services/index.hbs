@@ -7,8 +7,7 @@
 		</button>
 	</a>
 
-	<i class="material-icons icon-clients center"
-		style="font-size: 50px; display: block; margin-bottom: .2rem;">build</i>
+	<i class="material-icons icon-clients center" style="font-size: 50px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicios</h1>
 
 	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
@@ -58,17 +57,40 @@
 						{{formatDate serviceDate}}
 					</a>
 				</td>
-				{{!-- <td class="center"> --}}
-				{{!-- 	<a href="/servicios/editar/{{_id}}"> --}}
-				{{!-- 		<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span> --}}
-				{{!-- 	</a> --}}
-				{{!-- </td> --}}
 			</tr>
 			{{/each}}
 		</table>
 	</div>
+
+
 	{{else}}
 	<h2 class="subtitle center" style="margin-top: 1rem;">No hay servicios registrados.</h2>
 	{{/if}}
+
+	{{!-- Paginación --}}
+	<div class="flex space-x-8 w-full justify-center mb-4">
+		<a id="previous" class="text-green-400 bold border border-green-400 px-4 py-2">
+			< Anterior </a>
+				<a id="next" role="link" class="text-green-400 bold border border-green-400 px-4 py-2">Siguiente ></a>
+	</div>
+
+	<script>
+		const urlParams = new URLSearchParams(window.location.search)
+		const page = parseInt(urlParams.get('p') || 0)
+
+		const previousLink = document.querySelector('#previous');
+		const nextLink = document.querySelector('#next');
+
+		const previousButton = document.querySelector('#previous');
+
+		previousLink.setAttribute('href', `/servicios?p=${page - 1}`)
+		nextLink.setAttribute('href', `/servicios?p=${page + 1}`)
+
+		if (page === 0) {
+			previousButton.setAttribute('aria-disabled', 'true')
+			previousButton.classList.add('disable-links', 'text-gray-400', 'border-gray-400')
+			previousLink.classList.add('text-gray-500 border-gray-500')
+		}
+	</script>
 
 </main>

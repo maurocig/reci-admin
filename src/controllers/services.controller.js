@@ -11,7 +11,9 @@ const refUnitsDao = new RefUnitsDao();
 class ServicesController {
   async getServices(req, res, next) {
     try {
-      const services = await servicesDao.getAllAndPopulate();
+      const page = req.query.p || 0;
+
+      const services = await servicesDao.getAllAndPopulate(page);
       const scripts = [{ script: '/js/formatDate.js' }];
 
       res.render('pages/services/index.hbs', { services, scripts });

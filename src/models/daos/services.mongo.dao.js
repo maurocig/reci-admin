@@ -35,10 +35,17 @@ class ServicesMongoDao extends MongoContainer {
     return service;
   }
 
-  async getAllAndPopulate() {
+  async getAllAndPopulate(page) {
+    const servicesPerPage = 30;
+
     const services = await this.model
       .find({})
       .sort({ serviceDate: 'desc' })
+
+      // pagination
+      .skip(page * servicesPerPage)
+      .limit(servicesPerPage)
+
       .populate('client', 'name')
       .populate('refUnit', ['plate', 'model'])
       .lean();
