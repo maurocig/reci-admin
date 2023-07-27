@@ -39,6 +39,7 @@ body {
 nav {
 	background-color: var(--main-light-gray);
 	border-radius: 0;
+	z-index: 9999;
 }
 
 .nav-content {
