@@ -1,0 +1,75 @@
+const form = document.querySelector('form');
+
+const serviceId = document.getElementById('serviceId');
+
+const clientId = document.getElementById('clientId');
+const refUnitId = document.getElementById('refUnitId');
+const orderNumberInput = document.getElementById('orderNumberInput');
+const serviceDateInput = document.getElementById('serviceDateInput');
+const hoursInput = document.getElementById('hoursInput');
+const ticketInput = document.getElementById('ticketInput');
+const isInWarranty = document.getElementById('isInWarrantyInput');
+
+const parts = [];
+const fixes = [];
+
+const partNumberInputs = document.querySelectorAll('[id^="partNumber"]');
+const partNameInputs = document.querySelectorAll('[id^="partName"]');
+const partQtyInputs = document.querySelectorAll('[id^="partQty"]');
+const fixNameInputs = document.querySelectorAll('[id^="fixInput"]');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Iterate through the input elements and create an object for each one
+  for (let i = 0; i < partNumberInputs.length; i++) {
+    const partNumber = partNumberInputs[i].value;
+    const partName = partNameInputs[i].value.toUpperCase();
+    const partQty = partQtyInputs[i].value;
+
+    if (partNumber && partName && partQty) {
+      parts.push({ partNumber, partName, partQty });
+    }
+  }
+
+  // Iterate through the input elements and create an object for each one
+  for (let i = 0; i < fixNameInputs.length; i++) {
+    const fixName = fixNameInputs[i].value.toUpperCase();
+
+    if (fixName) {
+      fixes.push({ fixName });
+    }
+  }
+
+  const service = {
+    client: clientId.value,
+    refUnit: refUnitId.value,
+    orderNumber: +orderNumberInput.value,
+    serviceDate: serviceDateInput.value,
+    hours: +hoursInput.value,
+    ticket: ticketInput.value,
+    isInWarranty: isInWarranty.checked,
+    parts,
+    fixes,
+  };
+
+  // Send Form
+  const xhr = new XMLHttpRequest();
+  xhr.open('PUT', `/servicios/${serviceId.value}`, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onloadend = function () {
+    // handle the response
+    Swal.fire({
+      title: 'El equipo se editó correctamente.',
+      icon: 'check',
+      iconColor: 'green',
+      confirmButtonColor: 'green',
+      confirmButtonText: 'Ir al servicio',
+    }).then((result) => {
+      if (result.value) {
+        window.location = `/servicios/${serviceId.value}`;
+      }
+    });
+  };
+  xhr.send(JSON.stringify(service));
+});
