@@ -69,10 +69,14 @@
 
 	{{!-- Paginación --}}
 	<div class="flex space-x-8 w-full justify-center mb-4">
-		<a id="previous" class="text-green-400 bold border border-green-400 px-4 py-2">
-			< Anterior </a>
-				<a id="next" role="link" class="text-green-400 bold border border-green-400 px-4 py-2">Siguiente ></a>
+		<a id="previous" role="link" class="text-green-400 bold border border-green-400 px-4 py-2">
+			Anterior </a>
+		<a id="next" role="link" class="text-green-400 bold border border-green-400 px-4 py-2">
+			Siguiente
+		</a>
 	</div>
+	{{!-- hidden --}}
+	<input type="text" value="{{services.length}}" id="services-length">
 
 	<script>
 		const urlParams = new URLSearchParams(window.location.search)
@@ -81,15 +85,20 @@
 		const previousLink = document.querySelector('#previous');
 		const nextLink = document.querySelector('#next');
 
-		const previousButton = document.querySelector('#previous');
-
 		previousLink.setAttribute('href', `/servicios?p=${page - 1}`)
 		nextLink.setAttribute('href', `/servicios?p=${page + 1}`)
 
 		if (page === 0) {
-			previousButton.setAttribute('aria-disabled', 'true')
-			previousButton.classList.add('disable-links', 'text-gray-400', 'border-gray-400')
-			previousLink.classList.add('text-gray-500 border-gray-500')
+			previousLink.setAttribute('aria-disabled', 'true')
+			previousLink.classList.add('text-gray-500', 'border-gray-500')
+		}
+
+		const servicesLength = document.querySelector('#services-length')
+		console.log(+servicesLength.value)
+
+		if (+servicesLength.value < 30) {
+			nextLink.setAttribute('aria-disabled', 'true');
+			nextLink.classList.add('disable-links', 'text-gray-400', 'border-gray-400');
 		}
 	</script>
 
