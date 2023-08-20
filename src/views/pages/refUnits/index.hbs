@@ -85,25 +85,65 @@
 			{{/each}}
 		</table>
 	</div>
+
 	{{else}}
 	<h2 class="subtitle center" style="margin-top: 1rem;">No hay equipos registrados.</h2>
 	{{/if}}
 
-</main>
-<script>
+	{{!-- Paginación --}}
+	<div class="flex space-x-8 w-full justify-center mb-4">
+		<a id="previous" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
+			<i class="material-icons inline">chevron_left</i>
+			Anterior
+		</a>
+		<a id="next" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
+			Siguiente
+			<i class="material-icons inline">chevron_right</i>
+		</a>
+	</div>
+	{{!-- hidden --}}
+	<input type="text" hidden value="{{refUnits.length}}" id="refUnits-length">
 
-	async function fetchData(url) {
-		try {
-			const response = await fetch(url)
-			const data = response.text()
-		} catch (err) {
-			console.log(err)
+	<script>
+		/*
+		async function fetchData(url) {
+			try {
+				const response = await fetch(url)
+				const data = response.text()
+			} catch (err) {
+				console.log(err)
+			}
 		}
-	}
 
-	const select = document.getElementById('refUnitsFilter');
-	select.addEventListener('change', async (e) => {
-		const selectedValue = this.value;
-		const data = await fetchData(selectedValue)
-	})
-</script>
+		const select = document.getElementById('refUnitsFilter');
+		select.addEventListener('change', async (e) => {
+			const selectedValue = this.value;
+			const data = await fetchData(selectedValue)
+		})
+
+		*/
+
+		// Pagination
+		const urlParams = new URLSearchParams(window.location.search)
+		const page = parseInt(urlParams.get('p') || 0)
+
+		const previousLink = document.querySelector('#previous');
+		const nextLink = document.querySelector('#next');
+
+		previousLink.setAttribute('href', `/equipos?p=${page - 1}`)
+		nextLink.setAttribute('href', `/equipos?p=${page + 1}`)
+
+		if (page === 0) {
+			previousLink.setAttribute('aria-disabled', 'true')
+			previousLink.classList.add('text-gray-500', 'border-gray-500')
+		}
+
+		const refUnitsLength = document.querySelector('#refUnits-length')
+
+		if (+refUnitsLength.value < 30) {
+			nextLink.setAttribute('aria-disabled', 'true');
+			nextLink.classList.add('disable-links', 'text-gray-400', 'border-gray-400');
+		}
+	</script>
+
+</main>

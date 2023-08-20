@@ -69,16 +69,21 @@
 
 	{{!-- Paginación --}}
 	<div class="flex space-x-8 w-full justify-center mb-4">
-		<a id="previous" role="link" class="text-green-400 bold border border-green-400 px-4 py-2">
-			Anterior </a>
-		<a id="next" role="link" class="text-green-400 bold border border-green-400 px-4 py-2">
+		<a id="previous" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
+			<i class="material-icons inline">chevron_left</i>
+			Anterior
+		</a>
+		<a id="next" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
 			Siguiente
+			<i class="material-icons inline">chevron_right</i>
 		</a>
 	</div>
 	{{!-- hidden --}}
 	<input type="text" hidden value="{{services.length}}" id="services-length">
 
 	<script>
+
+		// Pagination
 		const urlParams = new URLSearchParams(window.location.search)
 		const page = parseInt(urlParams.get('p') || 0)
 
@@ -94,7 +99,6 @@
 		}
 
 		const servicesLength = document.querySelector('#services-length')
-		console.log(+servicesLength.value)
 
 		if (+servicesLength.value < 30) {
 			nextLink.setAttribute('aria-disabled', 'true');

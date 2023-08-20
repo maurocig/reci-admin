@@ -9,10 +9,12 @@ const clientsDao = new ClientsDao();
 
 class RefUnitsController {
   async getRefUnits(req, res, next) {
-    try {
-      const refUnits = await refUnitsDao.getAllAndPopulate();
+    const page = req.query.p || 0;
 
-      res.status(HTTP_STATUS.OK).render('pages/refUnits/', { refUnits });
+    try {
+      const refUnits = await refUnitsDao.getAllAndPopulate(page);
+
+      res.render('pages/refUnits/', { refUnits });
     } catch (error) {
       next(error);
     }

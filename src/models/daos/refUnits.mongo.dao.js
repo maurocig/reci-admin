@@ -41,8 +41,20 @@ class RefUnitsMongoDao extends MongoContainer {
     return refUnit;
   }
 
-  async getAllAndPopulate() {
-    const refUnits = await this.model.find().populate('client', ['name', '_id']).lean();
+  async getAllAndPopulate(page) {
+    // Pagination
+    const refUnitsPerPage = 30;
+
+    const refUnits = await this.model
+      .find({})
+      // .sort({refUnitDate: 'desc'})
+
+      // pagination
+      .skip(page * refUnitsPerPage)
+      .limit(refUnitsPerPage)
+
+      .populate('client', ['name', '_id'])
+      .lean();
     return refUnits;
   }
 
