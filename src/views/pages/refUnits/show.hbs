@@ -93,9 +93,7 @@
 		</a>
 	</section>
 
-
-
-	<div class="grid grid-cols-1 gap-8 mb-8 sm:gap-6 md:grid-cols-2">
+	<div class="grid grid-cols-1 gap-8 mb-2 sm:gap-6 md:grid-cols-2">
 		{{!-- SERVICIOS --}}
 		<section>
 			<h2 class="mt-0 subtitle" style="display: flex;">
@@ -164,8 +162,7 @@
 						</td>
 
 						{{#if this.completed}}
-						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-pending-button"
-							id="{{this._id}}">
+						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-pending-button" id="{{this._id}}">
 							<i class="m-0 text-green-600 material-icons clients-icon center hover:text-green-500">
 								{{!-- check_circle --}}
 								check
@@ -188,8 +185,7 @@
 
 						<td>
 							<a href="/tareas/editar/{{this._id}}">
-								<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png"
-										alt=""></span>
+								<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
 							</a>
 						</td>
 
@@ -200,7 +196,7 @@
 
 			{{else}}
 			<h3 class="no-elements center" style="font-size: 1.1rem;">
-				No hay tareas registradas en este equipo.
+				No hay tareas pendientes en este equipo.
 			</h3>
 			{{/if}}
 
@@ -222,6 +218,48 @@
 
 		</section>
 	</div>
+
+	{{!-- List all fixes --}}
+	<section class="w-full">
+		<h2 class="mt-0 subtitle" style="display: flex;">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">check</i>
+			Tareas realizadas
+		</h2>
+
+		{{#if refUnit.services}}
+		<div class="table-container" style="width: 100%; min-width: 300px;">
+			<table>
+				<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+					<th class="hidden py-2 text-start sm:table-cell">Tarea</th>
+					<th class="py-2 w-[100px]"># Orden</th>
+					<th class="py-2 w-[50px]">Fecha</th>
+					<th class="py-2 w-[50px] hidden sm:table-cell">Repuestos</th>
+					{{!-- <th class="hidden py-2 text-center sm:table-cell">Repuestos</th> --}}
+				</tr>
+				{{#each refUnit.services}}
+				{{#each this.fixes}}
+				<tr>
+					<td>
+						<a href="/servicios/{{../this._id}}">{{this.fixName}}</a>
+					</td>
+					<td class="hidden sm:table-cell ">
+						<a href="/servicios/{{../this._id}}"><strong>{{../this.orderNumber}}</strong></a>
+					</td>
+					<td>
+						<a href="/servicios/{{../this._id}}">{{formatDate ../this.serviceDate}}</a>
+					</td>
+					<td class="text-center hidden sm:table-cell">
+						<a href="/servicios/{{../this._id}}">{{../this.parts.length}}</a>
+					</td>
+				</tr>
+				{{/each}}
+				{{/each}}
+			</table>
+		</div>
+		{{/if}}
+
+	</section>
 </main>
 
 {{#each scripts}}
