@@ -12,4 +12,7 @@ module.exports = {
   addNumber: function (i, n) {
     return i + parseInt(n);
   },
+  isOdd: function (i) {
+    return i % 2;
+  },
 };

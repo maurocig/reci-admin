@@ -239,7 +239,11 @@
 				</tr>
 				{{#each refUnit.services}}
 				{{#each this.fixes}}
+				{{#if (isOdd @../index)}}
+				<tr class="bg-cyan-600/5">
+					{{else}}
 				<tr>
+					{{/if}}
 					<td>
 						<a href="/servicios/{{../this._id}}">{{this.fixName}}</a>
 					</td>
