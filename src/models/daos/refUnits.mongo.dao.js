@@ -35,8 +35,12 @@ class RefUnitsMongoDao extends MongoContainer {
     const refUnit = await this.model
       .findById(id)
       .populate('client', 'name')
-      .populate('services', ['serviceDate', 'orderNumber', 'fixes', 'parts'])
       .populate('pendingTasks', ['taskDescription', 'completed'])
+      .populate({
+        path: 'services',
+        select: ['serviceDate', 'orderNumber', 'fixes', 'parts'],
+        options: { sort: { serviceDate: 1 } },
+      })
       .lean();
     return refUnit;
   }
