@@ -13,7 +13,7 @@
 				<span class="button-icon-container">
 					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
 				</span>
-				Cliente
+				{{service.client.name}}
 			</button>
 		</a>
 		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
@@ -22,7 +22,7 @@
 				<span class="button-icon-container">
 					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
 				</span>
-				Equipo
+				{{service.refUnit.plate}}
 			</button>
 		</a>
 		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
@@ -30,12 +30,11 @@
 			<span class="button-icon-container">
 				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">build</i>
 			</span>
-			Servicio
+			Servicio #{{service.orderNumber}}
 		</button>
 	</div>
 
-	<i class="material-icons icon-clients center"
-		style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicio #{{service.orderNumber}}</h1>
 
 
