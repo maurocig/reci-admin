@@ -119,6 +119,14 @@ class RefUnitsMongoDao extends MongoContainer {
       return refUnit;
     }
   }
+
+  async findByField(field, value, collectionRef = '') {
+    const refUnit = await this.model
+      .find({ [field]: { $regex: value, $options: 'i' } })
+      .populate(collectionRef)
+      .lean();
+    return refUnit;
+  }
 }
 
 module.exports = RefUnitsMongoDao;

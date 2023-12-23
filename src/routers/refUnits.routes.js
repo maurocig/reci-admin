@@ -3,7 +3,7 @@ const refUnitsController = require('../controllers/refUnits.controller');
 
 const router = Router();
 
-router.get('/search', refUnitsController.searchRefUnit);
+router.get('/search', refUnitsController.searchRefUnitByPlate);
 
 router.get('/', refUnitsController.getRefUnits);
 router.get('/nuevo', (req, res) => res.render('pages/refUnits/new'));
