@@ -17,6 +17,15 @@ class ClientsController {
     }
   }
 
+  async getClientsSorted(req, res, next) {
+    try {
+      const clients = await clientsDao.getAllSorted();
+      res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getClientsById(req, res, next) {
     const { id } = req.params;
     try {
@@ -52,7 +61,17 @@ class ClientsController {
 
   async saveClient(req, res, next) {
     try {
-      const { name, email, refUnits, phone, createdAt, updatedAt, clientNumber } = req.body;
+      const {
+        name,
+        email,
+        refUnits,
+        phone,
+        createdAt,
+        updatedAt,
+        clientNumber,
+        contactPerson,
+        brandName,
+      } = req.body;
 
       const phoneNumber = phone ? parseInt(phone) : null;
 
@@ -62,13 +81,16 @@ class ClientsController {
         refUnits,
         phone: phoneNumber,
         clientNumber: +clientNumber,
+        contactPerson: contactPerson || null,
+        brandName,
         createdAt,
         updatedAt,
       };
 
       const newClientId = await clientsDao.save(client);
-
       res.redirect(`/clientes/${newClientId}`);
+
+      // res.json(client);
     } catch (error) {
       next(error);
     }
@@ -125,7 +147,7 @@ class ClientsController {
     let query = req.query.q;
     try {
       if (!query) {
-        const clients = await clientsDao.getAll();
+        const clients = await clientsDao.getAllSorted();
         res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
       } else {
         const clients = await clientsDao.find({ $text: { $search: query } });

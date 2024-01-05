@@ -12,8 +12,7 @@
 		</button>
 	</a>
 
-	<i class="material-icons icon-clients center"
-		style="font-size: 50px; display: block; margin-bottom: .2rem;">group</i>
+	<i class="material-icons icon-clients center" style="font-size: 50px; display: block; margin-bottom: .2rem;">group</i>
 	<h1 class="title">Clientes</h1>
 
 	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
@@ -35,20 +34,12 @@
 	<div class="table-container">
 		<table>
 			<tr class="table-headers-row bg-slate-200 hover:bg-slate-200">
-				<th class="max-w-[50px]"># Cliente</th>
 				<th>R. Social</th>
 				<th class="center">Equipos</th>
+				<th class="max-w-[50px]"># Cliente</th>
 			</tr>
 			{{#each clients}}
 			<tr>
-				<td class="center">
-					<a href="/clientes/{{_id}}">
-						<strong>
-							{{clientNumber}}
-						</strong>
-					</a>
-				</td>
-
 				<td style="min-width: 170px;">
 					<a href="/clientes/{{_id}}"><strong>{{name}} </strong></a>
 				</td>
@@ -56,6 +47,14 @@
 				<td class="center">
 					<a href="/equipos/{{_id}}">
 						{{refUnits.length}}
+					</a>
+				</td>
+
+				<td class="center">
+					<a href="/clientes/{{_id}}">
+						<strong>
+							{{clientNumber}}
+						</strong>
 					</a>
 				</td>
 

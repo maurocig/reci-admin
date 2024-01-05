@@ -22,15 +22,24 @@
 		<div class="grid gap-8 mb-4 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
 				<label for="name">Razón social: <span class="text-red-500">*</span></label>
-				<input type="text" name="name" style="text-transform: uppercase" required />
+				<input type="text" name="name" style="text-transform: uppercase" placeholder="RESTAURANTES MCDONALDS S.A."
+					required />
 			</div>
 			<div class="form-field">
-				<label for="email">E-mail:</label>
-				<input type="email" name="email" style="text-transform: lowercase;" />
+				<label for="brandName">Nombre comercial: <span class="text-red-500">*</span></label>
+				<input type="text" name="brandName" style="text-transform: uppercase" placeholder="MCDONALD'S" />
+			</div>
+			<div class="form-field">
+				<label for="contactPerson">Persona de contacto:</label>
+				<input type="text" name="contactPerson" style="text-transform:uppercase" placeholder="Juan Pérez" />
+			</div>
+			<div class="form-field">
+				<label for="email">E-mail: <span class="text-red-500">*</span></label>
+				<input type="email" name="email" style="text-transform: lowercase;" placeholder="correo@gmail.com" required />
 			</div>
 			<div class="form-field">
 				<label for="phone">Teléfono:</label>
-				<input type="number" name="phone" />
+				<input type="number" name="phone" placeholder="098 765432" />
 			</div>
 			<div class="form-field">
 				<label for="clientNumber">Número de cliente:</label>

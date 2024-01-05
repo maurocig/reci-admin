@@ -105,17 +105,26 @@ main {
 	max-width: 1000px;
 }
 
-form input, form select {
-	background-color: var(--main-dark-blue) !important;
-	padding: 0.5rem 0.7rem !important;
+.form-container input, .form-container select {
+	background-color: var(--main-light-gray);
 	margin-bottom: .5em !important;
-	/* margin-inline: 0rem 2rem !important; */
+	margin-inline: 0rem 2rem !important;
 	border: solid 2px var(--main-light-gray);
 	height: 38px;
 	cursor: auto;
-	color: white;
-	/* font-style: bold; */
+	color: black;
+	font-style: bold;
 	width: 100% !important;
+}
+
+.form-container input {
+	padding: 1rem 0.7rem;
+}
+
+.form-container input::placeholder {
+	color: var(--secondary-dark-gray);
+	opacity: .5;
+	/* font-weight: 400; */
 }
 
 /* REMOVE NUMBER BUTTONS */
@@ -131,9 +140,9 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 
-::-webkit-calendar-picker-indicator {
-	filter: invert(1);
-}
+/* ::-webkit-calendar-picker-indicator { */
+/* 	filter: invert(1); */
+/* } */
 
 input[readonly], select[readonly] {
 	color: var(--primary-success-brighter);
@@ -228,7 +237,17 @@ section {
 
 .form-field {
 	display: inline-block;
+	/* color: black; */
 }
+
+/* #select-model { */
+/* 	color: black; */
+/* 	padding: 0; */
+/* } */
+/*  */
+/* #select-model option { */
+/* 	color: black; */
+/* } */
 
 .form-login {
 	max-width: 400px;

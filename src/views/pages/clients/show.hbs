@@ -40,17 +40,29 @@
 			<div class="table-container">
 				<table>
 					<tr>
-						<th>R. Social</th>
+						<th>Razón Social</th>
 						<td>
 							<strong>{{client.name}} </strong>
 						</td>
 					</tr>
 					<tr>
-						<th>Nº Cliente</th>
+						<th>Nombre comercial</th>
 						<td>
-							<strong>
-								{{client.clientNumber}}
-							</strong>
+							{{#if client.brandName}}
+							{{client.brandName}}
+							{{else}}
+							<div class="text-red-700">No registra</div>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Persona de contacto</th>
+						<td>
+							{{#if client.contactPerson}}
+							{{client.contactPerson}}
+							{{else}}
+							<div class="text-red-700">No registra</div>
+							{{/if}}
 						</td>
 					</tr>
 					<tr>
@@ -65,16 +77,22 @@
 							{{#if client.phone}}
 							{{client.phone}}
 							{{else}}
-							-
+							<div class="text-red-700">No registra</div>
 							{{/if}}
 						</td>
 					</tr>
 					<tr>
-						<th>Equipos</th>
+						<th>Nº de Cliente</th>
 						<td>
-							{{client.refUnits.length}}
+							{{client.clientNumber}}
 						</td>
 					</tr>
+					{{!-- <tr> --}}
+					{{!-- 	<th>Equipos</th> --}}
+					{{!-- 	<td> --}}
+					{{!-- 		{{client.refUnits.length}} --}}
+					{{!-- 	</td> --}}
+					{{!-- </tr> --}}
 				</table>
 			</div>
 			<a href="/clientes/editar/{{client._id}}">

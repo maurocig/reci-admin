@@ -11,6 +11,8 @@ const clientSchema = new Schema(
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
     bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
     clientNumber: { type: Number, required: true, unique: true },
+    contactPerson: { type: String, uppercase: true, required: true },
+    brandName: { type: String, uppercase: true, required: false, unique: true, index: 'text' },
   },
   {
     timestamps: true,
@@ -21,6 +23,11 @@ clientSchema.index({ '$**': 'text' });
 class ClientsMongoDao extends MongoContainer {
   constructor() {
     super(collection, clientSchema);
+  }
+
+  async getAllSorted() {
+    const clients = await this.model.find().sort({ name: 1 }).lean();
+    return clients;
   }
 
   async addRefUnit(clientId, refUnitId) {

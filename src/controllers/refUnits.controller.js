@@ -165,7 +165,6 @@ class RefUnitsController {
         res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
       } else {
         const refUnits = await refUnitsDao.findByField('plate', query, 'client');
-        console.log(refUnits);
         res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
       }
     } catch (error) {

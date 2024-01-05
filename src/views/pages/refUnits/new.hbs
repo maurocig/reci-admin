@@ -30,8 +30,8 @@
 			<div class="form-field">
 				<label for="model">Modelo: (*)</label>
 				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
-				<select name="model" id="" required>
-					<option value="C-150">C-150</option>
+				<select name="model" id="select-model" required>
+					<option value="C-150" class="text-black">C-150</option>
 					<option value="C-250">C-250</option>
 					<option value="C-350">C-350</option>
 					<option value="C-450">C-450</option>
@@ -59,12 +59,12 @@
 				</select>
 			</div>
 			<div class="form-field">
-				<label for="hours">Fecha límite de garantía: </label>
-				<input type="date" id="warranty-date" name="warrantyDate" placeholder="" />
-			</div>
-			<div class="form-field">
 				<label for="soldByReci">Venta RECI: </label>
 				<input type="checkbox" class="h-8" name="soldByReci" id="checkboxByReci">
+			</div>
+			<div class="form-field">
+				<label for="hours">Fecha límite de garantía: </label>
+				<input type="date" id="warranty-date" name="warrantyDate" placeholder="" />
 			</div>
 		</div>
 		<button class="button-success button-form" role="submit">Guardar</button>

@@ -1,10 +1,21 @@
 <nav class="fixed top-0 w-full p-0 m-0 bg-gray-100 shadow-xl">
-	<div class="nav-content">
+	<div class="nav-content flex gap-5">
 		<a href="/">
 			<div class='logo-container'>
 				<img src='/assets/logo.png' alt='' />
 			</div>
 		</a>
+		<div>
+			<form action="/equipos/search" method="GET" class="flex items-center gap-2">
+				<input name="q" placeholder="Buscar matrícula"
+					class="inline w-3/4 w-[70%] h-10 px-4 border-slate-800 border text-slate-800 m-0 mx-auto mb-0 bg-gray-200 rounded-full"
+					style="margin: 0 !important;">
+				</input>
+				<button type="submit"
+					class="inline py-[7px] w-[40px] rounded-full hover:border-slate-800/60 border w-1/4 self-center rounded-full p-2"><i
+						class="inline text-slate-800 material-icons">search</i></button>
+			</form>
+		</div>
 		<div class='items-center justify-between hidden sm:flex sm:w-1/2'>
 			<a class='nav-link' href='/clientes'>Clientes</a>
 			<a class='nav-link' href='/equipos'>Equipos</a>
