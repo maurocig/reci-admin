@@ -107,6 +107,7 @@ main {
 
 .form-container input, .form-container select {
 	background-color: var(--main-light-gray);
+	padding-inline: .5rem;
 	margin-bottom: .5em !important;
 	margin-inline: 0rem 2rem !important;
 	border: solid 2px var(--main-light-gray);
@@ -116,6 +117,7 @@ main {
 	font-style: bold;
 	width: 100% !important;
 }
+
 
 .form-container input {
 	padding: 1rem 0.7rem;
@@ -238,6 +240,16 @@ section {
 .form-field {
 	display: inline-block;
 	/* color: black; */
+}
+
+/* .form-field select:disabled { */
+/* 	background-color: red !important; */
+/* } */
+
+.disabled-select {
+	background-color: darkgray !important;
+	border: darkgray !important;
+	color: gray !important;
 }
 
 /* #select-model { */

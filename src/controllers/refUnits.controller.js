@@ -40,7 +40,8 @@ class RefUnitsController {
       let { serialNumber, model, services, hours, client, plate, soldByReci, warrantyDate } =
         req.body;
 
-      const soldByReciBool = Boolean(soldByReci);
+      // const soldByReciBool = Boolean(soldByReci);
+      const soldByReciBool = soldByReci === 'true';
 
       const refUnit = {
         serialNumber,
@@ -59,13 +60,15 @@ class RefUnitsController {
         refUnit.warrantyDate = null;
       }
 
-      const newRefUnitId = await refUnitsDao.save(refUnit);
+      res.json(refUnit);
 
-      // add refUnit to clients.refUnits array.
-      const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
-      console.log(addedRefUnit);
-
-      res.redirect(`/equipos/${newRefUnitId}`);
+      // const newRefUnitId = await refUnitsDao.save(refUnit);
+      //
+      // // add refUnit to clients.refUnits array.
+      // const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
+      // console.log(addedRefUnit);
+      //
+      // res.redirect(`/equipos/${newRefUnitId}`);
     } catch (error) {
       next(error);
     }

@@ -23,12 +23,12 @@
 				<input type="text" name="serialNumber" placeholder="0000000000" id="serial-number" maxlength="10" required />
 			</div>
 			<div class="form-field">
-				<label for="plate-number">Matrícula: (*)</label>
+				<label for="plate-number">Matrícula </label>
 				<input type="text" id="plate-number" name="plate" placeholder="ATP1234" style="text-transform: uppercase; "
-					{{!-- required maxlength="7" pattern="^[A-Za-z]{1,3}[0-9]{1,4}" /> --}} required maxlength="12" />
+					{{!-- required maxlength="7" pattern="^[A-Za-z]{1,3}[0-9]{1,4}" /> --}} maxlength="12" />
 			</div>
 			<div class="form-field">
-				<label for="model">Modelo: (*)</label>
+				<label for="model">Modelo <span class="text-red-500">*</span></label>
 				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
 				<select name="model" id="select-model" required>
 					<option value="C-150" class="text-black">C-150</option>
@@ -59,11 +59,15 @@
 				</select>
 			</div>
 			<div class="form-field">
-				<label for="soldByReci">Venta RECI: </label>
-				<input type="checkbox" class="h-8" name="soldByReci" id="checkboxByReci">
+				<label for="soldByReci">Venta RECI <span class="text-red-500">*</span></label>
+				<select name="soldByReci" id="soldByReciSelect" required>
+					<option value="" disabled selected>Seleccionar</option>
+					<option value="true">Si</option>
+					<option value="null">No</option>
+				</select>
 			</div>
 			<div class="form-field">
-				<label for="hours">Fecha límite de garantía: </label>
+				<label for="hours">Fecha límite de garantía: <span class="text-red-500">*</span></label>
 				<input type="date" id="warranty-date" name="warrantyDate" placeholder="" />
 			</div>
 		</div>
@@ -72,15 +76,22 @@
 </main>
 
 <script>
-	/*
-	const form = document.querySelector('#form-new-refunit')
-	const wDate = document.querySelector('#warranty-date')
-	form.addEventListener('submit', (e) => {
-		e.preventDefault()
-		if (!wDate.value) console.log(false)
-		console.log('fecha gtia:' + wDate.value + 'X')
-	})
-	*/
+
+	const soldByReciSelect = document.querySelector('#soldByReciSelect');
+	const warrantyDate = document.querySelector('#warranty-date');
+
+	soldByReciSelect.addEventListener('change', (e) => {
+		let soldByReci = soldByReciSelect.value === 'true';
+		if (soldByReci) {
+			warrantyDate.required = true;
+			warrantyDate.disabled = false;
+			warrantyDate.classList.remove('disabled-select');
+		} else {
+			warrantyDate.required = false;
+			warrantyDate.disabled = true;
+			warrantyDate.classList.add('disabled-select');
+		}
+	});
 </script>
 
 {{#each scripts}}
