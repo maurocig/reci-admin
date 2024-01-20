@@ -38,13 +38,8 @@
 						{{refUnit.client.name}}
 					</td>
 				</tr>
-				<tr>
-					<th>Nº Serie:</th>
-					<td> {{refUnit.serialNumber}} </td>
-				</tr>
-				<tr>
-					<th>Modelo:</th>
-					<td> {{refUnit.model}} </td>
+				<th>Modelo:</th>
+				<td> {{refUnit.model}} </td>
 				</tr>
 				<tr>
 					<th>Servicios:</th>
@@ -53,7 +48,11 @@
 				<tr>
 					<th>Matrícula:</th>
 					<td>
+						{{#if refUnit.plate}}
 						{{refUnit.plate}}
+						{{else}}
+						<div class="text-red-700">No registra</div>
+						{{/if}}
 					</td>
 				</tr>
 				<tr>
@@ -72,15 +71,23 @@
 					<th>Venta RECI:</th>
 					<td>
 						{{#if refUnit.soldByReci}}
-						<span style="font-weight: 600; color: var(--primary-success);">
+						<span class="text-emerald-600 font-bold">
 							Sí
 						</span>
 						{{else}}
-						<span style="font-weight: 500; color: var(--primary-danger);">
+						<span class="text-gray-800">
 							No
 						</span>
 						{{/if}}
 					</td>
+				</tr>
+				<tr>
+					<th>Nº Serie:</th>
+					{{#if refUnit.soldByReci}}
+					<td class="text-emerald-600 font-bold"> {{refUnit.serialNumber}} </td>
+					{{else}}
+					<td class="font-bold"> {{refUnit.serialNumber}} </td>
+					{{/if}}
 				</tr>
 			</table>
 		</div>

@@ -40,17 +40,17 @@ class RefUnitsController {
       let { serialNumber, model, services, hours, client, plate, soldByReci, warrantyDate } =
         req.body;
 
-      // const soldByReciBool = Boolean(soldByReci);
-      const soldByReciBool = soldByReci === 'true';
+      if (plate === '') plate = null;
+      // const soldByReciBool = soldByReci === 'true';
 
       const refUnit = {
         serialNumber,
         model,
-        services,
+        services: [],
         hours,
         client,
         plate,
-        soldByReci: soldByReciBool,
+        soldByReci,
       };
 
       if (warrantyDate) {
@@ -60,15 +60,13 @@ class RefUnitsController {
         refUnit.warrantyDate = null;
       }
 
-      res.json(refUnit);
+      const newRefUnitId = await refUnitsDao.save(refUnit);
 
-      // const newRefUnitId = await refUnitsDao.save(refUnit);
-      //
-      // // add refUnit to clients.refUnits array.
-      // const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
-      // console.log(addedRefUnit);
+      // add refUnit to clients.refUnits array.
+      const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
       //
       // res.redirect(`/equipos/${newRefUnitId}`);
+      await res.json(newRefUnitId);
     } catch (error) {
       next(error);
     }
@@ -79,7 +77,11 @@ class RefUnitsController {
       const { clientId } = req.params;
       const client = await clientsDao.getById(clientId);
       const clientName = client.name;
-      res.render('pages/refUnits/new', { clientId, clientName });
+      const scripts = [
+        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+        { script: '/js/editRefUnitSubmit.js' },
+      ];
+      res.render('pages/refUnits/new', { clientId, clientName, scripts });
     } catch (error) {
       console.log(error);
     }
@@ -91,6 +93,7 @@ class RefUnitsController {
     const scripts = [
       { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
       { script: '/js/formatDate.js' },
+      { script: '/js/editRefUnitSubmit.js' },
     ];
     res.render('pages/refUnits/edit', { refUnit, scripts });
   }
@@ -98,16 +101,17 @@ class RefUnitsController {
   async updateRefUnit(req, res, next) {
     const { id } = req.params;
 
-    const { model, plate, warrantyDate, soldByReci, serialNumber } = req.body;
+    let { serialNumber, model, plate, warrantyDate, soldByReci } = req.body;
+
+    if (plate === '') plate = null;
+    if (!soldByReci) warrantyDate = null;
 
     try {
-      const soldByReciBool = Boolean(soldByReci);
-
       const updatedRefUnit = {
         serialNumber,
         model,
         plate,
-        soldByReci: soldByReciBool,
+        soldByReci,
       };
 
       if (warrantyDate) {
@@ -118,7 +122,7 @@ class RefUnitsController {
       }
       await refUnitsDao.update(id, updatedRefUnit);
 
-      res.redirect(`/equipos/${id}`);
+      await res.json(id);
     } catch (error) {
       next(error);
     }

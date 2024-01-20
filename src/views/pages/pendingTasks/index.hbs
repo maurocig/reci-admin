@@ -41,7 +41,11 @@
 				</td>
 				<td class="center">
 					<a href="/equipos/{{this.refUnit._id}}#pendingTasks">
+						{{#if this.refUnit.plate}}
 						{{this.refUnit.plate}}
+						{{else}}
+						<div class="text-red-700">No registra</div>
+						{{/if}}
 					</a>
 				</td>
 

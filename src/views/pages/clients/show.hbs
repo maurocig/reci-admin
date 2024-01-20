@@ -114,23 +114,20 @@
 			<div class="table-container">
 				<table>
 					<tr class="table-headers-row bg-slate-200 hover:bg-slate-300/80">
-						<th class="py-2">N° Serie</th>
 						<th class="py-2">Matrícula</th>
 						<th class="py-2">Modelo</th>
 						<th class="py-2 center">Servicios</th>
+						<th class="py-2">N° Serie</th>
 					</tr>
 					{{#each refUnits}}
 					<tr>
 						<td>
 							<a href="/equipos/{{this._id}} ">
-								<strong>
-									{{this.serialNumber}}
-								</strong>
-							</a>
-						</td>
-						<td>
-							<a href="/equipos/{{this._id}} ">
+								{{#if this.plate}}
 								{{this.plate}}
+								{{else}}
+								<div class="text-red-700">No registra</div>
+								{{/if}}
 							</a>
 						</td>
 						<td>
@@ -141,6 +138,21 @@
 						<td class="center">
 							<a href="/equipos/{{this._id}}">
 								{{this.services.length}}
+							</a>
+						</td>
+						<td>
+							<a href="/equipos/{{this._id}} ">
+								<strong>
+									{{#if this.soldByReci}}
+									<span class="text-emerald-600 font-bold">
+										{{this.serialNumber}}
+									</span>
+									{{else}}
+									<span class="font-bold">
+										{{this.serialNumber}}
+									</span>
+									{{/if}}
+								</strong>
 							</a>
 						</td>
 					</tr>

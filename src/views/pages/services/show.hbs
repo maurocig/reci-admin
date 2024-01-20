@@ -105,7 +105,11 @@
 						<th>Matrícula: </th>
 						<td>
 							<span style="font-weight: 500; color: var(--primary-success);">
+								{{#if service.refUnit.plate}}
 								{{service.refUnit.plate}}
+								{{else}}
+								<div class="text-red-700">No registra</div>
+								{{/if}}
 							</span>
 						</td>
 					</tr>

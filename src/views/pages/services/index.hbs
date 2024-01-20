@@ -39,7 +39,11 @@
 				</td>
 				<td>
 					<a href="/servicios/{{this._id}} ">
+						{{#if refUnit.plate}}
 						{{refUnit.plate}}
+						{{else}}
+						<div class="text-red-700">No registra</div>
+						{{/if}}
 					</a>
 				</td>
 				<td>

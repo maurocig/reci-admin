@@ -7,23 +7,25 @@
 		</button>
 	</a>
 
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
 	<h1 class="title">Nuevo equipo</h1>
 	<form class="form-container" action="/equipos" method="post" id="form-new-refunit">
 		<div class="grid gap-8 mb-4 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
-				<label for="client">Nombre de Cliente:</label>
+				<label for="client">Nombre de Cliente</label>
 				<input type="text" name="clientName" value="{{clientName}}" style="text-transform: uppercase;" readonly />
 			</div>
 			<div class="form-field">
-				<label for="client">ID Cliente:</label>
-				<input type="text" name="client" value={{clientId}} readonly />
+				<label for="client">ID Cliente</label>
+				<input type="text" id="client-id" name="client" value="{{clientId}}" readonly />
 			</div>
 			<div class="form-field">
-				<label for="name">Nº Serie: (*)</label>
+				<label for="name">Nº Serie <span class="text-red-500">*</span></label>
 				<input type="text" name="serialNumber" placeholder="0000000000" id="serial-number" maxlength="10" required />
 			</div>
 			<div class="form-field">
-				<label for="plate-number">Matrícula </label>
+				<label for="plate-number">Matrícula <span class="text-yellow-500">*</span></label>
 				<input type="text" id="plate-number" name="plate" placeholder="ATP1234" style="text-transform: uppercase; "
 					{{!-- required maxlength="7" pattern="^[A-Za-z]{1,3}[0-9]{1,4}" /> --}} maxlength="12" />
 			</div>
@@ -31,6 +33,7 @@
 				<label for="model">Modelo <span class="text-red-500">*</span></label>
 				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
 				<select name="model" id="select-model" required>
+					<option value="" disabled selected>Seleccionar</option>
 					<option value="C-150" class="text-black">C-150</option>
 					<option value="C-250">C-250</option>
 					<option value="C-350">C-350</option>
@@ -63,7 +66,7 @@
 				<select name="soldByReci" id="soldByReciSelect" required>
 					<option value="" disabled selected>Seleccionar</option>
 					<option value="true">Si</option>
-					<option value="null">No</option>
+					<option value="false">No</option>
 				</select>
 			</div>
 			<div class="form-field">
@@ -71,28 +74,9 @@
 				<input type="date" id="warranty-date" name="warrantyDate" placeholder="" />
 			</div>
 		</div>
-		<button class="button-success button-form" role="submit">Guardar</button>
+		<button class="button-success button-form" role="submit" id="submit-button">Guardar</button>
 	</form>
 </main>
-
-<script>
-
-	const soldByReciSelect = document.querySelector('#soldByReciSelect');
-	const warrantyDate = document.querySelector('#warranty-date');
-
-	soldByReciSelect.addEventListener('change', (e) => {
-		let soldByReci = soldByReciSelect.value === 'true';
-		if (soldByReci) {
-			warrantyDate.required = true;
-			warrantyDate.disabled = false;
-			warrantyDate.classList.remove('disabled-select');
-		} else {
-			warrantyDate.required = false;
-			warrantyDate.disabled = true;
-			warrantyDate.classList.add('disabled-select');
-		}
-	});
-</script>
 
 {{#each scripts}}
 <script src="{{script}}"></script>
