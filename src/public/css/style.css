@@ -313,8 +313,8 @@ section {
 }
 
 .parts-row input {
-	color: var(--primary-success-brighter);
-	font-weight: bold;
+	/* color: var(--primary-success-brighter); */
+	font-weight: normal;
 	text-transform: uppercase;
 }
 
@@ -354,8 +354,8 @@ section {
 .fixes-row input {
 	/* margin: .3rem; */
 	width: 100%;
-	color: var(--primary-success-brighter);
-	font-weight: bold;
+	/* color: var(--primary-success-brighter); */
+	font-weight: normal;
 	text-transform: uppercase;
 }
 
