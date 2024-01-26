@@ -34,11 +34,22 @@ class ServicesController {
   }
 
   async saveService(req, res, next) {
-    const { client, refUnit, orderNumber, serviceDate, hours, ticket, isInWarranty, parts, fixes } =
-      req.body;
+    const {
+      client,
+      refUnit,
+      orderNumber,
+      serviceDate,
+      hours,
+      handWorkHours,
+      ticket,
+      isInWarranty,
+      parts,
+      fixes,
+      observations,
+    } = req.body;
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
-    const isInWarrantyBoolean = Boolean(isInWarranty);
+    const isInWarrantyBoolean = isInWarranty === 'true' || isInWarranty === true;
     const parsedHours = +hours;
     const parsedOrderNumber = +orderNumber;
 
@@ -49,77 +60,65 @@ class ServicesController {
         orderNumber: parsedOrderNumber,
         serviceDate: formattedServiceDate,
         hours: parsedHours,
+        handWorkHours: parseFloat(handWorkHours) || null,
         ticket,
         isInWarranty: isInWarrantyBoolean,
         parts,
         fixes,
+        observations,
       };
 
       const newServiceId = await servicesDao.save(service);
-
       // Add Service to refUnit.services array.
       const addedService = await refUnitsDao.addService(service.refUnit, newServiceId);
+      res.status(200).json(newServiceId);
 
-      res.status(200).send(newServiceId);
+      // res.json({ service });
     } catch (error) {
+      console.log('error in saveService controller', error);
       next(error);
     }
   }
 
-  async newServiceForm(req, res, next) {
-    try {
-      const { refUnitId } = req.params;
-      const refUnit = await refUnitsDao.getByIdAndPopulate(refUnitId);
-      const scripts = [
-        { script: '/js/newServiceFormHandler.js' },
-        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-      ];
-      res.render('pages/services/new', { refUnit, scripts });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async editServiceForm(req, res, next) {
-    const { serviceId } = req.params;
-    const service = await servicesDao.getByIdAndPopulate(serviceId);
-    const scripts = [
-      { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-      { script: '/js/editServiceFormHandler.js' },
-      { script: '/js/deleteServiceHandler.js' },
-      { script: '/js/formatDate.js' },
-    ];
-    res.render('pages/services/edit', { service, scripts });
-  }
-
   async updateService(req, res, next) {
     const { id } = req.params;
-    const { orderNumber, serviceDate, hours, ticket, isInWarranty, parts, fixes } = req.body;
+    const {
+      orderNumber,
+      serviceDate,
+      hours,
+      handWorkHours,
+      ticket,
+      isInWarranty,
+      parts,
+      fixes,
+      observations,
+    } = req.body;
 
     const oldService = await servicesDao.getById(id);
     const { client, refUnit } = oldService;
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
     const isInWarrantyBoolean = Boolean(isInWarranty);
-    const parsedHours = +hours;
-    const parsedOrderNumber = +orderNumber;
 
     try {
       const updatedService = {
         client,
         refUnit,
-        orderNumber: parsedOrderNumber,
+        orderNumber: +orderNumber,
         serviceDate: formattedServiceDate,
-        hours: parsedHours,
+        hours: +hours,
+        handWorkHours: parseFloat(handWorkHours),
         ticket,
         isInWarranty: isInWarrantyBoolean,
         parts,
         fixes,
+        observations,
       };
 
       const response = await servicesDao.update(id, updatedService);
+      console.log(response);
 
-      res.status(HTTP_STATUS.OK).json(response);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }
@@ -138,6 +137,32 @@ class ServicesController {
     } catch (error) {
       next(error);
     }
+  }
+
+  async newServiceForm(req, res, next) {
+    try {
+      const { refUnitId } = req.params;
+      const refUnit = await refUnitsDao.getByIdAndPopulate(refUnitId);
+      const scripts = [
+        { script: '/js/newServiceFormHandler.js' },
+        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+      ];
+      res.render('pages/services/new', { refUnit, scripts, refUnitId });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async editServiceForm(req, res, next) {
+    const { serviceId } = req.params;
+    const service = await servicesDao.getByIdAndPopulate(serviceId);
+    const scripts = [
+      { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+      { script: '/js/editServiceFormHandler.js' },
+      { script: '/js/deleteServiceHandler.js' },
+      { script: '/js/formatDate.js' },
+    ];
+    res.render('pages/services/edit', { service, scripts });
   }
 
   async searchService(req, res, next) {

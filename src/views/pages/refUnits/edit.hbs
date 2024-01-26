@@ -6,14 +6,25 @@
 			<i class="material-icons">arrow_back</i>
 		</button>
 	</a>
-	<a href="/clientes/{{refUnit.client._id}}">
-		<button class="go-back">
+
+	{{!-- Breadcrumbs --}}
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
+		<a href="/clientes/{{refUnit.client._id}}">
+			<button class="flex items-center">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+				</span>
+				{{refUnit.client.name}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<button class="flex items-center text-slate-200 cursor-text ">
 			<span class="button-icon-container">
-				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
 			</span>
-			Ver Cliente
+			{{refUnit.plate}}
 		</button>
-	</a>
+	</div>
 
 	<i class="material-icons icon-clients center"
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
@@ -31,12 +42,12 @@
 			</div>
 			<div class="form-field">
 				<label for="name">Nº Serie <span class="text-red-500">*</span></label>
-				<input type="text" id="serial-number" name="serialNumber" value="{{refUnit.serialNumber}}" required />
+				<input type="text" maxlength=17 class="uppercase" id="serial-number" name="serialNumber"
+					value="{{refUnit.serialNumber}}" required />
 			</div>
 			<div class="form-field">
 				<label for="plate-number">Matrícula <span class="text-yellow-500">*</span></label>
-				<input type="text" id="plate-number" name="plate" value="{{refUnit.plate}}"
-					style="text-transform: uppercase;" />
+				<input type="text" id="plate-number" name="plate" value="{{refUnit.plate}}" class="uppercase" maxlength=12 />
 			</div>
 			<div class="form-field">
 				<label for="model">Modelo <span class="text-red-500">*</span></label>
@@ -85,10 +96,24 @@
 
 <script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
 <script>
+	// special characters not allowed on serial number
+	document.getElementById('serial-number').addEventListener('keypress', function (e) {
+		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
+		if (!matches) {
+			e.preventDefault();
+		}
+	});
 
-	// DELETING EQUIPMENT
+	// special characters not allowed on license plate
+	document.getElementById('plate-number').addEventListener('keypress', function (e) {
+		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
+		if (!matches) {
+			e.preventDefault();
+		}
+	});
+
+	// deleting refUnit
 	const deleteButton = document.querySelector('.button-danger')
-	// const clientIdInput = document.querySelector('#client-id-input')
 	const clientId = clientIdInput.value;
 
 	function deleteEquipment(id) {

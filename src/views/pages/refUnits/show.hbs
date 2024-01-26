@@ -21,7 +21,11 @@
 			<span class="button-icon-container">
 				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
 			</span>
+			{{#if refUnit.plate}}
 			{{refUnit.plate}}
+			{{else}}
+			Sin matricular
+			{{/if}}
 		</button>
 	</div>
 
@@ -30,23 +34,22 @@
 	<h1 class="title">Equipo {{refUnit.plate}}</h1>
 
 	<section class="mx-auto mb-4">
-		<div class="table-container max-w-[600px]" style="">
-			<table>
+		<div class="table-container max-w-[500px]" style="">
+			<table id="show-table">
 				<tr>
-					<th>Nombre Cliente:</th>
-					<td>
-						{{refUnit.client.name}}
-					</td>
+					<th>Nº Serie</th>
+					{{#if refUnit.soldByReci}}
+					<td class="text-emerald-600 font-normal"> {{refUnit.serialNumber}} </td>
+					{{else}}
+					<td> {{refUnit.serialNumber}} </td>
+					{{/if}}
 				</tr>
-				<th>Modelo:</th>
+				</tr>
+				<th>Modelo</th>
 				<td> {{refUnit.model}} </td>
 				</tr>
 				<tr>
-					<th>Servicios:</th>
-					<td>{{refUnit.services.length}}</td>
-				</tr>
-				<tr>
-					<th>Matrícula:</th>
+					<th>Matrícula</th>
 					<td>
 						{{#if refUnit.plate}}
 						{{refUnit.plate}}
@@ -56,8 +59,17 @@
 					</td>
 				</tr>
 				<tr>
+					<th>Nombre Cliente</th>
+					<td>
+						{{refUnit.client.name}}
+					</td>
+				<tr>
+					<th>Servicios</th>
+					<td>{{refUnit.services.length}}</td>
+				</tr>
+				<tr>
 					<th>
-						Fecha límite de garantía:
+						Fecha límite de garantía
 					</th>
 					<td>
 						{{#if refUnit.warrantyDate}}
@@ -68,26 +80,18 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Venta RECI:</th>
+					<th>Venta RECI</th>
 					<td>
 						{{#if refUnit.soldByReci}}
-						<span class="text-emerald-600 font-bold">
-							Sí
-						</span>
+						Sí
 						{{else}}
-						<span class="text-gray-800">
-							No
-						</span>
+						No
 						{{/if}}
 					</td>
 				</tr>
 				<tr>
-					<th>Nº Serie:</th>
-					{{#if refUnit.soldByReci}}
-					<td class="text-emerald-600 font-bold"> {{refUnit.serialNumber}} </td>
-					{{else}}
-					<td class="font-bold"> {{refUnit.serialNumber}} </td>
-					{{/if}}
+					<th>Creado</th>
+					<td>{{formatDate refUnit.createdAt}}</td>
 				</tr>
 			</table>
 		</div>
@@ -120,7 +124,7 @@
 					</tr>
 					{{#each refUnit.services}}
 					<tr>
-						<td><a href="/servicios/{{this._id}}"><strong>{{this.orderNumber}}</strong></a></td>
+						<td><a href="/servicios/{{this._id}}">{{this.orderNumber}}</a></td>
 						<td><a href="/servicios/{{this._id}}">{{formatDate this.serviceDate}}</a></td>
 						<td class="hidden sm:table-cell" style="text-align: center;"><a
 								href="/servicios/{{this._id}}">{{this.fixes.length}}</a></td>
@@ -255,7 +259,7 @@
 						<a href="/servicios/{{../this._id}}">{{this.fixName}}</a>
 					</td>
 					<td class="hidden sm:table-cell ">
-						<a href="/servicios/{{../this._id}}"><strong>{{../this.orderNumber}}</strong></a>
+						<a href="/servicios/{{../this._id}}">{{../this.orderNumber}}</a>
 					</td>
 					<td>
 						<a href="/servicios/{{../this._id}}">{{formatDate ../this.serviceDate}}</a>

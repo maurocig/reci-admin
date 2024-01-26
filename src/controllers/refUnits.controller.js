@@ -61,10 +61,8 @@ class RefUnitsController {
       }
 
       const newRefUnitId = await refUnitsDao.save(refUnit);
-
-      // add refUnit to clients.refUnits array.
       const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
-      //
+
       // res.redirect(`/equipos/${newRefUnitId}`);
       await res.json(newRefUnitId);
     } catch (error) {
@@ -79,7 +77,7 @@ class RefUnitsController {
       const clientName = client.name;
       const scripts = [
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-        { script: '/js/editRefUnitSubmit.js' },
+        { script: '/js/newRefUnitFormHandler.js' },
       ];
       res.render('pages/refUnits/new', { clientId, clientName, scripts });
     } catch (error) {
@@ -93,7 +91,7 @@ class RefUnitsController {
     const scripts = [
       { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
       { script: '/js/formatDate.js' },
-      { script: '/js/editRefUnitSubmit.js' },
+      { script: '/js/editRefUnitFormHandler.js' },
     ];
     res.render('pages/refUnits/edit', { refUnit, scripts });
   }

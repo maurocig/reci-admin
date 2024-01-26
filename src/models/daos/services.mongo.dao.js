@@ -10,10 +10,12 @@ const serviceSchema = new Schema(
     orderNumber: { type: Number, unique: true, required: true, index: true },
     serviceDate: { type: Date },
     hours: { type: Number },
+    handWorkHours: { type: Number },
     ticket: { type: String },
     isInWarranty: { type: Boolean },
     parts: [{ type: Object }],
     fixes: [{ type: Object, required: true }],
+    observations: { type: String },
   },
   {
     timestamps: true,
@@ -30,7 +32,7 @@ class ServicesMongoDao extends MongoContainer {
     const service = await this.model
       .findById(id)
       .populate('client', ['name'])
-      .populate('refUnit', ['model', 'serialNumber', 'plate'])
+      .populate('refUnit')
       .lean();
     return service;
   }

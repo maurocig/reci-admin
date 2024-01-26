@@ -86,7 +86,7 @@ form.addEventListener('submit', (e) => {
             Swal.fire({
               title: 'El equipo se agregó correctamente',
               icon: 'success',
-              iconColor: '#F4B860',
+              iconColor: '#059669',
               showCancelButton: false,
               confirmButtonText: 'Ir al equipo',
             }).then((result) => {
@@ -128,7 +128,6 @@ async function saveRefUnit(data) {
     return response.json();
   } catch (error) {
     console.log(error);
-    alert('Error al crear equipo');
     return error;
   }
 }

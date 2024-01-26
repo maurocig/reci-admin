@@ -6,45 +6,48 @@
 			<i class="material-icons">arrow_back</i>
 		</button>
 	</a>
-	<a href="/clientes/{{client._id}}">
-		<button class="go-back">
-			<span class="button-icon-container">
-				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
-			</span>
-			Ver cliente
-		</button>
-	</a>
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
+		<a href="/clientes/{{client._id}}">
+			<button class="flex items-center">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+				</span>
+				{{client.name}}
+			</button>
+		</a>
+	</div>
+
 
 	<i class="material-icons icon-clients center"
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">person</i>
 	<h1 class="title">Editar Cliente</h1>
 
 	<form class="form-container" action="/clientes/{{client._id}}?_method=PUT" method="POST">
-		<h2 class="subtitle">Información</h2>
+		<h2 class="subtitle">Información de contacto</h2>
 		<div class="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
-				<label for="name">Razón social:</label>
-				<input type="text" name="name" value="{{client.name}}" placeholder="RESTAURANTES MCDONALDS S.A." />
+				<label for="name">Razón social <span class="text-red-500">*</span></label>
+				<input type="text" name="name" value="{{client.name}}" placeholder="RESTAURANTES MCDONALDS S.A." required />
 			</div>
 			<div class="form-field">
-				<label for="brandName">Nombre comercial:</label>
-				<input type="text" name="brandName" value="{{client.brandName}}" placeholder="Ej: MCDONALD'S" />
+				<label for="brandName">Nombre comercial <span class="text-red-500">*</span></label>
+				<input type="text" name="brandName" value="{{client.brandName}}" placeholder="Ej: MCDONALD'S" required />
 			</div>
 			<div class="form-field">
-				<label for="contactPerson">Persona de contacto:</label>
+				<label for="contactPerson">Persona de contacto <span class="text-red-500">*</span></label>
 				<input type="text" name="contactPerson" value="{{client.contactPerson}}" style="text-transform:uppercase"
-					placeholder="Ej. Juan Pérez" />
+					placeholder="Ej. Juan Pérez" required />
 			</div>
 			<div class="form-field">
-				<label for="email">E-mail:</label>
-				<input type="email" name="email" value='{{client.email}}' style="text-transform: lowercase;" />
+				<label for="email">E-mail <span class="text-red-500">*</span></label>
+				<input type="email" name="email" value='{{client.email}}' style="text-transform: lowercase;" required />
 			</div>
 			<div class="form-field">
-				<label for="phone">Teléfono:</label>
+				<label for="phone">Teléfono <span class="text-red-500">*</span></label>
 				<input type="number" name="phone" value='{{client.phone}}' placeholder="098 765432" />
 			</div>
 			<div class="form-field">
-				<label for="phone">Número de cliente:</label>
+				<label for="phone">Número de cliente</label>
 				<input type="number" name="clientNumber" value="{{client.clientNumber}}" readonly />
 			</div>
 		</div>

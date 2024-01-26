@@ -1,68 +1,123 @@
 {{>navbar}}
 
 <main class="mt-[80px]">
-	<a onclick="window.history.back()">
-		<button class="go-back">
-			<i class="material-icons">arrow_back</i>
+
+	{{!-- Breadcrumbs --}}
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
+		<a href="/clientes/{{service.client._id}}">
+			<button class="flex items-center">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+				</span>
+				{{refUnit.client.name}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<a href="/equipos/{{refUnitId}}">
+			<button class="flex items-center text-slate-200 ">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
+				</span>
+				{{refUnit.plate}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<button class="flex items-center text-slate-200 cursor-text ">
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">build</i>
+			</span>
+			Nuevo servicio
 		</button>
-	</a>
+	</div>
 
 	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
 
 	{{!-- INFORMACIÓN --}}
 	<h1 class="title">Nuevo servicio</h1>
 
-	<form class="form-container" action="/servicios" method="post">
+	<form class="form-container" id="submitServiceForm" action="/servicios" method="post">
 		<div class="service-info-container">
 			<div class="form-field">
-				<label for="refUnitInput">Nº Serie:</label>
-				<input type="text" name="serialNumber" id="refUnitInput" value={{refUnit.serialNumber}} readonly />
-			</div>
-			<div class="form-field">
-				<label for="clientNameInput">Cliente:</label>
+				<label for="clientNameInput">Cliente</label>
 				<input type="text" name="clientName" id="clientNameInput" value="{{refUnit.client.name}}" readonly />
 			</div>
 			<div class="form-field">
-				<label for="refUnit">Modelo:</label>
+				<label for="refUnit">Modelo</label>
 				<input type="text" name="model" id="refUnitModelInput" value="{{refUnit.model}}" readonly />
 			</div>
 			<div class="form-field">
-				<label for="orderNumber">Nº Orden: (*)</label>
-				<input type="text" name="orderNumber" id="orderNumberInput" placeholder="123456" maxlength="6" minlength="6"
+				<label for="refUnitInput">Nº Serie</label>
+				<input type="text" name="serialNumber" id="refUnitInput" value={{refUnit.serialNumber}} readonly />
+			</div>
+			<div class="form-field">
+				<label for="orderNumber">Nº Orden <span class="text-red-500">*</span></label>
+				<input type="number" name="orderNumber" id="orderNumberInput" placeholder="123456" maxlength="6" minlength="6"
 					required />
 			</div>
 			<div class="form-field">
-				<label for="serviceDate">Fecha del servicio: (*)</label>
+				<label for="serviceDate">Fecha del servicio <span class="text-red-500">*</span></label>
 				<input type="date" name="serviceDate" id="serviceDateInput" placeholder="correo@casilla.com" required />
 			</div>
 			<div class="form-field">
-				<label for="hours">Horas: (*)</label>
-				<input type="text" name="hours" id="hoursInput" style="max-width: 60px;" placeholder="0" required />
+				<label for="hours">Mano de obra (hs) <span class="text-red-500">*</span></label>
+				<input type="number" name="handWorkHours" id="handWorkHoursInput" style="max-width: 60px;" placeholder="0"
+					required />
+			</div>
+			<div class="form-field">
+				<label for="soldByReci">Está en garantía <span class="text-red-500">*</span></label>
+				<select name="isInWarranty" id="isInWarrantyInput" required>
+					<option value="" disabled selected>Seleccionar</option>
+					<option value="true">Si</option>
+					<option value="false">No</option>
+				</select>
 			</div>
 			<div class="form-field">
 				<label for="ticket">Nº Factura</label>
-				<input type="text" name="ticket" id="ticketInput" value="{{service.ticket}}" />
+				<input type="number" name="ticket" id="ticketInput" value="{{service.ticket}}" />
 			</div>
-			<div class="">
-				<label for="isInWarranty">Está
-					en garantía:
-				</label>
-				<input type="checkbox" class="h-8 " name="isInWarranty" id="isInWarrantyInput">
+			<div class="form-field">
+				<label for="hours">Horas totales</label>
+				<input type="text" name="hours" id="hoursInput" />
+			</div>
+			<div class="form-field">
+				<label for="observations">Observaciones</label>
+				<textarea name="observations" class="text-black p-2 bg-[#D4D4D4]" id="observationsInput" cols="30"
+					rows="1"></textarea>
+			</div>
+		</div>
+
+		{{!-- FIXES --}}
+		<div class="form-field" style="width: 100%">
+			<label for="parts">Reparaciones:</label>
+			<div id="fixesContainer" class="flex gap-2">
+				<div id="fixesInputsContainer" class="space-y-2">
+					<div class="fixes-row">
+						<div class="item-number"> #1. </div>
+						<input type="text" name="fixInput1" id="fixInput1" placeholder="Descripción 1"
+							style="text-transform: uppercase; margin: 0 !important" />
+					</div>
+				</div>
+				<div class="flex flex-col justify-end h-full self-end">
+					<button id="addFixesRowButton" tabindex="0" type="button" class="mt-[2px]">
+						<i class="material-icons icon-add-item" style="padding: 0; margin: 0; font-size: 3rem;">add_box</i>
+					</button>
+				</div>
 			</div>
 		</div>
 
 		{{!-- PARTS --}}
 		<div class="form-field add-parts-container" style="width: 100%">
 			<label for="parts">Repuestos:</label>
-			<div id="partsContainer">
-				<div id="partsInputsContainer">
+			<div id="partsContainer" class="flex gap-2">
+				<div id="partsInputsContainer" class="space-y-2">
 					<div class="parts-row">
-						<div class="item-number" style="margin-right: .4rem; margin-left: .4rem;"> #1. </div>
+						<div class="item-number"> #1. </div>
 						<input type="text" name="partNumber1" id="partNumber1" placeholder="Nº DE REPUESTO 1"
-							style="text-transform: uppercase;" />
+							style="text-transform: uppercase; margin: 0 !important;" />
 						<input type="text" name="partName1" id="partName1" placeholder="Nombre de Repuesto 1"
-							style="text-transform: uppercase;" />
-						<input type="number" name="partQty1" id="partQty1" placeholder="Cant." style="max-width: 70px;">
+							style="text-transform: uppercase; margin: 0 !important;" />
+						<input type="number" step="0.1" name="partQty1" id="partQty1" placeholder="Cant."
+							style="max-width: 70px; margin: 0 !important;">
 					</div>
 				</div>
 				<button id="addPartRowButton" tabindex="0" type="button">
@@ -71,24 +126,8 @@
 			</div>
 		</div>
 
-		{{!-- FIXES --}}
-		<div class="form-field" style="width: 100%">
-			<label for="parts">Reparaciones:</label>
-			<div id="fixesContainer">
-				<div id="fixesInputsContainer">
-					<div class="fixes-row">
-						<div class="item-number"> #1. </div>
-						<input type="text" name="fixInput1" id="fixInput1" placeholder="Descripción 1"
-							style="text-transform: uppercase; margin: 0 .3rem 0 .3rem !important" />
-					</div>
-				</div>
-				<button id="addFixesRowButton" tabindex="0" type="button">
-					<i class="material-icons icon-add-item" style="padding: 0; margin: 0;  font-size: 3rem;">add_box</i>
-				</button>
-			</div>
-		</div>
-
-		<button class="button-success button-form" role="submit" style="margin-top: 3rem;">Guardar</button>
+		<button class="button-success button-form" role="submit" id="submit-button"
+			style="margin-top: 3rem;">Guardar</button>
 
 		{{!-- HIDDEN --}}
 		<input type="text" name="refUnit" id="refUnitId" value="{{refUnit._id}}" hidden>
@@ -101,6 +140,14 @@
 <script>
 	const datePicker = document.querySelector('#serviceDateInput')
 	datePicker.max = new Date().toISOString().split("T")[0];
+
+	const inputField = document.getElementById('hoursInput');
+
+	inputField.addEventListener('keypress', function (e) {
+		if (!/[0-9]/.test(String.fromCharCode(e.which))) {
+			e.preventDefault();
+		}
+	});
 </script>
 {{#each scripts}}
 <script src="{{script}}"></script>

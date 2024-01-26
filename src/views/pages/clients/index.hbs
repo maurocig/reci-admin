@@ -34,22 +34,28 @@
 	<div class="table-container">
 		<table>
 			<tr class="table-headers-row bg-slate-200 hover:bg-slate-200">
-				<th>R. Social</th>
+				<th>Razón Social</th>
+				<th>Nombre comercial</th>
 				<th class="center">Equipos</th>
 				<th class="max-w-[50px]"># Cliente</th>
 			</tr>
 			{{#each clients}}
 			<tr>
-				<td style="min-width: 170px;">
+				<td class="min-w-[120px] max-w-[170px]">
 					<a href="/clientes/{{_id}}"><strong>{{name}} </strong></a>
 				</td>
-
+				<td class="min-w-[120px] pl-4">
+					{{#if brandName}}
+					{{brandName}}
+					{{else}}
+					No registra
+					{{/if}}
+				</td>
 				<td class="center">
 					<a href="/equipos/{{_id}}">
 						{{refUnits.length}}
 					</a>
 				</td>
-
 				<td class="center">
 					<a href="/clientes/{{_id}}">
 						<strong>

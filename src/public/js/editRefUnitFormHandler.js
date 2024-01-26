@@ -52,7 +52,7 @@ form.addEventListener('submit', (e) => {
   };
 
   if (plateInput.value) {
-    const response = saveRefUnit(refUnit)
+    const response = updateRefUnit(refUnit)
       .then((response) => {
         Swal.fire({
           title: 'El equipo fue actualizado',
@@ -94,12 +94,12 @@ form.addEventListener('submit', (e) => {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
-        saveRefUnit(refUnit)
+        updateRefUnit(refUnit)
           .then((response) => {
             Swal.fire({
-              title: 'El equipo se agregó correctamente',
+              title: 'El equipo se editó correctamente',
               icon: 'success',
-              iconColor: '#F4B860',
+              iconColor: '#059669',
               showCancelButton: false,
               confirmButtonText: 'Ir al equipo',
             }).then((result) => {
@@ -111,7 +111,7 @@ form.addEventListener('submit', (e) => {
           .catch((error) => {
             console.log(error);
             Swal.fire({
-              title: 'Error al agregar equipo',
+              title: 'Error al editar equipo',
               text: 'Verificá que el número de serie o matrícula no estén duplicados',
               icon: 'error',
               iconColor: '#F4B860',
@@ -129,7 +129,7 @@ form.addEventListener('submit', (e) => {
   }
 });
 
-async function saveRefUnit(data) {
+async function updateRefUnit(data) {
   try {
     const response = await fetch(`/equipos/${refUnitId}?_method=PUT`, {
       method: 'POST',
@@ -141,7 +141,6 @@ async function saveRefUnit(data) {
     return response.json();
   } catch (error) {
     console.log(error);
-    alert('Error al crear equipo');
     return error;
   }
 }

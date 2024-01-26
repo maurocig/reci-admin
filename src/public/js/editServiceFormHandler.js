@@ -1,14 +1,17 @@
-const form = document.querySelector('form');
+const form = document.getElementById('form-edit-service');
 
-const serviceId = document.getElementById('serviceId');
+const serviceId = document.getElementById('serviceId').value;
 
 const clientId = document.getElementById('clientId');
 const refUnitId = document.getElementById('refUnitId');
 const orderNumberInput = document.getElementById('orderNumberInput');
 const serviceDateInput = document.getElementById('serviceDateInput');
 const hoursInput = document.getElementById('hoursInput');
+const handWorkHoursInput = document.getElementById('handWorkHoursInput');
 const ticketInput = document.getElementById('ticketInput');
 const isInWarranty = document.getElementById('isInWarrantyInput');
+const observationsInput = document.getElementById('observationsInput');
+const submitButton = document.getElementById('submit-button');
 
 const parts = [];
 const fixes = [];
@@ -20,6 +23,8 @@ const fixNameInputs = document.querySelectorAll('[id^="fixInput"]');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+  submitButton.disabled = true;
+  submitButton.classList.add('disabled-select');
 
   // Iterate through the input elements and create an object for each one
   for (let i = 0; i < partNumberInputs.length; i++) {
@@ -47,29 +52,60 @@ form.addEventListener('submit', (e) => {
     orderNumber: +orderNumberInput.value,
     serviceDate: serviceDateInput.value,
     hours: +hoursInput.value,
+    handWorkHours: parseFloat(handWorkHoursInput.value),
     ticket: ticketInput.value,
-    isInWarranty: isInWarranty.checked,
+    isInWarranty: isInWarranty.value === 'true',
+    observations: observationsInput.value,
     parts,
     fixes,
   };
 
-  // Send Form
-  const xhr = new XMLHttpRequest();
-  xhr.open('PUT', `/servicios/${serviceId.value}`, true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onloadend = function () {
-    // handle the response
+  updateService(service).then((response) => {
     Swal.fire({
-      title: 'El equipo se editó correctamente.',
-      icon: 'check',
-      iconColor: 'green',
-      confirmButtonColor: 'green',
-      confirmButtonText: 'Ir al servicio',
-    }).then((result) => {
-      if (result.value) {
-        window.location = `/servicios/${serviceId.value}`;
-      }
-    });
-  };
-  xhr.send(JSON.stringify(service));
+      title: 'El servicio se editó correctamente.',
+      icon: 'success',
+      iconColor: '#059669',
+      confirmButtonColor: '#059669',
+      confirmButtonText: 'Ver servicio',
+    })
+      .then((result) => {
+        if (result.value) {
+          window.location = `/servicios/${serviceId}`;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: 'Error al editar servicio',
+          text: 'Verificá la conexión a internet. Si el problema persiste, comunicate con el administrador.',
+          icon: 'error',
+          iconColor: '#EF4444',
+          showCancelButton: false,
+          confirmButtonText: 'Aceptar',
+        }).then((result) => {
+          if (result.value) {
+            submitButton.disabled = false;
+            submitButton.classList.remove('disabled-select');
+          }
+        });
+      });
+  });
+
+  // Send Form
 });
+
+async function updateService(data) {
+  try {
+    const response = await fetch(`/servicios/${serviceId}?_method=PUT`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

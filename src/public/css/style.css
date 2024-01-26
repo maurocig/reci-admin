@@ -124,7 +124,7 @@ main {
 }
 
 .form-container input::placeholder {
-	color: var(--secondary-dark-gray);
+	color: dark;
 	opacity: .5;
 	/* font-weight: 400; */
 }
@@ -307,6 +307,7 @@ section {
 
 .parts-row {
 	display: flex;
+	gap: 1rem;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
@@ -319,7 +320,8 @@ section {
 }
 
 .parts-row input::placeholder {
-	font-weight: 200;
+	font-weight: 300;
+	color: rgb(30, 30, 30);
 }
 
 #partsInputsContainer {
@@ -360,7 +362,8 @@ section {
 }
 
 .fixes-row input::placeholder {
-	font-weight: 200;
+	font-weight: 300;
+	color: rgb(30, 30, 30);
 }
 
 .item-number {
@@ -371,21 +374,21 @@ section {
 	display: inline;
 }
 
-#addFixesRowButton, #addPartRowButton, #addNextServiceRowButton {
+/* #addFixesRowButton, #addPartRowButton, #addNextServiceRowButton {
 	width: fit-content;
 	height: fit-content;
 	align-self: end;
 	padding: 0;
 	margin: 0;
 	background: none;
-}
+} */
 
 .icon-add-item {
 	color: var(--primary-success);
 	/* color: var(--secondary-light-gray); */
-	margin-bottom: 0;
+	/* margin-bottom: 8px !important; */
 	padding: 0;
-	margin: 0;
+	margin: -2px !important;
 	display: inline;
 }
 
@@ -679,6 +682,10 @@ td a {
 	display: block;
 }
 
+#show-table th {
+	text-align: start;
+
+}
 
 @media (max-width:500px) {
 	.nav-links-container {

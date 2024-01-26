@@ -46,19 +46,28 @@
 	<div class="table-container">
 		<table>
 			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
+				<th>Nº Serie</th>
 				<th>Matrícula</th>
 				<th>Modelo</th>
 				<th>Cliente</th>
-				<th>Nº Serie</th>
-				<th class="center">Editar</th>
+				<th class="center">Agregado</th>
 			</tr>
 			{{#each refUnits}}
 			<tr>
+				<td>
+					<a href="/equipos/{{_id}}">
+						{{#if this.soldByReci}}
+						<span class="font-normal text-emerald-600">
+							{{serialNumber}}
+						</span>
+						{{else}}
+						<span>{{serialNumber}}</span>
+						{{/if}}
+					</a>
+				</td>
 				<td class="center">
 					<a href="/equipos/{{this._id}} ">
-						<strong class="text-[--primary-success]">
-							{{this.plate}}
-						</strong>
+						{{this.plate}}
 					</a>
 				</td>
 				<td>
@@ -69,11 +78,6 @@
 				<td>
 					<a href="/equipos/{{_id}}">
 						{{client.name}}
-					</a>
-				</td>
-				<td>
-					<a href="/equipos/{{_id}}">
-						<strong>{{serialNumber}} </strong>
 					</a>
 				</td>
 				<td class="center">
