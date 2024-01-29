@@ -51,13 +51,14 @@ class RefUnitsMongoDao extends MongoContainer {
 
     const refUnits = await this.model
       .find({})
-      // .sort({refUnitDate: 'desc'})
+      .sort({ createdAt: 'desc' })
 
       // pagination
       .skip(page * refUnitsPerPage)
       .limit(refUnitsPerPage)
 
       .populate('client', ['name', '_id'])
+      .populate('pendingTasks', ['taskDescription', 'completed'])
       .lean();
     return refUnits;
   }
@@ -111,7 +112,7 @@ class RefUnitsMongoDao extends MongoContainer {
     const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
     if (refUnit) {
       const updatedRefUnit = await this.model.updateOne(
-        { id: refUnitId },
+        { _id: refUnitId },
         { $pull: { pendingTasks: pendingTaskId } }
       );
       return updatedRefUnit;

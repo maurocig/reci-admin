@@ -29,6 +29,7 @@ class RefUnitsController {
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
       ];
 
+      console.log(refUnit);
       res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit, scripts });
     } catch (error) {
       next(error);
@@ -162,6 +163,22 @@ class RefUnitsController {
     }
   }
 
+  async searchRefUnit(req, res, next) {
+    let query = req.query.q;
+    try {
+      if (!query) {
+        const refUnits = await refUnitsDao.getAll();
+        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
+      } else {
+        const refUnits = await refUnitsDao.find({ $text: { $search: query } }, 'client');
+        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
+      }
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
   async searchRefUnitByPlate(req, res, next) {
     let query = req.query.q;
     try {
@@ -178,18 +195,31 @@ class RefUnitsController {
     }
   }
 
-  async searchRefUnit(req, res, next) {
-    let query = req.query.q;
+  async filterRefUnit(req, res, next) {
+    const { f } = req.query;
+    let query;
+
     try {
-      if (!query) {
-        const refUnits = await refUnitsDao.getAll();
-        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
-      } else {
-        const refUnits = await refUnitsDao.find({ $text: { $search: query } }, 'client');
-        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
+      console.log('f: ', f);
+      if (f === 'plate' || f === 'serialNumber') {
+        query = await JSON.parse(`{"${f}": null}`);
+      } else if (f === 'pendingTasks') {
+        query = {
+          $and: [
+            { pendingTasks: { $ne: [] } },
+            { pendingTasks: { $exists: true } },
+            // { pendingTasks: { $elemMatch: { completed: false } } },
+          ],
+        };
       }
+
+      // console.log(query);
+      console.log(query);
+
+      const refUnits = await refUnitsDao.find(query, 'client');
+
+      res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits, f });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

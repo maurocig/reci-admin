@@ -40,13 +40,18 @@ class PendingTasksController {
     const { id } = req.params;
     const { taskDescription, client, refUnit, completed } = req.body;
 
-    const pendingTask = await PendingTasksDao.getByIdAndPopulate(id);
-
     try {
+      const pendingTask = await PendingTasksDao.getByIdAndPopulate(id);
       const updatedTask = { taskDescription, client, refUnit, completed: Boolean(completed) };
-      await PendingTasksDao.update(id, updatedTask);
 
-      res.redirect(`/equipos/${pendingTask.refUnit._id}#pendingTasks`);
+      // remove pending task from refUnit.pendingTasks array and delete it if completed is true.
+      if (updatedTask.completed && pendingTask.refUnit) {
+        await refUnitsDao.removePendingTask(pendingTask.refUnit, id);
+        await PendingTasksDao.delete(id);
+        res.redirect(`/equipos/${pendingTask.refUnit._id}#pendingTasks`);
+      } else {
+        await PendingTasksDao.update(id, updatedTask);
+      }
     } catch (error) {
       next(error);
     }

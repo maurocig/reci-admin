@@ -16,29 +16,31 @@
 		style="font-size: 50px; display: block; margin-bottom: .2rem;">ac_unit</i>
 	<h1 class="title">Equipos</h1>
 
-
+	{{!-- search --}}
 	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
 		<form action="/equipos/search" method="GET" class="flex items-center gap-2">
-			<input name="q" placeholder="Buscar por matrícula"
-				class="inline w-3/4 h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-full" style="margin: 0 !important;">
+			<input name="q" placeholder="Buscar Nº serie"
+				class="inline w-3/4 h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-full"
+				style="margin: 0 !important; padding-inline: 1.2rem;">
 			</input>
 			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
 					class="inline text-white material-icons">search</i></button>
 		</form>
 		<div></div>
-		{{!-- <div> --}}
-		{{!-- 	<label for="refUnitsFilter" class="mr-2 text-gray-300 align-self-center w-100 text-end"> --}}
-		{{!-- 		<strong> --}}
-		{{!-- 			Filtrar: --}}
-		{{!-- 		</strong> --}}
-		{{!-- 	</label> --}}
-		{{!-- 	<select name="refUnitsFilter" id="refUnitsFilter" class="w-48 h-10 px-2 m-0 mx-auto bg-gray-200"> --}}
-		{{!-- 		<option value="all">Todos</option> --}}
-		{{!-- 		<option value="pendingTasks">Tareas pendientes</option> --}}
-		{{!-- 		<option value=""></option> --}}
-		{{!-- 		<option value=""></option> --}}
-		{{!-- 	</select> --}}
-		{{!-- </div> --}}
+
+		{{!-- filter --}}
+		<form id="filter-form" class="w-full flex items-center gap-3 justify-end">
+			<label for="refUnitsFilter" class="text-gray-300 align-self-center w-100 text-end">
+				<strong>
+					Filtrar:
+				</strong>
+			</label>
+			<select name="f" id="refUnitsFilter" class="w-48 h-10 px-2 m-0 bg-gray-200">
+				<option value="all">Todos</option>
+				<option value="pendingTasks">Tareas pendientes</option>
+				<option value="plate">Sin matricular</option>
+			</select>
+		</form>
 	</div>
 
 
@@ -65,9 +67,13 @@
 						{{/if}}
 					</a>
 				</td>
-				<td class="center">
+				<td>
 					<a href="/equipos/{{this._id}} ">
+						{{#if this.plate}}
 						{{this.plate}}
+						{{else}}
+						<span class="text-red-500">No registra</span>
+						{{/if}}
 					</a>
 				</td>
 				<td>
@@ -80,11 +86,16 @@
 						{{client.name}}
 					</a>
 				</td>
-				<td class="center">
+				<td>
+					<a href="/equipos/{{_id}}">
+						{{formatDate createdAt}}
+					</a>
+				</td>
+				{{!-- <td class="center">
 					<a href="/equipos/editar/{{_id}}">
 						<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
 					</a>
-				</td>
+				</td> --}}
 			</tr>
 			{{/each}}
 		</table>
@@ -109,22 +120,35 @@
 	<input type="text" hidden value="{{refUnits.length}}" id="refUnits-length">
 
 	<script>
-		/*
-		async function fetchData(url) {
-			try {
-				const response = await fetch(url)
-				const data = response.text()
-			} catch (err) {
-				console.log(err)
-			}
+		// Filter
+		const select = document.getElementById('refUnitsFilter');
+		const filterForm = document.getElementById('filter-form');
+
+		select.value = "{{f}}";
+		if (!select.value) {
+			select.value = 'all';
 		}
 
-		const select = document.getElementById('refUnitsFilter');
 		select.addEventListener('change', async (e) => {
-			const selectedValue = this.value;
-			const data = await fetchData(selectedValue)
+			let selectedValue = select.value;
+			if (selectedValue === 'all') {
+				filterForm.setAttribute('action', '/equipos');
+			} else {
+				filterForm.setAttribute('action', `/equipos/filter?f=${selectedValue}`);
+			}
+			filterForm.submit();
 		})
 
+
+		/*
+			async function fetchData(filter) {
+				try {
+					const response = await fetch(`/equipos/filter?f=${filter}`);
+					return response.json()
+				} catch (err) {
+					console.log(err)
+				}
+			}
 		*/
 
 		// Pagination

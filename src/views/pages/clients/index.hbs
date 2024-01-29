@@ -44,15 +44,17 @@
 				<td class="min-w-[120px] max-w-[170px]">
 					<a href="/clientes/{{_id}}"><strong>{{name}} </strong></a>
 				</td>
-				<td class="min-w-[120px] pl-4">
-					{{#if brandName}}
-					{{brandName}}
-					{{else}}
-					No registra
-					{{/if}}
+				<td class="min-w-[120px]">
+					<a href=" /clientes/{{_id}}">
+						{{#if brandName}}
+						{{brandName}}
+						{{else}}
+						No registra
+						{{/if}}
+					</a>
 				</td>
 				<td class="center">
-					<a href="/equipos/{{_id}}">
+					<a href="/clientes/{{_id}}">
 						{{refUnits.length}}
 					</a>
 				</td>

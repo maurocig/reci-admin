@@ -24,14 +24,21 @@
 			{{#if refUnit.plate}}
 			{{refUnit.plate}}
 			{{else}}
-			Sin matricular
+			Sin matrícula
 			{{/if}}
 		</button>
 	</div>
 
 	<i class="material-icons icon-clients center"
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">ac_unit</i>
-	<h1 class="title">Equipo {{refUnit.plate}}</h1>
+	<h1 class="title">
+		Equipo
+		{{#if refUnit.plate}}
+		{{refUnit.plate}}
+		{{else}}
+		sin matrícula
+		{{/if}}
+	</h1>
 
 	<section class="mx-auto mb-4">
 		<div class="table-container max-w-[500px]" style="">
@@ -54,7 +61,7 @@
 						{{#if refUnit.plate}}
 						{{refUnit.plate}}
 						{{else}}
-						<div class="text-red-700">No registra</div>
+						<div class="text-red-500">No registra</div>
 						{{/if}}
 					</td>
 				</tr>

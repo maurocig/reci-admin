@@ -34,17 +34,17 @@
 				<input type="text" name="brandName" value="{{client.brandName}}" placeholder="Ej: MCDONALD'S" required />
 			</div>
 			<div class="form-field">
-				<label for="contactPerson">Persona de contacto <span class="text-red-500">*</span></label>
-				<input type="text" name="contactPerson" value="{{client.contactPerson}}" style="text-transform:uppercase"
-					placeholder="Ej. Juan Pérez" required />
-			</div>
-			<div class="form-field">
 				<label for="email">E-mail <span class="text-red-500">*</span></label>
 				<input type="email" name="email" value='{{client.email}}' style="text-transform: lowercase;" required />
 			</div>
 			<div class="form-field">
 				<label for="phone">Teléfono <span class="text-red-500">*</span></label>
 				<input type="number" name="phone" value='{{client.phone}}' placeholder="098 765432" />
+			</div>
+			<div class="form-field">
+				<label for="contactPerson">Persona de contacto</span></label>
+				<input type="text" name="contactPerson" value="{{client.contactPerson}}" style="text-transform:uppercase"
+					placeholder="Ej. Juan Pérez" />
 			</div>
 			<div class="form-field">
 				<label for="phone">Número de cliente</label>

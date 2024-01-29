@@ -22,7 +22,11 @@
 				<span class="button-icon-container">
 					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
 				</span>
+				{{#if service.refUnit.plate}}
 				{{service.refUnit.plate}}
+				{{else}}
+				Sin matrícula
+				{{/if}}
 			</button>
 		</a>
 		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
@@ -88,7 +92,7 @@
 						<th>En garantía</th>
 						<td>
 							{{#if service.isInWarranty}}
-							<span class="font-bold text-emerald-600">
+							<span>
 								Sí
 							</span>
 							{{else}}
@@ -247,7 +251,7 @@
 				<th>Descripción</th>
 			</tr>
 			<tr>
-				<td class="p-4">{{service.observations}}</td>
+				<td class="p-4 uppercase">{{service.observations}}</td>
 			</tr>
 		</table>
 		{{else}}
