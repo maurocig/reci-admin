@@ -58,7 +58,7 @@ class ServicesMongoDao extends MongoContainer {
     const documents = await this.model
       .find(filter, { __v: 0 })
       .populate('client', 'name')
-      .populate('refUnit', ['plate', 'model'])
+      .populate('refUnit', ['plate', 'model', 'serialNumber'])
       .lean();
     return documents;
   }
