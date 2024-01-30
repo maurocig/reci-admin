@@ -49,7 +49,7 @@ class ServicesMongoDao extends MongoContainer {
       .limit(servicesPerPage)
 
       .populate('client', 'name')
-      .populate('refUnit', ['plate', 'model'])
+      .populate('refUnit', ['plate', 'model', 'serialNumber', 'soldByReci'])
       .lean();
     return services;
   }

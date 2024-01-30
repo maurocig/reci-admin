@@ -211,6 +211,8 @@ class RefUnitsController {
             // { pendingTasks: { $elemMatch: { completed: false } } },
           ],
         };
+      } else if (f === 'soldByReci') {
+        query = { soldByReci: true };
       }
 
       // console.log(query);

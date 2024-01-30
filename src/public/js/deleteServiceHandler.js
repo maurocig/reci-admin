@@ -19,7 +19,17 @@ function deleteService(id) {
       xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
       xhr.onloadend = function () {
         // handle the response
-        Swal.fire('El servicio fue borrado.', 'Click en guardar para restaurarlo.');
+        Swal.fire({
+          title: 'El servicio fue borrado.',
+          iconColor: '#059669',
+          icon: 'success',
+          confirmButtonText: 'Volver al equipo',
+          confirmButtonColor: '#059669',
+        }).then((result) => {
+          if (result.value) {
+            window.location.href = `/equipos/${refUnitId.value}`;
+          }
+        });
       };
       xhr.send();
     }

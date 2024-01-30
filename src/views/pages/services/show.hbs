@@ -102,6 +102,10 @@
 							{{/if}}
 						</td>
 					</tr>
+					<tr>
+						<th>Creado</th>
+						<td>{{formatDate service.createdAt}}</td>
+					</tr>
 				</table>
 			</div>
 		</section>
@@ -172,6 +176,10 @@
 							{{/if}}
 						</td>
 					</tr>
+					<tr>
+						<th>Creado</th>
+						<td>{{formatDate service.refUnit.createdAt}}</td>
+					</tr>
 				</table>
 			</div>
 		</section>
@@ -189,8 +197,8 @@
 			{{#if service.fixes}}
 			<div class="mb-0 table-container" style="width: 100%; min-width: 300px;">
 				<table>
-					<tr>
-						<th>Descripción</th>
+					<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+						<th class="py-2">Descripción</th>
 					</tr>
 					{{#each service.fixes}}
 					<tr>
@@ -217,10 +225,10 @@
 			{{#if service.parts}}
 			<div class="table-container" style="width: 100%; min-width: 300px;">
 				<table>
-					<tr>
-						<th>Código</th>
-						<th>Descripción</th>
-						<th>Cantidad</th>
+					<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+						<th class="py-2">Código</th>
+						<th class="py-2">Descripción</th>
+						<th class="py-2">Cantidad</th>
 					</tr>
 					{{#each service.parts}}
 					<tr>
@@ -247,8 +255,8 @@
 		</h2>
 		{{#if service.observations}}
 		<table>
-			<tr>
-				<th>Descripción</th>
+			<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+				<th class="py-2">Descripción</th>
 			</tr>
 			<tr>
 				<td class="p-4 uppercase">{{service.observations}}</td>

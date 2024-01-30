@@ -117,7 +117,7 @@
 						<th class="py-2">N° Serie</th>
 						<th class="py-2">Matrícula</th>
 						<th class="py-2">Modelo</th>
-						<th class="py-2 center">Servicios</th>
+						{{!-- <th class="py-2 center">Servicios</th> --}}
 					</tr>
 					{{#each refUnits}}
 					<tr>
@@ -150,11 +150,11 @@
 								{{this.model}}
 							</a>
 						</td>
-						<td class="center">
+						{{!-- <td class="center">
 							<a href="/equipos/{{this._id}}">
 								{{this.services.length}}
 							</a>
-						</td>
+						</td> --}}
 					</tr>
 					{{/each}}
 				</table>
