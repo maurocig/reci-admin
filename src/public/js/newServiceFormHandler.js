@@ -23,7 +23,7 @@ addPartRowButton.addEventListener('click', () => {
 					<div class="item-number">#${partsInputCount}.</div>
 					<input type="text" name="partNumber${partsInputCount}" id="partNumber${partsInputCount}" placeholder="Nº de Repuesto ${partsInputCount}" style="text-transform: uppercase; margin: 0 !important"/>
 					<input type="text" name="partName${partsInputCount}" id="partName${partsInputCount}" placeholder="Nombre de Repuesto ${partsInputCount}" style="text-transform: uppercase; margin: 0 !important"/>
-						<input type="number" name="partQty1" id="partQty1" placeholder="Cant." style="max-width: 70px; margin: 0 !important;">
+						<input type="number" step="0.1" name="partQty1" id="partQty1" placeholder="Cant." style="max-width: 70px; margin: 0 !important;">
 		`;
   if (
     partNumberInputs[partNumberInputs.length - 1].value &&
