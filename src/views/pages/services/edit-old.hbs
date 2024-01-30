@@ -23,8 +23,7 @@
 		</button>
 	</a>
 
-	<i class="material-icons icon-clients center"
-		style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+	<i class="material-icons icon-clients center" style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
 
 	{{!-- INFORMACIÓN --}}
 	<h1 class="title">Editar servicio</h1>
@@ -36,8 +35,7 @@
 			</div>
 			<div class="form-field">
 				<label for="refUnitInput">Nº Serie:</label>
-				<input type="string" name="serialNumber" id="refUnitInput" value="{{service.refUnit.serialNumber}}"
-					readonly />
+				<input type="string" name="serialNumber" id="refUnitInput" value="{{service.refUnit.serialNumber}}" readonly />
 			</div>
 			<div class="form-field">
 				<label for="refUnit">Modelo:</label>
@@ -90,7 +88,6 @@
 	const deleteButton = document.querySelector('.button-danger');
 
 	function deleteService(id) {
-		console.log(`id: ${id}`);
 		Swal.fire({
 			title: 'Se borrará el servicio',
 			text: 'Esta acción no se puede revertir.',
@@ -102,7 +99,6 @@
 			cancelButtonText: 'Cancelar',
 		})
 			.then((result) => {
-				console.log(result.value);
 				if (result.value) {
 					// send a DELETE request to the server
 					const xhr = new XMLHttpRequest();

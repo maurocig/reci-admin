@@ -29,7 +29,6 @@ class RefUnitsController {
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
       ];
 
-      console.log(refUnit);
       res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit, scripts });
     } catch (error) {
       next(error);
@@ -200,7 +199,6 @@ class RefUnitsController {
     let query;
 
     try {
-      console.log('f: ', f);
       if (f === 'plate' || f === 'serialNumber') {
         query = await JSON.parse(`{"${f}": null}`);
       } else if (f === 'pendingTasks') {
@@ -214,9 +212,6 @@ class RefUnitsController {
       } else if (f === 'soldByReci') {
         query = { soldByReci: true };
       }
-
-      // console.log(query);
-      console.log(query);
 
       const refUnits = await refUnitsDao.find(query, 'client');
 

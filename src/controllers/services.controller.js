@@ -116,7 +116,6 @@ class ServicesController {
       };
 
       const response = await servicesDao.update(id, updatedService);
-      console.log(response);
 
       res.status(200).json(response);
     } catch (error) {

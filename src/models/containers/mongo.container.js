@@ -55,7 +55,11 @@ class MongoContainer {
   }
 
   async find(filter = {}, collectionRef = '') {
-    const documents = await this.model.find(filter, { __v: 0 }).populate(collectionRef).lean();
+    const documents = await this.model
+      .find(filter, { __v: 0 })
+      .sort({ createdAt: 'desc' })
+      .populate(collectionRef)
+      .lean();
     return documents;
   }
 }

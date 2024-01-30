@@ -115,8 +115,6 @@ form.addEventListener('submit', (e) => {
     }
   }
 
-  console.log(service);
-
   saveService(service).then((response) => {
     submitButton.disabled = false;
     submitButton.classList.remove('disabled-select');

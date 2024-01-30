@@ -64,7 +64,6 @@
 		const deleteButton = document.querySelector('.button-danger')
 
 		function deleteEquipment(id) {
-			console.log(`id: ${id}`);
 			Swal.fire({
 				title: 'Se borrará el cliente',
 				text: "Esta acción no se puede revertir.",
@@ -77,7 +76,6 @@
 				cancelButtonText: 'Cancelar',
 			})
 				.then((result) => {
-					console.log(result.value);
 					if (result.value) {
 						// send a DELETE request to the server
 						const xhr = new XMLHttpRequest();
