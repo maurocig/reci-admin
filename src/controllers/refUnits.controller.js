@@ -44,7 +44,7 @@ class RefUnitsController {
       // const soldByReciBool = soldByReci === 'true';
 
       const refUnit = {
-        serialNumber,
+        serialNumber: serialNumber.toUpperCase(),
         model,
         services: [],
         hours,
@@ -106,7 +106,7 @@ class RefUnitsController {
 
     try {
       const updatedRefUnit = {
-        serialNumber,
+        serialNumber: serialNumber.toUpperCase(),
         model,
         plate,
         soldByReci,

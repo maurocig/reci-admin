@@ -11,6 +11,7 @@ const handWorkHoursInput = document.getElementById('handWorkHoursInput');
 const ticketInput = document.getElementById('ticketInput');
 const isInWarranty = document.getElementById('isInWarrantyInput');
 const observationsInput = document.getElementById('observationsInput');
+const technicianInput = document.getElementById('technicianInput');
 const submitButton = document.getElementById('submit-button');
 
 const parts = [];
@@ -56,6 +57,7 @@ form.addEventListener('submit', (e) => {
     ticket: ticketInput.value,
     isInWarranty: isInWarranty.value === 'true',
     observations: observationsInput.value,
+    technician: technicianInput.value,
     parts,
     fixes,
   };

@@ -46,6 +46,7 @@ class ServicesController {
       parts,
       fixes,
       observations,
+      technician,
     } = req.body;
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
@@ -66,6 +67,7 @@ class ServicesController {
         parts,
         fixes,
         observations,
+        technician: technician.toUpperCase(),
       };
 
       const newServiceId = await servicesDao.save(service);
@@ -92,6 +94,7 @@ class ServicesController {
       parts,
       fixes,
       observations,
+      technician,
     } = req.body;
 
     const oldService = await servicesDao.getById(id);
@@ -113,6 +116,7 @@ class ServicesController {
         parts,
         fixes,
         observations,
+        technician: technician.toUpperCase(),
       };
 
       const response = await servicesDao.update(id, updatedService);

@@ -53,7 +53,7 @@
 				<th>Matrícula</th>
 				<th>Modelo</th>
 				<th>Cliente</th>
-				<th class="center">Agregado</th>
+				<th>Agregado</th>
 			</tr>
 			{{#each refUnits}}
 			<tr>
@@ -139,18 +139,6 @@
 			}
 			filterForm.submit();
 		})
-
-
-		/*
-			async function fetchData(filter) {
-				try {
-					const response = await fetch(`/equipos/filter?f=${filter}`);
-					return response.json()
-				} catch (err) {
-					console.log(err)
-				}
-			}
-		*/
 
 		// Pagination
 		const urlParams = new URLSearchParams(window.location.search)

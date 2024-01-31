@@ -83,6 +83,10 @@
 				</select>
 			</div>
 			<div class="form-field">
+				<label for="technician">Técnico responsable <span class="text-red-500">*</span></label>
+				<input type="text" id="technicianInput" value="{{service.technician}}" class="uppercase" required>
+			</div>
+			<div class="form-field">
 				<label for="hours">Horas totales</label>
 				<input type="text" name="hours" id="hoursInput" value="{{service.hours}}" />
 			</div>
@@ -177,7 +181,6 @@
 				<input type="number" id="partQty{{addNumber service.parts.length 3 }}" step="0.1" class="max-w-[80px]"
 					placeholder="Cant.">
 			</div>
-
 		</section>
 		<button type="submit" class="button-form button-success">Guardar</button>
 

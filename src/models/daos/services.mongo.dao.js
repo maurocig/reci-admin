@@ -16,6 +16,7 @@ const serviceSchema = new Schema(
     parts: [{ type: Object }],
     fixes: [{ type: Object, required: true }],
     observations: { type: String },
+    technician: { type: String },
   },
   {
     timestamps: true,

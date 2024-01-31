@@ -100,6 +100,10 @@
 					<th>Creado</th>
 					<td>{{formatDate refUnit.createdAt}}</td>
 				</tr>
+				<tr>
+					<th>Editado</th>
+					<td>{{formatDate refUnit.updatedAt}}</td>
+				</tr>
 			</table>
 		</div>
 
@@ -242,7 +246,7 @@
 		<h2 class="mt-0 subtitle" style="display: flex;">
 			<i class="material-icons icon-clients center"
 				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">check</i>
-			Tareas realizadas
+			Tareas realizadas en servicios
 		</h2>
 
 		{{#if refUnit.services}}

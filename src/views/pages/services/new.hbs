@@ -72,6 +72,18 @@
 				</select>
 			</div>
 			<div class="form-field">
+				<label for="technician">Técnico responsable <span class="text-red-500">*</span></label>
+				<select name="technician" id="technicianInput">
+					<option value="" disabled selected>Seleccionar</option>
+					<option value="ALEJANDRO CIGLIUTI" class="uppercase">ALEJANDRO CIGLIUTI</option>
+					<option value="DAVID CAMARGO" class="uppercase">DAVID CAMARGO</option>
+					<option value="DAVID TECHERA" class="uppercase">DAVID TECHERA</option>
+					<option value="MICHEL MARCON" class="uppercase">MICHEL MARCON</option>
+					<option value="MIGUEL TECHERA" class="uppercase">MIGUEL TECHERA</option>
+					<option value="OTRO">OTRO (avisar a mauro)</option>
+				</select>
+			</div>
+			<div class="form-field">
 				<label for="ticket">Nº Factura</label>
 				<input type="number" name="ticket" id="ticketInput" value="{{service.ticket}}" />
 			</div>

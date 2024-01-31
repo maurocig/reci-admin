@@ -76,6 +76,7 @@ form.addEventListener('submit', (e) => {
   const ticketInput = document.getElementById('ticketInput');
   const isInWarrantyInput = document.getElementById('isInWarrantyInput');
   const observationsInput = document.getElementById('observationsInput');
+  const technicianInput = document.getElementById('technicianInput');
 
   const service = {
     client: clientId.value,
@@ -87,6 +88,7 @@ form.addEventListener('submit', (e) => {
     ticket: ticketInput.value,
     isInWarranty: isInWarrantyInput.value === 'true',
     observations: observationsInput.value,
+    technician: technicianInput.value,
     parts,
     fixes,
   };

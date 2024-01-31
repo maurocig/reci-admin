@@ -57,7 +57,8 @@ form.addEventListener('submit', (e) => {
         Swal.fire({
           title: 'El equipo fue actualizado',
           icon: 'success',
-          iconColor: '#F4B860',
+          iconColor: '#059669',
+          confirmButtonColor: '#059669',
           showCancelButton: false,
           confirmButtonText: 'Ver equipo',
         }).then((result) => {
@@ -100,6 +101,7 @@ form.addEventListener('submit', (e) => {
               title: 'El equipo se editó correctamente',
               icon: 'success',
               iconColor: '#059669',
+              confirmButtonColor: '#059669',
               showCancelButton: false,
               confirmButtonText: 'Ir al equipo',
             }).then((result) => {

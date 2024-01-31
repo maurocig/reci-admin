@@ -78,6 +78,15 @@
 						</td>
 					</tr>
 					<tr>
+						<th>Técnico responsable</th>
+						<td>
+							{{#if service.technician}}
+							{{service.technician}}
+							{{else}}
+							<span class="text-red-500">No registra</span>
+							{{/if}}
+						</td>
+					</tr>
 					<tr>
 						<th>Horas totales</th>
 						<td>
@@ -93,11 +102,11 @@
 						<td>
 							{{#if service.isInWarranty}}
 							<span>
-								Sí
+								SÍ
 							</span>
 							{{else}}
 							<span>
-								No
+								NO
 							</span>
 							{{/if}}
 						</td>
