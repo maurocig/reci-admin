@@ -27,11 +27,13 @@
 		<div class="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
 				<label for="name">Razón social <span class="text-red-500">*</span></label>
-				<input type="text" name="name" value="{{client.name}}" placeholder="RESTAURANTES MCDONALDS S.A." required />
+				<input type="text" name="name" value="{{client.name}}" placeholder="RESTAURANTES MCDONALDS S.A."
+					class="uppercase" required />
 			</div>
 			<div class="form-field">
 				<label for="brandName">Nombre comercial <span class="text-red-500">*</span></label>
-				<input type="text" name="brandName" value="{{client.brandName}}" placeholder="Ej: MCDONALD'S" required />
+				<input type="text" name="brandName" value="{{client.brandName}}" placeholder="Ej: MCDONALD'S" class="uppercase"
+					required />
 			</div>
 			<div class="form-field">
 				<label for="email">E-mail <span class="text-red-500">*</span></label>
@@ -43,7 +45,7 @@
 			</div>
 			<div class="form-field">
 				<label for="contactPerson">Persona de contacto</span></label>
-				<input type="text" name="contactPerson" value="{{client.contactPerson}}" style="text-transform:uppercase"
+				<input type="text" name="contactPerson" value="{{client.contactPerson}}" class="uppercase"
 					placeholder="Ej. Juan Pérez" />
 			</div>
 			<div class="form-field">
