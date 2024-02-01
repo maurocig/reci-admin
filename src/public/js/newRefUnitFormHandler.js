@@ -26,8 +26,6 @@ const submitButton = document.querySelector('#submit-button');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  submitButton.disabled = true;
-  submitButton.classList.add('disabled-select');
 
   const refUnit = {
     serialNumber: serialNumberInput.value,
@@ -39,12 +37,14 @@ form.addEventListener('submit', (e) => {
   };
 
   if (plateInput.value) {
+    submitButton.disabled = true;
+    submitButton.classList.add('disabled-select');
     const response = saveRefUnit(refUnit)
       .then((response) => {
         Swal.fire({
           title: 'El equipo se agregó correctamente',
           icon: 'success',
-          iconColor: '#F4B860',
+          iconColor: '#059669',
           showCancelButton: false,
           confirmButtonText: 'Ver equipo',
         }).then((result) => {
@@ -72,7 +72,7 @@ form.addEventListener('submit', (e) => {
   } else {
     Swal.fire({
       title: 'Estás por ingresar un equipo sin matrícula',
-      text: 'Podés encontrar la unidad en la sección "Equipos > Filtrar > Sin matricular"',
+      text: 'Podés encontrar la unidad en la sección \n Equipos > Filtrar > Sin matricular',
       icon: 'warning',
       iconColor: '#F4B860',
       showCancelButton: true,
@@ -81,6 +81,8 @@ form.addEventListener('submit', (e) => {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
+        submitButton.disabled = true;
+        submitButton.classList.add('disabled-select');
         saveRefUnit(refUnit)
           .then((response) => {
             Swal.fire({

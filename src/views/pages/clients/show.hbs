@@ -93,6 +93,14 @@
 					{{!-- 		{{client.refUnits.length}} --}}
 					{{!-- 	</td> --}}
 					{{!-- </tr> --}}
+					<tr>
+						<th>Creado</th>
+						<td>{{formatDate client.createdAt}}</td>
+					</tr>
+					<tr>
+						<th>Actualizado</th>
+						<td>{{formatDate client.updatedAt}}</td>
+					</tr>
 				</table>
 			</div>
 			<a href="/clientes/editar/{{client._id}}">
@@ -117,6 +125,7 @@
 						<th class="py-2">N° Serie</th>
 						<th class="py-2">Matrícula</th>
 						<th class="py-2">Modelo</th>
+						{{!-- <th class="py-2">Creado</th> --}}
 						{{!-- <th class="py-2 center">Servicios</th> --}}
 					</tr>
 					{{#each refUnits}}
@@ -150,6 +159,10 @@
 								{{this.model}}
 							</a>
 						</td>
+						{{!-- <td>
+							<a href="/equipos/{{this._id}} ">
+								{{formatDate this.createdAt}}
+						</td> --}}
 						{{!-- <td class="center">
 							<a href="/equipos/{{this._id}}">
 								{{this.services.length}}

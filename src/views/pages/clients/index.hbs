@@ -40,6 +40,7 @@
 				<th class="max-w-[50px]"># Cliente</th>
 			</tr>
 			{{#each clients}}
+			{{#unless (eq this.name "-")}}
 			<tr>
 				<td class="min-w-[120px] max-w-[170px]">
 					<a href="/clientes/{{_id}}"><strong>{{name}} </strong></a>
@@ -73,6 +74,7 @@
 				{{!-- </td> --}}
 
 			</tr>
+			{{/unless}}
 			{{/each}}
 		</table>
 	</div>

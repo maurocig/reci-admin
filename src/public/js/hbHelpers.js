@@ -15,4 +15,7 @@ module.exports = {
   isOdd: function (i) {
     return i % 2;
   },
+  eq: function (a, b) {
+    return a === b;
+  },
 };
