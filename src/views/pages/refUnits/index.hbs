@@ -17,7 +17,7 @@
 	<h1 class="title">Equipos</h1>
 
 	{{!-- search --}}
-	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
+	<div class="grid items-center grid-cols-1 gap-2 mb-3 sm:grid-cols-3">
 		<form action="/equipos/search" method="GET" class="flex items-center gap-2">
 			<input name="q" placeholder="Buscar Nº serie"
 				class="inline w-3/4 h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-full"
@@ -26,10 +26,12 @@
 			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
 					class="inline text-white material-icons">search</i></button>
 		</form>
+
+		{{!-- order --}}
 		<div></div>
 
 		{{!-- filter --}}
-		<form id="filter-form" class="w-full flex items-center gap-3 justify-end">
+		<form id="filter-form" class="w-full flex items-center gap-3 justify-start sm:justify-end">
 			<label for="refUnitsFilter" class="text-gray-300 align-self-center w-100 text-end">
 				<strong>
 					Filtrar:
