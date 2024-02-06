@@ -2,38 +2,39 @@
 {{>navbar}}
 
 <script src="https://kit.fontawesome.com/29f13514cf.js" crossorigin="anonymous"></script>
-<main style="height: calc(100vh - 80px); position: relative" class="mt-[80px]">
-	<h1 class='title'>RECI Importaciones</h1>
-	<div class="grid-icons-home">
-		<a href="/clientes">
-			<div class="container-icon-home">
-				{{!-- <i class="fa-regular fa-users"></i> --}}
-				<i class="material-icons icon-clients" style="font-size: 50px; padding-top: .8rem;">group</i>
-				<span class="card-home-title">Clientes</span>
-			</div>
-		</a>
-		<a href="/equipos">
-			<div class="container-icon-home">
-				<i class="material-icons icon-clients" style="font-size: 50px; padding-top: .8rem;">ac_unit</i>
-				<span class="card-home-title">Equipos</span>
-			</div>
-		</a>
-		<a href="/servicios">
-			<div class="container-icon-home">
-				<i class="material-icons icon-clients" style="font-size: 45px; padding-top: .8rem;">build</i>
-				<span class="card-home-title">Servicios</span>
-			</div>
-		</a>
-		<a href="/tareas">
-			<div class="container-icon-home">
-				<i class="material-icons icon-clients" style="font-size: 55px; padding-top: .5rem">schedule</i>
-				<span class="card-home-title">Tareas</span>
-			</div>
-		</a>
+<main style="height: calc(100vh - 80px); position: relative" class="mt-[80px] ">
+	{{!-- <h1 class='title'>RECI Importaciones</h1> --}}
+	<div class="flex flex-col items-center justify-center w-full h-[60vh] ">
+		<div class="grid-icons-home p-4">
+			<a href="/clientes">
+				<div class="container-icon-home">
+					{{!-- <i class="fa-regular fa-users"></i> --}}
+					<i class="material-icons icon-clients" style="font-size: 50px; padding-top: .8rem;">group</i>
+					<span class="card-home-title">Clientes</span>
+				</div>
+			</a>
+			<a href="/equipos">
+				<div class="container-icon-home">
+					<i class="material-icons icon-clients" style="font-size: 50px; padding-top: .8rem;">ac_unit</i>
+					<span class="card-home-title">Equipos</span>
+				</div>
+			</a>
+			<a href="/servicios">
+				<div class="container-icon-home">
+					<i class="material-icons icon-clients" style="font-size: 45px; padding-top: .8rem;">build</i>
+					<span class="card-home-title">Servicios</span>
+				</div>
+			</a>
+			<a href="/tareas">
+				<div class="container-icon-home">
+					<i class="material-icons icon-clients" style="font-size: 55px; padding-top: .5rem">schedule</i>
+					<span class="card-home-title">Tareas</span>
+				</div>
+			</a>
+		</div>
 	</div>
 
-	<div
-		style="bottom: 0; margin-bottom: 0; position: absolute; text-align: center; width: 100%; margin-bottom: 10px; color: white;">
+	<div style="text-align: center; width: 100%; margin-bottom: 10px; color: white;" class="mt-4">
 		<a href="/auth/logout" class=" hover:underline text-red-300/90">
 			Cerrar sesión
 		</a>

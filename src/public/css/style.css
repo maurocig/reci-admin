@@ -637,13 +637,14 @@ td a {
 	grid-template-columns: 1fr 1fr;
 	gap: 1.7rem;
 	max-width: 400px;
-	margin-inline: auto !important;
+	/* margin-inline: auto !important; */
 	/* border: solid red; */
 }
 
 .container-icon-home {
 	border: none;
-	width: 100%;
+	/* width: 100%; */
+	aspect-ratio: 1/1;
 	height: 150px;
 	display: flex;
 	flex-direction: column;
