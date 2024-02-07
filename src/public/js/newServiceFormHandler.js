@@ -117,39 +117,39 @@ form.addEventListener('submit', (e) => {
     }
   }
 
-  saveService(service).then((response) => {
-    submitButton.disabled = false;
-    submitButton.classList.remove('disabled-select');
+  saveService(service)
+    .then((response) => {
+      submitButton.disabled = false;
+      submitButton.classList.remove('disabled-select');
 
-    Swal.fire({
-      title: 'El servicio se creó correctamente.',
-      icon: 'success',
-      iconColor: '#059669',
-      confirmButtonColor: '#059669',
-      confirmButtonText: 'Ver servicio',
-    })
-      .then((result) => {
+      Swal.fire({
+        title: 'El servicio se creó correctamente.',
+        icon: 'success',
+        iconColor: '#059669',
+        confirmButtonColor: '#059669',
+        confirmButtonText: 'Ver servicio',
+      }).then((result) => {
         if (result.value) {
           window.location = `/servicios/${response}`;
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          title: 'Error al crear servicio',
-          text: 'Verificá que el número de orden no esté duplicado',
-          icon: 'error',
-          iconColor: '#EF4444',
-          showCancelButton: false,
-          confirmButtonText: 'Aceptar',
-        }).then((result) => {
-          if (result.value) {
-            submitButton.disabled = false;
-            submitButton.classList.remove('disabled-select');
-          }
-        });
       });
-  });
+    })
+    .catch((error) => {
+      console.log(error);
+      Swal.fire({
+        title: 'Error al crear servicio',
+        text: 'Verificá que el número de orden no esté duplicado',
+        icon: 'error',
+        iconColor: '#EF4444',
+        showCancelButton: false,
+        confirmButtonText: 'Aceptar',
+      }).then((result) => {
+        if (result.value) {
+          submitButton.disabled = false;
+          submitButton.classList.remove('disabled-select');
+        }
+      });
+    });
 });
 
 async function saveService(data) {
