@@ -10,6 +10,7 @@ class MongoContainer {
   }
 
   static async connect() {
+    mongoose.set('strictQuery', false);
     await mongoose.connect(dbConfig.mongodb.uri);
   }
 

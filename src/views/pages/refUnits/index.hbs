@@ -46,7 +46,6 @@
 		</form>
 	</div>
 
-
 	{{#if refUnits}}
 	<div class="table-container">
 		<table>
@@ -109,7 +108,7 @@
 	{{/if}}
 
 	{{!-- Paginación --}}
-	<div class="flex space-x-8 w-full justify-center mb-4">
+	<div class="flex space-x-8 w-full justify-center mb-4" id="pagination-div">
 		<a id="previous" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
 			<i class="material-icons inline">chevron_left</i>
 			Anterior
@@ -127,9 +126,13 @@
 		const select = document.getElementById('refUnitsFilter');
 		const filterForm = document.getElementById('filter-form');
 
+
 		select.value = "{{f}}";
 		if (!select.value) {
 			select.value = 'all';
+		} else {
+			const paginationDiv = document.getElementById('pagination-div');
+			paginationDiv.classList.add('hidden');
 		}
 
 		select.addEventListener('change', async (e) => {
@@ -143,6 +146,7 @@
 		})
 
 		// Pagination
+
 		const urlParams = new URLSearchParams(window.location.search)
 		const page = parseInt(urlParams.get('p') || 0)
 
