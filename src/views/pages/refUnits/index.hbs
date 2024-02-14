@@ -50,10 +50,10 @@
 	<div class="table-container">
 		<table>
 			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
-				<th>Nº Serie</th>
-				<th>Matrícula</th>
+				<th class="min-w-[120px]">Nº Serie</th>
 				<th>Modelo</th>
-				<th>Cliente</th>
+				<th>Matrícula</th>
+				<th class="min-w-[150px]">Cliente</th>
 				<th>Agregado</th>
 			</tr>
 			{{#each refUnits}}
@@ -70,17 +70,17 @@
 					</a>
 				</td>
 				<td>
+					<a href="/equipos/{{_id}}">
+						{{model}}
+					</a>
+				</td>
+				<td>
 					<a href="/equipos/{{this._id}} ">
 						{{#if this.plate}}
 						{{this.plate}}
 						{{else}}
 						<span class="text-red-500">No registra</span>
 						{{/if}}
-					</a>
-				</td>
-				<td>
-					<a href="/equipos/{{_id}}">
-						{{model}}
 					</a>
 				</td>
 				<td>
@@ -125,7 +125,6 @@
 		// Filter
 		const select = document.getElementById('refUnitsFilter');
 		const filterForm = document.getElementById('filter-form');
-
 
 		select.value = "{{f}}";
 		if (!select.value) {

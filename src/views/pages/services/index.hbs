@@ -25,17 +25,33 @@
 		<table>
 			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
 				<th class="w-[100px]"># Orden</th>
-				<th class="w-[80px]">Matrícula</th>
-				<th>Cliente</th>
 				<th>Nº Serie</th>
 				<th class="w-[80px] hidden sm:table-cell">Modelo</th>
-				<th class="w-[100px] hidden sm:table-cell">Fecha</th>
+				<th class="w-[80px]">Matrícula</th>
+				<th>Cliente</th>
+				<th class="w-[100px] md:w-[170px] hidden sm:table-cell">Fecha de servicio</th>
 			</tr>
 			{{#each services}}
 			<tr>
 				<td class="text-center">
 					<a href="/servicios/{{_id}}">
 						<strong>{{orderNumber}} </strong>
+					</a>
+				</td>
+				<td>
+					<a href="/servicios/{{this._id}} ">
+						{{#if refUnit.soldByReci}}
+						<span class="font-normal text-emerald-600">
+							{{refUnit.serialNumber}}
+						</span>
+						{{else}}
+						{{refUnit.serialNumber}}
+						{{/if}}
+					</a>
+				</td>
+				<td class="hidden sm:table-cell">
+					<a href="/servicios/{{this._id}} ">
+						{{refUnit.model}}
 					</a>
 				</td>
 				<td>
@@ -50,22 +66,6 @@
 				<td>
 					<a href="/servicios/{{_id}}">
 						{{this.client.name}}
-					</a>
-				</td>
-				<td>
-					<a href="/servicios/{{this._id}} ">
-						{{!-- {{#if refUnit.soldByReci}} --}}
-						{{!-- <span class="font-normal text-emerald-600"> --}}
-						{{!-- {{refUnit.serialNumber}} --}}
-						{{!-- </span> --}}
-						{{!-- {{else}} --}}
-						{{refUnit.serialNumber}}
-						{{!-- {{/if}} --}}
-					</a>
-				</td>
-				<td class="hidden sm:table-cell">
-					<a href="/servicios/{{this._id}} ">
-						{{refUnit.model}}
 					</a>
 				</td>
 				<td class="hidden sm:table-cell">
