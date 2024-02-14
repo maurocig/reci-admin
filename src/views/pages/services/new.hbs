@@ -146,6 +146,18 @@
 		<input type="text" name="refUnit" id="refUnitId" value="{{refUnit._id}}" hidden>
 		<input type="text" name="client" id="clientId" value="{{refUnit.client._id}}" hidden>
 	</form>
+
+	{{!-- Pending tasks --}}
+	<h2>Tareas pendientes</h2>
+	{{#if refUnit.pendingTasks}}
+	<div class="pending-tasks-container">
+		{{#each refUnit.pendingTasks}}
+		<div class="pending-task">
+			<div class="task-number"> #{{@index}} </div>
+			<div class="task-description">{{this}}</div>
+		</div>
+		{{/each}}
+		{{/if}}
 </main>
 
 
