@@ -29,7 +29,7 @@
 <script>
 	const navLinks = document.querySelectorAll('.nav-link');
 	navLinks.forEach(link => {
-		if (link.href === window.location.href) {
+		if (window.location.pathname.includes(link.getAttribute('href'))) {
 			link.classList.add('nav-link-active');
 		}
 	});

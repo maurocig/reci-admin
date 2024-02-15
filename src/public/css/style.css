@@ -86,7 +86,6 @@ nav {
 	opacity: .7;
 	border-radius: 0;
 	transition: all 0.3s ease;
-
 }
 
 .logo-container {
@@ -690,6 +689,16 @@ td a {
 #show-table th {
 	text-align: start;
 
+}
+
+.verifiedSerial {
+	/* color: var(--primary-success-brighter) !important; */
+	color: var(--primary-success-brighter) !important;
+	/* background-color: var(--primary-light-blue) !important; */
+	background-color: #313B52 !important;
+	font-weight: bold !important;
+	border: solid 2px var(--primary-success-brighter) !important;
+	outline: none !important;
 }
 
 @media (max-width:500px) {
