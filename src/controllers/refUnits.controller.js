@@ -60,6 +60,18 @@ class RefUnitsController {
         refUnit.warrantyDate = null;
       }
 
+      //  check if plate already exists.
+      if (plate) {
+        const refUnits = await refUnitsDao.findByField('plate', plate, 'client');
+
+        if (refUnits.length > 0) {
+          const error = new Error('La placa ya existe');
+          console.log('error matrícula duplicada: ', error);
+          error.status = HTTP_STATUS.BAD_REQUEST;
+          throw error;
+        }
+      }
+
       const newRefUnitId = await refUnitsDao.save(refUnit);
       const addedRefUnit = await clientsDao.addRefUnit(refUnit.client, newRefUnitId);
 

@@ -46,10 +46,10 @@ form.addEventListener('submit', (e) => {
           icon: 'success',
           iconColor: '#059669',
           showCancelButton: false,
-          confirmButtonText: 'Ver equipo',
+          confirmButtonText: 'Volver al cliente',
         }).then((result) => {
           if (result.value) {
-            window.location.href = `/equipos/${response}`;
+            window.location.href = `/clientes/${refUnit.client}`;
           }
         });
       })
@@ -57,7 +57,7 @@ form.addEventListener('submit', (e) => {
         console.log(error);
         Swal.fire({
           title: 'Error al agregar equipo',
-          text: 'Verificá que el número de serie o matrícula no estén duplicados',
+          text: 'Verificá que el número de serie o matrícula no estén duplicados.',
           icon: 'error',
           iconColor: '#F4B860',
           showCancelButton: false,
@@ -90,10 +90,10 @@ form.addEventListener('submit', (e) => {
               icon: 'success',
               iconColor: '#059669',
               showCancelButton: false,
-              confirmButtonText: 'Ir al equipo',
+              confirmButtonText: 'Volver al cliente',
             }).then((result) => {
               if (result.value) {
-                window.location.href = `/equipos/${response}`;
+                window.location.href = `/clientes/${refUnit.client}`;
               }
             });
           })

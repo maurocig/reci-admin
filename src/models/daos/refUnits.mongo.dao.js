@@ -13,7 +13,7 @@ const refUnitSchema = new Schema(
       required: true,
     },
     serialNumber: { type: String, unique: true, required: true },
-    plate: { type: String, uppercase: true, required: false },
+    plate: { type: String, unique: true, uppercase: true, required: false },
     model: { type: String, uppercase: true, requried: true },
     services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
     pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks', sparse: true }],
