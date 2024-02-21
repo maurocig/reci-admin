@@ -94,14 +94,14 @@
 			</div>
 			<div class="form-field">
 				<label for="observations">Observaciones</label>
-				<textarea name="observations" class="text-black p-2 bg-[#D4D4D4]" id="observationsInput" cols="30"
+				<textarea name="observations" class="text-black p-2 bg-slate-100" id="observationsInput" cols="30"
 					rows="1"></textarea>
 			</div>
 		</div>
 
 		{{!-- FIXES --}}
 		<div class="form-field" style="width: 100%">
-			<label for="parts">Reparaciones:</label>
+			<label for="parts">Reparaciones</label>
 			<div id="fixesContainer" class="flex gap-2">
 				<div id="fixesInputsContainer" class="space-y-2">
 					<div class="fixes-row">
@@ -120,7 +120,7 @@
 
 		{{!-- PARTS --}}
 		<div class="form-field add-parts-container" style="width: 100%">
-			<label for="parts">Repuestos:</label>
+			<label for="parts">Repuestos</label>
 			<div id="partsContainer" class="flex gap-2">
 				<div id="partsInputsContainer" class="space-y-2">
 					<div class="parts-row">
@@ -139,25 +139,59 @@
 			</div>
 		</div>
 
-		<button class="button-success button-form" role="submit" id="submit-button"
-			style="margin-top: 3rem;">Guardar</button>
+		{{!-- Pending tasks --}}
+		<h3 class="mb-2 mt-4 font-normal">Tareas pendientes</h3>
+		<div class="m-0 mb-3 table-container flex flex-col items-center" style="width: 100%; min-width: 300px; ">
+			{{#if refUnit.pendingTasks}}
+			<table class="max-w-[860px] overflow-hidden mr-3">
+				<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+					<th class="py-2">Descripción</th>
+					<th class="py-2 text-center ">Estado</th>
+					<th class="py-2 text-center">Completada</th>
+				</tr>
+				{{#each refUnit.pendingTasks}}
+				<tr id="pending-task-row" class="bg-slate-100 hover:bg-slate-200 " style="padding-block: 0 !important;">
+					{{!-- <div class="task-number"> #{{@index}} </div> --}}
+					<td class="task-description px-4 uppercase">{{this.taskDescription}}</td>
+					<td class="flex items-center justify-center px-4 mark-completed-button" id="{{this._id}}">
+						<i class="m-0 text-yellow-600 material-icons clients-icon center">
+							warning
+						</i>
+						<span class="ml-2 font-medium text-yellow-600">
+							Pendiente
+						</span>
+					</td>
+					<td>
+						<input id="checkbox-task-{{@index}}" type="checkbox" style="scale: 60%; margin:0 !important;"
+							class="custom-checkbox hover:cursor-pointer"></input>
+					</td>
+				</tr>
+				{{/each}}
+			</table>
+			{{else}}
+			<div class="p-4 ">No hay tareas pendientes</div>
 
-		{{!-- HIDDEN --}}
-		<input type="text" name="refUnit" id="refUnitId" value="{{refUnit._id}}" hidden>
-		<input type="text" name="client" id="clientId" value="{{refUnit.client._id}}" hidden>
+			{{/if}}
+
+			{{!-- agregar tarea --}}
+			<div class="flex justify-center gap-4 w-full mt-4 items-center">
+				<div class="min-w-[300px] max-w-[500px] w-full ">
+					<input type="text" placeholder="Nueva tarea" name="taskDescription" style="margin: 0 !important;"
+						class="p-2 w-full uppercase w-grow">
+				</div>
+
+				<button id="add-task" tabindex="0" type="button">
+					<i class="material-icons icon-add-item" style="font-size: 3rem;">add_box</i>
+				</button>
+			</div>
+
+			<button class="button-success button-form" role="submit" id="submit-button"
+				style="margin-top: 3rem;">Guardar</button>
+
+			{{!-- HIDDEN --}}
+			<input type="text" name="refUnit" id="refUnitId" value="{{refUnit._id}}" hidden>
+			<input type="text" name="client" id="clientId" value="{{refUnit.client._id}}" hidden>
 	</form>
-
-	{{!-- Pending tasks --}}
-	{{!-- <h2>Tareas pendientes</h2>
-	{{#if refUnit.pendingTasks}}
-	<div class="pending-tasks-container">
-		{{#each refUnit.pendingTasks}}
-		<div class="pending-task">
-			<div class="task-number"> #{{@index}} </div>
-			<div class="task-description">{{this}}</div>
-		</div>
-		{{/each}}
-		{{/if}} --}}
 
 </main>
 
@@ -174,6 +208,13 @@
 			e.preventDefault();
 		}
 	});
+
+	// pending tasks logic
+	// console.log("{{{json refUnit.pendingTasks}}}");
+	let pendingTasks = JSON.parse('{{{ json refUnit.pendingTasks }}}');
+	console.log(pendingTasks);
+
+
 </script>
 {{#each scripts}}
 <script src="{{script}}"></script>
