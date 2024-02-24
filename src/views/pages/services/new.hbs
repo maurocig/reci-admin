@@ -147,7 +147,7 @@
 				<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
 					<th class="py-2">Descripción</th>
 					<th class="py-2 text-center ">Estado</th>
-					<th class="py-2 text-center">Completada</th>
+					{{!-- <th class="py-2 text-center">Completada</th> --}}
 				</tr>
 				{{#each refUnit.pendingTasks}}
 				<tr id="pending-task-row" class="bg-slate-100 hover:bg-slate-200 " style="padding-block: 0 !important;">
@@ -161,16 +161,15 @@
 							Pendiente
 						</span>
 					</td>
-					<td>
+					{{!-- <td>
 						<input disabled id="checkbox-task-{{@index}}" type="checkbox" style="scale: 60%; margin:0 !important;"
 							class="custom-checkbox hover:cursor-pointer"></input>
-					</td>
+					</td> --}}
 				</tr>
 				{{/each}}
 			</table>
 			{{else}}
 			<div class="p-4 bg-slate-200 text-black min-w-[300px] max-w-[500px] w-full">No hay tareas pendientes</div>
-
 			{{/if}}
 
 			{{!-- agregar tarea --}}

@@ -146,4 +146,24 @@
 		}
 	});
 
+	const isPlateNumber = (number) => {
+		const plateNumberRegex = /^[A-Za-z]{3}\d{4}$/;
+		const brasilPlateNumberRegex = /^[A-Za-z]{1}\d{6}$/;
+		let matches =
+			plateNumberRegex.test(plateNumberInput.value) || brasilPlateNumberRegex.test(plateNumberInput.value);
+		return matches
+	}
+
+	// input green if plate matches format
+	const plateNumberInput = document.getElementById('plate-number');
+	plateNumberInput.addEventListener('input', function () {
+		const matches = isPlateNumber(plateNumberInput.value);
+		if (matches) {
+			plateNumberInput.classList.add('verifiedSerial');
+		} else {
+			plateNumberInput.classList.remove('verifiedSerial');
+		}
+	});
+
+
 </script>
