@@ -40,12 +40,16 @@
 				</td>
 				<td>
 					<a href="/servicios/{{this._id}} ">
+						{{#if (isPlateNumber this.refUnit.serialNumber)}}
+						<span class="text-red-600">No registra</span>
+						{{else}}
 						{{#if refUnit.soldByReci}}
 						<span class="font-normal text-emerald-600">
 							{{refUnit.serialNumber}}
 						</span>
 						{{else}}
 						{{refUnit.serialNumber}}
+						{{/if}}
 						{{/if}}
 					</a>
 				</td>

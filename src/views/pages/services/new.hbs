@@ -162,19 +162,19 @@
 						</span>
 					</td>
 					<td>
-						<input id="checkbox-task-{{@index}}" type="checkbox" style="scale: 60%; margin:0 !important;"
+						<input disabled id="checkbox-task-{{@index}}" type="checkbox" style="scale: 60%; margin:0 !important;"
 							class="custom-checkbox hover:cursor-pointer"></input>
 					</td>
 				</tr>
 				{{/each}}
 			</table>
 			{{else}}
-			<div class="p-4 ">No hay tareas pendientes</div>
+			<div class="p-4 bg-slate-200 text-black min-w-[300px] max-w-[500px] w-full">No hay tareas pendientes</div>
 
 			{{/if}}
 
 			{{!-- agregar tarea --}}
-			<div class="flex justify-center gap-4 w-full mt-4 items-center">
+			{{!-- <div class="flex justify-center gap-4 w-full mt-4 items-center">
 				<div class="min-w-[300px] max-w-[500px] w-full ">
 					<input type="text" placeholder="Nueva tarea" name="taskDescription" style="margin: 0 !important;"
 						class="p-2 w-full uppercase w-grow">
@@ -183,7 +183,7 @@
 				<button id="add-task" tabindex="0" type="button">
 					<i class="material-icons icon-add-item" style="font-size: 3rem;">add_box</i>
 				</button>
-			</div>
+			</div> --}}
 
 			<button class="button-success button-form" role="submit" id="submit-button"
 				style="margin-top: 3rem;">Guardar</button>

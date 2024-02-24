@@ -45,10 +45,14 @@
 			<table id="show-table">
 				<tr>
 					<th>Nº Serie</th>
+					{{#if (isPlateNumber refUnit.serialNumber)}}
+					<td class="text-red-600">No registra</td>
+					{{else}}
 					{{#if refUnit.soldByReci}}
 					<td class="text-emerald-600 font-normal"> {{refUnit.serialNumber}} </td>
 					{{else}}
 					<td> {{refUnit.serialNumber}} </td>
+					{{/if}}
 					{{/if}}
 				</tr>
 				</tr>

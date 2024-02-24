@@ -130,6 +130,9 @@
 					<tr>
 						<th>Nº Serie</th>
 						<td>
+							{{#if (isPlateNumber service.refUnit.serialNumber)}}
+							<span class="text-red-600">No registra</span>
+							{{else}}
 							{{#if service.refUnit.soldByReci}}
 							<span class="font-normal text-emerald-600">
 								{{service.refUnit.serialNumber}}
@@ -138,6 +141,7 @@
 							<span class="font-normal">
 								{{service.refUnit.serialNumber}}
 							</span>
+							{{/if}}
 							{{/if}}
 						</td>
 					</tr>

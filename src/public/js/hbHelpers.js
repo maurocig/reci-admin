@@ -21,4 +21,11 @@ module.exports = {
   json: function (context) {
     return JSON.stringify(context);
   },
+  isPlateNumber: function (serialNumber) {
+    const plateNumberRegex = /^[A-Za-z]{3}\d{4}$/;
+    const brasilPlateNumberRegex = /^[A-Za-z]{1}\d{6}$/;
+    const matches =
+      plateNumberRegex.test(serialNumber) || brasilPlateNumberRegex.test(serialNumber);
+    return matches;
+  },
 };
