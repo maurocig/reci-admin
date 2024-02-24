@@ -123,9 +123,9 @@
 				<table>
 					<tr class="table-headers-row bg-slate-200 hover:bg-slate-300/80">
 						<th class="py-2">N° Serie</th>
-						<th class="py-2">Matrícula</th>
 						<th class="py-2">Modelo</th>
-						{{!-- <th class="py-2">Creado</th> --}}
+						<th class="py-2">Matrícula</th>
+						<th class="py-2 hidden lg:block">Creado</th>
 						{{!-- <th class="py-2 center">Servicios</th> --}}
 					</tr>
 					{{#each refUnits}}
@@ -151,6 +151,11 @@
 						</td>
 						<td>
 							<a href="/equipos/{{this._id}} ">
+								{{this.model}}
+							</a>
+						</td>
+						<td>
+							<a href="/equipos/{{this._id}} ">
 								{{#if this.plate}}
 								{{this.plate}}
 								{{else}}
@@ -158,15 +163,10 @@
 								{{/if}}
 							</a>
 						</td>
-						<td>
-							<a href="/equipos/{{this._id}} ">
-								{{this.model}}
-							</a>
-						</td>
-						{{!-- <td>
+						<td class="hidden lg:block">
 							<a href="/equipos/{{this._id}} ">
 								{{formatDate this.createdAt}}
-						</td> --}}
+						</td>
 						{{!-- <td class="center">
 							<a href="/equipos/{{this._id}}">
 								{{this.services.length}}
