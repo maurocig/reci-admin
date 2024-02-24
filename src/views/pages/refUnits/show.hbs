@@ -254,13 +254,13 @@
 		</h2>
 
 		{{#if refUnit.services}}
-		<div class="table-container" style="width: 100%; min-width: 300px;">
+		<div class="table-container" style="width: 100%; min-width: 300px; ">
 			<table>
 				<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
 					<th class="hidden py-2 text-start sm:table-cell">Tarea</th>
 					<th class="py-2 w-[100px]"># Orden</th>
 					<th class="py-2 w-[50px]">Fecha</th>
-					<th class="py-2 w-[50px] hidden sm:table-cell">Repuestos</th>
+					{{!-- <th class="py-2 w-[50px] hidden sm:table-cell">Repuestos</th> --}}
 					{{!-- <th class="hidden py-2 text-center sm:table-cell">Repuestos</th> --}}
 				</tr>
 				{{#each refUnit.services}}
@@ -270,8 +270,8 @@
 					{{else}}
 				<tr>
 					{{/if}}
-					<td>
-						<a href="/servicios/{{../this._id}}">{{this.fixName}}</a>
+					<td class="whitespace-normal">
+						<a class="whitespace-normal" href="/servicios/{{../this._id}}">{{this.fixName}}</a>
 					</td>
 					<td class="hidden sm:table-cell ">
 						<a href="/servicios/{{../this._id}}">{{../this.orderNumber}}</a>
@@ -279,9 +279,9 @@
 					<td>
 						<a href="/servicios/{{../this._id}}">{{formatDate ../this.serviceDate}}</a>
 					</td>
-					<td class="text-center hidden sm:table-cell">
+					{{!-- <td class="text-center hidden sm:table-cell">
 						<a href="/servicios/{{../this._id}}">{{../this.parts.length}}</a>
-					</td>
+					</td> --}}
 				</tr>
 				{{/each}}
 				{{/each}}

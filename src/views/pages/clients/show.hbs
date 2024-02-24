@@ -51,7 +51,7 @@
 							{{#if client.brandName}}
 							{{client.brandName}}
 							{{else}}
-							<div class="text-red-700">No registra</div>
+							<div class="">No registra</div>
 							{{/if}}
 						</td>
 					</tr>
@@ -61,7 +61,7 @@
 							{{#if client.contactPerson}}
 							{{client.contactPerson}}
 							{{else}}
-							<div class="text-red-700">No registra</div>
+							<div class="">No registra</div>
 							{{/if}}
 						</td>
 					</tr>
@@ -77,7 +77,7 @@
 							{{#if client.phone}}
 							{{client.phone}}
 							{{else}}
-							<div class="text-red-700">No registra</div>
+							<div class="">No registra</div>
 							{{/if}}
 						</td>
 					</tr>
@@ -133,6 +133,9 @@
 						<td>
 							<a href="/equipos/{{this._id}} ">
 								<strong>
+									{{#if (isPlateNumber this.serialNumber)}}
+									<span class="text-red-600">No registra</span>
+									{{else}}
 									{{#if this.soldByReci}}
 									<span class="text-emerald-600 font-normal">
 										{{this.serialNumber}}
@@ -142,6 +145,7 @@
 										{{this.serialNumber}}
 									</span>
 									{{/if}}
+									{{/if}}
 								</strong>
 							</a>
 						</td>
@@ -150,7 +154,7 @@
 								{{#if this.plate}}
 								{{this.plate}}
 								{{else}}
-								<div class="text-red-700">No registra</div>
+								<div class="text-red-600">No registra</div>
 								{{/if}}
 							</a>
 						</td>
