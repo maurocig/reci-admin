@@ -3,6 +3,7 @@ const moment = require('moment-timezone');
 const HTTP_STATUS = require('../constants/api.constants');
 const { ServicesDao } = require('../models/daos/app.daos');
 const { RefUnitsDao } = require('../models/daos/app.daos');
+const PendingTasksDao = require('../models/daos/pendingTasks.mongo.dao');
 const { successResponse } = require('../utils/api.utils');
 
 const servicesDao = new ServicesDao();
@@ -47,6 +48,7 @@ class ServicesController {
       fixes,
       observations,
       technician,
+      checkedTasks,
     } = req.body;
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
@@ -70,12 +72,20 @@ class ServicesController {
         technician: technician.toUpperCase(),
       };
 
+      if (checkedTasks.length > 0) {
+        checkedTasks.forEach(async (task) => {
+          const pendingTask = await PendingTasksDao.getById(task._id);
+          if (pendingTask.refUnit) {
+            await refUnitsDao.removePendingTask(task.refUnit, task._id);
+            await PendingTasksDao.delete(task._id);
+          }
+        });
+      }
+
       const newServiceId = await servicesDao.save(service);
       // Add Service to refUnit.services array.
       const addedService = await refUnitsDao.addService(service.refUnit, newServiceId);
       res.status(200).json(newServiceId);
-
-      // res.json({ service });
     } catch (error) {
       console.log('error in saveService controller', error);
       next(error);
@@ -120,7 +130,6 @@ class ServicesController {
       };
 
       const response = await servicesDao.update(id, updatedService);
-
       res.status(200).json(response);
     } catch (error) {
       next(error);

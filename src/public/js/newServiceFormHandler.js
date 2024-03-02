@@ -68,7 +68,7 @@ form.addEventListener('submit', (e) => {
   submitButton.disabled = true;
 
   const clientId = document.getElementById('clientId');
-  const refUnitId = document.getElementById('refUnitId');
+  const refUnitIdInput = document.getElementById('refUnitIdInput');
   const orderNumberInput = document.getElementById('orderNumberInput');
   const serviceDateInput = document.getElementById('serviceDateInput');
   const hoursInput = document.getElementById('hoursInput');
@@ -77,21 +77,6 @@ form.addEventListener('submit', (e) => {
   const isInWarrantyInput = document.getElementById('isInWarrantyInput');
   const observationsInput = document.getElementById('observationsInput');
   const technicianInput = document.getElementById('technicianInput');
-
-  const service = {
-    client: clientId.value,
-    refUnit: refUnitId.value,
-    orderNumber: +orderNumberInput.value,
-    serviceDate: serviceDateInput.value,
-    hours: +hoursInput.value,
-    handWorkHours: parseFloat(handWorkHoursInput.value),
-    ticket: ticketInput.value,
-    isInWarranty: isInWarrantyInput.value === 'true',
-    observations: observationsInput.value,
-    technician: technicianInput.value,
-    parts,
-    fixes,
-  };
 
   partNumberInputs = document.querySelectorAll('[id^="partNumber"]');
   partNameInputs = document.querySelectorAll('[id^="partName"]');
@@ -116,6 +101,35 @@ form.addEventListener('submit', (e) => {
       parts.push({ partNumber, partName, partQty });
     }
   }
+
+  // Iterate through TASKS input elements, filter the checked ones and create an object for each one.
+  const taskNameInputs = document.querySelectorAll('[id^="checkbox-task-"]');
+  const checkedTasksInputs = Array.from(taskNameInputs).filter((input) => input.checked);
+  const checkedTasks = [];
+
+  checkedTasksInputs.forEach((input) => {
+    checkedTasks.push({
+      _id: input.name,
+      refUnit: refUnitIdInput.value,
+      completed: Boolean(input.value),
+    });
+  });
+
+  const service = {
+    client: clientId.value,
+    refUnit: refUnitIdInput.value,
+    orderNumber: +orderNumberInput.value,
+    serviceDate: serviceDateInput.value,
+    hours: +hoursInput.value,
+    handWorkHours: parseFloat(handWorkHoursInput.value),
+    ticket: ticketInput.value,
+    isInWarranty: isInWarrantyInput.value === 'true',
+    observations: observationsInput.value,
+    technician: technicianInput.value,
+    parts,
+    fixes,
+    checkedTasks,
+  };
 
   saveService(service)
     .then((response) => {
