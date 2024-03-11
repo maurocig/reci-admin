@@ -49,6 +49,7 @@ class ServicesController {
       observations,
       technician,
       checkedTasks,
+      newTasks,
     } = req.body;
 
     const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
@@ -79,6 +80,13 @@ class ServicesController {
             await refUnitsDao.removePendingTask(task.refUnit, task._id);
             await PendingTasksDao.delete(task._id);
           }
+        });
+      }
+
+      if (newTasks.length > 0) {
+        newTasks.forEach(async (task) => {
+          const taskId = await PendingTasksDao.save(task);
+          await refUnitsDao.addPendingTask(task.refUnit, taskId);
         });
       }
 

@@ -67,7 +67,7 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
   submitButton.disabled = true;
 
-  const clientId = document.getElementById('clientId');
+  const clientIdInput = document.getElementById('clientIdInput');
   const refUnitIdInput = document.getElementById('refUnitIdInput');
   const orderNumberInput = document.getElementById('orderNumberInput');
   const serviceDateInput = document.getElementById('serviceDateInput');
@@ -116,7 +116,7 @@ form.addEventListener('submit', (e) => {
   });
 
   const service = {
-    client: clientId.value,
+    client: clientIdInput.value,
     refUnit: refUnitIdInput.value,
     orderNumber: +orderNumberInput.value,
     serviceDate: serviceDateInput.value,
@@ -129,6 +129,7 @@ form.addEventListener('submit', (e) => {
     parts,
     fixes,
     checkedTasks,
+    newTasks,
   };
 
   saveService(service)
@@ -181,3 +182,55 @@ async function saveService(data) {
     return error;
   }
 }
+
+// Add new tasks
+const newTaskButton = document.getElementById('new-task-button');
+const taskInput = document.getElementById('new-task-input');
+const table = document.getElementById('new-tasks-table');
+const newTasks = [];
+
+if (!newTasks.length) {
+  table.classList.add('hidden');
+}
+
+newTaskButton.addEventListener('click', () => {
+  if (taskInput.value) {
+    if (!newTasks.length) {
+      table.classList.add('hidden');
+    }
+
+    table.classList.remove('hidden');
+
+    const taskDescription = taskInput.value.toUpperCase();
+    const newTask = {
+      refUnit: refUnitIdInput.value,
+      client: clientIdInput.value,
+      taskDescription: taskDescription,
+      completed: false,
+    };
+    newTasks.push(newTask);
+    taskInput.value = '';
+
+    const row = table.insertRow();
+    const cell = row.insertCell();
+    cell.innerHTML = taskDescription;
+    cell.classList.add('px-4');
+
+    const deleteCell = row.insertCell();
+    const deleteButton = deleteCell.appendChild(document.createElement('button'));
+    deleteButton.innerHTML = '<i class="material-icons px-4">delete</i>';
+    deleteCell.classList.add('w-full', 'flex', 'justify-end');
+
+    deleteButton.addEventListener('click', () => {
+      let index = newTasks.indexOf(newTask);
+      if (index > -1) {
+        newTasks.splice(index, 1);
+      }
+      table.deleteRow(row.rowIndex);
+
+      if (!newTasks.length) {
+        table.classList.add('hidden');
+      }
+    });
+  }
+});
