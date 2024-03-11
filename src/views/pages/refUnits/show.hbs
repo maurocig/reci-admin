@@ -122,10 +122,10 @@
 	<div class="grid grid-cols-1 gap-8 mb-2 sm:gap-6 md:grid-cols-2">
 		{{!-- SERVICIOS --}}
 		<section>
-			<h2 class="mt-0 subtitle" style="display: flex;">
+			<h2 class="mt-0 subtitle flex gap-2 items-center">
 				<i class="material-icons icon-clients center"
-					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build</i>
-				Servicios
+					style=" display: inline; margin:0; font-size: 1.3rem; align-self: center;">build</i>
+				Servicios <span class="font-normal">({{refUnit.services.length}})</span>
 			</h2>
 
 			{{#if refUnit.services}}
@@ -141,10 +141,12 @@
 					<tr>
 						<td><a href="/servicios/{{this._id}}">{{this.orderNumber}}</a></td>
 						<td><a href="/servicios/{{this._id}}">{{formatDate this.serviceDate}}</a></td>
-						<td class="hidden sm:table-cell" style="text-align: center;"><a
-								href="/servicios/{{this._id}}">{{this.fixes.length}}</a></td>
-						<td class="hidden sm:table-cell" style="text-align: center;"><a
-								href="/servicios/{{this._id}}">{{this.parts.length}}</a></td>
+						<td class="hidden sm:table-cell" style="text-align: center;">
+							<a href="/servicios/{{this._id}}">{{this.fixes.length}}</a>
+						</td>
+						<td class="hidden sm:table-cell" style="text-align: center;">
+							<a href="/servicios/{{this._id}}">{{this.parts.length}}</a>
+						</td>
 					</tr>
 					{{/each}}
 				</table>
