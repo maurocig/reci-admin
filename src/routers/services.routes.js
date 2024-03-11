@@ -3,7 +3,7 @@ const servicesController = require('../controllers/services.controller');
 
 const router = Router();
 
-router.get('/search', servicesController.searchService);
+router.get('/search', servicesController.searchServiceByOrder);
 
 router.get('/', servicesController.getServices);
 router.get('/nuevo', (req, res) => res.render('pages/services/new'));

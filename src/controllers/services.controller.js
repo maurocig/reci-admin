@@ -177,7 +177,7 @@ class ServicesController {
     res.render('pages/services/edit', { service, scripts });
   }
 
-  async searchService(req, res, next) {
+  async searchServiceByOrder(req, res, next) {
     let query = req.query.q;
     try {
       if (!query) {
@@ -185,6 +185,8 @@ class ServicesController {
         res.status(HTTP_STATUS.OK).render('pages/services', { services });
       } else {
         const services = await servicesDao.findNumber({ orderNumber: { $eq: +query } }, 'refUnit');
+        // const services = await servicesDao.find({ $text: { $search: query } }, 'refUnit');
+
         res.status(HTTP_STATUS.OK).render('pages/services', { services });
       }
     } catch (error) {

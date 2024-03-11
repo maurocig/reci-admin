@@ -10,13 +10,35 @@
 	<i class="material-icons icon-clients center" style="font-size: 50px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicios</h1>
 
-	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
-		<form action="/servicios/search" method="GET" class="flex items-center gap-2">
-			<input name="q" placeholder="N° de Orden" type="number"
-				class="inline w-3/4 h-10 px-4 m-0 mx-auto mb-0 bg-gray-200 rounded-full" style="margin: 0 !important;">
-			</input>
-			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
-					class="inline text-white material-icons">search</i></button>
+	<div class="grid items-center justify-between grid-cols-1 mb-4 sm:flex gap-0 sm:gap-4 lg:gap-8">
+		{{!-- search --}}
+		<form action="/servicios/search" method="GET" class="flex flex-col items-start gap-1">
+			<label for="q" class="text-gray-400 font-normal">
+				{{!-- Buscar servicio --}}
+				<div class="mt-6"></div>
+			</label>
+			<div class="w-full flex gap-3">
+				<input name="q" placeholder="N° de Orden" type="text"
+					class="inline w-3/4 h-10 m-0 mb-0 bg-gray-200 rounded-full w-full px-4" style="margin: 0 !important;">
+				</input>
+				<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
+						class="inline text-white material-icons">search</i></button>
+			</div>
+		</form>
+
+		{{!-- filter --}}
+		<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
+			<label for="servicesFilter" class="text-gray-400 font-normal w-100 w-full">
+				Filtrar
+			</label>
+			<select name="f" id="servicesFilter" class="w-full h-10 px-2 rounded-md m-0 bg-gray-200">
+				<option value="all">Todos</option>
+				{{!-- <option value="pendingTasks">Tareas pendientes</option> --}}
+				{{!-- <option value="plate">Sin matricular</option> --}}
+				<option value="soldByReci">Equipos RECI</option>
+				<option value="no-warranty">En garantía</option>
+				<option value="no-ticket">Sin facturar</option>
+			</select>
 		</form>
 	</div>
 
@@ -72,7 +94,7 @@
 						{{this.client.name}}
 					</a>
 				</td>
-				<td class="hidden sm:table-cell">
+				<td class="hidden text-center sm:table-cell">
 					<a href="/servicios/{{_id}}">
 						{{formatDate serviceDate}}
 					</a>

@@ -1,11 +1,12 @@
 const HTTP_STATUS = require('../constants/api.constants');
-const { ClientsDao, RefUnitsDao } = require('../models/daos/app.daos');
+const { ClientsDao, RefUnitsDao, ServicesDao } = require('../models/daos/app.daos');
 const ClientsMongoDao = require('../models/daos/clients.mongo.dao');
 const { successResponse } = require('../utils/api.utils');
 const getDate = require('../utils/timezone');
 
 const clientsDao = new ClientsDao();
 const refUnitsDao = new RefUnitsDao();
+const servicesDao = new ServicesDao();
 
 class ClientsController {
   async getClients(req, res, next) {
@@ -31,8 +32,9 @@ class ClientsController {
     try {
       const client = await clientsDao.getById(id);
       const refUnits = await refUnitsDao.getAll({ client: id });
+      const services = await servicesDao.getAllWithRefUnits({ client: id });
 
-      res.status(HTTP_STATUS.OK).render('pages/clients/show', { client, refUnits });
+      res.status(HTTP_STATUS.OK).render('pages/clients/show', { client, refUnits, services });
     } catch (error) {
       next(error);
     }

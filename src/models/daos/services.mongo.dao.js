@@ -55,6 +55,15 @@ class ServicesMongoDao extends MongoContainer {
     return services;
   }
 
+  async getAllWithRefUnits(filter = {}) {
+    const services = await this.model
+      .find(filter, { __v: 0 })
+      .sort({ serviceDate: 'desc' })
+      .populate('refUnit', ['plate', 'model', 'serialNumber'])
+      .lean();
+    return services;
+  }
+
   async findNumber(filter = {}, collectionRef = '') {
     const documents = await this.model
       .find(filter, { __v: 0 })
