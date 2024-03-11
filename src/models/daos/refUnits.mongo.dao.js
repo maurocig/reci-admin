@@ -39,7 +39,7 @@ class RefUnitsMongoDao extends MongoContainer {
       .populate({
         path: 'services',
         select: ['serviceDate', 'orderNumber', 'fixes', 'parts'],
-        options: { sort: { serviceDate: 1 } },
+        options: { sort: { serviceDate: 'desc' } },
       })
       .lean();
     return refUnit;
