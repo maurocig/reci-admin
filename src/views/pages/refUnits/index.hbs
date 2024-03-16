@@ -33,7 +33,12 @@
 		{{!-- filter --}}
 		<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
 			<label for="refUnitsFilter" class="text-gray-400 font-normal w-100 w-full">
-				Filtrar
+
+				{{#if f}}
+				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{refUnits.length}} resultados</span></span>
+				{{else}}
+				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{documentCount}} resultados</span></span>
+				{{/if}}
 			</label>
 			<select name="f" id="refUnitsFilter" class="w-48 h-10 px-2 m-0 bg-gray-200">
 				<option value="all">Todos</option>
@@ -46,16 +51,35 @@
 
 	{{#if refUnits}}
 	<div class="table-container">
-		<table>
+		<table class="mb-2">
 			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
-				<th class="min-w-[120px]">Nº Serie</th>
-				<th>Modelo</th>
 				<th>Matrícula</th>
+				<th>Modelo</th>
 				<th class="min-w-[150px]">Cliente</th>
+				<th class="min-w-[120px]">Nº Serie</th>
 				<th>Ingresado</th>
 			</tr>
 			{{#each refUnits}}
 			<tr>
+				<td>
+					<a href="/equipos/{{this._id}} ">
+						{{#if this.plate}}
+						{{this.plate}}
+						{{else}}
+						<span class="text-red-500">No registra</span>
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/equipos/{{_id}}">
+						{{model}}
+					</a>
+				</td>
+				<td>
+					<a href="/equipos/{{_id}}">
+						{{client.name}}
+					</a>
+				</td>
 				<td>
 					<a href="/equipos/{{_id}}">
 						{{#if (isPlateNumber this.serialNumber)}}
@@ -69,25 +93,6 @@
 						<span class="">{{serialNumber}}</span>
 						{{/if}}
 						{{/if}}
-					</a>
-				</td>
-				<td>
-					<a href="/equipos/{{_id}}">
-						{{model}}
-					</a>
-				</td>
-				<td>
-					<a href="/equipos/{{this._id}} ">
-						{{#if this.plate}}
-						{{this.plate}}
-						{{else}}
-						<span class="text-red-500">No registra</span>
-						{{/if}}
-					</a>
-				</td>
-				<td>
-					<a href="/equipos/{{_id}}">
-						{{client.name}}
 					</a>
 				</td>
 				<td>
@@ -110,13 +115,16 @@
 	{{/if}}
 
 	{{!-- Paginación --}}
-	<div class="flex space-x-8 w-full justify-center mb-4" id="pagination-div">
-		<a id="previous" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
+	<div class="flex space-x-8 w-full justify-between items-center max-w-[470px] mx-auto mb-4" id="pagination-div">
+		<a id="previous" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
 			<i class="material-icons inline">chevron_left</i>
-			Anterior
+			Más recientes
 		</a>
-		<a id="next" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
-			Siguiente
+		<div id="page-indicator" class="text-gray-300"></div>
+		<a id="next" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
+			Más antiguos
 			<i class="material-icons inline">chevron_right</i>
 		</a>
 	</div>
@@ -127,12 +135,12 @@
 		// Filter
 		const select = document.getElementById('refUnitsFilter');
 		const filterForm = document.getElementById('filter-form');
+		const paginationDiv = document.getElementById('pagination-div');
 
 		select.value = "{{f}}";
 		if (!select.value) {
 			select.value = 'all';
 		} else {
-			const paginationDiv = document.getElementById('pagination-div');
 			paginationDiv.classList.add('hidden');
 		}
 
@@ -153,9 +161,18 @@
 
 		const previousLink = document.querySelector('#previous');
 		const nextLink = document.querySelector('#next');
+		const pageIndicator = document.querySelector('#page-indicator');
+		const documentCount = "{{ documentCount }}" || null;
+		const totalPages = Math.ceil(documentCount / 30);
+		const filterIsActive = "{{f}}";
+
+		if (filterIsActive) {
+			paginationDiv.classList.add('hidden');
+		}
 
 		previousLink.setAttribute('href', `/equipos?p=${page - 1}`)
 		nextLink.setAttribute('href', `/equipos?p=${page + 1}`)
+		pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="text-emerald-400 font-bold" href="/equipos?p=${+totalPages - 1}">${totalPages}</a>`
 
 		if (page === 0) {
 			previousLink.setAttribute('aria-disabled', 'true')
@@ -166,7 +183,7 @@
 
 		if (+refUnitsLength.value < 30) {
 			nextLink.setAttribute('aria-disabled', 'true');
-			nextLink.classList.add('disable-links', 'text-gray-400', 'border-gray-400');
+			nextLink.classList.add('disable-links', 'text-gray-500', 'border-gray-500');
 		}
 	</script>
 

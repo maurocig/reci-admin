@@ -206,6 +206,7 @@
 						<th class="py-2">Fecha</th>
 					</tr>
 					{{#each services}}
+					{{#if this.refUnit}}
 					<tr>
 						<td>
 							<a href="/servicios/{{this._id}}">
@@ -219,7 +220,11 @@
 						</td>
 						<td>
 							<a href="/servicios/{{this._id}}">
+								{{#if this.refUnit.plate}}
 								{{this.refUnit.plate}}
+								{{else}}
+								<div class="text-red-600">No registra</div>
+								{{/if}}
 							</a>
 						</td>
 						<td>
@@ -228,6 +233,7 @@
 							</a>
 						</td>
 					</tr>
+					{{/if}}
 					{{/each}}
 				</table>
 				{{else}}

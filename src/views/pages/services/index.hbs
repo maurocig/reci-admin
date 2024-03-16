@@ -24,19 +24,25 @@
 		</form>
 
 		{{!-- filter --}}
+
 		<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
 			<label for="servicesFilter" class="text-gray-400 font-normal w-100 w-full">
 				Filtrar
 			</label>
 			<select name="f" id="servicesFilter" class="w-full h-10 px-2 rounded-md m-0 bg-gray-200">
 				<option value="all">Todos</option>
+				<option value="2024">2024</option>
+				<option value="2023">2023</option>
+				<option value="2022">2022</option>
+
 				{{!-- <option value="pendingTasks">Tareas pendientes</option> --}}
 				{{!-- <option value="plate">Sin matricular</option> --}}
-				<option value="soldByReci">Equipos RECI</option>
-				<option value="no-warranty">En garantía</option>
-				<option value="no-ticket">Sin facturar</option>
+				{{!-- <option value="soldByReci">Equipos RECI</option> --}}
+				{{!-- <option value="no-warranty">En garantía</option> --}}
+				{{!-- <option value="no-ticket">Sin facturar</option> --}}
 			</select>
 		</form>
+
 	</div>
 
 	{{#if services}}
@@ -44,32 +50,18 @@
 		<table>
 			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
 				<th class="w-[100px] text-center">Orden</th>
-				<th>Nº Serie</th>
 				<th class="w-[80px] hidden sm:table-cell">Modelo</th>
 				<th class="w-[80px]">Matrícula</th>
 				<th>Cliente</th>
+				<th>Nº Serie</th>
 				<th class="w-[100px] md:w-[170px] hidden sm:table-cell">Fecha de servicio</th>
 			</tr>
 			{{#each services}}
+			{{#if this.refUnit}}
 			<tr>
 				<td class="text-center">
 					<a href="/servicios/{{_id}}">
 						<strong>{{orderNumber}} </strong>
-					</a>
-				</td>
-				<td>
-					<a href="/servicios/{{this._id}} ">
-						{{#if (isPlateNumber this.refUnit.serialNumber)}}
-						<span class="text-red-600">No registra</span>
-						{{else}}
-						{{#if refUnit.soldByReci}}
-						<span class="font-normal text-emerald-600">
-							{{refUnit.serialNumber}}
-						</span>
-						{{else}}
-						{{refUnit.serialNumber}}
-						{{/if}}
-						{{/if}}
 					</a>
 				</td>
 				<td class="hidden sm:table-cell">
@@ -91,12 +83,28 @@
 						{{this.client.name}}
 					</a>
 				</td>
+				<td>
+					<a href="/servicios/{{this._id}} ">
+						{{#if (isPlateNumber this.refUnit.serialNumber)}}
+						<span class="text-red-600">No registra</span>
+						{{else}}
+						{{#if refUnit.soldByReci}}
+						<span class="font-normal text-emerald-600">
+							{{refUnit.serialNumber}}
+						</span>
+						{{else}}
+						{{refUnit.serialNumber}}
+						{{/if}}
+						{{/if}}
+					</a>
+				</td>
 				<td class="hidden text-center sm:table-cell">
 					<a href="/servicios/{{_id}}">
 						{{formatDate serviceDate}}
 					</a>
 				</td>
 			</tr>
+			{{/if}}
 			{{/each}}
 		</table>
 	</div>

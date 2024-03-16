@@ -12,9 +12,9 @@ class RefUnitsController {
     const page = req.query.p || 0;
 
     try {
-      const refUnits = await refUnitsDao.getAllAndPopulate(page);
+      const [refUnits, documentCount] = await refUnitsDao.getAllAndPopulate(page);
 
-      res.render('pages/refUnits/', { refUnits });
+      res.render('pages/refUnits/', { refUnits, documentCount });
     } catch (error) {
       next(error);
     }
@@ -24,7 +24,6 @@ class RefUnitsController {
     const { id } = req.params;
     try {
       const refUnit = await refUnitsDao.getByIdAndPopulate(id);
-      console.log(refUnit);
       const scripts = [
         { script: '/js/formatDate.js' },
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },

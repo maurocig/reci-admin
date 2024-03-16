@@ -49,6 +49,7 @@ class RefUnitsMongoDao extends MongoContainer {
     // Pagination
     const refUnitsPerPage = 30;
 
+    const documentCount = await this.model.countDocuments();
     const refUnits = await this.model
       .find({})
       .sort({ createdAt: 'desc' })
@@ -61,7 +62,7 @@ class RefUnitsMongoDao extends MongoContainer {
       .populate('pendingTasks', ['taskDescription', 'completed'])
       .populate('services', ['serviceDate', 'orderNumber'])
       .lean();
-    return refUnits;
+    return [refUnits, documentCount];
   }
 
   async addService(refUnitId, serviceId) {
