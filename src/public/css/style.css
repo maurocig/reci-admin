@@ -19,7 +19,7 @@
 	--secondary-dark-blue: hsl(220, 40%, 20%);
 	--secondary-light-blue: hsl(222, 75%, 65%);
 	--secondary-dark-gray: hsl(0, 0%, 43%);
-	--primary-success: hsl(150, 45%, 31%);
+	--primary-success: hsl(150, 46%, 42%);
 	--primary-success-brighter: hsl(150, 65%, 45%);
 	--primary-danger: hsl(0, 75%, 60%);
 	--margin-sm: 1.3rem;
@@ -232,10 +232,12 @@ section {
 }
 
 .form-container {
-	background-color: var(--secondary-dark-blue);
+	/* background-color: var(--secondary-dark-blue); */
+	background-color: transparent;
+	backdrop-filter: blur(10px);
 	color: var(--main-light-gray);
-	padding: 1.5rem;
-	border: 1px solid var(--secondary-light-gray);
+	padding: 2rem;
+	border: 1px solid rgba(255, 255, 255, 0.122);
 	max-width: 1000px;
 	margin-top: 0;
 	margin-bottom: 3rem;
@@ -463,16 +465,21 @@ section {
 .button-form {
 	min-width: 150px;
 	margin-inline-start: auto;
-	background-color: var(--secondary-dark-blue);
+	color: var(--primary-success-brighter);
+	/* background-color: var(--secondary-dark-blue); */
 }
 
+.button-form:hover {
+	color: var(--main-dark-blue);
+}
 
 .button-new {
 	padding-inline: 1em;
 	padding-block: .5em;
 	margin-inline: auto;
 	margin-bottom: 1.5rem;
-	background-color: var(--main-dark-blue);
+	font-weight: bold;
+	/* background-color: var(--main-dark-blue); */
 	border: solid 2px var(--secondary-light-blue);
 	color: var(--secondary-light-blue);
 	display: flex;
@@ -491,7 +498,8 @@ section {
 .button-danger {
 	padding-inline: 1em;
 	padding-block: .5em;
-	background-color: var(--main-dark-blue);
+	font-weight: bold;
+	/* background-color: var(--main-dark-blue); */
 	border: solid 2px var(--primary-danger);
 	color: var(--primary-danger);
 	margin-top: 3rem;
