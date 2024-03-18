@@ -443,6 +443,7 @@ section {
 	padding-block: .5em;
 	min-width: 150px;
 	/* background-color: var(--main-dark-blue); */
+	background-color: transparent !important;
 	border: solid 2px var(--primary-success-brighter);
 	font-weight: 500;
 	color: var(--primary-success-brighter);
@@ -453,8 +454,8 @@ section {
 }
 
 .button-success:hover {
-	background-color: var(--primary-success-brighter);
-	border: solid 2px var(--primary-success-brighter);
+	background-color: var(--primary-success-brighter) !important;
+	border: solid 2px var(--primary-success-brighter) !important;
 	color: var(--main-dark-blue);
 }
 
