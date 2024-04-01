@@ -14,10 +14,10 @@ class ServicesController {
     const page = req.query.p || 0;
 
     try {
-      const services = await servicesDao.getAllAndPopulate(page);
+      const [services, documentCount] = await servicesDao.getAllAndPopulate(page);
       const scripts = [{ script: '/js/formatDate.js' }];
 
-      res.render('pages/services/index.hbs', { services, scripts });
+      res.render('pages/services/index.hbs', { services, documentCount, scripts });
     } catch (error) {
       next(error);
     }

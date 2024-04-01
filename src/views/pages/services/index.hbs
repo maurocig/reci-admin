@@ -115,13 +115,16 @@
 	{{/if}}
 
 	{{!-- Paginación --}}
-	<div class="flex space-x-8 w-full justify-center mb-4">
-		<a id="previous" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
+	<div class="flex space-x-8 w-full justify-between items-center max-w-[470px] mx-auto mb-4" id="pagination-div">
+		<a id="previous" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
 			<i class="material-icons inline">chevron_left</i>
-			Anterior
+			Más recientes
 		</a>
-		<a id="next" role="link" class="text-green-400 flex items-center bold border border-green-400 px-4 py-2">
-			Siguiente
+		<div id="page-indicator" class="text-gray-300"></div>
+		<a id="next" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
+			Más antiguos
 			<i class="material-icons inline">chevron_right</i>
 		</a>
 	</div>
@@ -136,9 +139,13 @@
 
 		const previousLink = document.querySelector('#previous');
 		const nextLink = document.querySelector('#next');
+		const pageIndicator = document.querySelector('#page-indicator');
+		const documentCount = "{{ documentCount }}" || null;
+		const totalPages = Math.ceil(documentCount / 30);
 
 		previousLink.setAttribute('href', `/servicios?p=${page - 1}`)
 		nextLink.setAttribute('href', `/servicios?p=${page + 1}`)
+		pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="text-emerald-400 font-bold" href="/servicios?p=${+totalPages - 1}">${totalPages}</a>`
 
 		if (page === 0) {
 			previousLink.setAttribute('aria-disabled', 'true')

@@ -41,6 +41,7 @@ class ServicesMongoDao extends MongoContainer {
   async getAllAndPopulate(page) {
     const servicesPerPage = 30;
 
+    const documentCount = await this.model.countDocuments();
     const services = await this.model
       .find({})
       .sort({ serviceDate: 'desc' })
@@ -52,7 +53,7 @@ class ServicesMongoDao extends MongoContainer {
       .populate('client', 'name')
       .populate('refUnit', ['plate', 'model', 'serialNumber', 'soldByReci'])
       .lean();
-    return services;
+    return [services, documentCount];
   }
 
   async getAllWithRefUnits(filter = {}) {
