@@ -25,10 +25,10 @@ class ClientsMongoDao extends MongoContainer {
     super(collection, clientSchema);
   }
 
-  async getAllSorted() {
-    const clients = await this.model.find().sort({ name: 1 }).lean();
-    return clients;
-  }
+  // async getAllSorted() {
+  //   const clients = await this.model.find().sort({ name: 1 }).lean();
+  //   return clients;
+  // }
 
   async addRefUnit(clientId, refUnitId) {
     const client = await this.model.findOne({ _id: clientId }, { __v: 0 });

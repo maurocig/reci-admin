@@ -175,9 +175,15 @@
 					<tr>
 						{{#if service.refUnit.soldByReci}}
 						<th>Fecha límite de garantía</th>
-						<td>
+						{{#if (isInWarranty service.refUnit.warrantyDate)}}
+						<td class="text-green-600">
 							{{formatDate service.refUnit.warrantyDate}}
 						</td>
+						{{else}}
+						<td class="text-red-500">
+							{{formatDate service.refUnit.warrantyDate}}
+						</td>
+						{{/if}}
 						{{/if}}
 					</tr>
 					<tr>

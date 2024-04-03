@@ -84,7 +84,7 @@
 					</th>
 					<td>
 						{{#if refUnit.warrantyDate}}
-						{{#if (checkWarrantyStatus refUnit.warrantyDate)}}
+						{{#if (isInWarranty refUnit.warrantyDate)}}
 						<span class="text-green-600">
 							{{formatDate refUnit.warrantyDate}}
 						</span>

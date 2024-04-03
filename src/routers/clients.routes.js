@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/search', clientsController.searchClient);
 
-router.get('/', clientsController.getClientsSorted);
+router.get('/', clientsController.getClients);
 router.get('/nuevo', clientsController.getClientsForm);
 router.get('/:id', clientsController.getClientsById);
 router.post('/', clientsController.saveClient);

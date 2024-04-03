@@ -18,8 +18,21 @@ class MongoContainer {
     await mongoose.disconnect();
   }
 
-  async getAll(filter = {}) {
-    const documents = await this.model.find(filter, { __v: 0 }).sort({ createdAt: 'desc' }).lean();
+  async getAll(filter = {}, sort = { createdAt: 1 }, addFields = {}) {
+    const documents = await this.model
+      .aggregate([
+        {
+          $addFields: addFields,
+        },
+        {
+          $match: filter,
+        },
+        {
+          $sort: sort,
+        },
+      ])
+      .cursor()
+      .toArray();
     return documents;
   }
 

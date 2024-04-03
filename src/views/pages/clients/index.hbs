@@ -15,19 +15,30 @@
 	<i class="material-icons icon-clients center" style="font-size: 50px; display: block; margin-bottom: .2rem;">group</i>
 	<h1 class="title">Clientes</h1>
 
-	<div class="grid items-center grid-cols-1 mb-3 sm:grid-cols-3">
-		<form action="/clientes/search" method="GET" class="flex items-center gap-2">
+	<div class="flex justify-between mb-4 w-full">
+		{{!-- search --}}
+		<form action="/clientes/search" method="GET" class="flex items-center gap-2 self-end">
 			<input name="q" placeholder="Nombre de cliente"
 				class="inline w-3/4 h-10 px-4 py-2 m-0 mx-auto mb-0 bg-gray-200 rounded-full" style="margin: 0 !important;">
 			</input>
-			<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
-					class="inline text-white material-icons">search</i></button>
+			<button type="submit"><i class="inline text-white material-icons">search</i></button>
 		</form>
-		<div></div>
-		<a href="/clientes/nuevo" class="hidden sm:block">
-			<button class="rounded-md button-success" style="margin-inline: auto;margin-right: 0rem;">Nuevo
-				cliente</button>
-		</a>
+		{{!-- sort --}}
+		<div class="flex items-center gap-4">
+			<a href="/clientes/nuevo" class="hidden sm:block mb-0 self-end">
+				<button class="rounded-md button-success m-0 flex items-center" style="height: 2.5rem;">Nuevo
+					cliente</button>
+			</a>
+			<form id="sort-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
+				<label for="refUnitsFilter" class="text-gray-400 font-normal w-100 w-full">Ordenar
+				</label>
+				<select name="sort" id="sort-select" class="w-48 h-10 px-2 mt-0 bg-gray-200">
+					<option value="name">Razón social</option>
+					<option value="refUnits-length">Cant. equipos</option>
+					<option value="client-number">Nº cliente</option>
+				</select>
+			</form>
+		</div>
 	</div>
 
 	{{#if clients}}
@@ -66,13 +77,6 @@
 						</strong>
 					</a>
 				</td>
-
-				{{!-- <td class="center" style="min-width: 40px;"> --}}
-				{{!-- 	<a href="/clientes/editar/{{_id}}"> --}}
-				{{!-- 		<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span> --}}
-				{{!-- 	</a> --}}
-				{{!-- </td> --}}
-
 			</tr>
 			{{/unless}}
 			{{/each}}
@@ -81,5 +85,21 @@
 	{{else}}
 	<h2 class="subtitle center" style="margin-top: 3rem;">No se encontraron clientes.</h2>
 	{{/if}}
-
 </main>
+
+<script>
+	const sortQuery = new URLSearchParams(window.location.search).get('sort');
+	const sortSelect = document.getElementById('sort-select');
+
+	const options = Array.from(sortSelect.options);
+	for (let option of options) {
+		if (option.value === sortQuery) {
+			option.selected = true;
+			break;
+		}
+	}
+
+	sortSelect.addEventListener('change', () => {
+		document.getElementById('sort-form').submit();
+	});
+</script>

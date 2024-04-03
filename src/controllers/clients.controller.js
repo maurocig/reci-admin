@@ -10,17 +10,19 @@ const servicesDao = new ServicesDao();
 
 class ClientsController {
   async getClients(req, res, next) {
+    const sortQuery = req.query.sort || null;
+    let sort;
+    let addFields;
     try {
-      const clients = await clientsDao.getAll();
-      res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getClientsSorted(req, res, next) {
-    try {
-      const clients = await clientsDao.getAllSorted();
+      if (sortQuery === 'name' || !sortQuery) {
+        sort = { name: 1 };
+      } else if (sortQuery === 'client-number') {
+        sort = { clientNumber: 1 };
+      } else if (sortQuery === 'refUnits-length') {
+        addFields = { refUnitsLength: { $size: '$refUnits' } };
+        sort = { refUnitsLength: -1 };
+      }
+      const clients = await clientsDao.getAll({}, sort, addFields);
       res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
     } catch (error) {
       next(error);
