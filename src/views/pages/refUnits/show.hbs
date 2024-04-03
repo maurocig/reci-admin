@@ -84,7 +84,15 @@
 					</th>
 					<td>
 						{{#if refUnit.warrantyDate}}
-						{{formatDate refUnit.warrantyDate}}
+						{{#if (checkWarrantyStatus refUnit.warrantyDate)}}
+						<span class="text-green-600">
+							{{formatDate refUnit.warrantyDate}}
+						</span>
+						{{else}}
+						<span class="text-red-500">
+							{{formatDate refUnit.warrantyDate}}
+						</span>
+						{{/if}}
 						{{else}}
 						Sin garantía
 						{{/if}}
