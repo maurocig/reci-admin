@@ -24,25 +24,23 @@
 		</form>
 
 		{{!-- filter --}}
-
-		{{!-- <form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
+		<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
 			<label for="servicesFilter" class="text-gray-400 font-normal w-100 w-full">
-				Filtrar
+
+				{{#if filter}}
+				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{services.length}} resultados</span></span>
+				{{else}}
+				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{documentCount}} resultados</span></span>
+				{{/if}}
 			</label>
-			<select name="f" id="servicesFilter" class="w-full h-10 px-2 rounded-md m-0 bg-gray-200">
-				<option value="all">Todos</option>
-				<option value="2024">2024</option>
-				<option value="2023">2023</option>
+			<select name="filter" id="filter-select" class="w-48 h-10 px-2 m-0 bg-gray-200">
+				<option value="">Todos</option>
 				<option value="2022">2022</option>
-
-				<option value="pendingTasks">Tareas pendientes</option>
-		<option value="plate">Sin matricular</option>
-		<option value="soldByReci">Equipos RECI</option>
-		<option value="no-warranty">En garantía</option>
-		<option value="no-ticket">Sin facturar</option>
-		</select>
-		</form> --}}
-
+				<option value="2023">2023</option>
+				<option value="2024">2024</option>
+				<option value="no-ticket">Sin facturar</option>
+			</select>
+		</form>
 	</div>
 
 	{{#if services}}
@@ -130,34 +128,56 @@
 	</div>
 	{{!-- hidden --}}
 	<input type="text" hidden value="{{services.length}}" id="services-length">
-
-	<script>
-
-		// Pagination
-		const urlParams = new URLSearchParams(window.location.search)
-		const page = parseInt(urlParams.get('p') || 0)
-
-		const previousLink = document.querySelector('#previous');
-		const nextLink = document.querySelector('#next');
-		const pageIndicator = document.querySelector('#page-indicator');
-		const documentCount = "{{ documentCount }}" || null;
-		const totalPages = Math.ceil(documentCount / 30);
-
-		previousLink.setAttribute('href', `/servicios?p=${page - 1}`)
-		nextLink.setAttribute('href', `/servicios?p=${page + 1}`)
-		pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="text-emerald-400 font-bold" href="/servicios?p=${+totalPages - 1}">${totalPages}</a>`
-
-		if (page === 0) {
-			previousLink.setAttribute('aria-disabled', 'true')
-			previousLink.classList.add('disable-links', 'text-gray-500', 'border-gray-500')
-		}
-
-		const servicesLength = document.querySelector('#services-length')
-
-		if (+servicesLength.value < 30) {
-			nextLink.setAttribute('aria-disabled', 'true');
-			nextLink.classList.add('disable-links', 'text-gray-400', 'border-gray-400');
-		}
-	</script>
-
 </main>
+
+<script>
+	const paginationDiv = document.getElementById('pagination-div');
+
+	// Filter
+	const filterQuery = new URLSearchParams(window.location.search).get('filter');
+	const filterSelect = document.getElementById('filter-select');
+
+	const options = Array.from(filterSelect.options);
+	for (let option of options) {
+		if (option.value === filterQuery) {
+			option.selected = true;
+			break;
+		}
+	}
+
+	if ("{{filter}}") {
+		paginationDiv.classList.add('hidden');
+	} else {
+		paginationDiv.classList.remove('hidden');
+	}
+
+	filterSelect.addEventListener('change', () => {
+		document.getElementById('filter-form').submit();
+	})
+
+	// Pagination
+	const urlParams = new URLSearchParams(window.location.search)
+	const page = parseInt(urlParams.get('p') || 0)
+
+	const previousLink = document.querySelector('#previous');
+	const nextLink = document.querySelector('#next');
+	const pageIndicator = document.querySelector('#page-indicator');
+	const documentCount = "{{ documentCount }}" || null;
+	const totalPages = Math.ceil(documentCount / 30);
+
+	previousLink.setAttribute('href', `/servicios?p=${page - 1}`)
+	nextLink.setAttribute('href', `/servicios?p=${page + 1}`)
+	pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="text-emerald-400 font-bold" href="/servicios?p=${+totalPages - 1}">${totalPages}</a>`
+
+	if (page === 0) {
+		previousLink.setAttribute('aria-disabled', 'true')
+		previousLink.classList.add('disable-links', 'text-gray-500', 'border-gray-500')
+	}
+
+	const servicesLength = document.querySelector('#services-length')
+
+	if (+servicesLength.value < 30) {
+		nextLink.setAttribute('aria-disabled', 'true');
+		nextLink.classList.add('disable-links', 'text-gray-400', 'border-gray-400');
+	}
+</script>

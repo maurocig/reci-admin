@@ -38,22 +38,31 @@ class ServicesMongoDao extends MongoContainer {
     return service;
   }
 
-  async getAllAndPopulate(page) {
-    const servicesPerPage = 30;
-
+  async getAllAndPopulate(page, filter = null) {
     const documentCount = await this.model.countDocuments();
-    const services = await this.model
-      .find({})
-      .sort({ serviceDate: 'desc' })
+    const servicesPerPage = 30;
+    let services;
 
-      // pagination
-      .skip(page * servicesPerPage)
-      .limit(servicesPerPage)
+    if (!filter) {
+      services = await this.model
+        .find()
+        .sort({ serviceDate: 'desc' })
+        // pagination
+        .skip(page * servicesPerPage)
+        .limit(servicesPerPage)
+        .populate('client', 'name')
+        .populate('refUnit', ['plate', 'model', 'serialNumber', 'soldByReci'])
+        .lean();
+    } else {
+      services = await this.model
+        .find(filter)
+        .sort({ serviceDate: 'desc' })
+        .populate('client', 'name')
+        .populate('refUnit', ['plate', 'model', 'serialNumber', 'soldByReci'])
+        .lean();
+    }
 
-      .populate('client', 'name')
-      .populate('refUnit', ['plate', 'model', 'serialNumber', 'soldByReci'])
-      .lean();
-    return [services, documentCount];
+    return [services, documentCount, filter];
   }
 
   async getAllWithRefUnits(filter = {}) {

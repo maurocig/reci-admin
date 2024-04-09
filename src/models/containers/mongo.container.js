@@ -18,7 +18,7 @@ class MongoContainer {
     await mongoose.disconnect();
   }
 
-  async getAll(filter = {}, sort = { createdAt: 1 }, addFields = {}) {
+  async getAll(filter = {}, sort = { createdAt: 1 }, addFields = {}, lookup = {}) {
     const documents = await this.model
       .aggregate([
         {

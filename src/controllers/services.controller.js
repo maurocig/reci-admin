@@ -12,12 +12,32 @@ const refUnitsDao = new RefUnitsDao();
 class ServicesController {
   async getServices(req, res, next) {
     const page = req.query.p || 0;
+    const filter = req.query.filter || null;
+
+    let services;
+    let documentCount;
 
     try {
-      const [services, documentCount] = await servicesDao.getAllAndPopulate(page);
-      const scripts = [{ script: '/js/formatDate.js' }];
+      const years = [2021, 2022, 2023, 2024];
+      if (filter && years.includes(+filter)) {
+        const start = new Date(+filter, 0, 1);
+        const end = new Date(+filter + 1, 0, 1);
+        [services, documentCount] = await servicesDao.getAllAndPopulate(page, {
+          serviceDate: {
+            $gte: start,
+            $lt: end,
+          },
+        });
+      } else if (filter && filter === 'no-ticket') {
+        [services, documentCount] = await servicesDao.getAllAndPopulate(page, {
+          ticket: { $eq: '' },
+        });
+      } else {
+        [services, documentCount] = await servicesDao.getAllAndPopulate(page);
+      }
 
-      res.render('pages/services/index.hbs', { services, documentCount, scripts });
+      const scripts = [{ script: '/js/formatDate.js' }];
+      res.render('pages/services/index.hbs', { services, documentCount, scripts, filter });
     } catch (error) {
       next(error);
     }
