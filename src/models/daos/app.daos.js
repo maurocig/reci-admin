@@ -9,6 +9,7 @@ switch (envConfig.DATASOURCE) {
   case 'mongo':
     ClientsDao = require('./clients.mongo.dao');
     RefUnitsDao = require('./refUnits.mongo.dao');
+    BodyKitsDao = require('./bodyKits.mongo.dao');
     ServicesDao = require('./services.mongo.dao');
     UsersDao = require('./users.mongo.dao');
     break;
@@ -21,4 +22,5 @@ module.exports = {
   ClientsDao,
   RefUnitsDao,
   ServicesDao,
+  BodyKitsDao,
 };

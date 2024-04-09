@@ -30,12 +30,6 @@
 	<h1 class="title">{{client.name}}</h1>
 
 	<section class="mt-0 mb-0 flex flex-col items-center w-full">
-		{{!-- <h2 class="mt-0 subtitle flex">
-			<i class="material-icons icon-clients center"
-				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">info_outline</i>
-			Información
-		</h2> --}}
-
 		<div class="table-container w-full md:w-[600px]">
 			<table>
 				<tr>
@@ -127,7 +121,6 @@
 						<th class="py-2">Modelo</th>
 						<th class="py-2">Matrícula</th>
 						<th class="py-2 hidden lg:block">Creado</th>
-						{{!-- <th class="py-2 center">Servicios</th> --}}
 					</tr>
 					{{#each refUnits}}
 					<tr>
@@ -168,11 +161,6 @@
 							<a href="/equipos/{{this._id}} ">
 								{{formatDate this.createdAt}}
 						</td>
-						{{!-- <td class="center">
-							<a href="/equipos/{{this._id}}">
-								{{this.services.length}}
-							</a>
-						</td> --}}
 					</tr>
 					{{/each}}
 				</table>
@@ -186,6 +174,77 @@
 					<button class="button-success" style="margin-inline: auto;">
 						<i class="material-icons clients-icon center">add</i>
 						Agregar Equipo
+					</button>
+				</a>
+			</div>
+
+			{{!-- client's bodyKits --}}
+			<div>
+				<h2 class="mt-0 subtitle" style="display: flex;">
+					<i class="material-icons icon-clients center"
+						style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">local_shipping</i>
+					Carrocerías
+				</h2>
+				{{#if bodyKits}}
+				<table class="mb-4 overflow-hidden">
+					<tr class="table-headers-row bg-slate-200 hover:bg-slate-300/80">
+						<th class="py-2">N° Serie</th>
+						<th class="py-2">Modelo</th>
+						<th class="py-2">Matrícula</th>
+						<th class="py-2 hidden lg:block">Creado</th>
+					</tr>
+					{{#each bodyKits}}
+					<tr>
+						<td>
+							<a href="/carrocerias/{{this._id}} ">
+								<strong>
+									{{#if (isPlateNumber this.serialNumber)}}
+									<span class="text-red-600">No registra</span>
+									{{else}}
+									{{#if this.soldByReci}}
+									<span class="text-emerald-600 font-normal">
+										{{this.serialNumber}}
+									</span>
+									{{else}}
+									<span class="font-thin">
+										{{this.serialNumber}}
+									</span>
+									{{/if}}
+									{{/if}}
+								</strong>
+							</a>
+						</td>
+						<td>
+							<a href="/carrocerias/{{this._id}} ">
+								{{this.model}}
+							</a>
+						</td>
+						<td>
+							<a href="/carrocerias/{{this._id}} ">
+								{{#if this.plate}}
+								{{this.plate}}
+								{{else}}
+								<div class="text-red-600">No registra</div>
+								{{/if}}
+							</a>
+						</td>
+						<td class="hidden lg:block">
+							<a href="/carrocerias/{{this._id}} ">
+								{{formatDate this.createdAt}}
+						</td>
+					</tr>
+					{{/each}}
+				</table>
+				{{else}}
+				<h3 class="no-elements center" style="font-size: 1.1rem;">
+					Este cliente no tiene carrocerías registradas.
+				</h3>
+				{{/if}}
+
+				<a href="/carrocerias/nueva/{{client._id}}">
+					<button class="button-success" style="margin-inline: auto;">
+						<i class="material-icons clients-icon center">add</i>
+						Agregar Carrocería
 					</button>
 				</a>
 			</div>
@@ -242,5 +301,7 @@
 				</h3>
 				{{/if}}
 			</div>
+
+		</div>
 	</section>
 </main>

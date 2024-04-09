@@ -22,7 +22,7 @@ class ClientsController {
         addFields = { refUnitsLength: { $size: '$refUnits' } };
         sort = { refUnitsLength: -1 };
       }
-      const clients = await clientsDao.getAll({}, sort, addFields);
+      const clients = await clientsDao.getAllAggregate({}, sort, addFields);
       res.status(HTTP_STATUS.OK).render('pages/clients', { clients });
     } catch (error) {
       next(error);

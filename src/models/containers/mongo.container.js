@@ -18,21 +18,8 @@ class MongoContainer {
     await mongoose.disconnect();
   }
 
-  async getAll(filter = {}, sort = { createdAt: 1 }, addFields = {}, lookup = {}) {
-    const documents = await this.model
-      .aggregate([
-        {
-          $addFields: addFields,
-        },
-        {
-          $match: filter,
-        },
-        {
-          $sort: sort,
-        },
-      ])
-      .cursor()
-      .toArray();
+  async getAll(filter = {}) {
+    const documents = await this.model.find(filter, { __v: 0 }).sort({ createdAt: 'desc' }).lean();
     return documents;
   }
 
@@ -74,6 +61,24 @@ class MongoContainer {
       .sort({ createdAt: 'desc' })
       .populate(collectionRef)
       .lean();
+    return documents;
+  }
+
+  async getAllAggregate(filter = {}, sort = { createdAt: 1 }, addFields = {}, lookup = {}) {
+    const documents = await this.model
+      .aggregate([
+        {
+          $addFields: addFields,
+        },
+        {
+          $match: filter,
+        },
+        {
+          $sort: sort,
+        },
+      ])
+      .cursor()
+      .toArray();
     return documents;
   }
 }
