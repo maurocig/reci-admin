@@ -94,10 +94,15 @@ form.addEventListener('submit', (e) => {
               title: 'El equipo se agregó correctamente',
               icon: 'success',
               iconColor: '#059669',
-              showCancelButton: false,
-              confirmButtonText: 'Volver al cliente',
+              showCancelButton: true,
+              cancelButtonText: 'Volver al cliente',
+              confirmButtonText: 'Ir al equipo',
+              confirmButtonColor: '#059669',
+              reverseButtons: true,
             }).then((result) => {
               if (result.value) {
+                window.location.href = `/equipos/${response}`;
+              } else {
                 window.location.href = `/clientes/${refUnit.client}`;
               }
             });

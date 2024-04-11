@@ -198,7 +198,7 @@
 						<td>
 							<a href="/carrocerias/{{this._id}} ">
 								<strong>
-									{{#if (isPlateNumber this.serialNumber)}}
+									{{#if (eq this.plate this.serialNumber)}}
 									<span class="text-red-600">No registra</span>
 									{{else}}
 									{{#if this.soldByReci}}

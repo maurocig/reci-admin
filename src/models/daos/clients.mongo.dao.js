@@ -12,7 +12,7 @@ const clientSchema = new Schema(
     contactPerson: { type: String, uppercase: true, required: false },
     brandName: { type: String, uppercase: true, required: false, unique: true, index: 'text' },
     refUnits: [{ type: Schema.Types.ObjectId, ref: 'refUnits' }],
-    bodyKits: [{ type: Schema.Types.ObjectId, ref: 'BodyKit' }],
+    bodyKits: [{ type: Schema.Types.ObjectId, ref: 'bodyKits' }],
   },
   {
     timestamps: true,
@@ -54,6 +54,19 @@ class ClientsMongoDao extends MongoContainer {
     } else {
       return;
     }
+  }
+
+  async addBodyKit(clientId, bodyKitId) {
+    const client = await this.model.findOne({ _id: clientId }, { __v: 0 });
+    if (!client) {
+      const message = `Client with id ${clientId} does not exist in our records.`;
+      throw new HttpError(HTTP_STATUS.NOT_FOUND, message);
+    }
+    const updatedClient = await this.model.updateOne(
+      { _id: clientId },
+      { $addToSet: { bodyKits: bodyKitId } } // no agrega duplicados pero no da error :/
+    );
+    return updatedClient;
   }
 }
 

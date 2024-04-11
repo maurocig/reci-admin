@@ -3,6 +3,7 @@ const envConfig = require('../../config');
 let ClientsDao;
 let RefUnitsDao;
 let ServicesDao;
+let BodyKitsDao;
 let UsersDao;
 
 switch (envConfig.DATASOURCE) {
