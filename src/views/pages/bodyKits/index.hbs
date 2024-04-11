@@ -1,0 +1,185 @@
+{{>navbar}}
+
+<main class="mt-[80px]">
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center"
+		style="font-size: 50px; display: block; margin-bottom: .2rem;">local_shipping</i>
+	<h1 class="title">Carrocerías</h1>
+
+	{{!-- search --}}
+	<div class="grid items-center justify-between grid-cols-1 mb-4 sm:flex gap-0 sm:gap-4 lg:gap-8">
+		<form action="/carrocerias/search" method="GET" class="flex flex-col items-start gap-1">
+			<div class="mt-6"></div>
+			<div class="w-full flex gap-3">
+				<input name="q" placeholder="Buscar Nº serie, modelo"
+					class="inline w-[250px] h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-full"
+					style="margin: 0 !important; padding-inline: 1.2rem;">
+				</input>
+				<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
+						class="inline text-white material-icons">search</i></button>
+			</div>
+		</form>
+
+		{{!-- filter --}}
+		<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
+			<label for="body-kits-filter" class="text-gray-400 font-normal w-100 w-full">
+
+				{{#if f}}
+				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{bodyKits.length}} resultados</span></span>
+				{{else}}
+				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{documentCount}} resultados</span></span>
+				{{/if}}
+			</label>
+			<select name="f" id="body-kits-filter" class="w-48 h-10 px-2 m-0 bg-gray-200">
+				<option value="all">Todos</option>
+				<option value="pendingTasks">Tareas pendientes</option>
+				<option value="plate">Sin matricular</option>
+				<option value="soldByReci">Venta RECI</option>
+			</select>
+		</form>
+	</div>
+
+	{{#if bodyKits}}
+	<div class="table-container">
+		<table class="mb-2">
+			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
+				<th>Matrícula</th>
+				<th>Modelo</th>
+				<th class="min-w-[150px]">Cliente</th>
+				<th class="min-w-[120px]">Nº Serie</th>
+				<th>Ingresado</th>
+			</tr>
+			{{#each bodyKits}}
+			<tr>
+				<td>
+					<a href="/carrocerias/{{this._id}} ">
+						{{#if this.plate}}
+						{{this.plate}}
+						{{else}}
+						<span class="text-red-500">No registra</span>
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/carrocerias/{{_id}}">
+						{{model}}
+					</a>
+				</td>
+				<td>
+					<a href="/carrocerias/{{_id}}">
+						{{client.name}}
+					</a>
+				</td>
+				<td>
+					<a href="/carrocerias/{{_id}}">
+						{{#if (eq this.plate this.serialNumber)}}
+						<span class="text-red-600">No registra</span>
+						{{else}}
+						{{#if this.soldByReci}}
+						<span class="font-normal text-emerald-600">
+							{{serialNumber}}
+						</span>
+						{{else}}
+						<span class="">{{serialNumber}}</span>
+						{{/if}}
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/carrocerias/{{_id}}">
+						{{formatDate createdAt}}
+					</a>
+				</td>
+				{{!-- <td class="center">
+					<a href="/carrocerias/editar/{{_id}}">
+						<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+					</a>
+				</td> --}}
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+
+	{{else}}
+	<h2 class="subtitle center" style="margin-top: 1rem;">No hay carrocerías registradas.</h2>
+	{{/if}}
+
+	{{!-- Paginación --}}
+	<div class="flex space-x-8 w-full justify-between items-center max-w-[470px] mx-auto mb-4" id="pagination-div">
+		<a id="previous" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
+			<i class="material-icons inline">chevron_left</i>
+			Más recientes
+		</a>
+		<div id="page-indicator" class="text-gray-300"></div>
+		<a id="next" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
+			Más antiguos
+			<i class="material-icons inline">chevron_right</i>
+		</a>
+	</div>
+
+	<script>
+		// Filter
+		const select = document.getElementById('body-kits-filter');
+		const filterForm = document.getElementById('filter-form');
+		const paginationDiv = document.getElementById('pagination-div');
+
+		select.value = "{{f}}";
+		if (!select.value) {
+			select.value = 'all';
+		} else {
+			paginationDiv.classList.add('hidden');
+		}
+
+		select.addEventListener('change', async (e) => {
+			let selectedValue = select.value;
+			if (selectedValue === 'all') {
+				filterForm.setAttribute('action', '/carrocerias');
+			} else {
+				filterForm.setAttribute('action', `/carrocerias/filter?f=${selectedValue}`);
+			}
+			filterForm.submit();
+		})
+
+		// Pagination
+		const urlParams = new URLSearchParams(window.location.search)
+		const page = parseInt(urlParams.get('p') || 0)
+
+		const previousLink = document.querySelector('#previous');
+		const nextLink = document.querySelector('#next');
+		const pageIndicator = document.querySelector('#page-indicator');
+		const documentCount = "{{ documentCount }}" || null;
+		const totalPages = Math.ceil(documentCount / 30);
+		const filterIsActive = "{{f}}";
+
+		if (filterIsActive) {
+			paginationDiv.classList.add('hidden');
+		}
+
+		previousLink.setAttribute('href', `/carrocerias?p=${page - 1}`)
+		nextLink.setAttribute('href', `/carrocerias?p=${page + 1}`)
+		pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="text-emerald-400 font-bold" href="/carrocerias?p=${+totalPages - 1}">${totalPages}</a>`
+
+		if (page === 0) {
+			previousLink.setAttribute('aria-disabled', 'true')
+			previousLink.classList.add('disable-links', 'text-gray-500', 'border-gray-500')
+		}
+
+		if (+bodyKitsLength.value < 30) {
+			nextLink.setAttribute('aria-disabled', 'true');
+			nextLink.classList.add('disable-links', 'text-gray-500', 'border-gray-500');
+		}
+	</script>
+
+</main>
