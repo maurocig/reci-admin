@@ -1,0 +1,152 @@
+{{>navbar}}
+
+<main class="mt-[80px]">
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+
+	{{!-- Breadcrumbs --}}
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
+		<a href="/clientes/{{bodyKit.client._id}}">
+			<button class="flex items-center">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+				</span>
+				{{bodyKit.client.name}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<button class="flex items-center text-slate-200 cursor-text ">
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">ac_unit</i>
+			</span>
+			{{bodyKit.plate}}
+		</button>
+	</div>
+
+	<i class="material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">local_shipping</i>
+	<h1 class="title">Editar carrocería</h1>
+	<form class="form-container" id="form-new-bodykit" method="POST">
+		<div class="grid gap-8 mb-6 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="form-field">
+				<label for="client">Nombre de Cliente</label>
+				<input type="text" readonly name="clientName" value="{{bodyKit.client.name}}"
+					style="text-transform: uppercase;" />
+			</div>
+			<div class="form-field">
+				<label for="client">ID de Cliente</label>
+				<input type="text" id="client-id" name="client" value="{{bodyKit.client._id}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="name">Nº Serie <span class="text-red-500">*</span></label>
+				<input type="text" maxlength=17 class="uppercase" id="serial-number" name="serialNumber"
+					value="{{bodyKit.serialNumber}}" required />
+			</div>
+			<div class="form-field">
+				<label for="plate-number">Matrícula <span class="text-yellow-500">*</span></label>
+				<input type="text" id="plate-number" name="plate" value="{{bodyKit.plate}}" class="uppercase" maxlength=12 />
+			</div>
+			<div class="form-field">
+				<label for="model">Modelo <span class="text-red-500">*</span></label>
+				<input id="model" type="text" name="model" value="{{bodyKit.model}}" class="uppercase">
+			</div>
+
+			{{!-- <div class="form-field">
+				<label for="soldByReci">Venta RECI: </label>
+				{{#if bodyKit.soldByReci}}
+				<input type="checkbox" class="h-8" checked name="soldByReci" id="checkboxByReci">
+				{{else}}
+				<input type="checkbox" class="h-8 " name="soldByReci" id="checkboxByReci">
+				{{/if}}
+			</div> --}}
+
+			<div class="form-field">
+				<label for="soldByReci">Venta RECI <span class="text-red-500">*</span></label>
+				<select name="soldByReci" id="soldByReciSelect" required>
+					{{#if bodyKit.soldByReci}}
+					<option value="true" selected>Si</option>
+					<option value="false">No</option>
+					{{else}}
+					<option value="true">Si</option>
+					<option value="false" selected>No</option>
+					{{/if}}
+				</select>
+			</div>
+			<div class="form-field">
+				<label for="warrantyDate">Fecha límite de garantía </label>
+				<input type="date" id="warranty-date" name="warrantyDate" value="{{formatDateValue bodyKit.warrantyDate}}" />
+				{{!-- <input type="date" id="warranty-date" name="warrantyDate" value="2022-12-09" /> --}}
+			</div>
+		</div>
+		<button id="submit-button" class="button-success button-form" role="submit">Guardar</button>
+	</form>
+
+	<button class="button-danger center" onclick="deleteBodyKit('{{bodyKit._id}}')">Eliminar</button>
+
+	{{!-- <input class="hidden" id="client-id-input" value="{{bodyKit.client._id}}" /> --}}
+	<input class="hidden" id="bodykit-id" value="{{bodyKit._id}}" />
+</main>
+
+{{#each scripts}}
+<script src="{{script}}"></script>
+{{/each}}
+
+<script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
+<script>
+	// special characters not allowed on serial number
+	document.getElementById('serial-number').addEventListener('keypress', function (e) {
+		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
+		if (!matches) {
+			e.preventDefault();
+		}
+	});
+
+	// special characters not allowed on license plate
+	document.getElementById('plate-number').addEventListener('keypress', function (e) {
+		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
+		if (!matches) {
+			e.preventDefault();
+		}
+	});
+
+	// deleting bodyKit
+	const deleteButton = document.querySelector('.button-danger')
+	const clientId = clientIdInput.value;
+
+	function deleteBodyKit(id) {
+		Swal.fire({
+			title: 'Se borrará la carrocería',
+			text: "Esta acción no se puede revertir.",
+			icon: 'warning',
+			iconColor: 'red',
+			showCancelButton: true,
+			confirmButtonColor: '#d33',
+			confirmButtonText: 'Borrar',
+			cancelButtonText: 'Cancelar',
+		})
+			.then((result) => {
+				if (result.value) {
+					// send a DELETE request to the server
+					const xhr = new XMLHttpRequest();
+					xhr.open("DELETE", '/carrocerias/' + id, true);
+					xhr.setRequestHeader("X-HTTP-Method-Override", "DELETE");
+					xhr.onloadend = function () {
+						// handle the response
+						Swal.fire({
+							title: 'La carrocería fue borrada.',
+							icon: 'success',
+							confirmButtonText: 'Volver al cliente',
+						}).then((result) => {
+							if (result.value) {
+								window.location.href = `/clientes/${clientId}`
+							}
+						})
+					}
+					xhr.send();
+				}
+			})
+	}
+</script>
