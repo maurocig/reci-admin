@@ -146,4 +146,16 @@
 		}
 	});
 
+	// set warranty date to following year when clicked
+	let date = new Date();
+	date.setFullYear(date.getFullYear() + 1);
+
+	let day = ("0" + date.getDate()).slice(-2);
+	let month = ("0" + (date.getMonth() + 1)).slice(-2);
+
+	let nextYearDate = date.getFullYear() + "-" + (month) + "-" + (day);
+
+	document.getElementById('warranty-date').addEventListener('click', function () {
+		document.getElementById('warranty-date').value = nextYearDate;
+	});
 </script>

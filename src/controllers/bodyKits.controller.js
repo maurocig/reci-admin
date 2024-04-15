@@ -3,6 +3,7 @@ const moment = require('moment-timezone');
 const HTTP_STATUS = require('../constants/api.constants');
 const { BodyKitsDao, ClientsDao } = require('../models/daos/app.daos');
 const { successResponse } = require('../utils/api.utils');
+const { default: mongoose } = require('mongoose');
 
 const bodyKitsDao = new BodyKitsDao();
 const clientsDao = new ClientsDao();
@@ -126,8 +127,8 @@ class BodyKitsController {
       } else {
         updatedBodyKit.warrantyDate = null;
       }
-      await bodyKitsDao.update(id, updatedBodyKit);
-
+      await bodyKitsDao.update(mongoose.Types.ObjectId(id), updatedBodyKit);
+      // await bodyKitsDao.update(id, updatedBodyKit);
       await res.json(id);
     } catch (error) {
       next(error);
