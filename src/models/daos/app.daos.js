@@ -12,6 +12,7 @@ switch (envConfig.DATASOURCE) {
     RefUnitsDao = require('./refUnits.mongo.dao');
     BodyKitsDao = require('./bodyKits.mongo.dao');
     ServicesDao = require('./services.mongo.dao');
+    BodykitServicesDao = require('./bodykitServices.mongo.dao');
     UsersDao = require('./users.mongo.dao');
     break;
 
@@ -24,4 +25,5 @@ module.exports = {
   RefUnitsDao,
   ServicesDao,
   BodyKitsDao,
+  BodykitServicesDao,
 };

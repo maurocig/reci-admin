@@ -4,6 +4,7 @@ const clientsRoutes = require('./clients.routes');
 const refUnitsRoutes = require('./refUnits.routes');
 const servicesRoutes = require('./services.routes');
 const bodyKitsRoutes = require('./bodyKits.routes');
+const bodykitServicesRoutes = require('./bodykitServices.routes');
 const pendingTasksRoutes = require('./pendingTasks.routes');
 const authRoutes = require('./auth.routes');
 const isAuthorized = require('../middleware/auth.middleware');
@@ -25,6 +26,7 @@ router.use('/clientes', clientsRoutes);
 router.use('/equipos', refUnitsRoutes);
 router.use('/servicios', servicesRoutes);
 router.use('/carrocerias', bodyKitsRoutes);
+router.use('/servicios-carrocerias', bodykitServicesRoutes);
 router.use('/tareas', pendingTasksRoutes);
 
 router.get('/', (req, res) => {
