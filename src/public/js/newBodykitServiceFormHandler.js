@@ -23,7 +23,7 @@ addPartRowButton.addEventListener('click', () => {
 					<div class="item-number">#${partsInputCount}.</div>
 					<input type="text" name="partNumber${partsInputCount}" id="partNumber${partsInputCount}" placeholder="Nº de Repuesto ${partsInputCount}" style="text-transform: uppercase; margin: 0 !important"/>
 					<input type="text" name="partName${partsInputCount}" id="partName${partsInputCount}" placeholder="Nombre de Repuesto ${partsInputCount}" style="text-transform: uppercase; margin: 0 !important"/>
-						<input type="number" step="0.1" name="partQty1" id="partQty1" placeholder="Cant." style="max-width: 70px; margin: 0 !important;">
+						<input type="number" step="0.01" name="partQty1" id="partQty1" placeholder="Cant." style="max-width: 70px; margin: 0 !important;">
 		`;
   if (
     partNumberInputs[partNumberInputs.length - 1].value &&
@@ -68,10 +68,9 @@ form.addEventListener('submit', (e) => {
   submitButton.disabled = true;
 
   const clientIdInput = document.getElementById('clientIdInput');
-  const refUnitIdInput = document.getElementById('refUnitIdInput');
+  const bodykitIdInput = document.getElementById('bodykitIdInput');
   const orderNumberInput = document.getElementById('orderNumberInput');
   const serviceDateInput = document.getElementById('serviceDateInput');
-  const hoursInput = document.getElementById('hoursInput');
   const handWorkHoursInput = document.getElementById('handWorkHoursInput');
   const ticketInput = document.getElementById('ticketInput');
   const isInWarrantyInput = document.getElementById('isInWarrantyInput');
@@ -110,17 +109,16 @@ form.addEventListener('submit', (e) => {
   checkedTasksInputs.forEach((input) => {
     checkedTasks.push({
       _id: input.name,
-      refUnit: refUnitIdInput.value,
+      bodyKit: bodykitIdInput.value,
       completed: Boolean(input.value),
     });
   });
 
   const service = {
     client: clientIdInput.value,
-    refUnit: refUnitIdInput.value,
+    bodyKit: bodykitIdInput.value,
     orderNumber: +orderNumberInput.value,
     serviceDate: serviceDateInput.value,
-    hours: +hoursInput.value,
     handWorkHours: parseFloat(handWorkHoursInput.value),
     ticket: ticketInput.value,
     isInWarranty: isInWarrantyInput.value === 'true',
@@ -128,15 +126,17 @@ form.addEventListener('submit', (e) => {
     technician: technicianInput.value,
     parts,
     fixes,
-    checkedTasks,
-    newTasks,
+    // checkedTasks,
+    // newTasks,
   };
 
-  saveService(service)
-    .then((response) => {
-      submitButton.disabled = false;
-      submitButton.classList.remove('disabled-select');
+  saveService(service).then((res) => {
+    console.log(res);
+    // const response = JSON.parse(res);
+    submitButton.disabled = false;
+    submitButton.classList.remove('disabled-select');
 
+    if (res.status === 200) {
       Swal.fire({
         title: 'El servicio se creó correctamente.',
         icon: 'success',
@@ -145,12 +145,10 @@ form.addEventListener('submit', (e) => {
         confirmButtonText: 'Ver servicio',
       }).then((result) => {
         if (result.value) {
-          window.location = `/servicios/${response}`;
+          window.location = `/servicios/${res.id}`;
         }
       });
-    })
-    .catch((error) => {
-      console.log(error);
+    } else {
       Swal.fire({
         title: 'Error al crear servicio',
         text: 'Verificá que el número de orden no esté duplicado',
@@ -164,12 +162,13 @@ form.addEventListener('submit', (e) => {
           submitButton.classList.remove('disabled-select');
         }
       });
-    });
+    }
+  });
 });
 
 async function saveService(data) {
   try {
-    const response = await fetch('/servicios', {
+    const response = await fetch('/servicios-carrocerias', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -183,54 +182,54 @@ async function saveService(data) {
   }
 }
 
-// Add new tasks
-const newTaskButton = document.getElementById('new-task-button');
-const taskInput = document.getElementById('new-task-input');
-const table = document.getElementById('new-tasks-table');
-const newTasks = [];
+// // Add new tasks
+// const newTaskButton = document.getElementById('new-task-button');
+// const taskInput = document.getElementById('new-task-input');
+// const table = document.getElementById('new-tasks-table');
+// const newTasks = [];
 
-if (!newTasks.length) {
-  table.classList.add('hidden');
-}
+// if (!newTasks.length) {
+//   table.classList.add('hidden');
+// }
 
-newTaskButton.addEventListener('click', () => {
-  if (taskInput.value) {
-    if (!newTasks.length) {
-      table.classList.add('hidden');
-    }
+// newTaskButton.addEventListener('click', () => {
+//   if (taskInput.value) {
+//     if (!newTasks.length) {
+//       table.classList.add('hidden');
+//     }
 
-    table.classList.remove('hidden');
+//     table.classList.remove('hidden');
 
-    const taskDescription = taskInput.value.toUpperCase();
-    const newTask = {
-      refUnit: refUnitIdInput.value,
-      client: clientIdInput.value,
-      taskDescription: taskDescription,
-      completed: false,
-    };
-    newTasks.push(newTask);
-    taskInput.value = '';
+//     const taskDescription = taskInput.value.toUpperCase();
+//     const newTask = {
+//       bodyKit: bodykitIdInput.value,
+//       client: clientIdInput.value,
+//       taskDescription: taskDescription,
+//       completed: false,
+//     };
+//     newTasks.push(newTask);
+//     taskInput.value = '';
 
-    const row = table.insertRow();
-    const cell = row.insertCell();
-    cell.innerHTML = taskDescription;
-    cell.classList.add('px-4');
+//     const row = table.insertRow();
+//     const cell = row.insertCell();
+//     cell.innerHTML = taskDescription;
+//     cell.classList.add('px-4');
 
-    const deleteCell = row.insertCell();
-    const deleteButton = deleteCell.appendChild(document.createElement('button'));
-    deleteButton.innerHTML = '<i class="material-icons px-4">delete</i>';
-    deleteCell.classList.add('w-full', 'flex', 'justify-end');
+//     const deleteCell = row.insertCell();
+//     const deleteButton = deleteCell.appendChild(document.createElement('button'));
+//     deleteButton.innerHTML = '<i class="material-icons px-4">delete</i>';
+//     deleteCell.classList.add('w-full', 'flex', 'justify-end');
 
-    deleteButton.addEventListener('click', () => {
-      let index = newTasks.indexOf(newTask);
-      if (index > -1) {
-        newTasks.splice(index, 1);
-      }
-      table.deleteRow(row.rowIndex);
+//     deleteButton.addEventListener('click', () => {
+//       let index = newTasks.indexOf(newTask);
+//       if (index > -1) {
+//         newTasks.splice(index, 1);
+//       }
+//       table.deleteRow(row.rowIndex);
 
-      if (!newTasks.length) {
-        table.classList.add('hidden');
-      }
-    });
-  }
-});
+//       if (!newTasks.length) {
+//         table.classList.add('hidden');
+//       }
+//     });
+//   }
+// });

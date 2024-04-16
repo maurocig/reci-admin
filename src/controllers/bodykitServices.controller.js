@@ -37,7 +37,7 @@ class ServicesController {
       }
 
       const scripts = [{ script: '/js/formatDate.js' }];
-      res.render('pages/services/index.hbs', { services, documentCount, scripts, filter });
+      res.render('pages/bodykitServices/index.hbs', { services, documentCount, scripts, filter });
     } catch (error) {
       next(error);
     }
@@ -60,7 +60,6 @@ class ServicesController {
       bodyKit,
       orderNumber,
       serviceDate,
-      hours,
       handWorkHours,
       ticket,
       isInWarranty,
@@ -72,9 +71,8 @@ class ServicesController {
       newTasks,
     } = req.body;
 
-    const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
+    const formattedServiceDate = moment.utc(serviceDate, 'YYYY/MM/DD').format('YYYY/MM/DD');
     const isInWarrantyBoolean = isInWarranty === 'true' || isInWarranty === true;
-    const parsedHours = +hours;
     const parsedOrderNumber = +orderNumber;
 
     try {
@@ -83,7 +81,6 @@ class ServicesController {
         bodyKit,
         orderNumber: parsedOrderNumber,
         serviceDate: formattedServiceDate,
-        hours: parsedHours,
         handWorkHours: parseFloat(handWorkHours) || null,
         ticket,
         isInWarranty: isInWarrantyBoolean,
@@ -93,27 +90,29 @@ class ServicesController {
         technician: technician.toUpperCase(),
       };
 
-      if (checkedTasks.length > 0) {
-        checkedTasks.forEach(async (task) => {
-          const pendingTask = await PendingTasksDao.getById(task._id);
-          if (pendingTask.bodyKit) {
-            await bodyKitsDao.removePendingTask(task.bodyKit, task._id);
-            await PendingTasksDao.delete(task._id);
-          }
-        });
-      }
+      // // tasks
+      // if (checkedTasks.length > 0) {
+      //   checkedTasks.forEach(async (task) => {
+      //     const pendingTask = await PendingTasksDao.getById(task._id);
+      //     if (pendingTask.bodyKit) {
+      //       await bodyKitsDao.removePendingTask(task.bodyKit, task._id);
+      //       await PendingTasksDao.delete(task._id);
+      //     }
+      //   });
+      // }
 
-      if (newTasks.length > 0) {
-        newTasks.forEach(async (task) => {
-          const taskId = await PendingTasksDao.save(task);
-          await bodyKitsDao.addPendingTask(task.bodyKit, taskId);
-        });
-      }
+      // if (newTasks.length > 0) {
+      //   newTasks.forEach(async (task) => {
+      //     const taskId = await PendingTasksDao.save(task);
+      //     await bodyKitsDao.addPendingTask(task.bodyKit, taskId);
+      //   });
+      // }
 
       const newServiceId = await bodykitServicesDao.save(service);
+
       // Add Service to bodyKit.services array.
       const addedService = await bodyKitsDao.addService(service.bodyKit, newServiceId);
-      res.status(200).json(newServiceId);
+      res.json({ id: newServiceId, status: 200 });
     } catch (error) {
       console.log('error in saveService controller', error);
       next(error);

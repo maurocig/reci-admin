@@ -1,0 +1,211 @@
+{{>navbar}}
+
+<main class="mt-[80px]">
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center" style="font-size: 50px; display: block; margin-bottom: .2rem;">build</i>
+	<h1 class="title">Servicios de carrocerías</h1>
+
+	<div class="grid items-center justify-between grid-cols-1 mb-4 sm:flex gap-0 sm:gap-4 lg:gap-8">
+		{{!-- Buscar servicio --}}
+		<form action="/servicios-carrocerias/search" method="GET" class="flex flex-col items-start gap-1">
+			<div class="mt-6"></div>
+			<div class="w-full flex gap-3">
+				<input name="q" placeholder="N° de Orden" type="text"
+					class="inline w-3/4 h-10 m-0 mb-0 bg-gray-200 rounded-full w-full px-4" style="margin: 0 !important;">
+				</input>
+				<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
+						class="inline text-white material-icons">search</i></button>
+			</div>
+		</form>
+
+		<div class="flex gap-4">
+			{{!-- service type selector --}}
+			<div class="hidden sm:flex w-30 flex-col items-center gap-1">
+				<label for="service-type-select" class="text-gray-400 font-normal w-full">&nbsp;</label>
+				<select name="" id="service-type-select" class="w-40 h-10 px-2 m-0 bg-gray-200">
+					<option value="servicios">Equipos de frío</option>
+					<option value="servicios-carrocerias">Carrocerías</option>
+				</select>
+			</div>
+
+			{{!-- filter --}}
+			<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
+				<label for="servicesFilter" class="text-gray-400 font-normal w-100 w-full">
+
+					{{#if filter}}
+					Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{services.length}} resultados</span></span>
+					{{else}}
+					Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{documentCount}} resultados</span></span>
+					{{/if}}
+				</label>
+				<select name="filter" id="filter-select" class="w-48 h-10 px-2 m-0 bg-gray-200">
+					<option value="">Todos</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+					<option value="2024">2024</option>
+					<option value="no-ticket">Sin facturar</option>
+				</select>
+			</form>
+		</div>
+	</div>
+
+	{{#if services}}
+	<div class="table-container">
+		<table>
+			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
+				<th class="w-[100px] text-center">Orden</th>
+				<th class="w-[80px] hidden sm:table-cell">Modelo</th>
+				<th class="w-[80px]">Matrícula</th>
+				<th>Cliente</th>
+				<th>Nº Serie</th>
+				<th class="w-[100px] md:w-[170px] hidden sm:table-cell">Fecha de servicio</th>
+			</tr>
+			{{#each services}}
+			{{#if this.bodyKit}}
+			<tr>
+				<td class="text-center">
+					<a href="/servicios-carrocerias/{{_id}}">
+						<strong>{{orderNumber}} </strong>
+					</a>
+				</td>
+				<td class="hidden sm:table-cell">
+					<a href="/servicios-carrocerias/{{this._id}} ">
+						{{bodyKit.model}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{this._id}} ">
+						{{#if bodyKit.plate}}
+						{{bodyKit.plate}}
+						{{else}}
+						<div class="text-red-700">No registra</div>
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{_id}}">
+						{{this.client.name}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{this._id}} ">
+						{{#if (isPlateNumber this.bodyKit.serialNumber)}}
+						<span class="text-red-600">No registra</span>
+						{{else}}
+						{{#if bodyKit.soldByReci}}
+						<span class="font-normal text-emerald-600">
+							{{bodyKit.serialNumber}}
+						</span>
+						{{else}}
+						{{bodyKit.serialNumber}}
+						{{/if}}
+						{{/if}}
+					</a>
+				</td>
+				<td class="hidden text-center sm:table-cell">
+					<a href="/servicios-carrocerias/{{_id}}">
+						{{formatDate serviceDate}}
+					</a>
+				</td>
+			</tr>
+			{{/if}}
+			{{/each}}
+		</table>
+	</div>
+
+
+	{{else}}
+	<h2 class="subtitle center" style="margin-top: 1rem;">No hay servicios registrados.</h2>
+	{{/if}}
+
+	{{!-- Paginación --}}
+	<div class="flex space-x-8 w-full justify-between items-center max-w-[470px] mx-auto mb-4" id="pagination-div">
+		<a id="previous" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
+			<i class="material-icons inline">chevron_left</i>
+			Más recientes
+		</a>
+		<div id="page-indicator" class="text-gray-300"></div>
+		<a id="next" role="link"
+			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
+			Más antiguos
+			<i class="material-icons inline">chevron_right</i>
+		</a>
+	</div>
+	{{!-- hidden --}}
+	<input type="text" hidden value="{{services.length}}" id="services-length">
+</main>
+
+<script>
+	const paginationDiv = document.getElementById('pagination-div');
+
+	// Filter
+	const filterQuery = new URLSearchParams(window.location.search).get('filter');
+	const filterSelect = document.getElementById('filter-select');
+
+	const options = Array.from(filterSelect.options);
+	for (let option of options) {
+		if (option.value === filterQuery) {
+			option.selected = true;
+			break;
+		}
+	}
+
+	if ("{{filter}}") {
+		paginationDiv.classList.add('hidden');
+	} else {
+		paginationDiv.classList.remove('hidden');
+	}
+
+	filterSelect.addEventListener('change', () => {
+		document.getElementById('filter-form').submit();
+	})
+
+	// Pagination
+	const urlParams = new URLSearchParams(window.location.search)
+	const page = parseInt(urlParams.get('p') || 0)
+
+	const previousLink = document.querySelector('#previous');
+	const nextLink = document.querySelector('#next');
+	const pageIndicator = document.querySelector('#page-indicator');
+	const documentCount = "{{ documentCount }}" || null;
+	const totalPages = Math.ceil(documentCount / 30);
+
+	previousLink.setAttribute('href', `/servicios-carrocerias?p=${page - 1}`)
+	nextLink.setAttribute('href', `/servicios-carrocerias?p=${page + 1}`)
+	pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="text-emerald-400 font-bold" href="/servicios-carrocerias?p=${+totalPages - 1}">${totalPages}</a>`
+
+	if (page === 0) {
+		previousLink.setAttribute('aria-disabled', 'true')
+		previousLink.classList.add('disable-links', 'text-gray-500', 'border-gray-500')
+	}
+
+	const servicesLength = document.querySelector('#services-length')
+
+	if (+servicesLength.value < 30) {
+		nextLink.setAttribute('aria-disabled', 'true');
+		nextLink.classList.add('disable-links', 'text-gray-400', 'border-gray-400');
+	}
+
+	// Service type select
+	const serviceTypeSelect = document.querySelector('#service-type-select');
+
+	serviceTypeSelect.addEventListener('change', () => {
+		const serviceType = document.querySelector('#service-type-select').value;
+		window.location.href = `/${serviceType}`;
+	})
+
+	const serviceTypeOptions = Array.from(serviceTypeSelect.options);
+	const currentUrl = window.location.pathname;
+	for (let option of serviceTypeOptions) {
+		if (option.value === currentUrl.split('/')[1]) {
+			option.selected = true;
+			break;
+		}
+	}
+</script>

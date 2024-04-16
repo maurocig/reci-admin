@@ -1,0 +1,55 @@
+{{!-- Pending tasks --}}
+<h3 class="mb-2 mt-4 font-normal">Tareas pendientes</h3>
+<div class="m-0 mb-3 table-container flex flex-col items-center" style="width: 100%; min-width: 300px; ">
+	{{#if bodyKit.pendingTasks}}
+	<table class="max-w-[750px] overflow-hidden mr-3">
+		<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+			<th class="py-2">Descripción</th>
+			<th class="py-2 text-center ">Estado</th>
+			<th class="py-2 text-center">Completada</th>
+			{{!-- <th class="py-2 text-center">Id</th> --}}
+		</tr>
+		{{#each bodyKit.pendingTasks}}
+		<tr id="pending-task-row" class="bg-slate-100 hover:bg-slate-200 " style="padding-block: 0 !important;">
+			{{!-- <div class="task-number"> #{{@index}} </div> --}}
+			<td class="task-description px-4 uppercase">{{this.taskDescription}}</td>
+			<td class="flex items-center justify-center px-4 mark-completed-button" id="{{this._id}}">
+				<i class="m-0 text-yellow-600 material-icons clients-icon center">
+					warning
+				</i>
+				<span class="ml-2 font-medium text-yellow-600">
+					Pendiente
+				</span>
+			</td>
+			<td>
+				<input id="checkbox-task-{{@index}}" name="{{this._id}}" type="checkbox"
+					style="scale: 60%; margin:0 !important;" class="custom-checkbox hover:cursor-pointer"></input>
+			</td>
+			{{!-- <td>"{{this._id}}"</td> --}}
+		</tr>
+		{{/each}}
+	</table>
+	{{else}}
+	<div class="p-4 bg-slate-200 text-black max-w-[860px] text-center w-full">No hay tareas pendientes en esta
+		carrocería
+	</div>
+	{{/if}}
+	{{!-- nuevas tareas realizar --}}
+	<h3 class="font-normal text-start w-full mt-8 mb-3 ">Agregar tarea pendiente</h3>
+	<table id="new-tasks-table" class="max-w-[860px] overflow-hidden mb-4">
+		<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+			<th class="py-2">Descripción</th>
+			<th class="py-2 text-end ">Borrar</th>
+		</tr>
+	</table>
+	{{!-- agregar tarea --}}
+	<div class="flex justify-center gap-4 w-full items-center">
+		<div class="min-w-[300px] max-w-[700px] w-full ">
+			<input type="text" id="new-task-input" placeholder="Nueva tarea" name="taskDescription"
+				style="margin: 0 !important;" class="p-2 w-full uppercase w-grow">
+		</div>
+		<button id="new-task-button" tabindex="0" type="button">
+			<i class="material-icons icon-add-item" style="font-size: 3rem;">add_box</i>
+		</button>
+	</div>
+</div>

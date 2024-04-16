@@ -61,6 +61,7 @@ class BodykitServicesMongoDao extends MongoContainer {
         .lean();
     }
 
+    console.log(services);
     return [services, documentCount, filter];
   }
 
