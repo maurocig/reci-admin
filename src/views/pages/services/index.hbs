@@ -23,24 +23,35 @@
 			</div>
 		</form>
 
-		{{!-- filter --}}
-		<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
-			<label for="servicesFilter" class="text-gray-400 font-normal w-100 w-full">
+		<div class="flex gap-4">
+			{{!-- service type selector --}}
+			<div class="hidden sm:flex w-30 flex-col items-center gap-1">
+				<label for="service-type-select" class="text-gray-400 font-normal w-full">&nbsp;</label>
+				<select name="" id="service-type-select" class="w-40 h-10 px-2 m-0 bg-gray-200">
+					<option value="servicios">Equipos de frío</option>
+					<option value="servicios-carrocerias">Carrocerías</option>
+				</select>
+			</div>
 
-				{{#if filter}}
-				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{services.length}} resultados</span></span>
-				{{else}}
-				Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{documentCount}} resultados</span></span>
-				{{/if}}
-			</label>
-			<select name="filter" id="filter-select" class="w-48 h-10 px-2 m-0 bg-gray-200">
-				<option value="">Todos</option>
-				<option value="2022">2022</option>
-				<option value="2023">2023</option>
-				<option value="2024">2024</option>
-				<option value="no-ticket">Sin facturar</option>
-			</select>
-		</form>
+			{{!-- filter --}}
+			<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
+				<label for="servicesFilter" class="text-gray-400 font-normal w-100 w-full">
+
+					{{#if filter}}
+					Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{services.length}} resultados</span></span>
+					{{else}}
+					Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{documentCount}} resultados</span></span>
+					{{/if}}
+				</label>
+				<select name="filter" id="filter-select" class="w-48 h-10 px-2 m-0 bg-gray-200">
+					<option value="">Todos</option>
+					<option value="2022">2022</option>
+					<option value="2023">2023</option>
+					<option value="2024">2024</option>
+					<option value="no-ticket">Sin facturar</option>
+				</select>
+			</form>
+		</div>
 	</div>
 
 	{{#if services}}
@@ -179,5 +190,22 @@
 	if (+servicesLength.value < 30) {
 		nextLink.setAttribute('aria-disabled', 'true');
 		nextLink.classList.add('disable-links', 'text-gray-400', 'border-gray-400');
+	}
+
+	// Service type select
+	const serviceTypeSelect = document.querySelector('#service-type-select');
+
+	serviceTypeSelect.addEventListener('change', () => {
+		const serviceType = document.querySelector('#service-type-select').value;
+		window.location.href = `/${serviceType}`;
+	})
+
+	const serviceTypeOptions = Array.from(serviceTypeSelect.options);
+	const currentUrl = window.location.pathname;
+	for (let option of serviceTypeOptions) {
+		if (option.value === currentUrl.split('/')[1]) {
+			option.selected = true;
+			break;
+		}
 	}
 </script>
