@@ -27,7 +27,7 @@
 		</a>
 		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
 		<a class="cursor-pointer" href="/servicios/{{service._id}}">
-			<button class="flex items-center text-slate-200 cursor-pointer ">
+			<button class="flex items-center cursor-pointer text-slate-200 ">
 				<span class="button-icon-container">
 					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">build</i>
 				</span>
@@ -37,7 +37,7 @@
 	</div>
 
 
-	<i class="material-icons icon-clients center mb-1 mt-4 block" style="font-size: 60px;">build</i>
+	<i class="block mt-4 mb-1 material-icons icon-clients center" style="font-size: 60px;">build</i>
 
 	{{!-- INFORMACIÓN --}}
 	<h1 class="title">Editar servicio</h1>
@@ -96,7 +96,7 @@
 			</div>
 			<div class="form-field">
 				<label for="observations">Observaciones</label>
-				<textarea name="observations" class="text-black p-2 bg-slate-100" id="observationsInput" cols="30"
+				<textarea name="observations" class="p-2 text-black bg-slate-100" id="observationsInput" cols="30"
 					rows="4">{{service.observations}}</textarea>
 			</div>
 		</div>
@@ -112,7 +112,7 @@
 			{{#each service.fixes}}
 			<div class="fixes-row">
 				<div class="item-number"> #{{addNumber @index 1}}. </div>
-				<input type="text" value="{{this.fixName}}" id="fixInput{{addNumber @index 1}}" class="uppercase font-bold ">
+				<input type="text" value="{{this.fixName}}" id="fixInput{{addNumber @index 1}}" class="font-bold uppercase ">
 			</div>
 			{{/each}}
 
@@ -120,19 +120,19 @@
 				<div class="item-number">
 					#{{addNumber service.fixes.length 1}}. </div>
 				<input type="text" id="fixInput{{addNumber service.fixes.length 1}}" placeholder="Descripción"
-					class="uppercase font-bold ">
+					class="font-bold uppercase ">
 			</div>
 			<div class="fixes-row">
 				<div class="item-number">
 					#{{addNumber service.fixes.length 2}}. </div>
 				<input type="text" id="fixInput{{addNumber service.fixes.length 2}}" placeholder="Descripción"
-					class="uppercase font-bold ">
+					class="font-bold uppercase ">
 			</div>
 			<div class="fixes-row">
 				<div class="item-number">
 					#{{addNumber service.fixes.length 3}}. </div>
 				<input type="text" id="fixInput{{addNumber service.fixes.length 3}}" placeholder="Descripción"
-					class="uppercase font-bold ">
+					class="font-bold uppercase ">
 			</div>
 		</section>
 
@@ -145,7 +145,7 @@
 			</h2>
 
 			{{#each service.parts}}
-			<div class="parts-row flex gap-2">
+			<div class="flex gap-2 parts-row">
 				<div class="item-number"> #{{addNumber @index 1}}. </div>
 				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber @index 1 }}" value="{{this.partNumber}}"
 					placeholder="Código" />
@@ -156,7 +156,7 @@
 			</div>
 			{{/each}}
 
-			<div class="parts-row flex gap-2">
+			<div class="flex gap-2 parts-row">
 				<div class="item-number"> #{{addNumber service.parts.length 1}}. </div>
 				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 1 }}"
 					placeholder="Código" />
@@ -165,7 +165,7 @@
 				<input type="number" name="partQty1" id="partQty{{addNumber service.parts.length 1 }}" step="0.1"
 					class="max-w-[80px]" placeholder="Cant.">
 			</div>
-			<div class="parts-row flex gap-2">
+			<div class="flex gap-2 parts-row">
 				<div class="item-number"> #{{addNumber service.parts.length 2}}. </div>
 				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 2 }}"
 					placeholder="Código" />
@@ -173,7 +173,7 @@
 				<input type="number" id="partQty{{addNumber service.parts.length 2 }}" step="0.1" class="max-w-[80px]"
 					placeholder="Cant.">
 			</div>
-			<div class="parts-row flex gap-2">
+			<div class="flex gap-2 parts-row">
 				<div class="item-number"> #{{addNumber service.parts.length 3}}. </div>
 				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 3 }}"
 					placeholder="Código" />
@@ -196,6 +196,13 @@
 <script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
 
 <script>
+	const orderNumberInput = document.getElementById('orderNumberInput');
+
+	orderNumberInput.addEventListener('keypress', function (e) {
+		if (!/[0-9]/.test(String.fromCharCode(e.which))) {
+			e.preventDefault();
+		}
+	});
 </script>
 {{#each scripts}}
 <script src="{{script}}"></script>
