@@ -48,7 +48,7 @@ class ServicesController {
     try {
       const service = await bodykitServicesDao.getByIdAndPopulate(id);
 
-      res.status(HTTP_STATUS.OK).render('pages/services/show', { service });
+      res.status(HTTP_STATUS.OK).render('pages/bodykitServices/show', { service });
     } catch (error) {
       next(error);
     }
@@ -67,8 +67,8 @@ class ServicesController {
       fixes,
       observations,
       technician,
-      checkedTasks,
-      newTasks,
+      // checkedTasks,
+      // newTasks,
     } = req.body;
 
     const formattedServiceDate = moment.utc(serviceDate, 'YYYY/MM/DD').format('YYYY/MM/DD');
@@ -121,10 +121,10 @@ class ServicesController {
 
   async updateService(req, res, next) {
     const { id } = req.params;
+
     const {
       orderNumber,
       serviceDate,
-      hours,
       handWorkHours,
       ticket,
       isInWarranty,
@@ -134,19 +134,18 @@ class ServicesController {
       technician,
     } = req.body;
 
-    const oldService = await bodykitServicesDao.getById(id);
-    const { client, bodyKit } = oldService;
-
-    const formattedServiceDate = moment(serviceDate).tz('GMT').format('YYYY/MM/DD');
-    const isInWarrantyBoolean = Boolean(isInWarranty);
-
     try {
+      const currentService = await bodykitServicesDao.getById(id);
+      const { client, bodyKit } = currentService;
+
+      const formattedServiceDate = moment.utc(serviceDate, 'YYYY/MM/DD').format('YYYY/MM/DD');
+      const isInWarrantyBoolean = Boolean(isInWarranty);
+
       const updatedService = {
         client,
         bodyKit,
         orderNumber: +orderNumber,
         serviceDate: formattedServiceDate,
-        hours: +hours,
         handWorkHours: parseFloat(handWorkHours),
         ticket,
         isInWarranty: isInWarrantyBoolean,
@@ -156,8 +155,8 @@ class ServicesController {
         technician: technician.toUpperCase(),
       };
 
-      const response = await bodykitServicesDao.update(id, updatedService);
-      res.status(200).json(response);
+      const updatedServiceId = await bodykitServicesDao.update(id, updatedService);
+      res.json({ id: updatedServiceId, status: 200 });
     } catch (error) {
       next(error);
     }
@@ -195,13 +194,14 @@ class ServicesController {
   async editServiceForm(req, res, next) {
     const { serviceId } = req.params;
     const service = await bodykitServicesDao.getByIdAndPopulate(serviceId);
+    console.log(service);
     const scripts = [
       { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-      { script: '/js/editServiceFormHandler.js' },
-      { script: '/js/deleteServiceHandler.js' },
+      { script: '/js/editBodykitServiceFormHandler.js' },
+      { script: '/js/deleteBodykitServiceHandler.js' },
       { script: '/js/formatDate.js' },
     ];
-    res.render('pages/services/edit', { service, scripts });
+    res.render('pages/bodykitServices/edit', { service, scripts });
   }
 
   async searchServiceByOrder(req, res, next) {
@@ -215,7 +215,6 @@ class ServicesController {
           { orderNumber: { $eq: +query } },
           'bodyKit'
         );
-        // const services = await bodykitServicesDao.find({ $text: { $search: query } }, 'bodyKit');
 
         res.status(HTTP_STATUS.OK).render('pages/services', { services });
       }

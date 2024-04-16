@@ -60,8 +60,6 @@ class BodykitServicesMongoDao extends MongoContainer {
         .populate('bodyKit', ['plate', 'model', 'serialNumber', 'soldByReci'])
         .lean();
     }
-
-    console.log(services);
     return [services, documentCount, filter];
   }
 

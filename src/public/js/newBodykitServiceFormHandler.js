@@ -68,7 +68,7 @@ form.addEventListener('submit', (e) => {
   submitButton.disabled = true;
 
   const clientIdInput = document.getElementById('clientIdInput');
-  const bodykitIdInput = document.getElementById('bodykitIdInput');
+  const bodyKitIdInput = document.getElementById('bodyKitIdInput');
   const orderNumberInput = document.getElementById('orderNumberInput');
   const serviceDateInput = document.getElementById('serviceDateInput');
   const handWorkHoursInput = document.getElementById('handWorkHoursInput');
@@ -109,14 +109,14 @@ form.addEventListener('submit', (e) => {
   checkedTasksInputs.forEach((input) => {
     checkedTasks.push({
       _id: input.name,
-      bodyKit: bodykitIdInput.value,
+      bodyKit: bodyKitIdInput.value,
       completed: Boolean(input.value),
     });
   });
 
   const service = {
     client: clientIdInput.value,
-    bodyKit: bodykitIdInput.value,
+    bodyKit: bodyKitIdInput.value,
     orderNumber: +orderNumberInput.value,
     serviceDate: serviceDateInput.value,
     handWorkHours: parseFloat(handWorkHoursInput.value),
@@ -202,7 +202,7 @@ async function saveService(data) {
 
 //     const taskDescription = taskInput.value.toUpperCase();
 //     const newTask = {
-//       bodyKit: bodykitIdInput.value,
+//       bodyKit: bodyKitIdInput.value,
 //       client: clientIdInput.value,
 //       taskDescription: taskDescription,
 //       completed: false,

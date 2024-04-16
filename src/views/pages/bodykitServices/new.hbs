@@ -42,12 +42,12 @@
 				<input type="text" name="clientName" id="clientNameInput" value="{{bodyKit.client.name}}" readonly />
 			</div>
 			<div class="form-field">
-				<label for="bodykitModelInput">Modelo</label>
-				<input type="text" name="model" id="bodykitModelInput" value="{{bodyKit.model}}" readonly />
+				<label for="bodyKitModelInput">Modelo</label>
+				<input type="text" name="model" id="bodyKitModelInput" value="{{bodyKit.model}}" readonly />
 			</div>
 			<div class="form-field">
-				<label for="bodykitInput">Nº Serie</label>
-				<input type="text" name="serialNumber" id="bodykitInput" value={{bodyKit.serialNumber}} readonly />
+				<label for="bodyKitInput">Nº Serie</label>
+				<input type="text" name="serialNumber" id="bodyKitInput" value={{bodyKit.serialNumber}} readonly />
 			</div>
 			<div class="form-field">
 				<label for="orderNumber">Nº Orden <span class="text-red-500">*</span></label>
@@ -84,9 +84,9 @@
 				<label for="ticket">Nº Factura</label>
 				<input type="number" name="ticket" id="ticketInput" />
 			</div>
-			<div class="form-field col-span-2">
+			<div class="col-span-2 form-field">
 				<label for="observations">Observaciones</label>
-				<textarea name="observations" class="text-black p-2 bg-slate-100 w-full" id="observationsInput" cols="30"
+				<textarea name="observations" class="w-full p-2 text-black bg-slate-100" id="observationsInput" cols="30"
 					rows="1"></textarea>
 			</div>
 		</div>
@@ -102,7 +102,7 @@
 							style="text-transform: uppercase; margin: 0 !important" />
 					</div>
 				</div>
-				<div class="flex flex-col justify-end h-full self-end">
+				<div class="flex flex-col self-end justify-end h-full">
 					<button id="addFixesRowButton" tabindex="0" type="button" class="mt-[2px]">
 						<i class="material-icons icon-add-item" style="padding: 0; margin: 0; font-size: 3rem;">add_box</i>
 					</button>
@@ -137,7 +137,7 @@
 			style="margin-top: 3rem;">Guardar</button>
 
 		{{!-- HIDDEN --}}
-		<input type="text" name="bodyKit" id="bodykitIdInput" value="{{bodyKit._id}}" hidden>
+		<input type="text" name="bodyKit" id="bodyKitIdInput" value="{{bodyKit._id}}" hidden>
 		<input type="text" name="client" id="clientIdInput" value="{{bodyKit.client._id}}" hidden>
 	</form>
 </main>

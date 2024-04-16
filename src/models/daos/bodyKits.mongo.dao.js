@@ -15,7 +15,7 @@ const bodyKitSchema = new Schema(
     serialNumber: { type: String, unique: true, required: true },
     plate: { type: String, unique: true, uppercase: true, required: false }, // unique validation doesn't work, check happens server side on bodyKits.controller.js saveBodyKit.
     model: { type: String, uppercase: true, requried: true },
-    services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
+    services: [{ type: Schema.Types.ObjectId, ref: 'bodykitServices', sparse: true }],
     pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },
     warrantyDate: { type: Date || null, default: undefined },

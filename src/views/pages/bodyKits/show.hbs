@@ -49,7 +49,7 @@
 					<td class="text-red-600">No registra</td>
 					{{else}}
 					{{#if bodyKit.soldByReci}}
-					<td class="text-emerald-600 font-normal"> {{bodyKit.serialNumber}} </td>
+					<td class="font-normal text-emerald-600"> {{bodyKit.serialNumber}} </td>
 					{{else}}
 					<td> {{bodyKit.serialNumber}} </td>
 					{{/if}}
@@ -130,7 +130,7 @@
 	<div class="grid grid-cols-1 gap-8 mb-2 sm:gap-6 md:grid-cols-2">
 		{{!-- SERVICIOS --}}
 		<section>
-			<h2 class="mt-0 subtitle flex gap-2 items-center">
+			<h2 class="flex items-center gap-2 mt-0 subtitle">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0; font-size: 1.3rem; align-self: center;">build</i>
 				Servicios <span class="font-normal">({{bodyKit.services.length}})</span>
@@ -147,13 +147,13 @@
 					</tr>
 					{{#each bodyKit.services}}
 					<tr>
-						<td><a href="/servicios/{{this._id}}">{{this.orderNumber}}</a></td>
-						<td><a href="/servicios/{{this._id}}">{{formatDate this.serviceDate}}</a></td>
+						<td><a href="/servicios-carrocerias/{{this._id}}">{{this.orderNumber}}</a></td>
+						<td><a href="/servicios-carrocerias/{{this._id}}">{{formatDate this.serviceDate}}</a></td>
 						<td class="hidden sm:table-cell" style="text-align: center;">
-							<a href="/servicios/{{this._id}}">{{this.fixes.length}}</a>
+							<a href="/servicios-carrocerias/{{this._id}}">{{this.fixes.length}}</a>
 						</td>
 						<td class="hidden sm:table-cell" style="text-align: center;">
-							<a href="/servicios/{{this._id}}">{{this.parts.length}}</a>
+							<a href="/servicios-carrocerias/{{this._id}}">{{this.parts.length}}</a>
 						</td>
 					</tr>
 					{{/each}}
@@ -239,7 +239,7 @@
 			{{!-- ADD PENDING TASK FORM --}}
 			<form action="/tareas" method="POST" class="flex flex-col items-center w-full">
 				<div class="items-center justify-center mb-4 min-w-[300px] w-full ">
-					<input type="text" placeholder="Nueva tarea" name="taskDescription" class="mt-1 p-2 w-full uppercase w-grow">
+					<input type="text" placeholder="Nueva tarea" name="taskDescription" class="w-full p-2 mt-1 uppercase w-grow">
 				</div>
 
 				{{!-- Hidden Inputs --}}
@@ -281,16 +281,16 @@
 				<tr>
 					{{/if}}
 					<td class="whitespace-normal">
-						<a class="whitespace-normal" href="/servicios/{{../this._id}}">{{this.fixName}}</a>
+						<a class="whitespace-normal" href="/servicios-carrocerias/{{../this._id}}">{{this.fixName}}</a>
 					</td>
 					<td class="hidden sm:table-cell ">
-						<a href="/servicios/{{../this._id}}">{{../this.orderNumber}}</a>
+						<a href="/servicios-carrocerias/{{../this._id}}">{{../this.orderNumber}}</a>
 					</td>
 					<td>
-						<a href="/servicios/{{../this._id}}">{{formatDate ../this.serviceDate}}</a>
+						<a href="/servicios-carrocerias/{{../this._id}}">{{formatDate ../this.serviceDate}}</a>
 					</td>
-					{{!-- <td class="text-center hidden sm:table-cell">
-						<a href="/servicios/{{../this._id}}">{{../this.parts.length}}</a>
+					{{!-- <td class="hidden text-center sm:table-cell">
+						<a href="/servicios-carrocerias/{{../this._id}}">{{../this.parts.length}}</a>
 					</td> --}}
 				</tr>
 				{{/each}}
