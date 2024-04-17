@@ -1,0 +1,196 @@
+{{>navbar}}
+
+<main class="mt-[80px]">
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+	{{!-- Breadcrumbs --}}
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
+		<a href="/clientes/{{service.client._id}}">
+			<button class="flex items-center">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+				</span>
+				{{service.client.name}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<a href="/carrocerias/{{service.bodyKit._id}}">
+			<button class="flex items-center text-slate-200 ">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">local_shipping</i>
+				</span>
+				{{service.bodyKit.plate}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<a class="cursor-pointer" href="/servicios-carrocerias/{{service._id}}">
+			<button class="flex items-center cursor-pointer text-slate-200 ">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">build</i>
+				</span>
+				Servicio #{{service.orderNumber}}
+			</button>
+		</a>
+	</div>
+
+
+	<i class="block mt-4 mb-1 material-icons icon-clients center" style="font-size: 60px;">build</i>
+
+	{{!-- INFORMACIÓN --}}
+	<h1 class="title">Editar servicio de carrocería</h1>
+	<form id="form-edit-service" class="form-container" action="/servicios-carrocerias/{{service._id}}?_method=PUT"
+		method="POST">
+		<div class="service-info-container">
+			<div class="form-field">
+				<label for="clientNameInput">Cliente</label>
+				<input type="text" name="clientName" id="clientNameInput" value="{{service.client.name}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="bodyKitInput">Nº Serie</label>
+				<input type="string" name="serialNumber" id="bodyKitInput" value="{{service.bodyKit.serialNumber}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="bodyKitModelInput">Modelo</label>
+				<input type="text" name="model" id="bodyKitModelInput" value="{{service.bodyKit.model}}" readonly />
+			</div>
+			<div class="form-field">
+				<label for="orderNumber">Nº Orden <span class="text-red-500">*</span></label>
+				<input type="text" name="orderNumber" id="orderNumberInput" value="{{service.orderNumber}}" maxlength="8"
+					required />
+			</div>
+			<div class="form-field">
+				<label for="serviceDate">Fecha del servicio <span class="text-red-500">*</span></label>
+				<input type="date" name="serviceDate" id="serviceDateInput" value="{{formatDateValue service.serviceDate}}"
+					required />
+			</div>
+			<div class="form-field">
+				<label for="handWorkHours">Mano de obra (hs) <span class="text-red-500">*</span> </label>
+				<input type="number" step="0.1" name="handWorkHours" id="handWorkHoursInput" value="{{service.handWorkHours}}"
+					class="max-w-[60px]" placeholder="1" required />
+			</div>
+			<div class="form-field">
+				<label for="soldByReci">Está en garantía <span class="text-red-500">*</span></label>
+				<select name="isInWarranty" id="isInWarrantyInput" required>
+					{{#if service.isInWarranty}}
+					<option value="true" selected>Si</option>
+					<option value="false">No</option>
+					{{else}}
+					<option value="true">Si</option>
+					<option value="false" selected>No</option>
+					{{/if}}
+				</select>
+			</div>
+			<div class="form-field">
+				<label for="technician">Técnico responsable <span class="text-red-500">*</span></label>
+				<input type="text" id="technicianInput" value="{{service.technician}}" class="uppercase" required>
+			</div>
+			<div class="form-field">
+				<label for="ticket">Nº Factura</label>
+				<input type="text" name="ticket" id="ticketInput" value="{{service.ticket}}" />
+			</div>
+			<div class="form-field md:col-span-2">
+				<label for="observations">Observaciones</label>
+				<textarea name="observations" class="w-full p-2 text-black bg-slate-100" id="observationsInput" cols="30"
+					rows="4">{{service.observations}}</textarea>
+			</div>
+		</div>
+
+		{{!-- REPARACIONES --}}
+		<section class="flex flex-col gap-1">
+			<h2 class="flex mt-0 subtitle" style="margin-bottom: .5rem !important;">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">healing</i>
+				Reparaciones
+			</h2>
+
+			{{#each service.fixes}}
+			<div class="fixes-row">
+				<div class="item-number"> #{{addNumber @index 1}}. </div>
+				<input type="text" value="{{this.fixName}}" id="fixInput{{addNumber @index 1}}" class="font-bold uppercase ">
+			</div>
+			{{/each}}
+
+			<div class="fixes-row">
+				<div class="item-number">
+					#{{addNumber service.fixes.length 1}}. </div>
+				<input type="text" id="fixInput{{addNumber service.fixes.length 1}}" placeholder="Descripción"
+					class="font-bold uppercase ">
+			</div>
+			<div class="fixes-row">
+				<div class="item-number">
+					#{{addNumber service.fixes.length 2}}. </div>
+				<input type="text" id="fixInput{{addNumber service.fixes.length 2}}" placeholder="Descripción"
+					class="font-bold uppercase ">
+			</div>
+			<div class="fixes-row">
+				<div class="item-number">
+					#{{addNumber service.fixes.length 3}}. </div>
+				<input type="text" id="fixInput{{addNumber service.fixes.length 3}}" placeholder="Descripción"
+					class="font-bold uppercase ">
+			</div>
+		</section>
+
+		{{!-- PARTES --}}
+		<section class="flex flex-col gap-1">
+			<h2 class="flex subtitle" style="margin-bottom: .5rem !important;">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build</i>
+				Repuestos
+			</h2>
+
+			{{#each service.parts}}
+			<div class="flex gap-2 parts-row">
+				<div class="item-number"> #{{addNumber @index 1}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber @index 1 }}" value="{{this.partNumber}}"
+					placeholder="Código" />
+				<input type="text" name="partName1" id="partName{{addNumber @index 1 }}" value="{{this.partName}}"
+					placeholder="Nom. Repuesto" />
+				<input type="number" step="0.1" name="partQty1" id="partQty{{addNumber @index 1 }}" value="{{this.partQty}}"
+					class="max-w-[80px]" placeholder="Cant.">
+			</div>
+			{{/each}}
+
+			<div class="flex gap-2 parts-row">
+				<div class="item-number"> #{{addNumber service.parts.length 1}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 1 }}"
+					placeholder="Código" />
+				<input type="text" name="partName1" id="partName{{addNumber service.parts.length 1 }}"
+					placeholder="Nom. Repuesto" />
+				<input type="number" name="partQty1" id="partQty{{addNumber service.parts.length 1 }}" step="0.1"
+					class="max-w-[80px]" placeholder="Cant.">
+			</div>
+			<div class="flex gap-2 parts-row">
+				<div class="item-number"> #{{addNumber service.parts.length 2}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 2 }}"
+					placeholder="Código" />
+				<input type="text" id="partName{{addNumber service.parts.length 2 }}" placeholder="Nom. Repuesto" />
+				<input type="number" id="partQty{{addNumber service.parts.length 2 }}" step="0.1" class="max-w-[80px]"
+					placeholder="Cant.">
+			</div>
+			<div class="flex gap-2 parts-row">
+				<div class="item-number"> #{{addNumber service.parts.length 3}}. </div>
+				<input type="text" class="max-w-[130px]" id="partNumber{{addNumber service.parts.length 3 }}"
+					placeholder="Código" />
+				<input type="text" id="partName{{addNumber service.parts.length 3 }}" placeholder="Nom. Repuesto" />
+				<input type="number" id="partQty{{addNumber service.parts.length 3 }}" step="0.1" class="max-w-[80px]"
+					placeholder="Cant.">
+			</div>
+		</section>
+		<button type="submit" class="button-form button-success">Guardar</button>
+
+		{{!-- HIDDEN --}}
+		<input type="text" name="bodyKit" id="bodyKitId" value="{{service.bodyKit._id}}" hidden>
+		<input type="text" name="client" id="clientId" value="{{service.client._id}}" hidden>
+		<input type="text" name="service" id="serviceId" value="{{service._id}}" hidden>
+	</form>
+
+	<button id="submit-button" class="button-danger center" onclick="deleteService('{{service._id}}')">Eliminar</button>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
+{{#each scripts}}
+<script src="{{script}}"></script>
+{{/each}}

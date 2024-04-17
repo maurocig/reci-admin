@@ -1,0 +1,298 @@
+{{>navbar}}
+<main class="mt-[80px]">
+	<a onclick="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
+
+	{{!-- Breadcrumbs --}}
+	<div class="inline-flex items-center justify-center mb-4 ml-2 place-items-center text-slate-200">
+		<a href="/clientes/{{service.client._id}}">
+			<button class="flex items-center">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">person</i>
+				</span>
+				{{service.client.name}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<a href="/carrocerias/{{service.bodyKit._id}}">
+			<button class="flex items-center text-slate-200 ">
+				<span class="button-icon-container">
+					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">local_shipping</i>
+				</span>
+				{{#if service.bodyKit.plate}}
+				{{service.bodyKit.plate}}
+				{{else}}
+				Sin matrícula
+				{{/if}}
+			</button>
+		</a>
+		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
+		<button class="flex items-center text-slate-200 cursor-text ">
+			<span class="button-icon-container">
+				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">build</i>
+			</span>
+			Servicio #{{service.orderNumber}}
+		</button>
+	</div>
+
+	<i class="mt-6 material-icons icon-clients center"
+		style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
+	<h1 class="title">Servicio #{{service.orderNumber}}</h1>
+
+
+	<div class="grid grid-cols-1 gap-8 mb-8 sm:gap-6 md:grid-cols-2">
+		<section class="mb-0">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build</i>
+				Este servicio
+			</h2>
+			<div class="mb-0 table-container" style="">
+				<table>
+					<tr>
+						<th>Nº Orden</th>
+						<td><strong> {{service.orderNumber}}</strong> </td>
+					</tr>
+					<tr>
+						<th>Nº Factura</th>
+						{{#if service.ticket}}
+						<td>{{service.ticket}}</td>
+						{{else}}
+						<td class="">No registra</td>
+						{{/if}}
+					</tr>
+					<tr>
+						<th>Fecha de servicio </th>
+						<td>{{formatDate service.serviceDate}}</td>
+					</tr>
+					<tr>
+						<th>Mano de obra (hs)</th>
+						<td>
+							{{#if service.handWorkHours}}
+							{{service.handWorkHours}}
+							{{else}}
+							<span class="">No registra</span>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Técnico responsable</th>
+						<td>
+							{{#if service.technician}}
+							{{service.technician}}
+							{{else}}
+							<span class="">No registra</span>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Horas totales</th>
+						<td>
+							{{#if service.hours}}
+							{{service.hours}}
+							{{else}}
+							<span class="">No registra</span>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>En garantía</th>
+						<td>
+							{{#if service.isInWarranty}}
+							<span>
+								SÍ
+							</span>
+							{{else}}
+							<span>
+								No
+							</span>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Creado</th>
+						<td>{{formatDate service.createdAt}}</td>
+					</tr>
+				</table>
+			</div>
+		</section>
+
+		<section class="mb-0">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">ac_unit</i>
+				Información del equipo
+			</h2>
+			<div class="mb-0 table-container">
+				<table>
+					<tr>
+						<th>Nº Serie</th>
+						<td>
+							{{#if (isPlateNumber service.bodyKit.serialNumber)}}
+							<span class="text-red-600">No registra</span>
+							{{else}}
+							{{#if service.bodyKit.soldByReci}}
+							<span class="font-normal text-emerald-600">
+								{{service.bodyKit.serialNumber}}
+							</span>
+							{{else}}
+							<span class="font-normal">
+								{{service.bodyKit.serialNumber}}
+							</span>
+							{{/if}}
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Matrícula </th>
+						<td>
+							{{#if service.bodyKit.plate}}
+							{{service.bodyKit.plate}}
+							{{else}}
+							<div class="text-red-600">No registra</div>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Modelo</th>
+						<td>
+							<span>
+								{{service.bodyKit.model}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th>Nombre Cliente</th>
+						<td>
+							<span>
+								{{service.client.name}}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						{{#if service.bodyKit.soldByReci}}
+						<th>Fecha límite de garantía</th>
+						{{#if (isInWarranty service.bodyKit.warrantyDate)}}
+						<td class="text-green-600">
+							{{formatDate service.bodyKit.warrantyDate}}
+						</td>
+						{{else}}
+						<td class="text-red-500">
+							{{formatDate service.bodyKit.warrantyDate}}
+						</td>
+						{{/if}}
+						{{/if}}
+					</tr>
+					<tr>
+						<th>Venta RECI</th>
+						<td>
+							{{#if service.bodyKit.soldByReci}}
+							<span>Si</span>
+							{{else}}
+							<span>No</span>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Creado</th>
+						<td>{{formatDate service.bodyKit.createdAt}}</td>
+					</tr>
+				</table>
+			</div>
+		</section>
+	</div>
+
+	<div class="grid grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2">
+		{{!-- Fixes --}}
+		<section class="mb-0">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">check_circle</i>
+				Reparaciones
+			</h2>
+
+			{{#if service.fixes}}
+			<div class="mb-0 table-container" style="width: 100%; min-width: 300px;">
+				<table>
+					<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+						<th class="py-2">Descripción</th>
+					</tr>
+					{{#each service.fixes}}
+					<tr>
+						<td style="padding-left: 1rem;">{{this.fixName}}</td>
+					</tr>
+					{{/each}}
+				</table>
+			</div>
+
+			{{else}}
+			<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">No hay reparaciones registradas en
+				este
+				servicio.</h3>
+			{{/if}}
+		</section>
+
+		<section class="mb-0">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">build_circle</i>
+				Repuestos
+			</h2>
+
+			{{#if service.parts}}
+			<div class="table-container" style="width: 100%; min-width: 300px;">
+				<table>
+					<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+						<th class="py-2">Código</th>
+						<th class="py-2">Descripción</th>
+						<th class="py-2">Cantidad</th>
+					</tr>
+					{{#each service.parts}}
+					<tr>
+						<td style="padding-left: 1rem;"><strong>{{this.partNumber}}</strong></td>
+						<td style="padding-left: 1rem;">{{this.partName}}</td>
+						<td style="padding-left: 3rem;">{{this.partQty}}</td>
+					</tr>
+					{{/each}}
+				</table>
+			</div>
+			{{else}}
+			<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">No hay repuestos registrados en
+				este
+				servicio.</h3>
+			{{/if}}
+		</section>
+	</div>
+
+	<section class="mt-6 mb-0">
+		<h2 class="flex mt-0 subtitle">
+			<i class="material-icons icon-clients center"
+				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">visibility</i>
+			Observaciones
+		</h2>
+		{{#if service.observations}}
+		<table>
+			<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+				<th class="py-2">Descripción</th>
+			</tr>
+			<tr>
+				<td class="p-4 uppercase">{{service.observations}}</td>
+			</tr>
+		</table>
+		{{else}}
+		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">Sin observaciones</h3>
+		{{/if}}
+
+	</section>
+
+	<a href="/servicios-carrocerias/editar/{{service._id}}">
+		<button class="mt-4 button-new">
+			<i class="material-icons clients-icon center ">edit</i>
+			Editar
+		</button>
+	</a>
+
+</main>
