@@ -170,8 +170,8 @@ class ServicesController {
         await bodyKitsDao.removeService(service.bodyKit, id);
       }
       const deletedService = await bodykitServicesDao.delete(id);
-      const response = successResponse(deletedService);
-      res.status(HTTP_STATUS.OK).json(response);
+      // res.status(HTTP_STATUS.OK).json(response);
+      res.json({ success: true, message: 'El servicio fue borrado' });
     } catch (error) {
       next(error);
     }
