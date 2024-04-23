@@ -166,10 +166,12 @@ class ServicesController {
     const { id } = req.params;
     try {
       const service = await bodykitServicesDao.getById(id);
+
       if (service.bodyKit) {
         await bodyKitsDao.removeService(service.bodyKit, id);
       }
       const deletedService = await bodykitServicesDao.delete(id);
+
       // res.status(HTTP_STATUS.OK).json(response);
       res.json({ success: true, message: 'El servicio fue borrado' });
     } catch (error) {
@@ -194,7 +196,6 @@ class ServicesController {
   async editServiceForm(req, res, next) {
     const { serviceId } = req.params;
     const service = await bodykitServicesDao.getByIdAndPopulate(serviceId);
-    console.log(service);
     const scripts = [
       { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
       { script: '/js/editBodykitServiceFormHandler.js' },

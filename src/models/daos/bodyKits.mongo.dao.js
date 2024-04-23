@@ -85,7 +85,7 @@ class BodyKitsMongoDao extends MongoContainer {
     const bodyKit = await this.model.findOne({ _id: bodyKitId }, { __v: 0 });
     if (bodyKit) {
       const updatedBodyKit = await this.model.updateOne(
-        { id: bodyKitId },
+        { _id: bodyKitId },
         { $pull: { services: serviceId } }
       );
       return updatedBodyKit;

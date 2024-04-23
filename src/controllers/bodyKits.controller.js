@@ -29,7 +29,6 @@ class BodyKitsController {
         { script: '/js/formatDate.js' },
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
       ];
-
       res.status(HTTP_STATUS.OK).render('pages/bodyKits/show', { bodyKit, scripts });
     } catch (error) {
       next(error);

@@ -68,6 +68,19 @@ class ClientsMongoDao extends MongoContainer {
     );
     return updatedClient;
   }
+
+  async removeBodyKit(clientId, bodyKitId) {
+    const client = await this.model.findOne({ _id: clientId }, { __v: 0 });
+    if (client) {
+      const updatedClient = await this.model.updateOne(
+        { _id: clientId },
+        { $pull: { bodyKits: bodyKitId } }
+      );
+      return updatedClient;
+    } else {
+      return;
+    }
+  }
 }
 
 module.exports = ClientsMongoDao;

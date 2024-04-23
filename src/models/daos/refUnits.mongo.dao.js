@@ -85,7 +85,7 @@ class RefUnitsMongoDao extends MongoContainer {
     const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
     if (refUnit) {
       const updatedRefUnit = await this.model.updateOne(
-        { id: refUnitId },
+        { _id: refUnitId },
         { $pull: { services: serviceId } }
       );
       return updatedRefUnit;

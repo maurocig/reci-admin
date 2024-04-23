@@ -58,6 +58,7 @@
 				<th class="min-w-[150px]">Cliente</th>
 				<th class="min-w-[120px]">Nº Serie</th>
 				<th>Ingresado</th>
+				<th class="hidden lg:block max-w-[90px] pr-0">Servicios</th>
 			</tr>
 			{{#each bodyKits}}
 			<tr>
@@ -100,11 +101,11 @@
 						{{formatDate createdAt}}
 					</a>
 				</td>
-				{{!-- <td class="center">
-					<a href="/carrocerias/editar/{{_id}}">
-						<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+				<td class="max-w-[90px] text-center hidden lg:block">
+					<a href="/carrocerias/{{_id}}">
+						{{this.services.length}}
 					</a>
-				</td> --}}
+				</td>
 			</tr>
 			{{/each}}
 		</table>

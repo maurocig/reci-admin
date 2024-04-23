@@ -145,7 +145,7 @@ form.addEventListener('submit', (e) => {
         confirmButtonText: 'Ver servicio',
       }).then((result) => {
         if (result.value) {
-          window.location = `/servicios/${res.id}`;
+          window.location = `/servicios-carrocerias/${res.id}`;
         }
       });
     } else {
