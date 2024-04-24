@@ -37,7 +37,6 @@ class MongoContainer {
       _id: new mongoose.Types.ObjectId(),
       ...item,
     });
-    console.log(newDocument);
     await newDocument.save();
     return await newDocument._id.toString();
   }

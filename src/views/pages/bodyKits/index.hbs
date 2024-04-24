@@ -31,7 +31,7 @@
 		</form>
 
 		{{!-- filter --}}
-		<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
+		{{!-- <form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
 			<label for="body-kits-filter" class="text-gray-400 font-normal w-100 w-full">
 
 				{{#if f}}
@@ -46,7 +46,8 @@
 				<option value="plate">Sin matricular</option>
 				<option value="soldByReci">Venta RECI</option>
 			</select>
-		</form>
+		</form> --}}
+
 	</div>
 
 	{{#if bodyKits}}
@@ -57,7 +58,7 @@
 				<th>Modelo</th>
 				<th class="min-w-[150px]">Cliente</th>
 				<th class="min-w-[120px]">Nº Serie</th>
-				<th>Ingresado</th>
+				<th>Ingresada</th>
 				<th class="hidden lg:block max-w-[90px] pr-0">Servicios</th>
 			</tr>
 			{{#each bodyKits}}

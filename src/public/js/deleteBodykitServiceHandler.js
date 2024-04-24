@@ -18,7 +18,6 @@ function deleteService(id) {
       xhr.setRequestHeader('X-HTTP-Method-Override', 'DELETE');
       xhr.onloadend = function () {
         // handle the response
-        console.log(xhr);
         if (xhr.status === 200) {
           Swal.fire({
             title: 'El servicio fue borrado.',

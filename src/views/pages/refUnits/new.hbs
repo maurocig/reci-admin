@@ -138,10 +138,8 @@
 
 	serialNumberInput.addEventListener('input', function () {
 		const serialNumberRegex = /^[A-Za-z]{3}\d{7}$/;
-		console.log("keypress");
 
 		if (serialNumberRegex.test(serialNumberInput.value)) {
-			console.log('verified');
 			serialNumberInput.classList.add('verifiedSerial');
 		} else {
 			serialNumberInput.classList.remove('verifiedSerial');
