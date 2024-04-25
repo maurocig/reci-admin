@@ -80,6 +80,11 @@
 				<input type="date" id="warranty-date" name="warrantyDate" value="{{formatDateValue bodyKit.warrantyDate}}" />
 				{{!-- <input type="date" id="warranty-date" name="warrantyDate" value="2022-12-09" /> --}}
 			</div>
+			<div class="form-field">
+				<label for="chassis">Nº Chasis</label>
+				<input type="text" id="chassis-input" name="chassis" placeholder="" style="text-transform: uppercase;"
+					value={{bodyKit.chassis}}>
+			</div>
 		</div>
 		<button id="submit-button" class="button-success button-form" role="submit">Guardar</button>
 	</form>
@@ -106,6 +111,14 @@
 
 	// special characters not allowed on license plate
 	document.getElementById('plate-number').addEventListener('keypress', function (e) {
+		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
+		if (!matches) {
+			e.preventDefault();
+		}
+	});
+
+	// special characters not allowed on chassis number
+	document.getElementById('chassis').addEventListener('keypress', function (e) {
 		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
 		if (!matches) {
 			e.preventDefault();

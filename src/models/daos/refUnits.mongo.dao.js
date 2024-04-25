@@ -14,7 +14,7 @@ const refUnitSchema = new Schema(
     },
     serialNumber: { type: String, unique: true, required: true },
     plate: { type: String, unique: true, uppercase: true, required: false }, // unique validation doesn't work, check happens server side on refUnits.controller.js saveRefUnit.
-    model: { type: String, uppercase: true, requried: true },
+    model: { type: String, uppercase: true, required: true },
     services: [{ type: Schema.Types.ObjectId, ref: 'services', sparse: true }],
     pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },

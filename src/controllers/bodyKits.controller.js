@@ -25,6 +25,7 @@ class BodyKitsController {
     const { id } = req.params;
     try {
       const bodyKit = await bodyKitsDao.getByIdAndPopulate(id);
+      console.log(bodyKit);
       const scripts = [
         { script: '/js/formatDate.js' },
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
@@ -37,7 +38,7 @@ class BodyKitsController {
 
   async saveBodyKit(req, res, next) {
     try {
-      let { serialNumber, model, client, plate, soldByReci, warrantyDate } = req.body;
+      let { serialNumber, model, client, plate, soldByReci, warrantyDate, chassis } = req.body;
 
       if (plate === '') plate = null;
 
@@ -47,6 +48,7 @@ class BodyKitsController {
         client,
         plate,
         soldByReci,
+        chassis: chassis.toUpperCase(),
         services: [],
       };
 
@@ -107,7 +109,7 @@ class BodyKitsController {
   async updateBodyKit(req, res, next) {
     const { id } = req.params;
 
-    let { serialNumber, model, plate, warrantyDate, soldByReci } = req.body;
+    let { serialNumber, model, plate, warrantyDate, soldByReci, chassis } = req.body;
 
     if (plate === '') plate = null;
     if (!soldByReci) warrantyDate = null;
@@ -118,6 +120,7 @@ class BodyKitsController {
         model,
         plate,
         soldByReci,
+        chassis: chassis.toUpperCase(),
       };
 
       if (warrantyDate) {

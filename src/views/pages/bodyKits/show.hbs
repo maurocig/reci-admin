@@ -70,7 +70,16 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Nombre Cliente</th>
+					<th>Chasis</th>
+					<td>
+						{{#if bodyKit.chassis}}
+						{{bodyKit.chassis}}
+						{{else}}
+						<div>No registra</div>
+						{{/if}}
+					</td>
+				<tr>
+					<th>Cliente</th>
 					<td>
 						{{bodyKit.client.name}}
 					</td>

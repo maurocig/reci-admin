@@ -31,6 +31,7 @@ const plateInput = document.querySelector('#plate-number');
 const serialNumberInput = document.querySelector('#serial-number');
 const modelInput = document.querySelector('#model');
 const clientIdInput = document.querySelector('#client-id');
+const chassisInput = document.querySelector('#chassis-input');
 
 // handle submit
 const form = document.querySelector('#form-new-bodykit');
@@ -47,6 +48,7 @@ form.addEventListener('submit', (e) => {
     plate: plateInput.value,
     soldByReci: soldByReciSelect.value === 'true',
     warrantyDate: warrantyDateInput.value,
+    chassis: chassisInput.value,
   };
 
   if (plateInput.value) {
