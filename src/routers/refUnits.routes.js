@@ -3,7 +3,6 @@ const refUnitsController = require('../controllers/refUnits.controller');
 
 const router = Router();
 
-router.get('/search-plate', refUnitsController.searchRefUnitByPlate);
 router.get('/search', refUnitsController.searchRefUnit);
 router.get('/filter', refUnitsController.filterRefUnit);
 

@@ -189,22 +189,6 @@ class BodyKitsController {
     }
   }
 
-  async searchBodyKitByPlate(req, res, next) {
-    let query = req.query.q;
-    try {
-      if (!query) {
-        const bodyKits = await bodyKitsDao.getAll();
-        res.status(HTTP_STATUS.OK).render('pages/bodyKits', { bodyKits });
-      } else {
-        const bodyKits = await bodyKitsDao.findByField('plate', query, 'client');
-        res.status(HTTP_STATUS.OK).render('pages/bodyKits', { bodyKits });
-      }
-    } catch (error) {
-      console.log(error);
-      next(error);
-    }
-  }
-
   async filterBodyKit(req, res, next) {
     const { f } = req.query;
     let query;

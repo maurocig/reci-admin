@@ -9,6 +9,11 @@ const pendingTasksRoutes = require('./pendingTasks.routes');
 const authRoutes = require('./auth.routes');
 const isAuthorized = require('../middleware/auth.middleware');
 
+const { RefUnitsDao, BodyKitsDao } = require('../models/daos/app.daos');
+
+const refUnitsDao = new RefUnitsDao();
+const bodyKitsDao = new BodyKitsDao();
+
 const router = Router();
 
 router.get('/login', (req, res) => {
@@ -40,6 +45,13 @@ router.get('/', (req, res) => {
 router.get('/success', (req, res) => {
   const { body } = req;
   res.render('pages/success', { body });
+});
+
+router.get('/busqueda', async (req, res) => {
+  const query = req.query.q;
+  const refUnits = await refUnitsDao.findByField('plate', query, 'client');
+  const bodyKits = await bodyKitsDao.findByField('plate', query, 'client');
+  res.render('pages/search-results', { refUnits, bodyKits });
 });
 
 module.exports = router;

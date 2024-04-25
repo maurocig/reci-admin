@@ -3,6 +3,9 @@ const bodyKitsController = require('../controllers/bodyKits.controller');
 
 const router = Router();
 
+router.get('/search', bodyKitsController.searchBodyKit);
+router.get('/filter', bodyKitsController.filterBodyKit);
+
 router.get('/', bodyKitsController.getBodyKits);
 // router.get('/nuevo', (req, res) => res.render('pages/bodyKits/new'));
 router.get('/nueva/:clientId', bodyKitsController.newBodyKitForm);

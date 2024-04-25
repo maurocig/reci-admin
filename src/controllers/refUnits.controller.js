@@ -189,23 +189,6 @@ class RefUnitsController {
       next(error);
     }
   }
-
-  async searchRefUnitByPlate(req, res, next) {
-    let query = req.query.q;
-    try {
-      if (!query) {
-        const refUnits = await refUnitsDao.getAll();
-        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
-      } else {
-        const refUnits = await refUnitsDao.findByField('plate', query, 'client');
-        res.status(HTTP_STATUS.OK).render('pages/refUnits', { refUnits });
-      }
-    } catch (error) {
-      console.log(error);
-      next(error);
-    }
-  }
-
   async filterRefUnit(req, res, next) {
     const { f } = req.query;
     let query;
