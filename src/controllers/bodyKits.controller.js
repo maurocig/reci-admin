@@ -25,7 +25,6 @@ class BodyKitsController {
     const { id } = req.params;
     try {
       const bodyKit = await bodyKitsDao.getByIdAndPopulate(id);
-      console.log(bodyKit);
       const scripts = [
         { script: '/js/formatDate.js' },
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
