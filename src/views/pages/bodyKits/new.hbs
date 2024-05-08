@@ -117,7 +117,7 @@
 	});
 
 	// special characters not allowed on chassis number
-	document.getElementById('chassis').addEventListener('keypress', function (e) {
+	document.getElementById('chassis-input').addEventListener('keypress', function (e) {
 		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
 		if (!matches) {
 			e.preventDefault();
