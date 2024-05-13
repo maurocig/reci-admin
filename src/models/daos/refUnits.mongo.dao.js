@@ -126,6 +126,7 @@ class RefUnitsMongoDao extends MongoContainer {
   async findByField(field, value, collectionRef = '') {
     const refUnit = await this.model
       .find({ [field]: { $regex: value, $options: 'i' } })
+      // .find({ [field]: value })
       .sort({ createdAt: 'desc' })
       .populate(collectionRef)
       .lean();

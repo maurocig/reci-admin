@@ -34,4 +34,13 @@ module.exports = {
     const isWarrantyActive = moment(today).isBefore(warrantyEndDate);
     return isWarrantyActive;
   },
+  and: function (v1, v2) {
+    return v1 && v2;
+  },
+  not: function (v) {
+    return !v;
+  },
+  isEmptyOrUndefined: function (value) {
+    return value === undefined || value === null || value.length === 0;
+  },
 };

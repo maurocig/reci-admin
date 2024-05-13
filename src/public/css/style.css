@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Inter:wght@400;500;600&family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Noto+Sans:wght@200;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 * {
 	/* padding: 0; */
@@ -80,9 +82,9 @@ nav {
 .nav-link {
 	text-decoration: none;
 	color: var(--main-dark-blue);
-	font-family: 'Barlow';
+	font-family: 'Noto Sans', sans-serif;
 	font-weight: 500;
-	font-size: 1.1rem;
+	font-size: 1rem;
 	border-bottom: solid 3px rgba(0, 0, 0, 0);
 	/* text-transform: uppercase; */
 }
@@ -108,7 +110,7 @@ nav {
 
 .logo-container img {
 	/* height: 100%; */
-	max-width: 130px;
+	max-width: 110px;
 }
 
 
@@ -205,7 +207,7 @@ section {
 
 
 .title {
-	font-family: 'Barlow', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
 	font-weight: 500;
 	color: var(--main-light-gray);
 	font-size: 1.6rem;
@@ -216,7 +218,7 @@ section {
 }
 
 .subtitle {
-	font-family: 'Barlow', sans-serif;
+	font-family: 'Noto Sans', sans-serif;
 	font-weight: 500;
 	color: var(--main-light-gray);
 	font-size: 1.4rem;
@@ -662,7 +664,7 @@ td a {
 }
 
 .card-home-title {
-	font-family: 'Barlow';
+	font-family: 'Noto Sans';
 	font-weight: 500;
 	font-size: 1.1rem;
 }
@@ -688,6 +690,7 @@ td a {
 	justify-content: space-between;
 	padding-block: 1rem;
 	padding-inline: 0;
+	border-radius: 9px;
 }
 
 .container-icon-home:hover {

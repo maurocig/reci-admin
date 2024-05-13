@@ -14,10 +14,21 @@
 
 	<i class="material-icons icon-clients center"
 		style="font-size: 50px; display: block; margin-bottom: .2rem;">search</i>
-	<h1 class="title">Buscar matrícula</h1>
+	<h1 class="title">Búsqueda</h1>
+
+	{{>search-form}}
+
+	{{#if (and (isEmptyOrUndefined refUnits) (isEmptyOrUndefined bodyKits))}}
+	<div id="results-indicator" class="w-full mt-10 mb-4 text-lg font-thin text-center text-slate-200/80">No hay
+		resultados
+	</div>
+	{{else}}
+	<div id="results-indicator" class="w-full mt-10 mb-4 text-lg font-thin text-center text-slate-200/80">Resultados de
+		"<b>{{query}}</b>"</div>
+	{{/if}}
 
 	{{#if refUnits}}
-	<h2 class="text-slate-200 text-xl font-semibold mb-3 flex">
+	<h2 class="flex items-center mb-3 text-xl font-semibold text-slate-200">
 		<i class="material-icons icon-clients center"
 			style=" display: inline; margin:0 .7rem 0 0; font-size: 1.5rem; align-self: center;">ac_unit</i>
 		Equipos
@@ -82,12 +93,10 @@
 			{{/each}}
 		</table>
 	</div>
-	{{else}}
-	<h2 class="subtitle center" style="margin-top: 1rem;">No hay equipos registrados.</h2>
 	{{/if}}
 
 	{{#if bodyKits}}
-	<h2 class="text-slate-200 text-xl font-semibold mb-3 flex">
+	<h2 class="flex mb-3 text-xl font-semibold text-slate-200">
 		<i class="material-icons icon-clients center"
 			style=" display: inline; margin:0 .7rem 0 0; font-size: 1.5rem; align-self: center;">local_shipping</i>
 		Carrocerías
@@ -152,8 +161,15 @@
 			{{/each}}
 		</table>
 	</div>
-	{{else}}
-	<h2 class="subtitle center" style="margin-top: 1rem;">No hay carrocerías registradas.</h2>
 	{{/if}}
-
 </main>
+
+<script>
+	const refUnits = {{ refUnits }};
+	const bodyKits = {{ bodyKits }};
+
+	if (!refUnits && !bodyKits) {
+		document.getElementById('results-indicator').innerHTML = 'No se encontraron resultados para "<b>{{query}}</b>"'
+	}
+
+</script>
