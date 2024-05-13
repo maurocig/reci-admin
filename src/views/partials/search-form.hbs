@@ -1,0 +1,120 @@
+<form class="flex flex-col items-center justify-center w-full gap-4" action="/buscar">
+
+	<div class="flex gap-4 w-full md:w-[70vw] max-w-[600px] justify-start">
+		<div class="flex flex-col h-full gap-1">
+			<label for="type-select" class="text-slate-400">Buscar</label>
+			<select class="h-full p-2" id="type-select" name="type">
+				{{!-- <option value="todo">Todo</option> --}}
+				<option value="equipos">Equipos</option>
+				<option value="carrocerias">Carrocerías</option>
+				<option value="servicios">Servicios</option>
+				{{!-- <option value="tareas">Tareas</option> --}}
+			</select>
+		</div>
+
+		<div class="flex flex-col h-full gap-1">
+			<label for="field-select" class="text-slate-400 ">Por</label>
+			<select id="field-select" name="field" class="p-2 min-h-[40px] h-full" style="height: 40px;">
+				{{!-- have to specify height in css because of safari --}}
+				<option value="todos">todos</option>
+
+			</select>
+		</div>
+	</div>
+
+	{{!-- search field --}}
+	<div class="flex items-center w-full md:w-[70vw] max-w-[600px]">
+		<input type="text" id="search-input" name="query" placeholder="Buscar..."
+			style="border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important" autofocus
+			class="w-full p-2 px-4 text-lg rounded-l-lg focus:outline-none focus:bg-white/90">
+		<button type="submit" style="border-top-left-radius: 0px !important; border-bottom-left-radius: 0px !important"
+			class="inline py-[10px] w-[45px] bg-white rounded-r-lg border-box w-1/4 self-center"><i
+				class="inline text-slate-800 material-icons">search</i></button>
+	</div>
+</form>
+
+
+<script>
+	const typeSelect = document.getElementById('type-select');
+	const fieldSelect = document.getElementById('field-select');
+	const searchInput = document.getElementById('search-input');
+
+	// get the query params
+	const q = new URLSearchParams(window.location.search);
+	const { query, type = 'todos', field = 'matricula' } = Object.fromEntries(q.entries());
+
+	let fields = []
+
+	// default fields 
+	switch (type) {
+		case 'equipos':
+			fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+			break;
+		case 'carrocerias':
+			fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Nº chasis', value: 'chassis' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+			break;
+		case 'servicios':
+			fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº orden', value: 'orderNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' }, { label: 'Nº serie', value: 'serialNumber' },];
+			break;
+		case 'todos':
+			fields = [{ label: 'Matrícula', value: 'plate' }];
+			break;
+	}
+
+	fieldSelect.innerHTML = fields.map((f) => {
+		if (f.value === (field || 'plate')) {
+			return `<option value="${f.value}" selected>${f.label}</option>`
+		} else {
+			return `<option value="${f.value}">${f.label}</option>`
+		}
+	})
+
+	typeSelect.innerHTML = ['equipos', 'carrocerias', 'servicios', 'todos'].map((t) => {
+		if (t === type) {
+			return `<option value="${t}" selected>${t.charAt(0).toUpperCase() + t.slice(1)}</option>`
+		} else {
+			return `<option value="${t}">${t.charAt(0).toUpperCase() + t.slice(1)}</option>`
+		}
+	}).join('');
+
+	searchInput.value = query || new URLSearchParams(window.location.search).get('q') || '';
+	// change fields based on type (select)
+	typeSelect.addEventListener('change', (e) => {
+		const type = e.target.value;
+
+		switch (type) {
+			case 'equipos':
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				break;
+			case 'carrocerias':
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Nº chasis', value: 'chassis' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				break;
+			case 'servicios':
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº orden', value: 'orderNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' }, { label: 'Nº serie', value: 'serialNumber' },];
+				break;
+			case 'todos':
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				break;
+		}
+
+		fieldSelect.innerHTML = fields.map((f) => {
+			if (f.value === (field || 'plate')) {
+				return `<option value="${f.value}" selected>${f.label}</option>`
+			} else {
+				return `<option value="${f.value}">${f.label}</option>`
+			}
+		})
+			.join('');
+	})
+
+	function lowerFirstLetter(str) {
+		return str.charAt(0).toLowerCase() + str.slice(1);
+	}
+
+	// update the input placeholder when a field is selected
+	fieldSelect.addEventListener('change', (e) => {
+		const field = fields.find((f) => f.value === e.target.value);
+		searchInput.placeholder = `Buscar ${selectedType} por ${lowerFirstLetter(field.label)} `;
+	});
+
+</script>
