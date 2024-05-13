@@ -78,9 +78,20 @@ class ServicesMongoDao extends MongoContainer {
     const documents = await this.model
       .find(filter, { __v: 0 })
       .populate('client', 'name')
-      .populate('refUnit', ['plate', 'model', 'serialNumber'])
+      .populate('refUnit', ['plate', 'model', 'serialNumber', 'soldByReci'])
       .lean();
     return documents;
+  }
+
+  async findByField(field, value, collectionRef = 'client') {
+    const service = await this.model
+      .find({ [field]: { $regex: value, $options: 'i' } })
+      // .find({ [field]: { value } })
+      .sort({ createdAt: 'desc' })
+      .populate(collectionRef)
+      .lean();
+    console.log(service);
+    return service;
   }
 }
 

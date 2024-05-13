@@ -129,6 +129,7 @@ class RefUnitsMongoDao extends MongoContainer {
       // .find({ [field]: value })
       .sort({ createdAt: 'desc' })
       .populate(collectionRef)
+      .populate('services')
       .lean();
     return refUnit;
   }

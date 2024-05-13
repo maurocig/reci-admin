@@ -18,7 +18,8 @@
 
 	{{>search-form}}
 
-	{{#if (and (isEmptyOrUndefined refUnits) (isEmptyOrUndefined bodyKits))}}
+	{{!-- results indicator --}}
+	{{#if (and (and (isEmptyOrUndefined refUnits) (isEmptyOrUndefined bodyKits)) (isEmptyOrUndefined services))}}
 	<div id="results-indicator" class="w-full mt-10 mb-4 text-lg font-thin text-center text-slate-200/80">No hay
 		resultados
 	</div>
@@ -27,6 +28,7 @@
 		"<b>{{query}}</b>"</div>
 	{{/if}}
 
+	{{!-- Ref units --}}
 	{{#if refUnits}}
 	<h2 class="flex items-center mb-3 text-xl font-semibold text-slate-200">
 		<i class="material-icons icon-clients center"
@@ -95,6 +97,7 @@
 	</div>
 	{{/if}}
 
+	{{!-- Body kits --}}
 	{{#if bodyKits}}
 	<h2 class="flex mb-3 text-xl font-semibold text-slate-200">
 		<i class="material-icons icon-clients center"
@@ -162,14 +165,83 @@
 		</table>
 	</div>
 	{{/if}}
+
+	{{!-- Services --}}
+	{{#if services}}
+	<h2 class="flex mb-3 text-xl font-semibold text-slate-200">
+		<i class="material-icons icon-clients center"
+			style=" display: inline; margin:0 .7rem 0 0; font-size: 1.5rem; align-self: center;">build</i>
+		Servicios
+	</h2>
+	<div class="table-container">
+		<table class="mb-2">
+			<tr class="table-headers-row bg-slate-300/80 hover:bg-slate-300/80">
+				<th>Nº Orden</th>
+				<th>Matrícula</th>
+				<th class="min-w-[150px]">Modelo</th>
+				<th>Cliente</th>
+				<th class="min-w-[120px]">Nº Serie</th>
+				<th>Ingresado</th>
+			</tr>
+
+			{{#each services}}
+			<tr>
+				<td>
+					<a href="/servicios/{{this._id}} ">
+						{{#if orderNumber}}
+						{{orderNumber}}
+						{{else}}
+						<span class="text-red-500">No registra</span>
+						{{/if}}
+					</a>
+				</td>
+				{{#if this.refUnit}}
+				<td>
+					<a href="/servicios/{{this._id}} ">
+						{{#if refUnit.plate}}
+						{{refUnit.plate}}
+						{{else}}
+						<span class="text-red-500">No registra</span>
+						{{/if}}
+					</a>
+				</td>
+				{{/if}}
+				<td>
+					<a href="/servicios/{{_id}}">
+						{{this.refUnit.model}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios/{{_id}}">
+						{{this.client.name}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios/{{_id}}">
+						{{#if (eq this.refUnit.plate this.refUnit.serialNumber)}}
+						<span class="text-red-600">No registra</span>
+						{{else}}
+						{{#if this.refUnit.soldByReci}}
+						<span class="font-normal text-emerald-600">
+							{{this.refUnit.serialNumber}}
+						</span>
+						{{else}}
+						<span class="">{{this.refUnit.serialNumber}}</span>
+						{{/if}}
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios/{{_id}}">
+						{{formatDate this.serviceDate}}
+					</a>
+				</td>
+			</tr>
+			{{/each}}
+		</table>
+	</div>
+	{{/if}}
 </main>
 
 <script>
-	const refUnits = {{ refUnits }};
-	const bodyKits = {{ bodyKits }};
-
-	if (!refUnits && !bodyKits) {
-		document.getElementById('results-indicator').innerHTML = 'No se encontraron resultados para "<b>{{query}}</b>"'
-	}
-
 </script>

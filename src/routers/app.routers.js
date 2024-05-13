@@ -60,10 +60,9 @@ router.get('/busqueda', async (req, res) => {
 });
 
 router.get('/buscar', async (req, res) => {
-  console.log(req.query);
   const { type, field, query } = req.query;
+  console.log(req.query);
   // const { type, field } = query;
-  console.log('tipo: ', type, '\n', 'campo: ', field, 'query: ', query);
 
   if (!type) {
     return res.redirect('/busqueda');
@@ -76,18 +75,31 @@ router.get('/buscar', async (req, res) => {
       const refUnits = await refUnitsDao.find({ client: clientId }, 'client');
     } else {
       const refUnits = await refUnitsDao.findByField(field, query, 'client');
-      console.log(refUnits);
       return res.render('pages/search-results', { refUnits, type, field, query });
     }
   }
   if (type === 'carrocerias') {
     const bodyKits = await bodyKitsDao.findByField(field, query, 'client');
-    console.log(bodyKits);
     return res.render('pages/search-results', { bodyKits, type, field, query });
   }
   if (type === 'servicios') {
-    const services = await servicesDao.findByField(field, query, 'client');
-    return res.render('pages/search-results', { services, type, field, query });
+    let services = [];
+    if (field === 'orderNumber') {
+      services = await servicesDao.findNumber({ orderNumber: { $eq: +query } });
+      return res.render('pages/search-results', { services, type, field, query });
+    } else {
+      refUnits = await refUnitsDao.findByField(field, query, 'client');
+      refUnits.forEach(async (unit) => {
+        // const service = await servicesDao.find({ refUnit: unit._id.toString() });
+        unit.services.forEach((service) => {
+          service.refUnit = unit;
+          service.client = unit.client;
+          services.push(service);
+        });
+      });
+      services.sort((a, b) => new Date(b.serviceDate) - new Date(a.serviceDate));
+      return res.render('pages/search-results', { services, type, field, query });
+    }
   }
   return res.redirect('/busqueda');
 });
