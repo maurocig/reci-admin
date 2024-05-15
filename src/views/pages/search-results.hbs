@@ -186,6 +186,7 @@
 
 			{{#each services}}
 			<tr>
+				{{#if this.refUnit}}
 				<td>
 					<a href="/servicios/{{this._id}} ">
 						{{#if orderNumber}}
@@ -195,7 +196,6 @@
 						{{/if}}
 					</a>
 				</td>
-				{{#if this.refUnit}}
 				<td>
 					<a href="/servicios/{{this._id}} ">
 						{{#if refUnit.plate}}
@@ -205,7 +205,6 @@
 						{{/if}}
 					</a>
 				</td>
-				{{/if}}
 				<td>
 					<a href="/servicios/{{_id}}">
 						{{this.refUnit.model}}
@@ -236,6 +235,59 @@
 						{{formatDate this.serviceDate}}
 					</a>
 				</td>
+				{{/if}}
+
+				{{!-- show bodykit services --}}
+				{{#if this.bodyKit}}
+				<td>
+					<a href="/servicios-carrocerias/{{this._id}} ">
+						{{#if orderNumber}}
+						{{orderNumber}}
+						{{else}}
+						<span class="text-red-500">No registra</span>
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{this._id}} ">
+						{{#if bodyKit.plate}}
+						{{bodyKit.plate}}
+						{{else}}
+						<span class="text-red-500">No registra</span>
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{_id}}">
+						{{this.bodyKit.model}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{_id}}">
+						{{this.client.name}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{_id}}">
+						{{#if (eq this.bodyKit.plate this.bodyKit.serialNumber)}}
+						<span class="text-red-600">No registra</span>
+						{{else}}
+						{{#if this.bodyKit.soldByReci}}
+						<span class="font-normal text-emerald-600">
+							{{this.bodyKit.serialNumber}}
+						</span>
+						{{else}}
+						<span class="">{{this.bodyKit.serialNumber}}</span>
+						{{/if}}
+						{{/if}}
+					</a>
+				</td>
+				<td>
+					<a href="/servicios-carrocerias/{{_id}}">
+						{{formatDate this.serviceDate}}
+					</a>
+				</td>
+				{{/if}}
 			</tr>
 			{{/each}}
 		</table>

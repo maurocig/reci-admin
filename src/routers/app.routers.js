@@ -10,12 +10,19 @@ const pendingTasksRoutes = require('./pendingTasks.routes');
 const authRoutes = require('./auth.routes');
 const isAuthorized = require('../middleware/auth.middleware');
 
-const { RefUnitsDao, BodyKitsDao, ServicesDao, ClientsDao } = require('../models/daos/app.daos');
+const {
+  RefUnitsDao,
+  BodyKitsDao,
+  ServicesDao,
+  ClientsDao,
+  BodykitServicesDao,
+} = require('../models/daos/app.daos');
 
 const refUnitsDao = new RefUnitsDao();
 const bodyKitsDao = new BodyKitsDao();
 const servicesDao = new ServicesDao();
 const clientsDao = new ClientsDao();
+const bodykitServicesDao = new BodykitServicesDao();
 
 const router = Router();
 
@@ -113,11 +120,16 @@ router.get('/buscar', async (req, res) => {
   }
 
   if (type === 'servicios') {
+    let services = [];
+    let bodykitServices = [];
+
     if (field === 'client') {
       const clients = await clientsDao.findByField('name', query, 'refUnits');
       const client = clients[0];
-      const services = await servicesDao.getAllWithRefUnits({ client });
-      return res.render('pages/search-results', { services: services, type, field, query });
+      services = await servicesDao.getAllWithRefUnits({ client });
+      bodykitServices = await bodykitServicesDao.getAllWithBodykits({ client });
+      services.push(...bodykitServices);
+      return res.render('pages/search-results', { services, type, field, query });
     } else {
       if (field === 'orderNumber') {
         services = await servicesDao.findNumber({ orderNumber: { $eq: +query } });

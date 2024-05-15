@@ -63,6 +63,16 @@ class BodykitServicesMongoDao extends MongoContainer {
     return [services, documentCount, filter];
   }
 
+  async getAllWithBodykits(filter = {}) {
+    const services = await this.model
+      .find(filter, { __v: 0 })
+      .sort({ serviceDate: 'desc' })
+      .populate('bodyKit', ['plate', 'model', 'serialNumber'])
+      .populate('client', 'name')
+      .lean();
+    return services;
+  }
+
   async findNumber(filter = {}, collectionRef = '') {
     const documents = await this.model
       .find(filter, { __v: 0 })

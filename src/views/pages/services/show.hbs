@@ -1,5 +1,10 @@
 {{>navbar}}
 <main class="mt-[80px]">
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
 	<a onclick="/">
 		<button class="go-back">
 			<i class="material-icons">home</i>
@@ -38,7 +43,7 @@
 		</button>
 	</div>
 
-	<i class="material-icons icon-clients center mt-6"
+	<i class="mt-6 material-icons icon-clients center"
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicio #{{service.orderNumber}}</h1>
 
@@ -267,7 +272,7 @@
 		</section>
 	</div>
 
-	<section class="mb-0 mt-6">
+	<section class="mt-6 mb-0">
 		<h2 class="flex mt-0 subtitle">
 			<i class="material-icons icon-clients center"
 				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">visibility</i>
