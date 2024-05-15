@@ -70,6 +70,7 @@ class ServicesMongoDao extends MongoContainer {
       .find(filter, { __v: 0 })
       .sort({ serviceDate: 'desc' })
       .populate('refUnit', ['plate', 'model', 'serialNumber'])
+      .populate('client', 'name')
       .lean();
     return services;
   }
@@ -86,7 +87,6 @@ class ServicesMongoDao extends MongoContainer {
   async findByField(field, value, collectionRef = 'client') {
     const service = await this.model
       .find({ [field]: { $regex: value, $options: 'i' } })
-      // .find({ [field]: { value } })
       .sort({ createdAt: 'desc' })
       .populate(collectionRef)
       .lean();

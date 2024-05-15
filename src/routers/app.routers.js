@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const mongoose = require('mongoose');
 
 const clientsRoutes = require('./clients.routes');
 const refUnitsRoutes = require('./refUnits.routes');
@@ -81,7 +82,6 @@ router.get('/buscar', async (req, res) => {
     if (field === 'client') {
       let refUnits = [];
       const clients = await clientsDao.findByField('name', query, 'refUnits');
-
       clients.forEach(async (client) => {
         client.refUnits.forEach(async (unit) => {
           unit.client = client;
@@ -99,7 +99,6 @@ router.get('/buscar', async (req, res) => {
     if (field === 'client') {
       let bodyKits = [];
       const clients = await clientsDao.findByField('name', query, 'bodyKits');
-
       clients.forEach(async (client) => {
         client.bodyKits.forEach(async (bodyKit) => {
           bodyKit.client = client;
@@ -114,24 +113,31 @@ router.get('/buscar', async (req, res) => {
   }
 
   if (type === 'servicios') {
-    let services = [];
-    if (field === 'orderNumber') {
-      services = await servicesDao.findNumber({ orderNumber: { $eq: +query } });
-      return res.render('pages/search-results', { services, type, field, query });
+    if (field === 'client') {
+      const clients = await clientsDao.findByField('name', query, 'refUnits');
+      const client = clients[0];
+      const services = await servicesDao.getAllWithRefUnits({ client });
+      return res.render('pages/search-results', { services: services, type, field, query });
     } else {
-      refUnits = await refUnitsDao.findByField(field, query, 'client');
-      refUnits.forEach(async (unit) => {
-        // const service = await servicesDao.find({ refUnit: unit._id.toString() });
-        unit.services.forEach((service) => {
-          service.refUnit = unit;
-          service.client = unit.client;
-          services.push(service);
+      if (field === 'orderNumber') {
+        services = await servicesDao.findNumber({ orderNumber: { $eq: +query } });
+        return res.render('pages/search-results', { services, type, field, query });
+      } else {
+        refUnits = await refUnitsDao.findByField(field, query, 'client');
+        refUnits.forEach(async (unit) => {
+          // const service = await servicesDao.find({ refUnit: unit._id.toString() });
+          unit.services.forEach((service) => {
+            service.refUnit = unit;
+            service.client = unit.client;
+            services.push(service);
+          });
         });
-      });
-      services.sort((a, b) => new Date(b.serviceDate) - new Date(a.serviceDate));
-      return res.render('pages/search-results', { services, type, field, query });
+        services.sort((a, b) => new Date(b.serviceDate) - new Date(a.serviceDate));
+        return res.render('pages/search-results', { services, type, field, query });
+      }
     }
   }
+
   return res.redirect('/busqueda');
 });
 

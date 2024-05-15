@@ -3,7 +3,7 @@
 	<div class="flex gap-4 w-full md:w-[70vw] max-w-[600px] justify-start">
 		<div class="flex flex-col h-full gap-1">
 			<label for="type-select" class="text-slate-400">Buscar</label>
-			<select class="h-full p-2" id="type-select" name="type">
+			<select class="h-full p-2 rounded-lg" id="type-select" name="type">
 				{{!-- <option value="todo">Todo</option> --}}
 				<option value="equipos">Equipos</option>
 				<option value="carrocerias">Carrocerías</option>
@@ -14,7 +14,7 @@
 
 		<div class="flex flex-col h-full gap-1">
 			<label for="field-select" class="text-slate-400 ">Por</label>
-			<select id="field-select" name="field" class="p-2 min-h-[40px] h-full" style="height: 40px;">
+			<select id="field-select" name="field" class="p-2 min-h-[40px] h-full rounded-lg" style="height: 40px;">
 				{{!-- have to specify height in css because of safari --}}
 				<option value="todos">todos</option>
 
@@ -44,6 +44,7 @@
 	const { query, type = 'todos', field = 'matricula' } = Object.fromEntries(q.entries());
 
 	let fields = []
+	let selectedType = 'equipos';
 
 	// default fields 
 	switch (type) {
@@ -78,6 +79,7 @@
 	}).join('');
 
 	searchInput.value = query || new URLSearchParams(window.location.search).get('q') || '';
+
 	// change fields based on type (select)
 	typeSelect.addEventListener('change', (e) => {
 		const type = e.target.value;
@@ -85,15 +87,19 @@
 		switch (type) {
 			case 'equipos':
 				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				selectedType = 'equipos';
 				break;
 			case 'carrocerias':
 				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Nº chasis', value: 'chassis' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				selectedType = 'carrocerias';
 				break;
 			case 'servicios':
 				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº orden', value: 'orderNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' }, { label: 'Nº serie', value: 'serialNumber' },];
+				selectedType = 'servicios';
 				break;
 			case 'todos':
-				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				fields = [{ label: 'Matrícula', value: 'plate' }];
+				searchInput.placeholder = `Buscar por matrícula`;
 				break;
 		}
 
@@ -105,6 +111,7 @@
 			}
 		})
 			.join('');
+
 	})
 
 	function lowerFirstLetter(str) {

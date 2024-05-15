@@ -109,10 +109,10 @@
 
 			{{!-- client's refUnits --}}
 			<div>
-				<h2 class="mt-0 subtitle" style="display: flex;">
+				<h2 class="flex items-center mt-0 subtitle" style="display: flex;">
 					<i class="material-icons icon-clients center"
 						style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">ac_unit</i>
-					Equipos
+					Equipos <span class="ml-2 font-thin text-slate-300"> ({{refUnits.length}})</span>
 				</h2>
 				{{#if refUnits}}
 				<table class="mb-4 overflow-hidden">
@@ -251,10 +251,10 @@
 
 			{{!-- client's latest services --}}
 			<div class="col-span-2">
-				<h2 class="mt-0 subtitle" style="display: flex;">
+				<h2 class="flex items-center mt-0 subtitle" style="display: flex;">
 					<i class="material-icons icon-clients center"
 						style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">build</i>
-					Servicios
+					Servicios <span class="ml-2 font-thin text-slate-300">({{services.length}})</span>
 				</h2>
 				{{#if services.length}}
 				<table class="overflow-hidden">
