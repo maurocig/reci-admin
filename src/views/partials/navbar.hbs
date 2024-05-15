@@ -1,13 +1,14 @@
-<nav class="fixed top-0 w-full p-0 m-0 bg-white/90 shadow-lg backdrop-blur-lg">
-	<div class="nav-content flex gap-5">
+<nav class="fixed top-0 w-full p-0 m-0 shadow-lg bg-white/90 backdrop-blur-lg">
+	<div class="flex gap-5 nav-content">
 		<a href="/">
 			<div class='logo-container'>
 				<img src='/assets/logo.png' alt='' />
 			</div>
 		</a>
 		<div>
-			<form action="/busqueda" method="GET" class="flex items-center gap-2">
-				<input name="q" placeholder="Buscar matrícula"
+			<form action="/buscar" method="GET" class="flex items-center gap-2">
+				<input type="text" hidden value="todos" name="type">
+				<input name="query" placeholder="Buscar matrícula"
 					class="inline w-3/4 w-[70%] h-10 px-5 border-slate-400/80 border text-slate-800 m-0 mx-auto mb-0 bg-gray-200 rounded-full"
 					style="margin: 0 !important;">
 				</input>

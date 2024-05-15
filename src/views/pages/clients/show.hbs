@@ -29,7 +29,7 @@
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">person</i>
 	<h1 class="title">{{client.name}}</h1>
 
-	<section class="mt-0 mb-0 flex flex-col items-center w-full">
+	<section class="flex flex-col items-center w-full mt-0 mb-0">
 		<div class="table-container w-full md:w-[600px]">
 			<table>
 				<tr>
@@ -120,7 +120,7 @@
 						<th class="py-2">N° Serie</th>
 						<th class="py-2">Modelo</th>
 						<th class="py-2">Matrícula</th>
-						<th class="py-2 hidden lg:block">Creado</th>
+						<th class="hidden py-2 lg:block">Creado</th>
 					</tr>
 					{{#each refUnits}}
 					<tr>
@@ -131,11 +131,11 @@
 									<span class="text-red-600">No registra</span>
 									{{else}}
 									{{#if this.soldByReci}}
-									<span class="text-emerald-600 font-normal">
+									<span class="font-normal text-emerald-600">
 										{{this.serialNumber}}
 									</span>
 									{{else}}
-									<span class="font-thin">
+									<span>
 										{{this.serialNumber}}
 									</span>
 									{{/if}}
@@ -191,7 +191,7 @@
 						<th class="py-2">N° Serie</th>
 						<th class="py-2">Modelo</th>
 						<th class="py-2">Matrícula</th>
-						<th class="py-2 hidden lg:block">Creado</th>
+						<th class="hidden py-2 lg:block">Creado</th>
 					</tr>
 					{{#each bodyKits}}
 					<tr>
@@ -202,11 +202,11 @@
 									<span class="text-red-600">No registra</span>
 									{{else}}
 									{{#if this.soldByReci}}
-									<span class="text-emerald-600 font-normal">
+									<span class="text-emerald-600">
 										{{this.serialNumber}}
 									</span>
 									{{else}}
-									<span class="font-thin">
+									<span>
 										{{this.serialNumber}}
 									</span>
 									{{/if}}
@@ -258,7 +258,7 @@
 				</h2>
 				{{#if services.length}}
 				<table class="overflow-hidden">
-					<tr class="table-headers-row bg-slate-200 hover:bg-slate-300/80 overflow-hidden">
+					<tr class="overflow-hidden table-headers-row bg-slate-200 hover:bg-slate-300/80">
 						<th class="py-2">Nº Orden</th>
 						<th class="py-2">Modelo</th>
 						<th class="py-2">Matrícula</th>

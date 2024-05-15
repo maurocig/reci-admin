@@ -30,6 +30,7 @@
 					<option value="equipos">Equipos</option>
 					<option value="carrocerias">Carrocerías</option>
 					<option value="servicios">Servicios</option>
+					<option value="todos">Todos</option>
 					{{!-- <option value="tareas">Tareas</option> --}}
 				</select>
 			</div>
@@ -47,6 +48,11 @@
 						<input type="radio" id="carrocerias" name="type" value="carrocerias" class="hidden"
 							onclick="changeColor(this)">
 						Carrocerías
+					</label>
+					<label for="servicios"
+						class="px-4 py-2 transition rounded btn-radio hover:cursor-pointer bg-slate-800/0 text-slate-200 hover:bg-slate-200/10 hover:text-slate-200">
+						<input type="radio" id="servicios" name="type" value="servicios" class="hidden" onclick="changeColor(this)">
+						Servicios
 					</label>
 					<label for="servicios"
 						class="px-4 py-2 transition rounded btn-radio hover:cursor-pointer bg-slate-800/0 text-slate-200 hover:bg-slate-200/10 hover:text-slate-200">
@@ -106,6 +112,10 @@
 			case 'servicios':
 				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº orden', value: 'orderNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' }, { label: 'Nº serie', value: 'serialNumber' },];
 				selectedType = 'servicios';
+				break;
+			case 'todos':
+				fields = [{ label: 'Matrícula', value: 'plate' }];
+				selectedType = 'todos';
 				break;
 		}
 

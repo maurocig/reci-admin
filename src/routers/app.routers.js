@@ -65,14 +65,31 @@ router.get('/buscar', async (req, res) => {
   // const { type, field } = query;
 
   if (!type) {
-    return res.redirect('/busqueda');
+    // return res.redirect('/busqueda');
+    return res.render('pages/search-index');
+  }
+  if (!query) {
+    return res.render('pages/search-index');
+  }
+
+  if (type === 'todos') {
+    const refUnits = await refUnitsDao.findByField('plate', query, 'client');
+    const bodyKits = await bodyKitsDao.findByField('plate', query, 'client');
+    return res.render('pages/search-results', { refUnits, bodyKits, query });
   }
 
   if (type === 'equipos') {
     if (field === 'client') {
-      const client = await clientsDao.find({ name: query });
-      const clientId = client._id;
-      const refUnits = await refUnitsDao.find({ client: clientId }, 'client');
+      let refUnits = [];
+      const clients = await clientsDao.findByField('name', query, 'refUnits');
+
+      clients.forEach(async (client) => {
+        client.refUnits.forEach(async (unit) => {
+          unit.client = client;
+        });
+        refUnits.push(...client.refUnits);
+      });
+      return res.render('pages/search-results', { refUnits, type, field, query });
     } else {
       const refUnits = await refUnitsDao.findByField(field, query, 'client');
       return res.render('pages/search-results', { refUnits, type, field, query });

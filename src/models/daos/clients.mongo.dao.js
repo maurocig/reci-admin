@@ -81,6 +81,17 @@ class ClientsMongoDao extends MongoContainer {
       return;
     }
   }
+
+  async findByField(field, value, collectionRef = '') {
+    const client = await this.model
+      .find({ [field]: { $regex: value, $options: 'i' } })
+      // .find({ [field]: value })
+      .sort({ createdAt: 'desc' })
+      .populate(collectionRef)
+      .populate('refUnits')
+      .lean();
+    return client;
+  }
 }
 
 module.exports = ClientsMongoDao;
