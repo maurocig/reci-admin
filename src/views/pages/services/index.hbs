@@ -10,13 +10,13 @@
 	<i class="material-icons icon-clients center" style="font-size: 50px; display: block; margin-bottom: .2rem;">build</i>
 	<h1 class="title">Servicios de equipos</h1>
 
-	<div class="grid items-center justify-between grid-cols-1 mb-4 sm:flex gap-0 sm:gap-4 lg:gap-8">
+	<div class="grid items-center justify-between grid-cols-1 gap-0 mb-4 sm:flex sm:gap-4 lg:gap-8">
 		{{!-- Buscar servicio --}}
 		<form action="/servicios/search" method="GET" class="flex flex-col items-start gap-1">
 			<div class="mt-6"></div>
-			<div class="w-full flex gap-3">
+			<div class="flex w-full gap-3">
 				<input name="q" placeholder="N° de Orden" type="text"
-					class="inline w-3/4 h-10 m-0 mb-0 bg-gray-200 rounded-full w-full px-4" style="margin: 0 !important;">
+					class="inline w-3/4 w-full h-10 px-4 m-0 mb-0 bg-gray-200 rounded-full" style="margin: 0 !important;">
 				</input>
 				<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
 						class="inline text-white material-icons">search</i></button>
@@ -25,8 +25,8 @@
 
 		<div class="flex gap-4">
 			{{!-- service type selector --}}
-			<div class="hidden sm:flex w-30 flex-col items-center gap-1">
-				<label for="service-type-select" class="text-gray-400 font-normal w-full">&nbsp;</label>
+			<div class="flex-col items-center hidden gap-1 sm:flex w-30">
+				<label for="service-type-select" class="w-full font-normal text-gray-400">&nbsp;</label>
 				<select name="" id="service-type-select" class="w-40 h-10 px-2 m-0 bg-gray-200">
 					<option value="servicios">Equipos de frío</option>
 					<option value="servicios-carrocerias">Carrocerías</option>
@@ -34,13 +34,13 @@
 			</div>
 
 			{{!-- filter --}}
-			<form id="filter-form" class="hidden sm:flex w-48 flex-col items-center gap-1 justify-start sm:justify-end">
-				<label for="servicesFilter" class="text-gray-400 font-normal w-100 w-full">
+			<form id="filter-form" class="flex-col items-center justify-start hidden w-48 gap-1 sm:flex sm:justify-end">
+				<label for="servicesFilter" class="w-full font-normal text-gray-400 w-100">
 
 					{{#if filter}}
-					Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{services.length}} resultados</span></span>
+					Filtrar <span class="ml-1">•<span class="ml-2 font-thin">{{services.length}} resultados</span></span>
 					{{else}}
-					Filtrar <span class="ml-1">•<span class="font-thin ml-2">{{documentCount}} resultados</span></span>
+					Filtrar <span class="ml-1">•<span class="ml-2 font-thin">{{documentCount}} resultados</span></span>
 					{{/if}}
 				</label>
 				<select name="filter" id="filter-select" class="w-48 h-10 px-2 m-0 bg-gray-200">
@@ -124,17 +124,17 @@
 	{{/if}}
 
 	{{!-- Paginación --}}
-	<div class="flex space-x-8 w-full justify-between items-center max-w-[470px] mx-auto mb-4" id="pagination-div">
+	<div class="flex space-x-8 w-full justify-between items-center max-w-[500px] mx-auto mb-4" id="pagination-div">
 		<a id="previous" role="link"
 			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
-			<i class="material-icons inline">chevron_left</i>
+			<i class="inline material-icons">chevron_left</i>
 			Más recientes
 		</a>
 		<div id="page-indicator" class="text-gray-300"></div>
 		<a id="next" role="link"
 			class="text-green-400 flex items-center bold border border-green-400 px-4 py-2 hover:bg-green-400 hover:text-[var(--main-dark-blue)]">
 			Más antiguos
-			<i class="material-icons inline">chevron_right</i>
+			<i class="inline material-icons">chevron_right</i>
 		</a>
 	</div>
 	{{!-- hidden --}}
@@ -178,7 +178,7 @@
 
 	previousLink.setAttribute('href', `/servicios?p=${page - 1}`)
 	nextLink.setAttribute('href', `/servicios?p=${page + 1}`)
-	pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="text-emerald-400 font-bold" href="/servicios?p=${+totalPages - 1}">${totalPages}</a>`
+	pageIndicator.innerHTML = `Página <b">${page + 1}</b> / <a class="font-bold text-emerald-400" href="/servicios?p=${+totalPages - 1}">${totalPages}</a>`
 
 	if (page === 0) {
 		previousLink.setAttribute('aria-disabled', 'true')

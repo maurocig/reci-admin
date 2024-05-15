@@ -61,7 +61,6 @@ router.get('/busqueda', async (req, res) => {
 
 router.get('/buscar', async (req, res) => {
   const { type, field, query } = req.query;
-  console.log(req.query);
   // const { type, field } = query;
 
   if (!type) {
@@ -95,10 +94,25 @@ router.get('/buscar', async (req, res) => {
       return res.render('pages/search-results', { refUnits, type, field, query });
     }
   }
+
   if (type === 'carrocerias') {
-    const bodyKits = await bodyKitsDao.findByField(field, query, 'client');
-    return res.render('pages/search-results', { bodyKits, type, field, query });
+    if (field === 'client') {
+      let bodyKits = [];
+      const clients = await clientsDao.findByField('name', query, 'bodyKits');
+
+      clients.forEach(async (client) => {
+        client.bodyKits.forEach(async (bodyKit) => {
+          bodyKit.client = client;
+        });
+        bodyKits.push(...client.bodyKits);
+      });
+      return res.render('pages/search-results', { bodyKits, type, field, query });
+    } else {
+      const bodyKits = await bodyKitsDao.findByField(field, query, 'client');
+      return res.render('pages/search-results', { bodyKits, type, field, query });
+    }
   }
+
   if (type === 'servicios') {
     let services = [];
     if (field === 'orderNumber') {
