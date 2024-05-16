@@ -105,10 +105,10 @@
 	</section>
 
 	<section class="mt-0">
-		<div class="grid grid-cols-1 gap-8 mb-8 sm:gap-6 md:grid-cols-2">
+		<div class="grid grid-cols-1 gap-8 mb-8 sm:gap-6">
 
 			{{!-- client's refUnits --}}
-			<div>
+			<div class="col-span-1">
 				<h2 class="flex items-center mt-0 subtitle" style="display: flex;">
 					<i class="material-icons icon-clients center"
 						style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">ac_unit</i>
@@ -169,7 +169,6 @@
 					Este cliente no tiene equipos registrados.
 				</h3>
 				{{/if}}
-
 				<a href="/equipos/nuevo/{{client._id}}">
 					<button class="button-success" style="margin-inline: auto;">
 						<i class="material-icons clients-icon center">add</i>
@@ -180,13 +179,14 @@
 
 			{{!-- client's bodyKits --}}
 			<div>
-				<h2 class="mt-0 subtitle" style="display: flex;">
+				<h2 class="flex items-center mt-0 subtitle" style="display: flex; align-items: center;">
 					<i class="material-icons icon-clients center"
 						style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">local_shipping</i>
-					Carrocerías
+					Carrocerías <span class="ml-2 font-thin h-fit text-slate-300">
+						({{bodyKits.length}})</span>
 				</h2>
 				{{#if bodyKits}}
-				<table class="mb-4 overflow-hidden">
+				<table class="mb-4 overflow-hidden ">
 					<tr class="table-headers-row bg-slate-200 hover:bg-slate-300/80">
 						<th class="py-2">N° Serie</th>
 						<th class="py-2">Modelo</th>
@@ -250,7 +250,7 @@
 			</div>
 
 			{{!-- client's latest services --}}
-			<div class="col-span-2">
+			<div class="col-span-1 md:col-span-2">
 				<h2 class="flex items-center mt-0 subtitle" style="display: flex;">
 					<i class="material-icons icon-clients center"
 						style=" display: inline; margin:0 .5rem 0 0; font-size: 1.5rem; align-self: center;">build</i>
