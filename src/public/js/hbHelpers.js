@@ -43,4 +43,10 @@ module.exports = {
   isEmptyOrUndefined: function (value) {
     return value === undefined || value === null || value.length === 0;
   },
+  or: function (v1, v2) {
+    return v1 || v2;
+  },
+  pluralize: function (length, singular, plural) {
+    return length === 1 ? singular : plural;
+  },
 };

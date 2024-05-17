@@ -51,7 +51,8 @@
 				<th class="max-w-[50px]"># Cliente</th>
 			</tr>
 			{{#each clients}}
-			{{#unless (eq this.name "-")}}
+			{{!-- hide test clients --}}
+			{{#unless (or (eq this.name "ZZZ CLIENTE PRUEBA") (eq this.name "-"))}}
 			<tr>
 				<td class="min-w-[120px] max-w-[170px]">
 					<a href="/clientes/{{_id}}"><strong>{{name}} </strong></a>

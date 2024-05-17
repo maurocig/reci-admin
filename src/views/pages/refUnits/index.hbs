@@ -17,23 +17,35 @@
 	<h1 class="title">Equipos</h1>
 
 	{{!-- search --}}
-	<div class="grid items-center justify-between grid-cols-1 gap-0 mb-4 sm:flex sm:gap-4 lg:gap-8">
-		<form action="/equipos/search" method="GET" class="flex flex-col items-start gap-1">
-			<div class="mt-6"></div>
+	<div class="grid items-center justify-between items-end grid-cols-1 gap-0 mb-4 sm:flex sm:gap-4 lg:gap-8">
+		<form action="/buscar" method="GET" class="flex-col h-full items-start gap-1 hidden md:flex">
 			<div class="flex w-full gap-3">
-				<input name="q" placeholder="Buscar Nº serie, modelo"
-					class="inline w-[250px] h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-full"
-					style="margin: 0 !important; padding-inline: 1.2rem;">
+				<div class="flex-col flex gap-1">
+					<label for="search-input" class="text-slate-400">Buscar equipos</label>
+					<input name="query" id="search-input"
+						class="inline w-[200px] h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-lg placeholder-gray-400/70"
+						style="margin: 0 !important; padding-inline: 1.2rem;" placeholder="Ej. ATP1234">
+				</div>
 				</input>
-				<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
-						class="inline text-white material-icons">search</i></button>
+				<div class="flex-col flex gap-1">
+					<label for="field-select" class="text-slate-400">Por</label>
+					<select name="field" id="field-select" class="px-4 bg-slate-100/90 h-full">
+						<option value="plate">Matrícula</option>
+						<option value="serialNumber">Nº de serie</option>
+						<option value="model">Modelo</option>
+						<option value="client">Cliente</option>
+					</select>
+				</div>
+				{{!-- hidden input for type --}}
+				<input id="" type="text" hidden value="equipos" name="type" class="">
+				<button type="submit" class="w-1/4 h-full flex items-end justify-end self-end rounded-full p-2">
+					<i class="text-white material-icons bottom-0">search</i></button>
 			</div>
 		</form>
 
 		{{!-- filter --}}
-		<form id="filter-form" class="flex-col items-center justify-start hidden w-48 gap-1 sm:flex sm:justify-end">
+		<form id="filter-form" class="flex-col items-end h-full justify-end hidden w-48 gap-1 sm:flex">
 			<label for="refUnitsFilter" class="w-full font-normal text-gray-400 w-100">
-
 				{{#if f}}
 				Filtrar <span class="ml-1">•<span class="ml-2 font-thin">{{refUnits.length}} resultados</span></span>
 				{{else}}
@@ -66,7 +78,7 @@
 						{{#if this.plate}}
 						{{this.plate}}
 						{{else}}
-						<span class="text-red-500">No registra</span>
+						<span class="">No registra</span>
 						{{/if}}
 					</a>
 				</td>
@@ -132,6 +144,8 @@
 	<input type="text" hidden value="{{refUnits.length}}" id="refUnits-length">
 
 	<script>
+		// change search placeholder
+
 		// Filter
 		const select = document.getElementById('refUnitsFilter');
 		const filterForm = document.getElementById('filter-form');
@@ -184,6 +198,30 @@
 			nextLink.setAttribute('aria-disabled', 'true');
 			nextLink.classList.add('disable-links', 'text-gray-500', 'border-gray-500');
 		}
+
+		// placeholder on field select change
+		const fieldSelect = document.getElementById('field-select');
+		const searchInput = document.getElementById('search-input');
+
+		fieldSelect.addEventListener('change', (e) => {
+			console.log(fieldSelect.value)
+			switch (fieldSelect.value) {
+				case 'plate':
+					searchInput.placeholder = 'Ej: ATP1234 o 1234';
+					console.log('plate')
+					break;
+				case 'serialNumber':
+					searchInput.placeholder = 'Ej: BCN1234567';
+					console.log('serialNumber')
+					break;
+				case 'model':
+					searchInput.placeholder = 'Ej: V-500';
+					break;
+				case 'client':
+					searchInput.placeholder = 'Ej: Trancigliuti';
+					break;
+			}
+		})
 	</script>
 
 </main>
