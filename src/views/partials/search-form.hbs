@@ -41,10 +41,12 @@
 
 	// get the query params
 	const q = new URLSearchParams(window.location.search);
-	const { query, type = 'todos', field = 'matricula' } = Object.fromEntries(q.entries());
+	const { query, type = 'equipos', field = 'plate' } = Object.fromEntries(q.entries());
 
+	const types = ['equipos', 'carrocerias', 'servicios', 'todos'];
 	let fields = []
-	let selectedType = 'equipos';
+	let selectedType = type || 'equipos';
+	let selectedField = { value: 'plate', label: 'Matrícula' };
 
 	// default fields 
 	switch (type) {
@@ -62,15 +64,7 @@
 			break;
 	}
 
-	fieldSelect.innerHTML = fields.map((f) => {
-		if (f.value === (field || 'plate')) {
-			return `<option value="${f.value}" selected>${f.label}</option>`
-		} else {
-			return `<option value="${f.value}">${f.label}</option>`
-		}
-	})
-
-	typeSelect.innerHTML = ['equipos', 'carrocerias', 'servicios', 'todos'].map((t) => {
+	typeSelect.innerHTML = types.map((t) => {
 		if (t === type) {
 			return `<option value="${t}" selected>${t.charAt(0).toUpperCase() + t.slice(1)}</option>`
 		} else {
@@ -78,7 +72,16 @@
 		}
 	}).join('');
 
+	fieldSelect.innerHTML = fields.map((f) => {
+		if (f.value === (field)) {
+			return `<option value="${f.value}" selected>${f.label}</option>`
+		} else {
+			return `<option value="${f.value}">${f.label}</option>`
+		}
+	}).join('');
+
 	searchInput.value = query || new URLSearchParams(window.location.search).get('q') || '';
+	searchInput.placeholder = `Buscar...`;
 
 	// change fields based on type (select)
 	typeSelect.addEventListener('change', (e) => {
@@ -104,24 +107,17 @@
 		}
 
 		fieldSelect.innerHTML = fields.map((f) => {
-			if (f.value === (field || 'plate')) {
+			if (f.value === (selectedField.value)) {
 				return `<option value="${f.value}" selected>${f.label}</option>`
 			} else {
 				return `<option value="${f.value}">${f.label}</option>`
 			}
 		})
 			.join('');
-
 	})
 
 	function lowerFirstLetter(str) {
 		return str.charAt(0).toLowerCase() + str.slice(1);
 	}
-
-	// update the input placeholder when a field is selected
-	fieldSelect.addEventListener('change', (e) => {
-		const field = fields.find((f) => f.value === e.target.value);
-		searchInput.placeholder = `Buscar ${selectedType} por ${lowerFirstLetter(field.label)} `;
-	});
 
 </script>

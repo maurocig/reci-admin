@@ -12,21 +12,37 @@
 
 	<div class="grid items-center justify-between grid-cols-1 gap-0 mb-4 sm:flex sm:gap-4 lg:gap-8">
 		{{!-- Buscar servicio --}}
-		<form action="/servicios/search" method="GET" class="flex flex-col items-start gap-1">
-			<div class="mt-6"></div>
+		<form action="/buscar" method="GET" class="flex-col h-full items-start gap-1 hidden md:flex">
 			<div class="flex w-full gap-3">
-				<input name="q" placeholder="N° de Orden" type="text"
-					class="inline w-3/4 w-full h-10 px-4 m-0 mb-0 bg-gray-200 rounded-full" style="margin: 0 !important;">
+				<div class="flex-col flex gap-1">
+					<label for="search-input" class="text-slate-400">Buscar servicios</label>
+					<input name="query" id="search-input"
+						class="inline w-[200px] h-10 px-2 m-0 mx-auto mb-0 bg-gray-200 rounded-lg placeholder-gray-400/70"
+						style="margin: 0 !important; padding-inline: 1.2rem;" placeholder="Ej. ATP1234">
+				</div>
 				</input>
-				<button type="submit inline w-1/4 ml-2 bg-green-400 self-center rounded-full p-2"><i
-						class="inline text-white material-icons">search</i></button>
+				<div class="flex-col flex gap-1">
+					<label for="field-select" class="text-slate-400">Por</label>
+					<select name="field" id="field-select" class="px-4 bg-slate-100/90 h-full">
+						<option value="plate">Matrícula</option>
+						<option value="orderNumber">Nº de Orden</option>
+						<option value="serialNumber">Nº de serie</option>
+						<option value="model">Modelo</option>
+						<option value="client">Cliente</option>
+					</select>
+				</div>
+				{{!-- hidden input for type --}}
+				<input id="" type="text" hidden value="servicios" name="type" class="">
+				<button type="submit" class="w-1/4 h-full flex items-end justify-end self-end rounded-full p-2">
+					<i class="text-white material-icons bottom-0">search</i></button>
 			</div>
 		</form>
 
 		<div class="flex gap-4">
 			{{!-- service type selector --}}
 			<div class="flex-col items-center hidden gap-1 sm:flex w-30">
-				<label for="service-type-select" class="w-full font-normal text-gray-400">&nbsp;</label>
+				{{!-- <label for="service-type-select" class="w-full font-normal text-gray-400">&nbsp;</label> --}}
+				<label for="service-type-select" class="w-full text-gray-400">Tipo de servicio</label>
 				<select name="" id="service-type-select" class="w-40 h-10 px-2 m-0 bg-gray-200">
 					<option value="servicios">Equipos de frío</option>
 					<option value="servicios-carrocerias">Carrocerías</option>
@@ -35,7 +51,7 @@
 
 			{{!-- filter --}}
 			<form id="filter-form" class="flex-col items-center justify-start hidden w-48 gap-1 sm:flex sm:justify-end">
-				<label for="servicesFilter" class="w-full font-normal text-gray-400 w-100">
+				<label for="servicesFilter" class="w-full text-gray-400 w-100">
 
 					{{#if filter}}
 					Filtrar <span class="ml-1">•<span class="ml-2 font-thin">{{services.length}} resultados</span></span>
