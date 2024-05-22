@@ -5,6 +5,14 @@
 				<img src='/assets/logo.png' alt='' />
 			</div>
 		</a>
+		<div class='items-center justify-between hidden sm:flex sm:w-1/2'>
+			<a class='nav-link' href='/clientes'>Clientes</a>
+			<a class='nav-link' href='/equipos'>Equipos</a>
+			<a class='nav-link' href='/carrocerias'>Carrocerias</a>
+			<a class='nav-link' href='/servicios'>Servicios</a>
+			<a class='nav-link' href='/tareas'>Tareas</a>
+			{{!-- <a class="nav-link material-icons" href="/auth/logout" style="color: #C50C00; border-bottom: none;">logout</a> --}}
+		</div>
 		<div>
 			<form action="/buscar" method="GET" class="flex items-center gap-2">
 				<input type="text" hidden value="todos" name="type">
@@ -17,14 +25,6 @@
 						class="inline text-slate-800 material-icons">search</i></button>
 			</form>
 		</div>
-		<div class='items-center justify-between hidden sm:flex sm:w-1/2'>
-			<a class='nav-link' href='/clientes'>Clientes</a>
-			<a class='nav-link' href='/equipos'>Equipos</a>
-			<a class='nav-link' href='/carrocerias'>Carrocerias</a>
-			<a class='nav-link' href='/servicios'>Servicios</a>
-			<a class='nav-link' href='/tareas'>Tareas</a>
-			{{!-- <a class="nav-link material-icons" href="/auth/logout" style="color: #C50C00; border-bottom: none;">logout</a> --}}
-		</div>
 	</div>
 </nav>
 
@@ -35,4 +35,9 @@
 			link.classList.add('nav-link-active');
 		}
 	});
+
+	// hide nav links on home page
+	if (window.location.pathname === '/') {
+		navLinks.forEach(link => link.style.display = 'none');
+	}
 </script>
