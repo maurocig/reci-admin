@@ -19,7 +19,18 @@ const bodyKitSchema = new Schema(
     services: [{ type: Schema.Types.ObjectId, ref: 'bodykitServices', sparse: true }],
     pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },
-    warrantyDate: { type: Date || null, default: undefined },
+    warrantyDate: { type: Date, default: null },
+    // new fields v1.4
+    provider: { type: String, uppercase: true, required: true },
+    status: { type: String, enum: ['producción', 'en taller', 'entregado'] },
+    dimensions: { type: String, default: null },
+    deliveryEstimate: { type: Date, default: null },
+    // priority: { type: String, enum: ['baja', 'media', 'alta', null], default: null },
+    availability: { type: String, enum: ['vendida', 'stock'], default: 'vendida' },
+    truckBrand: { type: String, uppercase: true, default: null },
+    truckModel: { type: String, uppercase: true, default: null },
+    wheelbase: { type: Number, default: null }, // Distancia entre ejes
+    observations: { type: String, uppercase: true, default: null },
   },
   {
     timestamps: true,

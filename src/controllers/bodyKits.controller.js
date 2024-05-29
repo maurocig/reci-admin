@@ -37,26 +37,47 @@ class BodyKitsController {
 
   async saveBodyKit(req, res, next) {
     try {
-      let { serialNumber, model, client, plate, soldByReci, warrantyDate, chassis } = req.body;
+      let {
+        serialNumber,
+        model,
+        provider,
+        client,
+        plate,
+        soldByReci,
+        warrantyDate,
+        chassis,
+        status,
+        // priority,
+        dimensions,
+        deliveryEstimate,
+        availability,
+        truckBrand,
+        truckModel,
+        wheelbase,
+        observations,
+      } = req.body;
 
       if (plate === '') plate = null;
 
       const bodyKit = {
         serialNumber: serialNumber.toUpperCase(),
         model,
+        provider,
         client,
         plate,
         soldByReci,
         chassis: chassis.toUpperCase(),
         services: [],
+        status,
+        // priority,
+        dimensions,
+        deliveryEstimate,
+        availability,
+        truckBrand,
+        truckModel,
+        wheelbase,
+        observations,
       };
-
-      if (warrantyDate) {
-        const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
-        bodyKit.warrantyDate = formattedWarrantyDate;
-      } else {
-        bodyKit.warrantyDate = null;
-      }
 
       //  check if plate already exists.
       if (plate) {
@@ -68,6 +89,22 @@ class BodyKitsController {
           error.status = HTTP_STATUS.BAD_REQUEST;
           throw error;
         }
+      }
+
+      if (warrantyDate) {
+        const formattedWarrantyDate = moment(warrantyDate)
+          .tz('America/Montevideo')
+          .format('YYYY/MM/DD');
+        bodyKit.warrantyDate = formattedWarrantyDate;
+      } else {
+        bodyKit.warrantyDate = null;
+      }
+
+      if (deliveryEstimate) {
+        const formattedDeliveryEstimate = moment(deliveryEstimate)
+          .tz('America/Montevideo')
+          .format('YYYY/MM/DD');
+        bodyKit.deliveryEstimate = formattedDeliveryEstimate;
       }
 
       const newBodyKitId = await bodyKitsDao.save(bodyKit);
@@ -108,7 +145,24 @@ class BodyKitsController {
   async updateBodyKit(req, res, next) {
     const { id } = req.params;
 
-    let { serialNumber, model, plate, warrantyDate, soldByReci, chassis } = req.body;
+    let {
+      serialNumber,
+      provider,
+      model,
+      plate,
+      warrantyDate,
+      soldByReci,
+      chassis,
+      status,
+      // priority,
+      dimensions,
+      deliveryEstimate,
+      availability,
+      truckBrand,
+      truckModel,
+      wheelbase,
+      observations,
+    } = req.body;
 
     if (plate === '') plate = null;
     if (!soldByReci) warrantyDate = null;
@@ -117,17 +171,37 @@ class BodyKitsController {
       const updatedBodyKit = {
         serialNumber: serialNumber.toUpperCase(),
         model,
+        provider,
         plate,
         soldByReci,
         chassis: chassis.toUpperCase(),
+        status,
+        // priority,
+        dimensions,
+        deliveryEstimate,
+        availability,
+        truckBrand,
+        truckModel,
+        wheelbase,
+        observations,
       };
 
       if (warrantyDate) {
-        const formattedWarrantyDate = moment(warrantyDate).tz('GMT').format('YYYY/MM/DD');
+        const formattedWarrantyDate = moment(warrantyDate)
+          .tz('America/Montevideo')
+          .format('YYYY/MM/DD');
         updatedBodyKit.warrantyDate = formattedWarrantyDate;
       } else {
         updatedBodyKit.warrantyDate = null;
       }
+
+      if (deliveryEstimate) {
+        const formattedDeliveryEstimate = moment(deliveryEstimate)
+          .tz('America/Montevideo')
+          .format('YYYY/MM/DD');
+        updatedBodyKit.deliveryEstimate = formattedDeliveryEstimate;
+      }
+
       await bodyKitsDao.update(mongoose.Types.ObjectId(id), updatedBodyKit);
       // await bodyKitsDao.update(id, updatedBodyKit);
       await res.json(id);

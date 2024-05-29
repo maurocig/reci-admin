@@ -50,6 +50,11 @@
 				<input type="text" id="plate-number" name="plate" value="{{bodyKit.plate}}" class="uppercase" maxlength=12 />
 			</div>
 			<div class="form-field">
+				<label for="provider-input">Proveedor <span class="text-red-500">*</span></label>
+				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
+				<input type="text" id="provider-input" value="{{bodyKit.provider}}">
+			</div>
+			<div class="form-field">
 				<label for="model">Modelo <span class="text-red-500">*</span></label>
 				<input id="model" type="text" name="model" value="{{bodyKit.model}}" class="uppercase">
 			</div>
@@ -84,6 +89,56 @@
 				<label for="chassis">Nº Chasis</label>
 				<input type="text" id="chassis-input" name="chassis" placeholder="" style="text-transform: uppercase;"
 					value={{bodyKit.chassis}}>
+			</div>
+
+			{{!-- New fields --}}
+			<div class="form-field">
+				<label for="status-select">Estado</label>
+				<select id="status-select" name="status">
+					{{#if (eq bodyKit.status "producción")}}
+					<option value="producción" selected>En producción</option>
+					<option value="en taller">En taller RECI</option>
+					<option value="entregado">Entregado</option>
+					{{/if}}
+					{{#if (eq bodyKit.status "en taller")}}
+					<option value="producción">En producción</option>
+					<option value="en taller" selected>En taller RECI</option>
+					<option value="entregado">Entregado</option>
+					{{else}}
+					<option value="producción">En producción</option>
+					<option value="en taller">En taller RECI</option>
+					<option value="entregado" selected>Entregado</option>
+					{{/if}}
+				</select>
+			</div>
+			{{!-- <div class="form-fiend">
+				<label for="priority-select">Prioridad de entrega</label>
+				<select name="priority" id="priority-select">
+					<option value="alta">Alta</option>
+					<option value="media">Media</option>
+					<option value="baja">Baja</option>
+				</select>
+			</div> --}}
+			<div class="form-field">
+				<label for="deliveryestimate-input">Fecha de entrega estimada</label>
+				<input type="date" id="deliveryestimate-input">
+			</div>
+			<div class="form-field">
+				<label for="truckbrand-input">Marca del camión</label>
+				<input name="truckBrand" id="truckbrand-input" value="{{bodyKit.truckBrand}}" />
+			</div>
+			<div class="form-field">
+				<label for="truckmodel-input">Modelo del camión</label>
+				<input type="text" name="truckModel" id="truckmodel-input" value="{{bodyKit.truckModel}}">
+			</div>
+			<div class="form-field">
+				<label for="wheelbase-input">Dist. entre ejes (cm)</label>
+				<input type="number" step="1" min="0" value={{bodyKit.wheelbase}}>
+			</div>
+			<div class="form-field">
+				<label for="observations-input">Accesorios y observaciones</label>
+				<textarea name="observations" id="observations-input"
+					class="w-full h-[38px]">{{bodyKit.observations}}</textarea>
 			</div>
 		</div>
 		<button id="submit-button" class="button-success button-form" role="submit">Guardar</button>

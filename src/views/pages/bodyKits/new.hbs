@@ -50,29 +50,31 @@
 					maxlength=12 {{!-- required maxlength="7" pattern="^[A-Za-z]{1,3}[0-9]{1,4}" /> --}} />
 			</div>
 			<div class="form-field">
-				<label for="model">Modelo <span class="text-red-500">*</span></label>
+				<label for="select-provider">Proveedor <span class="text-red-500">*</span></label>
 				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
-				<select name="model" id="select-model" required>
+				<select name="provider" id="select-provider" required>
 					<option value="" disabled selected>Seleccionar</option>
 					<option value="liderkit">Liderkit</option>
-					<option value="liderkit-isotermo">Liderkit Isotermo</option>
-					<option value="liderkit-poliester">Liderkit Poliéster</option>
-					<option value="liderkit-aluminio">Liderkit Aluminio</option>
-					<option value="liderkit-botellero">Liderkit Botellero</option>
 					<option value="fibrasil">Fibrasil</option>
-					<option value="fibrasil-isotermo">Fibrasil Isotermo</option>
-					<option value="fibrasil-heladero">Fibrasil Heladero</option>
-					<option value="hc-hornburg">HC Hornburg</option>
-					<option value="hc-hornburg-pallet">HC Hornburg Pallet</option>
-					<option value="hc-hornburg-ganchera">HC Hornburg Ganchera</option>
-					<option value="hc-hornburg-supercongelados">HC Hornburg Supercongelados</option>
-					<option value="hc-hornburg-semirremolque">HC Hornburg Semirremolque</option>
 					<option value="niju">Niju</option>
-					<option value="niju-semirremolque">Niju Semirremolque</option>
+					<option value="recrusul">Recrusul</option>
 				</select>
 			</div>
 			<div class="form-field">
-				<label for="soldByReci">Venta RECI <span class="text-red-500">*</span></label>
+				<label for="select-model">Modelo <span class="text-red-500">*</span></label>
+				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
+				<select name="model" id="select-model" required>
+					<option value="" disabled selected>Seleccionar</option>
+					<option value="isotermo">Isotermo</option>
+					<option value="poliester">Poliéster</option>
+					<option value="aluminio">Aluminio</option>
+					<option value="botellero">Botellero</option>
+					<option value="heladero">Heladero</option>
+					<option value="semirremolque">Semirremolque</option>
+				</select>
+			</div>
+			<div class="form-field">
+				<label for="soldByReciSelect">Venta RECI <span class="text-red-500">*</span></label>
 				<select name="soldByReci" id="soldByReciSelect" required>
 					<option value="" disabled selected>Seleccionar</option>
 					<option value="true">Si</option>
@@ -80,14 +82,67 @@
 				</select>
 			</div>
 			<div class="form-field">
-				<label for="hours">Fecha límite de garantía: <span class="text-red-500">*</span></label>
+				<label for="warranty-date">Fecha límite de garantía: <span class="text-red-500">*</span></label>
 				<input type="date" id="warranty-date" name="warrantyDate" placeholder="" />
 			</div>
 			<div class="form-field">
-				<label for="chassis">Nº Chasis</label>
+				<label for="chassis-input">Nº Chasis</label>
 				<input type="text" id="chassis-input" name="chassis" placeholder="" style="text-transform: uppercase;">
 			</div>
+			{{!-- New fields --}}
+			<div class="form-field">
+				<label for="status-select">Estado</label>
+				<select id="status-select" name="status">
+					<option selected disabled>Seleccionar</option>
+					<option value="producción">En producción</option>
+					<option value="en taller">En taller RECI</option>
+					<option value="entregado">Entregado</option>
+				</select>
+			</div>
+			{{!-- <div class="form-fiend">
+				<label for="priority-select">Prioridad de entrega</label>
+				<select name="priority" id="priority-select">
+					<option value="alta">Alta</option>
+					<option value="media">Media</option>
+					<option value="baja">Baja</option>
+				</select>
+			</div> --}}
+			<div class="form-field">
+				<label for="deliveryestimate-input">Fecha de entrega estimada</label>
+				<input type="date" id="deliveryestimate-input">
+			</div>
+			<div class="form-field">
+				<label for="truckbrand-select">Marca del camión</label>
+				<select name="truckBrand" id="truckbrand-select">
+					<option selected disabled>Seleccionar</option>
+					<option value="Volkswagen">Volkswagen</option>
+					<option value="Mercedes">Mercedes</option>
+					<option value="Hyundai">Hyundai</option>
+					<option value="JAC">JAC</option>
+					<option value="Foton">Foton</option>
+					<option value="JMC">JMC</option>
+					<option value="Sinotruk">Sinotruk</option>
+					<option value="Volvo">Volvo</option>
+					<option value="Scania">Scania</option>
+					<option value="Iveco">Iveco</option>
+					<option value="Ford">Ford</option>
+					<option value="Otro">Otro (avisar a mauro)</option>
+				</select>
+			</div>
+			<div class="form-field">
+				<label for="truckmodel-input">Modelo del camión</label>
+				<input type="text" name="truckModel" id="truckmodel-input">
+			</div>
+			<div class="form-field">
+				<label for="wheelbase-input">Dist. entre ejes (cm)</label>
+				<input type="number" step="1" min="0">
+			</div>
+			<div class="form-field">
+				<label for="observations-input">Accesorios y observaciones</label>
+				<textarea name="observations" id="observations-input" class="w-full h-[38px]"></textarea>
+			</div>
 		</div>
+
 
 		<div class="w-full flex justify-end">
 			<button class="button-success" role="submit" id="submit-button">Guardar</button>
@@ -169,4 +224,5 @@
 	document.getElementById('warranty-date').addEventListener('click', function () {
 		document.getElementById('warranty-date').value = nextYearDate;
 	});
+
 </script>

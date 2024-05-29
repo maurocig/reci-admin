@@ -1,6 +1,14 @@
 // toggle warranty date disable on soldByReci selector change.
 const soldByReciSelect = document.querySelector('#soldByReciSelect');
 const warrantyDateInput = document.querySelector('#warranty-date');
+const statusSelect = document.getElementById('status-select');
+const deliveryEstimateInput = document.getElementById('deliveryestimate-input');
+const availabilitySelect = document.getElementById('availability-select');
+const plateInput = document.querySelector('#plate-number');
+const serialNumberInput = document.querySelector('#serial-number');
+const modelInput = document.querySelector('#select-model');
+const clientIdInput = document.querySelector('#client-id');
+const chassisInput = document.querySelector('#chassis-input');
 
 soldByReciSelect.addEventListener('change', (e) => {
   soldByReci = soldByReciSelect.value === 'true';
@@ -15,11 +23,21 @@ soldByReciSelect.addEventListener('change', (e) => {
   }
 });
 
-const plateInput = document.querySelector('#plate-number');
-const serialNumberInput = document.querySelector('#serial-number');
-const modelInput = document.querySelector('#select-model');
-const clientIdInput = document.querySelector('#client-id');
-const chassisInput = document.querySelector('#chassis-input');
+// disable fields when status is 'entregado'
+statusSelect.addEventListener('change', function () {
+  const status = statusSelect.value;
+  if (status === 'entregado') {
+    deliveryEstimateInput.disabled = true;
+    deliveryEstimateInput.classList.add('disabled-select');
+  } else {
+    deliveryEstimateInput.disabled = false;
+    deliveryEstimateInput.classList.remove('disabled-select');
+  }
+});
+
+// estimated delivery date input only allows future dates
+const todayString = new Date().toISOString().split('T')[0];
+deliveryEstimateInput.min = todayString;
 
 // handle submit
 const form = document.querySelector('#form-new-bodykit');
