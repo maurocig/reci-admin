@@ -64,7 +64,11 @@
 					</tr>
 					<tr>
 						<th>Proveedor</th>
+						{{#if provider}}
 						<td> {{bodyKit.provider}} </td>
+						{{else}}
+						<td>No registra</td>
+						{{/if}}
 					</tr>
 					<tr>
 						<th>Modelo</th>
@@ -84,27 +88,33 @@
 						{{#if bodyKit.observations}}
 						<td>{{bodyKit.observations}}</td>
 						{{else}}
-						No registra
+						<td>
+							No registra
+						</td>
 						{{/if}}
 					</tr>
 					<tr>
 						<th>Estado</th>
+						{{#if bodyKit.status}}
 						<td>{{bodyKit.status}}</td>
+						{{else}}
+						<td>No registra</td>
+						{{/if}}
 					</tr>
-					{{#if (neq bodyKit.status 'Entregada')}}
+					{{#if (or (eq bodyKit.status 'Entregada') (isEmptyOrUndefined bodyKit.status)) }}
 					<tr>
-						<th>Entrega estimada</th>
-						{{#if bodyKit.deliveryEstimate}}
-						<td>{{formatDate bodyKit.deliveryEstimate}}</td>
+						<th>Límite de garantía</th>
+						{{#if bodyKit.warrantyDate}}
+						<td>{{formatDate bodyKit.warrantyDate}}</td>
 						{{else}}
 						<td>No ingresada</td>
 						{{/if}}
 					</tr>
 					{{else}}
 					<tr>
-						<th>Límite de garantía</th>
-						{{#if bodyKit.warrantyDate}}
-						<td>{{formatDate bodyKit.warrantyDate}}</td>
+						<th>Entrega estimada</th>
+						{{#if bodyKit.deliveryEstimate}}
+						<td>{{formatDate bodyKit.deliveryEstimate}}</td>
 						{{else}}
 						<td>No ingresada</td>
 						{{/if}}
