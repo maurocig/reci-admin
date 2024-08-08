@@ -13,7 +13,7 @@ const bodyKitSchema = new Schema(
       required: true,
     },
     serialNumber: { type: String, unique: true, required: true },
-    plate: { type: String, unique: true, uppercase: true, required: false }, // unique validation doesn't work, check happens server side on bodyKits.controller.js saveBodyKit.
+    plate: { type: String, unique: true, uppercase: true, required: false, sparse: true }, // unique validation doesn't work, check happens server side on bodyKits.controller.js saveBodyKit.
     provider: { type: String, uppercase: true, required: true },
     model: { type: String, uppercase: true, required: true },
     soldByReci: { type: Schema.Types.Boolean },
