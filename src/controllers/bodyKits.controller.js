@@ -38,45 +38,45 @@ class BodyKitsController {
   async saveBodyKit(req, res, next) {
     try {
       let {
-        serialNumber,
-        model,
-        provider,
         client,
+        serialNumber,
         plate,
+        provider,
+        model,
         soldByReci,
         warrantyDate,
         chassis,
         status,
-        // priority,
-        dimensions,
+        // availability,
         deliveryEstimate,
-        availability,
         truckBrand,
         truckModel,
         wheelbase,
+        dimensions: { length, width, height },
         observations,
       } = req.body;
 
       if (plate === '') plate = null;
 
       const bodyKit = {
-        serialNumber: serialNumber.toUpperCase(),
-        model,
-        provider,
         client,
+        serialNumber: serialNumber.toUpperCase(),
         plate,
+        provider,
+        model,
         soldByReci,
+        warrantyDate,
         chassis: chassis.toUpperCase(),
-        services: [],
         status,
-        // priority,
-        dimensions,
+        // availability,
         deliveryEstimate,
-        availability,
         truckBrand,
-        truckModel,
+        truckModel: truckModel.toUpperCase(),
         wheelbase,
-        observations,
+        dimensions: { length, width, height },
+        observations: observations.toUpperCase(),
+        services: [],
+        pendingTasks: [],
       };
 
       //  check if plate already exists.
@@ -84,8 +84,8 @@ class BodyKitsController {
         const bodyKits = await bodyKitsDao.findByField('plate', plate, 'client');
 
         if (bodyKits.length > 0) {
-          const error = new Error('La placa ya existe');
-          console.log('error matrícula duplicada: ', error);
+          const error = new Error('La matrícula ya existe');
+          console.log('Error matrícula duplicada: ', error);
           error.status = HTTP_STATUS.BAD_REQUEST;
           throw error;
         }
@@ -156,8 +156,8 @@ class BodyKitsController {
       status,
       // priority,
       dimensions,
-      deliveryEstimate,
       availability,
+      deliveryEstimate,
       truckBrand,
       truckModel,
       wheelbase,
@@ -171,15 +171,15 @@ class BodyKitsController {
       const updatedBodyKit = {
         serialNumber: serialNumber.toUpperCase(),
         model,
-        provider,
         plate,
+        provider,
         soldByReci,
         chassis: chassis.toUpperCase(),
         status,
         // priority,
         dimensions,
-        deliveryEstimate,
         availability,
+        deliveryEstimate,
         truckBrand,
         truckModel,
         wheelbase,

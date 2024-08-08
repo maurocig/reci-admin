@@ -20,7 +20,8 @@
 		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
 		<button class="flex items-center text-slate-200 cursor-text ">
 			<span class="button-icon-container">
-				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">local_shipping</i>
+				<i class="material-icons icon-clients center"
+					style="display: inline; margin-right: .5rem;">local_shipping</i>
 			</span>
 			Nueva carrocería
 		</button>
@@ -29,91 +30,102 @@
 	<i class="material-icons icon-clients center"
 		style="font-size: 70px; display: block; margin-bottom: .2rem;">local_shipping</i>
 	<h1 class="title">Nueva carrocería</h1>
+
 	<form class="form-container" action="/carrocerias" method="post" id="form-new-bodykit">
 		<div class="grid gap-8 mb-4 sm:grid-cols-2 lg:grid-cols-3">
 			<div class="form-field">
 				<label for="client">Nombre de Cliente</label>
 				<input type="text" name="clientName" value="{{clientName}}" style="text-transform: uppercase;" readonly />
 			</div>
-			<div class="form-field">
+			<div class="form-field hidden">
 				<label for="client">ID Cliente</label>
 				<input type="text" id="client-id" name="client" value="{{clientId}}" readonly />
 			</div>
 			<div class="form-field">
-				<label for="name">Nº Serie <span class="text-red-500">*</span></label>
-				<input type="text" class="uppercase" pattern="[A-Za-z0-9]+" name="serialNumber" placeholder="0000000000"
-					id="serial-number" maxlength="17" required />
+				<label for="serial-input">Nº Serie <span class="text-red-500">*</span></label>
+				<input type="text" class="uppercase" pattern="[A-Za-z0-9]+" name="serialNumber" id="serial-input"
+					maxlength="17" required />
 			</div>
 			<div class="form-field">
-				<label for="plate-number">Matrícula <span class="text-yellow-500">*</span></label>
-				<input type="text" id="plate-number" name="plate" placeholder="ATP1234" style="text-transform: uppercase;"
+				<label for="plate-input">Matrícula <span class="text-yellow-500">*</span></label>
+				<input type="text" id="plate-input" name="plate" placeholder="ATP1234" style="text-transform: uppercase;"
 					maxlength=12 {{!-- required maxlength="7" pattern="^[A-Za-z]{1,3}[0-9]{1,4}" /> --}} />
 			</div>
 			<div class="form-field">
-				<label for="select-provider">Proveedor <span class="text-red-500">*</span></label>
-				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
-				<select name="provider" id="select-provider" required>
-					<option value="" disabled selected>Seleccionar</option>
-					<option value="liderkit">Liderkit</option>
-					<option value="fibrasil">Fibrasil</option>
-					<option value="niju">Niju</option>
-					<option value="recrusul">Recrusul</option>
-				</select>
-			</div>
-			<div class="form-field">
-				<label for="select-model">Modelo <span class="text-red-500">*</span></label>
-				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
-				<select name="model" id="select-model" required>
-					<option value="" disabled selected>Seleccionar</option>
-					<option value="isotermo">Isotermo</option>
-					<option value="poliester">Poliéster</option>
-					<option value="aluminio">Aluminio</option>
-					<option value="botellero">Botellero</option>
-					<option value="heladero">Heladero</option>
-					<option value="semirremolque">Semirremolque</option>
-				</select>
-			</div>
-			<div class="form-field">
-				<label for="soldByReciSelect">Venta RECI <span class="text-red-500">*</span></label>
-				<select name="soldByReci" id="soldByReciSelect" required>
+				<label for="soldByReci-select">Venta RECI <span class="text-red-500">*</span></label>
+				<select name="soldByReci" id="soldByReci-select" required>
 					<option value="" disabled selected>Seleccionar</option>
 					<option value="true">Si</option>
 					<option value="false">No</option>
 				</select>
 			</div>
 			<div class="form-field">
-				<label for="warranty-date">Fecha límite de garantía: <span class="text-red-500">*</span></label>
-				<input type="date" id="warranty-date" name="warrantyDate" placeholder="" />
+				<label for="provider-select">Proveedor <span class="text-red-500">*</span></label>
+				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
+				<select name="provider" id="provider-select" required>
+					<option value="" disabled selected>Seleccionar</option>
+					<option value="liderkit">Liderkit</option>
+					<option value="fibrasil">Fibrasil</option>
+					<option value="niju">Niju</option>
+					<option value="recrusul">Recrusul</option>
+					<option value="otro">Otro</option>
+				</select>
 			</div>
+			<div class="form-field">
+				<label for="model-select">Modelo <span class="text-red-500">*</span></label>
+				<select name="model" id="model-select" required>
+					<option value="" disabled selected>Seleccionar</option>
+					<option value="isotermo">Isotermo</option>
+					<option value="poliester">Poliéster</option>
+					<option value="aluminio">Aluminio</option>
+					<option value="botellero">Botellero</option>
+					<option value="heladero">Heladero</option>
+					<option value="placas euteticas">Heladero con Placas eutécticas</option>
+					<option value="semirremolque">Semirremolque</option>
+					<option value="otro">Otro</option>
+				</select>
+			</div>
+			<div class="form-field">
+				<label for="status-select">Estado <span class="text-red-500">*</span></label>
+				<select id="status-select" name="status" required>
+					<option value="" disabled selected>Seleccionar</option>
+					<option value="Producción">En producción (España)</option>
+					<option value="Arribada">Arribada (Reci)</option>
+					<option value="Entregada">Entregada</option>
+				</select>
+			</div>
+			<div class="">
+				<label for="">Dimensiones (cm)</label>
+				<div class="grid-cols-3 gap-3 grid">
+					<div class="flex gap-2 items-center max-w-fit">
+						<span>L:</span>
+						<input type="number" step="1" id="dimensions-length-input"
+							style="margin-right:0 !important; margin-bottom: 0 !important;">
+					</div>
+					<div class="flex gap-2 items-center max-w-fit">
+						<span>An:</span>
+						<input type="number" step="1" id="dimensions-width-input"
+							style="margin-right:0 !important; margin-bottom: 0 !important;">
+					</div>
+					<div class="flex gap-2 items-center">
+						<span for="">Alt:</span>
+						<input type="number" step="1" id="dimensions-height-input"
+							style="margin-right: 0 !important; margin-bottom: 0 !important;">
+					</div>
+				</div>
+			</div>
+			<div class="form-field">
+				<label for="wheelbase-input">Dist. entre ejes (cm)</label>
+				<input type="number" id="wheelbase-input" step="1" min="0">
+			</div>
+			{{!-- <div class="hidden lg:block"></div> --}}
 			<div class="form-field">
 				<label for="chassis-input">Nº Chasis</label>
 				<input type="text" id="chassis-input" name="chassis" placeholder="" style="text-transform: uppercase;">
 			</div>
-			{{!-- New fields --}}
 			<div class="form-field">
-				<label for="status-select">Estado</label>
-				<select id="status-select" name="status">
-					<option selected disabled>Seleccionar</option>
-					<option value="producción">En producción</option>
-					<option value="en taller">En taller RECI</option>
-					<option value="entregado">Entregado</option>
-				</select>
-			</div>
-			{{!-- <div class="form-fiend">
-				<label for="priority-select">Prioridad de entrega</label>
-				<select name="priority" id="priority-select">
-					<option value="alta">Alta</option>
-					<option value="media">Media</option>
-					<option value="baja">Baja</option>
-				</select>
-			</div> --}}
-			<div class="form-field">
-				<label for="deliveryestimate-input">Fecha de entrega estimada</label>
-				<input type="date" id="deliveryestimate-input">
-			</div>
-			<div class="form-field">
-				<label for="truckbrand-select">Marca del camión</label>
-				<select name="truckBrand" id="truckbrand-select">
+				<label for="truckBrand-select">Marca del camión</label>
+				<select name="truckBrand" id="truckBrand-select">
 					<option selected disabled>Seleccionar</option>
 					<option value="Volkswagen">Volkswagen</option>
 					<option value="Mercedes">Mercedes</option>
@@ -130,22 +142,37 @@
 				</select>
 			</div>
 			<div class="form-field">
-				<label for="truckmodel-input">Modelo del camión</label>
-				<input type="text" name="truckModel" id="truckmodel-input">
+				<label for="truckModel-input">Modelo del camión</label>
+				<input type="text" name="truckModel" id="truckModel-input" class="uppercase">
+			</div>
+
+			<div class="form-field">
+				<label for=" observations-input">Accesorios y observaciones</label>
+				<textarea name="observations" id="observations-input"
+					class="w-full p-2 h-[38px] text-black uppercase"></textarea>
+			</div>
+			{{!-- <div class="form-field">
+				<label for="availability-input">Disponibilidad</label>
+				<select name="availability" id="">
+					<option value="" selected disabled>Seleccionar</option>
+					<option value="sold">Vendido</option>
+					<option value="stock" disabled>Stock</option>
+				</select>
+			</div> --}}
+			<div class="form-field">
+				<label for="warranty-input">Fecha límite de garantía: <span class="text-red-500"
+						id="warranty-asterisk">*</span></label>
+				<input type="date" id="warranty-input" name="warrantyDate" placeholder="" required />
 			</div>
 			<div class="form-field">
-				<label for="wheelbase-input">Dist. entre ejes (cm)</label>
-				<input type="number" step="1" min="0">
-			</div>
-			<div class="form-field">
-				<label for="observations-input">Accesorios y observaciones</label>
-				<textarea name="observations" id="observations-input" class="w-full h-[38px]"></textarea>
+				<label for="deliveryEstimate-input">Fecha de entrega estimada</label>
+				<input type="date" id="deliveryEstimate-input">
 			</div>
 		</div>
 
 
 		<div class="w-full flex justify-end">
-			<button class="button-success" role="submit" id="submit-button">Guardar</button>
+			<button class="button-success mt-4" role="submit" id="submit-button">Guardar</button>
 		</div>
 	</form>
 </main>
@@ -154,9 +181,23 @@
 <script src="{{script}}"></script>
 {{/each}}
 
-<script>
+<script type="module">
+
+	// set warranty date to following year when clicked
+	let date = new Date();
+	date.setFullYear(date.getFullYear() + 1);
+
+	let day = ("0" + date.getDate()).slice(-2);
+	let month = ("0" + (date.getMonth() + 1)).slice(-2);
+
+	let nextYearDate = date.getFullYear() + "-" + (month) + "-" + (day);
+
+	document.getElementById('warranty-input').addEventListener('click', function () {
+		document.getElementById('warranty-input').value = nextYearDate;
+	});
+
 	// special characters not allowed on serial number
-	document.getElementById('serial-number').addEventListener('keypress', function (e) {
+	document.getElementById('serial-input').addEventListener('keypress', function (e) {
 		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
 		if (!matches) {
 			e.preventDefault();
@@ -164,7 +205,7 @@
 	});
 
 	// special characters not allowed on license plate
-	document.getElementById('plate-number').addEventListener('keypress', function (e) {
+	document.getElementById('plate-input').addEventListener('keypress', function (e) {
 		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
 		if (!matches) {
 			e.preventDefault();
@@ -179,6 +220,45 @@
 		}
 	});
 
+	// verify plate number
+	const isPlateNumber = (number) => {
+		const plateNumberRegex = /^[A-Za-z]{3}\d{4}$/;
+		const brasilPlateNumberRegex = /^[A-Za-z]{1}\d{6}$/;
+		let matches =
+			plateNumberRegex.test(plateNumberInput.value) || brasilPlateNumberRegex.test(plateNumberInput.value);
+		return matches
+	}
+
+	// input green if plate matches format
+	const plateNumberInput = document.getElementById('plate-input');
+	plateNumberInput.addEventListener('input', function () {
+		const matches = isPlateNumber(plateNumberInput.value);
+		if (matches) {
+			plateNumberInput.classList.add('verifiedSerial');
+		} else {
+			plateNumberInput.classList.remove('verifiedSerial');
+		}
+	});
+
+	// special characters not allowed on wheelbase
+	document.getElementById('wheelbase-input').addEventListener('keypress', function (e) {
+		const matches = /[A-Za-z0-9]/.test(String.fromCharCode(e.which));
+		if (!matches) {
+			e.preventDefault();
+		}
+	});
+
+	// special characters not allowed on dimensions
+	let inputs = document.querySelectorAll('input[id*="dimensions-"]');
+	inputs.forEach(input => {
+		input.addEventListener('keypress', function (e) {
+			const matches = /[0-9]/.test(String.fromCharCode(e.which));
+			if (!matches) {
+				e.preventDefault();
+			}
+		});
+	});
+
 	/*
 	 // verify serial number
 	 serialNumberInput.addEventListener('input', function () {
@@ -191,38 +271,5 @@
 		 }
 	 });
 	 */
-
-	// verify plate number
-	const isPlateNumber = (number) => {
-		const plateNumberRegex = /^[A-Za-z]{3}\d{4}$/;
-		const brasilPlateNumberRegex = /^[A-Za-z]{1}\d{6}$/;
-		let matches =
-			plateNumberRegex.test(plateNumberInput.value) || brasilPlateNumberRegex.test(plateNumberInput.value);
-		return matches
-	}
-
-	// input green if plate matches format
-	const plateNumberInput = document.getElementById('plate-number');
-	plateNumberInput.addEventListener('input', function () {
-		const matches = isPlateNumber(plateNumberInput.value);
-		if (matches) {
-			plateNumberInput.classList.add('verifiedSerial');
-		} else {
-			plateNumberInput.classList.remove('verifiedSerial');
-		}
-	});
-
-	// set warranty date to following year when clicked
-	let date = new Date();
-	date.setFullYear(date.getFullYear() + 1);
-
-	let day = ("0" + date.getDate()).slice(-2);
-	let month = ("0" + (date.getMonth() + 1)).slice(-2);
-
-	let nextYearDate = date.getFullYear() + "-" + (month) + "-" + (day);
-
-	document.getElementById('warranty-date').addEventListener('click', function () {
-		document.getElementById('warranty-date').value = nextYearDate;
-	});
 
 </script>

@@ -19,7 +19,8 @@
 		<span class="flex items-center px-2 "><i class="material-icons ">chevron_right</i></span>
 		<button class="flex items-center text-slate-200 cursor-text ">
 			<span class="button-icon-container">
-				<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">local_shipping</i>
+				<i class="material-icons icon-clients center"
+					style="display: inline; margin-right: .5rem;">local_shipping</i>
 			</span>
 			{{#if bodyKit.plate}}
 			{{bodyKit.plate}}
@@ -41,87 +42,147 @@
 	</h1>
 
 	<section class="mx-auto mb-4">
-		<div class="table-container max-w-[500px]" style="">
-			<table id="show-table">
-				<tr>
-					<th>Nº Serie</th>
-					{{#if (eq bodyKit.serialNumber bodyKit.plate)}}
-					<td class="text-red-600">No registra</td>
-					{{else}}
-					{{#if bodyKit.soldByReci}}
-					<td class="font-normal text-emerald-600"> {{bodyKit.serialNumber}} </td>
-					{{else}}
-					<td> {{bodyKit.serialNumber}} </td>
-					{{/if}}
-					{{/if}}
-				</tr>
-				</tr>
-				<th>Modelo</th>
-				<td> {{bodyKit.model}} </td>
-				</tr>
-				<tr>
-					<th>Matrícula</th>
-					<td>
-						{{#if bodyKit.plate}}
-						{{bodyKit.plate}}
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<div class="table-container w-full" style="">
+				<h2 class="flex items-center gap-2 mt-0 subtitle">
+					<i class="material-icons icon-clients center"
+						style=" display: inline; margin:0; font-size: 1.3rem; align-self: center;">local_shipping</i>
+					Esta carrocería
+				</h2>
+				<table id="show-table">
+					<tr>
+						<th>Nº Serie</th>
+						{{#if (eq bodyKit.serialNumber bodyKit.plate)}}
+						<td class="text-red-600">No registra</td>
 						{{else}}
-						<div class="text-red-500">No registra</div>
-						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Chasis</th>
-					<td>
-						{{#if bodyKit.chassis}}
-						{{bodyKit.chassis}}
-						{{else}}
-						<div>No registra</div>
-						{{/if}}
-					</td>
-				<tr>
-					<th>Cliente</th>
-					<td>
-						{{bodyKit.client.name}}
-					</td>
-				<tr>
-					<th>
-						Fecha límite de garantía
-					</th>
-					<td>
-						{{#if bodyKit.warrantyDate}}
-						{{#if (isInWarranty bodyKit.warrantyDate)}}
-						<span class="text-green-600">
-							{{formatDate bodyKit.warrantyDate}}
-						</span>
-						{{else}}
-						<span class="text-red-500">
-							{{formatDate bodyKit.warrantyDate}}
-						</span>
-						{{/if}}
-						{{else}}
-						Sin garantía
-						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Venta RECI</th>
-					<td>
 						{{#if bodyKit.soldByReci}}
-						Sí
+						<td class="font-normal"> {{bodyKit.serialNumber}} </td>
 						{{else}}
-						No
+						<td> {{bodyKit.serialNumber}} </td>
 						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Creado</th>
-					<td>{{formatDate bodyKit.createdAt}}</td>
-				</tr>
-				<tr>
-					<th>Editado</th>
-					<td>{{formatDate bodyKit.updatedAt}}</td>
-				</tr>
-			</table>
+						{{/if}}
+					</tr>
+					<tr>
+						<th>Proveedor</th>
+						<td> {{bodyKit.provider}} </td>
+					</tr>
+					<tr>
+						<th>Modelo</th>
+						<td> {{bodyKit.model}} </td>
+					</tr>
+					<tr>
+						<th>Dimensiones (cm)</th>
+						{{#if bodyKit.dimensions.length}}
+						<td> {{bodyKit.dimensions.length}}(L) x {{bodyKit.dimensions.width}}(An) x
+							{{bodyKit.dimensions.height}}(Alt) </td>
+						{{else}}
+						<td>No registra</td>
+						{{/if}}
+					</tr>
+					<tr>
+						<th>Accesorios y Obs.</th>
+						{{#if bodyKit.observations}}
+						<td>{{bodyKit.observations}}</td>
+						{{else}}
+						No registra
+						{{/if}}
+					</tr>
+					<tr>
+						<th>Estado</th>
+						<td>{{bodyKit.status}}</td>
+					</tr>
+					{{#if (neq bodyKit.status 'Entregada')}}
+					<tr>
+						<th>Entrega estimada</th>
+						{{#if bodyKit.deliveryEstimate}}
+						<td>{{formatDate bodyKit.deliveryEstimate}}</td>
+						{{else}}
+						<td>No ingresada</td>
+						{{/if}}
+					</tr>
+					{{else}}
+					<tr>
+						<th>Límite de garantía</th>
+						{{#if bodyKit.warrantyDate}}
+						<td>{{formatDate bodyKit.warrantyDate}}</td>
+						{{else}}
+						<td>No ingresada</td>
+						{{/if}}
+					</tr>
+					{{/if}}
+					<tr>
+						<th>Venta RECI</th>
+						<td>
+							{{#if bodyKit.soldByReci}}
+							Sí
+							{{else}}
+							No
+							{{/if}}
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="table-container w-full" style="">
+				<h2 class="flex items-center gap-2 mt-0 subtitle">
+					<i class="material-icons icon-clients center"
+						style=" display: inline; margin:0; font-size: 1.3rem; align-self: center;">info</i>
+					Información del camión
+				</h2>
+				<table id="show-table">
+					<tr>
+						<th>Cliente</th>
+						<td>
+							{{bodyKit.client.name}}
+						</td>
+					</tr>
+					<tr>
+						<th>Matrícula</th>
+						<td>
+							{{#if bodyKit.plate}}
+							{{bodyKit.plate}}
+							{{else}}
+							<div class="text-red-500">No registra</div>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Marca</th>
+						{{#if bodyKit.truckBrand}}
+						<td>{{bodyKit.truckBrand}}</td>
+						{{else}}
+						<td>No registra</td>
+						{{/if}}
+					</tr>
+					<tr>
+						<th>Modelo</th>
+						{{#if bodyKit.truckModel}}
+						<td>{{bodyKit.truckModel}}</td>
+						{{else}}
+						<td>No registra</td>
+						{{/if}}
+					</tr>
+					<tr>
+						<th>Nº Chasis</th>
+						<td>
+							{{#if bodyKit.chassis}}
+							{{bodyKit.chassis}}
+							{{else}}
+							<div>No registra</div>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Dist. entre ejes (cm)</th>
+						{{#if bodyKit.wheelbase}}
+						<td>{{bodyKit.wheelbase}}</td>
+						{{else}}
+						<td>No registra</td>
+						{{/if}}
+					</tr>
+				</table>
+			</div>
+
 		</div>
 
 		<a href="/carrocerias/editar/{{bodyKit._id}}">
@@ -203,7 +264,8 @@
 						</td>
 
 						{{#if this.completed}}
-						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-pending-button" id="{{this._id}}">
+						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-pending-button"
+							id="{{this._id}}">
 							<i class="m-0 text-green-600 material-icons clients-icon center hover:text-green-500">
 								{{!-- check_circle --}}
 								check
@@ -226,7 +288,8 @@
 
 						<td>
 							<a href="/tareas/editar/{{this._id}}">
-								<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+								<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png"
+										alt=""></span>
 							</a>
 						</td>
 
@@ -244,7 +307,8 @@
 			{{!-- ADD PENDING TASK FORM --}}
 			<form action="/tareas" method="POST" class="flex flex-col items-center w-full">
 				<div class="items-center justify-center mb-4 min-w-[300px] w-full ">
-					<input type="text" placeholder="Nueva tarea" name="taskDescription" class="w-full p-2 mt-1 uppercase w-grow">
+					<input type="text" placeholder="Nueva tarea" name="taskDescription"
+						class="w-full p-2 mt-1 uppercase w-grow">
 				</div>
 
 				{{!-- Hidden Inputs --}}

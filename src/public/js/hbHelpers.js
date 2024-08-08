@@ -18,6 +18,9 @@ module.exports = {
   eq: function (a, b) {
     return a === b;
   },
+  neq: function (a, b) {
+    return a !== b;
+  },
   json: function (context) {
     return JSON.stringify(context);
   },

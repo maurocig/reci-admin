@@ -4,8 +4,8 @@
 <script src="https://kit.fontawesome.com/29f13514cf.js" crossorigin="anonymous"></script>
 <main style="height: calc(100vh - 80px); position: relative" class="mt-[80px] ">
 	{{!-- <h1 class='title'>RECI Importaciones</h1> --}}
-	<div class="flex flex-col items-center justify-center w-full h-[60vh] ">
-		<div class="grid grid-cols-2 md:grid-cols-3 md:max-w-[600px] lg:max-w-[800px] gap-4 p-4">
+	<div class="flex flex-col items-center justify-center w-full ">
+		<div class="grid grid-cols-2 md:grid-cols-3 md:max-w-[600px] lg:max-w-[800px] gap-4 p-4 md:mt-[100px]">
 			<a href="/clientes">
 				<div class="container-icon-home hover:bg-white/5 transition-all">
 					{{!-- <i class="fa-regular fa-users"></i> --}}
@@ -47,31 +47,31 @@
 	</div>
 
 	<div style="text-align: center; width: 100%; margin-bottom: 10px; color: white;" class="mt-4">
-		<a href="/auth/logout" class=" hover:underline text-red-300/90">
-			Cerrar sesión
-		</a>
-
 		{{!-- Actualizaciones --}}
 		<div
-			class="text-white hidden min-h-[70px] justify-center items-center text-sm pb-4 md:flex flex-col space-y-3 bottom-0 mt-12 w-full text-center">
+			class="text-white hidden min-h-[70px] justify-center items-center text-sm pb-4 md:flex flex-col space-y-3 bottom-0 mt-28 w-full text-center">
 			<div class="hidden sm:flex text-xs border border-emerald-400/20 bg-emerald-400/10 w-fit p-8 flex-col gap-3">
-				<a href="https://reci.uy/actualizaciones" class="group hover:no-underline text-emerald-300/50" target="_blank">
+				<a href="https://reci.uy/actualizaciones" class="group hover:no-underline text-emerald-300/50"
+					target="_blank">
 					<li class="list-none text-gray-100/80 flex items-center gap-2 text-sm">
 						<i class="material-icons text-emerald-400 text-green-400 text-sm">lens</i>
 						<span class=" text-slate-200/80 hover:text-emerald-400/80 font-semibold text-sm">Actualización
-							1.3
+							1.4
 						</span>
-						<span class="">•</span> 17/5/24
+						<span class="">•</span> 8/8/24
 					</li>
 				</a>
 				<li class="w-full list-none text-sm">
-					<div class=" flex justify-start items-center text-gray-300 text-sm gap-2 ">
+					<div class=" flex justify-start items-center text-gray-300 text-sm gap-2">
 						<i class="material-icons text-green-400 text-[1.1rem]">storage</i>
-						<span class="text-slate-200/80 text-sm font-semibold">Último backup </span> <span>•</span> 29/5/24
+						<span class="text-slate-200/80 text-sm font-semibold">Último backup </span> <span>•</span> 4/8/24
 					</div>
 				</li>
 			</div>
 		</div>
 
+		<a href="/auth/logout" class="hover:underline text-red-300/90">
+			Cerrar sesión
+		</a>
 	</div>
 </main>
