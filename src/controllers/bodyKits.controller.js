@@ -92,18 +92,20 @@ class BodyKitsController {
       }
 
       if (warrantyDate) {
-        const formattedWarrantyDate = moment(warrantyDate)
-          .tz('America/Montevideo')
-          .format('YYYY/MM/DD');
+        //   const formattedWarrantyDate = moment(warrantyDate)
+        //     .tz('America/Montevideo')
+        //     .format('YYYY/MM/DD');
+        const formattedWarrantyDate = moment(warrantyDate).tz('UTC').format('YYYY/MM/DD');
         bodyKit.warrantyDate = formattedWarrantyDate;
       } else {
         bodyKit.warrantyDate = null;
       }
 
       if (deliveryEstimate) {
-        const formattedDeliveryEstimate = moment(deliveryEstimate)
-          .tz('America/Montevideo')
-          .format('YYYY/MM/DD');
+        //   const formattedDeliveryEstimate = moment(deliveryEstimate)
+        //     .tz('America/Montevideo')
+        //     .format('YYYY/MM/DD');
+        const formattedDeliveryEstimate = moment(deliveryEstimate).tz('UTC').format('YYYY/MM/DD');
         bodyKit.deliveryEstimate = formattedDeliveryEstimate;
       }
 
@@ -187,18 +189,14 @@ class BodyKitsController {
       };
 
       if (warrantyDate) {
-        const formattedWarrantyDate = moment(warrantyDate)
-          .tz('America/Montevideo')
-          .format('YYYY/MM/DD');
+        const formattedWarrantyDate = moment(warrantyDate).tz('UTC').format('YYYY/MM/DD');
         updatedBodyKit.warrantyDate = formattedWarrantyDate;
       } else {
         updatedBodyKit.warrantyDate = null;
       }
 
       if (deliveryEstimate) {
-        const formattedDeliveryEstimate = moment(deliveryEstimate)
-          .tz('America/Montevideo')
-          .format('YYYY/MM/DD');
+        const formattedDeliveryEstimate = moment(deliveryEstimate).tz('UTC').format('YYYY/MM/DD');
         updatedBodyKit.deliveryEstimate = formattedDeliveryEstimate;
       }
 
