@@ -190,9 +190,20 @@
 						<td>No registra</td>
 						{{/if}}
 					</tr>
+					<tr>
+						<th>Creado</th>
+						<td>
+							{{formatDate bodyKit.createdAt}}
+						</td>
+					</tr>
+					<tr>
+						<th>Editado</th>
+						<td>
+							{{formatDate bodyKit.updatedAt}}
+						</td>
+					</tr>
 				</table>
 			</div>
-
 		</div>
 
 		<a href="/carrocerias/editar/{{bodyKit._id}}">
