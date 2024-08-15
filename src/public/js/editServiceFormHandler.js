@@ -62,6 +62,7 @@ form.addEventListener('submit', (e) => {
     fixes,
   };
 
+  // Send Form
   updateService(service).then((response) => {
     Swal.fire({
       title: 'El servicio se editó correctamente.',
@@ -92,8 +93,6 @@ form.addEventListener('submit', (e) => {
         });
       });
   });
-
-  // Send Form
 });
 
 async function updateService(data) {

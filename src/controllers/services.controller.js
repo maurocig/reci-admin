@@ -154,7 +154,7 @@ class ServicesController {
         parts,
         fixes,
         observations,
-        technician: technician.toUpperCase(),
+        technician: technician.toUpperCase() || null,
       };
 
       const response = await servicesDao.update(id, updatedService);

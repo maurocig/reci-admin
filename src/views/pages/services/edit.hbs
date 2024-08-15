@@ -49,7 +49,8 @@
 			</div>
 			<div class="form-field">
 				<label for="refUnitInput">Nº Serie</label>
-				<input type="string" name="serialNumber" id="refUnitInput" value="{{service.refUnit.serialNumber}}" readonly />
+				<input type="string" name="serialNumber" id="refUnitInput" value="{{service.refUnit.serialNumber}}"
+					readonly />
 			</div>
 			<div class="form-field">
 				<label for="refUnit">Modelo</label>
@@ -67,8 +68,8 @@
 			</div>
 			<div class="form-field">
 				<label for="handWorkHours">Mano de obra (hs) <span class="text-red-500">*</span> </label>
-				<input type="number" step="0.5" name="handWorkHours" id="handWorkHoursInput" value="{{service.handWorkHours}}"
-					class="max-w-[60px]" placeholder="1" required />
+				<input type="number" step="0.5" name="handWorkHours" id="handWorkHoursInput"
+					value="{{service.handWorkHours}}" class="max-w-[60px]" placeholder="1" required />
 			</div>
 			<div class="form-field">
 				<label for="soldByReci">Está en garantía <span class="text-red-500">*</span></label>
@@ -112,7 +113,8 @@
 			{{#each service.fixes}}
 			<div class="fixes-row">
 				<div class="item-number"> #{{addNumber @index 1}}. </div>
-				<input type="text" value="{{this.fixName}}" id="fixInput{{addNumber @index 1}}" class="font-bold uppercase ">
+				<input type="text" value="{{this.fixName}}" id="fixInput{{addNumber @index 1}}"
+					class="font-bold uppercase ">
 			</div>
 			{{/each}}
 
@@ -196,9 +198,7 @@
 <script src="https://cdn.jsdelivr.net/npm/method-override@2.3.10/index.js"></script>
 
 <script>
-	const orderNumberInput = document.getElementById('orderNumberInput');
-
-	orderNumberInput.addEventListener('keypress', function (e) {
+	document.getElementById('orderNumberInput').addEventListener('keypress', function (e) {
 		if (!/[0-9]/.test(String.fromCharCode(e.which))) {
 			e.preventDefault();
 		}
