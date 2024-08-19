@@ -39,8 +39,10 @@
 			<div class="flex-col hidden gap-1">
 				<label class="text-slate-400">Buscar</label>
 				<div id="type-select" name="type" class="flex gap-2 p-2 text-xs bg-slate-200/10">
-					<label for="equipos" class="px-4 py-2 bg-gray-200 rounded btn-radio text-slate-800 hover:cursor-pointer ">
-						<input type="radio" id="equipos" name="type" value="equipos" class="hidden" onclick="changeColor(this)">
+					<label for="equipos"
+						class="px-4 py-2 bg-gray-200 rounded btn-radio text-slate-800 hover:cursor-pointer ">
+						<input type="radio" id="equipos" name="type" value="equipos" class="hidden"
+							onclick="changeColor(this)">
 						Equipos
 					</label>
 					<label for="carrocerias"
@@ -51,12 +53,14 @@
 					</label>
 					<label for="servicios"
 						class="px-4 py-2 transition rounded btn-radio hover:cursor-pointer bg-slate-800/0 text-slate-200 hover:bg-slate-200/10 hover:text-slate-200">
-						<input type="radio" id="servicios" name="type" value="servicios" class="hidden" onclick="changeColor(this)">
+						<input type="radio" id="servicios" name="type" value="servicios" class="hidden"
+							onclick="changeColor(this)">
 						Servicios
 					</label>
 					<label for="servicios"
 						class="px-4 py-2 transition rounded btn-radio hover:cursor-pointer bg-slate-800/0 text-slate-200 hover:bg-slate-200/10 hover:text-slate-200">
-						<input type="radio" id="servicios" name="type" value="servicios" class="hidden" onclick="changeColor(this)">
+						<input type="radio" id="servicios" name="type" value="servicios" class="hidden"
+							onclick="changeColor(this)">
 						Servicios
 					</label>
 				</div>
@@ -106,7 +110,7 @@
 				selectedType = 'equipos';
 				break;
 			case 'carrocerias':
-				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Nº chasis', value: 'chassis' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Nº chasis', value: 'chassis' }, { label: 'Proveedor', value: 'provider' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
 				selectedType = 'carrocerias';
 				break;
 			case 'servicios':
