@@ -302,10 +302,10 @@
 
 			{{#if service.attachments}}
 			<div class="flex flex-col gap-4 w-full items-center">
-				<div class="grid grid-cols-3 gap-4 w-full">
+				<div class="flex flex-col gap-4 w-full">
 					{{#each service.attachments}}
 					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
-						class="flex hover:opacity-90 transition flex-col max-w-[200px] bg-slate-300 min-h-[95px] gap-2 p-3 truncate">
+						class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
 						<i class="material-icons">picture_as_pdf</i>
 						<div class="truncate">{{this.name}}</div>
 					</a>
@@ -318,21 +318,22 @@
 					<span class="font-semibold ">Subir archivos</span>
 				</button> --}}
 
-				<form class="flex gap-4" id="attachments-form">
+				<form class="flex flex-col md:flex-row gap-4" id="attachments-form">
 					<div class="custom-file-input">
 						<input id="file-input" type="file" name="Files" required multiple class="hidden" />
 						<label for="file-input" id="file-input-label"
-							class="hover:opacity-90 w-fit transition h-[50px] px-6 cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 hover:text-slate-800 hover:bg-emerald-400 flex items-center p-3 gap-2"
+							class="w-fit transition h-[50px] px-6 cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 flex items-center p-3 gap-2"
 							tabindex="0">
-							<i class="material-icons text-[30px]">attach_file</i>
-							<span class="font-semibold">Seleccionar archivos</span>
+							<i class="material-icons text-[30px]">folder</i>
+							<span class="font-semibold max-w-[200px]">Seleccionar archivos</span>
 						</label>
 					</div>
 					<input name="serviceId" id="service-id" type="text" class="hidden" value="{{service._id}}">
 					<button id="myButton" type="submit"
-						class="hover:opacity-90 w-fit font-semibold h-[50px] transition cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 hover:text-slate-800 hover:bg-emerald-400 flex items-center p-3 gap-2">
-						<i class="material-icons text-[30px]">upload_file</i>
-						</span class=''>Subir</span>
+						class="hover:opacity-90 px-4 w-fit font-semibold h-[50px] transition cursor-pointer bg-gray-400 text-gray-600 flex items-center p-3 gap-2"
+						disabled>
+						<i class="material-icons text-[30px]">file_upload</i>
+						</span class=''>Subir a Drive</span>
 					</button>
 				</form>
 			</div>
@@ -357,13 +358,18 @@
 	fileInput.addEventListener('change', function () {
 		if (fileInput.files && fileInput.files.length > 0) {
 			let fileName = '';
+			fileInputLabel.classList.remove('text-emerald-400')
+			fileInputLabel.classList.add('bg-emerald-400', 'text-slate-800')
+			myButton.disabled = false;
+			myButton.classList.remove('bg-gray-500', 'text-gray-600')
+			myButton.classList.add('bg-emerald-400', 'text-slate-800')
 			if (fileInput.files.length === 1) {
 				fileName = fileInput.files[0].name;
 				console.log(fileName)
 			} else {
 				fileName = fileInput.files.length + ' archivos seleccionados';
 			}
-			fileInputLabel.innerHTML = `<span class='font-semibold'>${fileName}</span>`;
+			fileInputLabel.innerHTML = `<span class='font-semibold truncate max-w-[200px]'>${fileName}</span>`;
 		} else {
 			fileInputLabel = 'Seleccionar archivos';
 		}
