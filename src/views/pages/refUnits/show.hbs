@@ -194,7 +194,8 @@
 						</td>
 
 						{{#if this.completed}}
-						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-pending-button" id="{{this._id}}">
+						<td class="flex items-center justify-start px-4 hover:cursor-pointer mark-pending-button"
+							id="{{this._id}}">
 							<i class="m-0 text-green-600 material-icons clients-icon center hover:text-green-500">
 								{{!-- check_circle --}}
 								check
@@ -217,7 +218,8 @@
 
 						<td>
 							<a href="/tareas/editar/{{this._id}}">
-								<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png" alt=""></span>
+								<span class="flex justify-center table-icon-container"><img src="/assets/edit-icon.png"
+										alt=""></span>
 							</a>
 						</td>
 
@@ -235,7 +237,8 @@
 			{{!-- ADD PENDING TASK FORM --}}
 			<form action="/tareas" method="POST" class="flex flex-col items-center w-full">
 				<div class="items-center justify-center mb-4 min-w-[300px] w-full ">
-					<input type="text" placeholder="Nueva tarea" name="taskDescription" class="mt-1 p-2 w-full uppercase w-grow">
+					<input type="text" placeholder="Nueva tarea" name="taskDescription"
+						class="mt-1 p-2 w-full uppercase w-grow">
 				</div>
 
 				{{!-- Hidden Inputs --}}
@@ -305,3 +308,69 @@
 {{#each scripts}}
 <script src="{{script}}"></script>
 {{/each}}
+
+<script>
+	const fileInput = document.getElementById('file-input');
+	const fileInputLabel = document.getElementById('file-input-label');
+	const serviceId = document.getElementById('service-id').value;
+	const formElem = document.getElementById('attachments-form');
+
+	fileInput.addEventListener('change', function () {
+		if (fileInput.files && fileInput.files.length > 0) {
+			let fileName = '';
+			fileInputLabel.classList.remove('text-emerald-400')
+			fileInputLabel.classList.add('bg-emerald-400', 'text-slate-800')
+			myButton.disabled = false;
+			myButton.classList.remove('bg-gray-500', 'text-gray-600')
+			myButton.classList.add('bg-emerald-400', 'text-slate-800')
+			if (fileInput.files.length === 1) {
+				fileName = fileInput.files[0].name;
+				console.log(fileName)
+			} else {
+				fileName = fileInput.files.length + ' archivos seleccionados';
+			}
+			fileInputLabel.innerHTML = `<span class='font-semibold truncate max-w-[200px]'>${fileName}</span>`;
+		} else {
+			fileInputLabel = 'Seleccionar archivos';
+		}
+	});
+
+	formElem.addEventListener('submit', async (e) => {
+		myButton.disabled = true;
+		myButton.classList.remove('bg-emerald-400', 'text-slate-800')
+		myButton.classList.add('bg-gray-500', 'text-gray-600')
+
+		const submitButton = document.getElementById('myButton');
+		submitButton.classList.remove = 'bg-emerald-400', 'text-slate-800';
+		submitButton.classList.add = 'bg-gray-400', 'text-gray-600';
+		submitButton.textContent = 'Subiendo...';
+		submitButton.disabled = true;
+
+		const editButton = document.getElementById('editButton');
+		editButton.classList.add = 'bg-gray-500';
+		editButton.disabled = true;
+
+		e.preventDefault();
+		console.log('form submitting')
+
+		await fetch('/upload', {
+			method: 'POST',
+			body: new FormData(formElem),
+		}).then(async (response) => {
+
+			console.log("Successfully uploaded to drive")
+			submitButton.textContent = 'Listo!';
+			const { serviceId } = await response.json();
+			console.log('service id: ', serviceId)
+			window.location.href = `/servicios/${serviceId}`
+
+		}).catch(error => {
+			console.log('was not uploaded' + error)
+			// document.querySelector('p').textContent = "Was not uploaded" + error;
+			// document.querySelector('p').style.display = 'block';
+			console.error(error);
+			alert('Hubo un error! recargá la página del navegador')
+		});
+	});
+
+</script>
