@@ -17,6 +17,7 @@ const serviceSchema = new Schema(
     fixes: [{ type: Object, required: true }],
     observations: { type: String },
     technician: { type: String },
+    attachments: [{ type: Object }],
   },
   {
     timestamps: true,
@@ -34,6 +35,7 @@ class ServicesMongoDao extends MongoContainer {
       .findById(id)
       .populate('client', ['name'])
       .populate('refUnit')
+      .populate('attachments')
       .lean();
     return service;
   }
@@ -92,6 +94,53 @@ class ServicesMongoDao extends MongoContainer {
       .lean();
     console.log(service);
     return service;
+  }
+
+  async addAttachments(serviceId, attachment) {
+    const service = await this.model.findOne({ _id: serviceId }, { __v: 0 });
+
+    if (!service) {
+      const message = `Service with id ${serviceId} does not exist in our records.`;
+      throw new HttpError(404, message);
+    }
+
+    const updatedRefUnit = await this.model.updateOne(
+      { _id: serviceId },
+      { $addToSet: { attachments: attachment } }
+    );
+
+    return updatedRefUnit;
+  }
+
+  async removePendingTask(refUnitId, pendingTaskId) {
+    const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
+    if (refUnit) {
+      const updatedRefUnit = await this.model.updateOne(
+        { _id: refUnitId },
+        { $pull: { pendingTasks: pendingTaskId } }
+      );
+      return updatedRefUnit;
+    } else {
+      return refUnit;
+    }
+  }
+
+  async addAttachments(serviceId, fileReferences) {
+    const service = await this.model.findOne({ _id: serviceId }, { __v: 0 });
+    if (!service) {
+      const message = `Service with id ${serviceId} does not exist in our records.`;
+      console.log(message);
+      throw new HttpError(404, message);
+    }
+
+    let updatedService = {};
+    fileReferences.forEach(async (fileReference) => {
+      updatedService = await this.model.updateOne(
+        { _id: serviceId },
+        { $addToSet: { attachments: fileReference } }
+      );
+    });
+    return serviceId;
   }
 }
 

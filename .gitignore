@@ -2,3 +2,7 @@ node_modules/
 notas.txt
 .env
 .DS_Store
+cred.json
+google-api-credentials.json
+cred-reci-uy.json
+cred-ventas-gmail.json

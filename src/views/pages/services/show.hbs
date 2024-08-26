@@ -272,32 +272,138 @@
 		</section>
 	</div>
 
-	<section class="mt-6 mb-0">
-		<h2 class="flex mt-0 subtitle">
-			<i class="material-icons icon-clients center"
-				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">visibility</i>
-			Observaciones
-		</h2>
-		{{#if service.observations}}
-		<table>
-			<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
-				<th class="py-2">Descripción</th>
-			</tr>
-			<tr>
-				<td class="p-4 uppercase">{{service.observations}}</td>
-			</tr>
-		</table>
-		{{else}}
-		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">Sin observaciones</h3>
-		{{/if}}
+	<section class="mt-6 mb-0 grid gap-4 gap-6 md:grid-cols-2">
+		<div class="">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">visibility</i>
+				Observaciones
+			</h2>
+			{{#if service.observations}}
+			<table class=" overflow-hidden">
+				<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+					<th class="py-2">Descripción</th>
+				</tr>
+				<tr>
+					<td class="p-4 uppercase">{{service.observations}}</td>
+				</tr>
+			</table>
+			{{else}}
+			<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">Sin observaciones</h3>
+			{{/if}}
+		</div>
 
+		<div class="rounded-lg w-full h-full">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">attach_file</i>
+				Adjuntos
+			</h2>
+
+			{{#if service.attachments}}
+			<div class="flex flex-col gap-4 w-full items-center">
+				<div class="grid grid-cols-3 gap-4 w-full">
+					{{#each service.attachments}}
+					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
+						class="flex hover:opacity-90 transition flex-col max-w-[200px] bg-slate-300 min-h-[95px] gap-2 p-3 truncate">
+						<i class="material-icons">picture_as_pdf</i>
+						<div class="truncate">{{this.name}}</div>
+					</a>
+					{{/each}}
+				</div>
+				{{/if}}
+
+				{{!-- <button class="hover:opacity-90 w-fit transition bg-emerald-500 flex items-center p-3 gap-2">
+					<i class="material-icons text-[30px]">upload_file</i>
+					<span class="font-semibold ">Subir archivos</span>
+				</button> --}}
+
+				<form class="flex gap-4" id="attachments-form">
+					<div class="custom-file-input">
+						<input id="file-input" type="file" name="Files" required multiple class="hidden" />
+						<label for="file-input" id="file-input-label"
+							class="hover:opacity-90 w-fit transition h-[50px] px-6 cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 hover:text-slate-800 hover:bg-emerald-400 flex items-center p-3 gap-2"
+							tabindex="0">
+							<i class="material-icons text-[30px]">attach_file</i>
+							<span class="font-semibold">Seleccionar archivos</span>
+						</label>
+					</div>
+					<input name="serviceId" id="service-id" type="text" class="hidden" value="{{service._id}}">
+					<button id="myButton" type="submit"
+						class="hover:opacity-90 w-fit font-semibold h-[50px] transition cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 hover:text-slate-800 hover:bg-emerald-400 flex items-center p-3 gap-2">
+						<i class="material-icons text-[30px]">upload_file</i>
+						</span class=''>Subir</span>
+					</button>
+				</form>
+			</div>
+		</div>
 	</section>
 
 	<a href="/servicios/editar/{{service._id}}">
-		<button class="mt-4 button-new">
+		<button class="mt-4 button-new" id="editButton">
 			<i class="material-icons clients-icon center ">edit</i>
 			Editar
 		</button>
 	</a>
 
 </main>
+
+<script>
+	const fileInput = document.getElementById('file-input');
+	const fileInputLabel = document.getElementById('file-input-label');
+	const serviceId = document.getElementById('service-id').value;
+	const formElem = document.getElementById('attachments-form');
+
+	fileInput.addEventListener('change', function () {
+		if (fileInput.files && fileInput.files.length > 0) {
+			let fileName = '';
+			if (fileInput.files.length === 1) {
+				fileName = fileInput.files[0].name;
+				console.log(fileName)
+			} else {
+				fileName = fileInput.files.length + ' archivos seleccionados';
+			}
+			fileInputLabel.innerHTML = `<span class='font-semibold'>${fileName}</span>`;
+		} else {
+			fileInputLabel = 'Seleccionar archivos';
+		}
+	});
+
+	formElem.addEventListener('submit', async (e) => {
+		const submitButton = document.getElementById('myButton');
+		submitButton.classList.add = "bg-gray-500";
+		submitButton.textContent = "Subiendo...";
+		submitButton.disabled = true;
+
+		const editButton = document.getElementById('editButton');
+		editButton.classList.add = "bg-gray-500";
+		editButton.disabled = true;
+
+		e.preventDefault();
+		console.log("form submitting")
+
+		await fetch('/upload', {
+			method: 'POST',
+			body: new FormData(formElem),
+		}).then(async (response) => {
+
+			// document.querySelector('p').textContent = "Successfully uploaded to drive";
+			// document.getElementById("myButton").style.backgroundColor = "green"
+			// document.getElementById('fileInputLabel').textContent = "Select Files";
+			// document.querySelector('p').style.display = 'block';
+
+			console.log("Successfully uploaded to drive")
+			const { serviceId } = await response.json();
+			console.log('service id: ', serviceId)
+			window.location.href = `/servicios/${serviceId}`
+
+		}).catch(error => {
+			console.log('was not uploaded' + error)
+			// document.querySelector('p').textContent = "Was not uploaded" + error;
+			// document.querySelector('p').style.display = 'block';
+			console.error(error);
+			alert('Hubo un error! recargá la página del navegador')
+		});
+	});
+
+</script>
