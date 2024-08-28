@@ -365,7 +365,6 @@
 	const submitButton = document.getElementById('submit-button');
 
 	fileInput.addEventListener('change', function () {
-		console.log('fileInput changed')
 		if (fileInput.files && fileInput.files.length > 0) {
 			let fileName = '';
 			fileInputLabel.classList.remove('text-emerald-400')
@@ -375,7 +374,6 @@
 			submitButton.classList.add('bg-emerald-400', 'text-slate-800')
 			if (fileInput.files.length === 1) {
 				fileName = fileInput.files[0].name;
-				console.log(fileName)
 			} else {
 				fileName = fileInput.files.length + ' archivos seleccionados';
 			}
@@ -398,9 +396,6 @@
 		editButton.classList.add = 'bg-gray-500';
 		editButton.disabled = true;
 
-		console.log('form submitting')
-
-
 		await fetch('/upload', {
 			method: 'POST',
 			body: new FormData(formElem),
@@ -409,7 +404,6 @@
 			submitButton.textContent = 'Listo!';
 
 			const { refunitId } = await response.json();
-			console.log(refunitId)
 			window.location.href = `/equipos/${refunitId}`
 
 		}).catch(error => {

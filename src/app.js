@@ -90,10 +90,8 @@ app.post('/upload', upload.any(), async (req, res) => {
       let driveFolder;
       if (serviceId) {
         driveFolder = process.env.SERVICES_UPLOAD_FOLDER;
-        console.log('serviceId', serviceId, driveFolder);
       } else if (refunitId) {
         driveFolder = process.env.REFUNITS_UPLOAD_FOLDER;
-        console.log('refunitId', refunitId, driveFolder);
       } else {
         console.log('no serviceId or refunitId');
       }

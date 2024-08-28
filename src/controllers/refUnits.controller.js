@@ -24,7 +24,6 @@ class RefUnitsController {
     const { id } = req.params;
     try {
       const refUnit = await refUnitsDao.getByIdAndPopulate(id);
-      console.log(refUnit);
       const scripts = [
         { script: '/js/formatDate.js' },
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
@@ -190,6 +189,7 @@ class RefUnitsController {
       next(error);
     }
   }
+
   async filterRefUnit(req, res, next) {
     const { f } = req.query;
     let query;
