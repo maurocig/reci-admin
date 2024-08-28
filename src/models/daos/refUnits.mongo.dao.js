@@ -19,6 +19,7 @@ const refUnitSchema = new Schema(
     pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks', sparse: true }],
     soldByReci: { type: Schema.Types.Boolean },
     warrantyDate: { type: Date || null, default: undefined },
+    attachments: [{ type: Object }],
   },
   {
     timestamps: true,
@@ -41,6 +42,7 @@ class RefUnitsMongoDao extends MongoContainer {
         select: ['serviceDate', 'orderNumber', 'fixes', 'parts'],
         options: { sort: { serviceDate: 'desc' } },
       })
+      .populate('attachments')
       .lean();
     return refUnit;
   }
@@ -132,6 +134,24 @@ class RefUnitsMongoDao extends MongoContainer {
       .populate('services')
       .lean();
     return refUnit;
+  }
+
+  async addAttachments(refunitId, fileReferences) {
+    const refunit = await this.model.findOne({ _id: refunitId }, { __v: 0 });
+    if (!refunit) {
+      const message = `Unit with id ${refunitId} does not exist in our records.`;
+      console.log(message);
+      throw new HttpError(404, message);
+    }
+
+    let updatedRefunit = {};
+    fileReferences.forEach(async (fileReference) => {
+      updatedRefunit = await this.model.updateOne(
+        { _id: refunitId },
+        { $addToSet: { attachments: fileReference } }
+      );
+    });
+    return refunitId;
   }
 }
 

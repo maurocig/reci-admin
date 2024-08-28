@@ -16,12 +16,13 @@ const passport = require('./middleware/passport');
 const routes = require('./routers/app.routers');
 const errorMiddleware = require('./middleware/error.middleware');
 const upload = multer();
-const { ServicesDao } = require('./models/daos/app.daos');
+const { ServicesDao, RefUnitsDao } = require('./models/daos/app.daos');
 const servicesController = require('./controllers/services.controller.js');
 
 const app = express();
 const { engine } = Handlebars;
 const servicesDao = new ServicesDao();
+const refunitsDao = new RefUnitsDao();
 
 // View engine
 app.set('view engine', 'hbs');
@@ -78,7 +79,7 @@ const auth = new google.auth.GoogleAuth({
 });
 
 app.post('/upload', upload.any(), async (req, res) => {
-  const { serviceId } = req.body;
+  const { serviceId, refunitId } = req.body;
   try {
     console.log(req.body);
     console.log(req.files);
@@ -86,15 +87,28 @@ app.post('/upload', upload.any(), async (req, res) => {
     const filesResponse = [];
 
     for (let f = 0; f < files.length; f += 1) {
-      const data = await uploadFile(files[f]);
+      let driveFolder;
+      if (serviceId) {
+        driveFolder = process.env.SERVICES_UPLOAD_FOLDER;
+        console.log('serviceId', serviceId, driveFolder);
+      } else if (refunitId) {
+        driveFolder = process.env.REFUNITS_UPLOAD_FOLDER;
+        console.log('refunitId', refunitId, driveFolder);
+      } else {
+        console.log('no serviceId or refunitId');
+      }
+      const data = await uploadFile(files[f], driveFolder);
       const file = { name: data.name, id: data.id };
       filesResponse.push(file);
     }
 
     console.log(filesResponse);
-    const updatedService = await servicesDao.addAttachments(serviceId, filesResponse);
-
-    res.json({ serviceId });
+    if (serviceId) {
+      const updatedService = await servicesDao.addAttachments(serviceId, filesResponse);
+    } else if (refunitId) {
+      const updatedRefunit = await refunitsDao.addAttachments(refunitId, filesResponse);
+    }
+    res.json({ serviceId, refunitId });
   } catch (e) {
     console.log(e);
     res.send(e.message);
@@ -107,7 +121,7 @@ app.use('/', routes);
 module.exports = app;
 
 // upload files to google drive (services)
-const uploadFile = async (fileObject) => {
+const uploadFile = async (fileObject, folder) => {
   try {
     const bufferStream = new stream.PassThrough();
     bufferStream.end(fileObject.buffer);
@@ -118,7 +132,7 @@ const uploadFile = async (fileObject) => {
       },
       requestBody: {
         name: fileObject.originalname,
-        parents: ['1ZS8VTgCNNCEBES-oJJxv_p7N9pFxI0PA'],
+        parents: [folder],
 
         //   parents: ['1CM02t464IkvuaqJz4eYHS9Msscl73m2C'], // ventasreci@gmail.com google drive folder.
       },

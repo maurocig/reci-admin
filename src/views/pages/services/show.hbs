@@ -377,6 +377,8 @@
 	});
 
 	formElem.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
 		submitButton.disabled = true;
 		submitButton.classList.remove('bg-emerald-400', 'text-slate-800')
 		submitButton.classList.add('bg-gray-400', 'text-gray-600')
@@ -387,20 +389,17 @@
 		editButton.classList.add = 'bg-gray-500';
 		editButton.disabled = true;
 
-		e.preventDefault();
 		console.log('form submitting')
 
 		await fetch('/upload', {
 			method: 'POST',
 			body: new FormData(formElem),
 		}).then(async (response) => {
-
 			console.log("Successfully uploaded to drive")
 			submitButton.textContent = 'Listo!';
 			const { serviceId } = await response.json();
 			console.log('service id: ', serviceId)
 			window.location.href = `/servicios/${serviceId}`
-
 		}).catch(error => {
 			console.log('was not uploaded' + error)
 			console.error(error);

@@ -40,92 +40,97 @@
 		{{/if}}
 	</h1>
 
-	<section class="mx-auto mb-4">
-		<div class="table-container max-w-[500px]" style="">
-			<table id="show-table">
-				<tr>
-					<th>Nº Serie</th>
-					{{#if (isPlateNumber refUnit.serialNumber)}}
-					<td class="text-red-600">No registra</td>
-					{{else}}
-					{{#if refUnit.soldByReci}}
-					<td class="text-emerald-600 font-normal"> {{refUnit.serialNumber}} </td>
-					{{else}}
-					<td> {{refUnit.serialNumber}} </td>
-					{{/if}}
-					{{/if}}
-				</tr>
-				</tr>
-				<th>Modelo</th>
-				<td> {{refUnit.model}} </td>
-				</tr>
-				<tr>
-					<th>Matrícula</th>
-					<td>
-						{{#if refUnit.plate}}
-						{{refUnit.plate}}
+	<section class="mx-auto mb-4 md:grid-cols-2 md:grid gap-6">
+		<div class="w-full">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">info</i>
+				Este equipo
+			</h2>
+			<div class="table-container" style="">
+				<table id="show-table">
+					<tr>
+						<th>Nº Serie</th>
+						{{#if (isPlateNumber refUnit.serialNumber)}}
+						<td class="text-red-600">No registra</td>
 						{{else}}
-						<div class="text-red-500">No registra</div>
-						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Nombre Cliente</th>
-					<td>
-						{{refUnit.client.name}}
-					</td>
-				<tr>
-					<th>
-						Fecha límite de garantía
-					</th>
-					<td>
-						{{#if refUnit.warrantyDate}}
-						{{#if (isInWarranty refUnit.warrantyDate)}}
-						<span class="text-green-600">
-							{{formatDate refUnit.warrantyDate}}
-						</span>
-						{{else}}
-						<span class="text-red-500">
-							{{formatDate refUnit.warrantyDate}}
-						</span>
-						{{/if}}
-						{{else}}
-						Sin garantía
-						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Venta RECI</th>
-					<td>
 						{{#if refUnit.soldByReci}}
-						Sí
+						<td class="text-emerald-600 font-normal"> {{refUnit.serialNumber}} </td>
 						{{else}}
-						No
+						<td> {{refUnit.serialNumber}} </td>
 						{{/if}}
-					</td>
-				</tr>
-				<tr>
-					<th>Creado</th>
-					<td>{{formatDate refUnit.createdAt}}</td>
-				</tr>
-				<tr>
-					<th>Editado</th>
-					<td>{{formatDate refUnit.updatedAt}}</td>
-				</tr>
-			</table>
+						{{/if}}
+					</tr>
+					</tr>
+					<th>Modelo</th>
+					<td> {{refUnit.model}} </td>
+					</tr>
+					<tr>
+						<th>Matrícula</th>
+						<td>
+							{{#if refUnit.plate}}
+							{{refUnit.plate}}
+							{{else}}
+							<div class="text-red-500">No registra</div>
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Nombre Cliente</th>
+						<td>
+							{{refUnit.client.name}}
+						</td>
+					<tr>
+						<th>
+							Fecha límite de garantía
+						</th>
+						<td>
+							{{#if refUnit.warrantyDate}}
+							{{#if (isInWarranty refUnit.warrantyDate)}}
+							<span class="text-green-600">
+								{{formatDate refUnit.warrantyDate}}
+							</span>
+							{{else}}
+							<span class="text-red-500">
+								{{formatDate refUnit.warrantyDate}}
+							</span>
+							{{/if}}
+							{{else}}
+							Sin garantía
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Venta RECI</th>
+						<td>
+							{{#if refUnit.soldByReci}}
+							Sí
+							{{else}}
+							No
+							{{/if}}
+						</td>
+					</tr>
+					<tr>
+						<th>Creado</th>
+						<td>{{formatDate refUnit.createdAt}}</td>
+					</tr>
+					<tr>
+						<th>Editado</th>
+						<td>{{formatDate refUnit.updatedAt}}</td>
+					</tr>
+				</table>
+			</div>
+
+			<a href="/equipos/editar/{{refUnit._id}}">
+				<button id="editButton" class="button-new">
+					<i class="material-icons clients-icon center">edit</i>
+					Editar
+				</button>
+			</a>
 		</div>
 
-		<a href="/equipos/editar/{{refUnit._id}}">
-			<button class="button-new">
-				<i class="material-icons clients-icon center">edit</i>
-				Editar
-			</button>
-		</a>
-	</section>
-
-	<div class="grid grid-cols-1 gap-8 mb-2 sm:gap-6 md:grid-cols-2">
 		{{!-- SERVICIOS --}}
-		<section>
+		<div>
 			<h2 class="mt-0 subtitle flex gap-2 items-center">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0; font-size: 1.3rem; align-self: center;">build</i>
@@ -168,10 +173,12 @@
 					Nuevo servicio
 				</button>
 			</a>
-		</section>
+		</div>
+	</section>
 
+	<section class="grid grid-cols-1 gap-8 mb-2 sm:gap-6 md:grid-cols-2">
 		{{!-- Tareas Pendientes --}}
-		<section id="pendingTasks">
+		<div id="pendingTasks">
 			<h2 class="mt-0 subtitle" style="display: flex;">
 				<i class="material-icons icon-clients center"
 					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">schedule</i>
@@ -250,9 +257,54 @@
 					Agregar
 				</button>
 			</form>
+		</div>
 
-		</section>
-	</div>
+		<div class="rounded-lg w-full h-full">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">attach_file</i>
+				Adjuntos
+			</h2>
+
+			{{#if refUnit.attachments}}
+			<div class="flex flex-col gap-4 w-full items-center">
+				<div class="flex flex-col gap-4 w-full">
+					{{#each refUnit.attachments}}
+					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
+						class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
+						<i class="material-icons">picture_as_pdf</i>
+						<div class="truncate">{{this.name}}</div>
+					</a>
+					{{/each}}
+				</div>
+				{{/if}}
+
+				{{!-- <button class="hover:opacity-90 w-fit transition bg-emerald-500 flex items-center p-3 gap-2">
+					<i class="material-icons text-[30px]">upload_file</i>
+					<span class="font-semibold ">Subir archivos</span>
+				</button> --}}
+
+				<form class="flex flex-col md:flex-row gap-4" id="attachments-form">
+					<div class="custom-file-input">
+						<input id="file-input" type="file" name="Files" required multiple class="hidden" />
+						<label for="file-input" id="file-input-label"
+							class="w-fit transition h-[50px] px-6 cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 flex items-center p-3 gap-2"
+							tabindex="0">
+							<i class="material-icons text-[30px]">folder</i>
+							<span class="font-semibold max-w-[200px]">Seleccionar archivos</span>
+						</label>
+					</div>
+					<input name="refunitId" id="refunit-id" type="text" class="hidden" value="{{refUnit._id}}">
+					<button id="submit-button" type="submit"
+						class="hover:opacity-90 px-4 w-fit font-semibold h-[50px] transition cursor-pointer bg-gray-400 text-gray-600 flex items-center p-3 gap-2"
+						disabled>
+						<i class="material-icons text-[30px]">file_upload</i>
+						</span class=''>Subir a Drive</span>
+					</button>
+				</form>
+			</div>
+		</div>
+	</section>
 
 	{{!-- List all fixes --}}
 	<section class="w-full">
@@ -305,24 +357,22 @@
 	</section>
 </main>
 
-{{#each scripts}}
-<script src="{{script}}"></script>
-{{/each}}
-
 <script>
 	const fileInput = document.getElementById('file-input');
 	const fileInputLabel = document.getElementById('file-input-label');
-	const serviceId = document.getElementById('service-id').value;
+	const refunitId = document.getElementById('refunit-id').value;
 	const formElem = document.getElementById('attachments-form');
+	const submitButton = document.getElementById('submit-button');
 
 	fileInput.addEventListener('change', function () {
+		console.log('fileInput changed')
 		if (fileInput.files && fileInput.files.length > 0) {
 			let fileName = '';
 			fileInputLabel.classList.remove('text-emerald-400')
 			fileInputLabel.classList.add('bg-emerald-400', 'text-slate-800')
-			myButton.disabled = false;
-			myButton.classList.remove('bg-gray-500', 'text-gray-600')
-			myButton.classList.add('bg-emerald-400', 'text-slate-800')
+			submitButton.disabled = false;
+			submitButton.classList.remove('bg-gray-500', 'text-gray-600')
+			submitButton.classList.add('bg-emerald-400', 'text-slate-800')
 			if (fileInput.files.length === 1) {
 				fileName = fileInput.files[0].name;
 				console.log(fileName)
@@ -336,13 +386,11 @@
 	});
 
 	formElem.addEventListener('submit', async (e) => {
-		myButton.disabled = true;
-		myButton.classList.remove('bg-emerald-400', 'text-slate-800')
-		myButton.classList.add('bg-gray-500', 'text-gray-600')
+		e.preventDefault();
 
-		const submitButton = document.getElementById('myButton');
-		submitButton.classList.remove = 'bg-emerald-400', 'text-slate-800';
-		submitButton.classList.add = 'bg-gray-400', 'text-gray-600';
+		submitButton.disabled = true;
+		submitButton.classList.remove('bg-emerald-400', 'text-slate-800')
+		submitButton.classList.add('bg-gray-400', 'text-gray-600')
 		submitButton.textContent = 'Subiendo...';
 		submitButton.disabled = true;
 
@@ -350,27 +398,29 @@
 		editButton.classList.add = 'bg-gray-500';
 		editButton.disabled = true;
 
-		e.preventDefault();
 		console.log('form submitting')
+
 
 		await fetch('/upload', {
 			method: 'POST',
 			body: new FormData(formElem),
 		}).then(async (response) => {
-
 			console.log("Successfully uploaded to drive")
 			submitButton.textContent = 'Listo!';
-			const { serviceId } = await response.json();
-			console.log('service id: ', serviceId)
-			window.location.href = `/servicios/${serviceId}`
+
+			const { refunitId } = await response.json();
+			console.log(refunitId)
+			window.location.href = `/equipos/${refunitId}`
 
 		}).catch(error => {
 			console.log('was not uploaded' + error)
-			// document.querySelector('p').textContent = "Was not uploaded" + error;
-			// document.querySelector('p').style.display = 'block';
 			console.error(error);
 			alert('Hubo un error! recargá la página del navegador')
 		});
-	});
 
+	});
 </script>
+
+{{#each scripts}}
+<script src="{{script}}"></script>
+{{/each}}
