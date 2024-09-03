@@ -19,7 +19,7 @@ const observationsInput = document.getElementById('observations-input');
 soldByReciSelect.addEventListener('change', (e) => {
   soldByReci = soldByReciSelect.value === 'true';
   if (soldByReci) {
-    warrantyDateInput.required = true;
+    //  warrantyDateInput.required = true;
     warrantyDateInput.disabled = false;
     warrantyDateInput.classList.remove('disabled-select');
     deliveryEstimateInput.disabled = false;
@@ -52,7 +52,7 @@ statusSelect.addEventListener('change', function () {
 
     warrantyDateInput.value = null;
     warrantyDateInput.disabled = false;
-    warrantyDateInput.required = true;
+    //  warrantyDateInput.required = true;
     warrantyDateInput.classList.remove('disabled-select');
   } else {
     deliveryEstimateInput.value = null;

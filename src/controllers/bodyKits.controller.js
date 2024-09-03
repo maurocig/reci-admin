@@ -57,6 +57,7 @@ class BodyKitsController {
       } = req.body;
 
       if (plate === '') plate = null;
+      if (warrantyDate === '') warrantyDate = null;
 
       const bodyKit = {
         client,
