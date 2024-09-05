@@ -52,7 +52,7 @@ statusSelect.addEventListener('change', function () {
 
     warrantyDateInput.value = null;
     warrantyDateInput.disabled = false;
-    //  warrantyDateInput.required = true;
+    warrantyDateInput.required = true;
     warrantyDateInput.classList.remove('disabled-select');
   } else {
     deliveryEstimateInput.value = null;
