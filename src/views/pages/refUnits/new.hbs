@@ -53,47 +53,9 @@
 				<label for="model">Modelo <span class="text-red-500">*</span></label>
 				{{!-- <input type="text" name="model" placeholder="V-500" /> --}}
 				<select name="model" id="select-model" required>
-					<option value="" disabled selected>Seleccionar</option>
-					<option value="C-150">C-150</option>
-					<option value="C-250">C-250</option>
-					<option value="C-350">C-350</option>
-					<option value="C-450">C-450</option>
-					<option value="C-150 MAX">C-150 MAX</option>
-					<option value="C-250 MAX">C-250 MAX</option>
-					<option value="C-350 MAX">C-350 MAX</option>
-					<option value="C-450 MAX">C-450 MAX</option>
-					<option value="C-550 MAX">C-550 MAX</option>
-					<option value="C-650 MAX">C-650 MAX</option>
-					<option value="C-750 MAX">C-750 MAX</option>
-					<option value="RV-200">RV-200</option>
-					<option value="RV-380">RV-380</option>
-					<option value="RV-380">RV-580</option>
-					<option value="V-200">V-200</option>
-					<option value="V-300">V-300</option>
-					<option value="V-500">V-500</option>
-					<option value="V-600">V-600</option>
-					<option value="V-800">V-800</option>
-					<option value="V-400x">V-400x</option>
-					<option value="V-500x">V-500x</option>
-					<option value="EV-500">EV-500</option>
-					<option value="T-600">T-600</option>
-					<option value="T-800">T-800</option>
-					<option value="T-1200">T-1200</option>
-					<option value="SLXi400">SLXi 400</option>
-					<option value="SLII">SLII</option>
-					<option value="SLIII">SLIII</option>
-					<option value="A500">Advancer A500</option>
-					<option value="C-600">Precedent C-600</option>
-					<option value="SB-210">SB-210</option>
-					<option value="SB-310">SB-310</option>
-					<option value="SR-2">SR-2</option>
-					<option value="SB-3">SB-3</option>
-					<option value="RD-II SR">RD-II SR</option>
-					<option value="COLD CAR">COLD CAR</option>
-					<option value="FIBRASIL">FIBRASIL</option>
-					{{!-- 5 dígitos --}}
-					<option value="RECROSUL">RECROSUL</option>
-					<option value="Otro">Otro (avisar a mauro)</option>
+					{{#each models}}
+					<option value="{{this.value}}">{{this.label}}</option>
+					{{/each}}
 				</select>
 			</div>
 			<div class="form-field">

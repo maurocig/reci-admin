@@ -7,6 +7,8 @@ const { successResponse } = require('../utils/api.utils');
 const refUnitsDao = new RefUnitsDao();
 const clientsDao = new ClientsDao();
 
+const models = require('../public/js/refunit-models');
+
 class RefUnitsController {
   async getRefUnits(req, res, next) {
     const page = req.query.p || 0;
@@ -91,7 +93,7 @@ class RefUnitsController {
         { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
         { script: '/js/newRefUnitFormHandler.js' },
       ];
-      res.render('pages/refUnits/new', { clientId, clientName, scripts });
+      res.render('pages/refUnits/new', { clientId, clientName, scripts, models });
     } catch (error) {
       console.log(error);
     }
