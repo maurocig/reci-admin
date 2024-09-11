@@ -82,7 +82,13 @@
 					<option value="Producción">Producción (España)</option>
 					<option value="Arribada" selected>Arribada (RECI)</option>
 					<option value="Entregada">Entregada</option>
+					{{/if}}
+					{{#if (eq bodyKit.status 'Entregada')}}
+					<option value="Producción">Producción (España)</option>
+					<option value="Arribada">Arribada (RECI)</option>
+					<option value="Entregada" selected>Entregada</option>
 					{{else}}
+					<option value="" selected>No aplica</option>
 					<option value="Producción">Producción (España)</option>
 					<option value="Arribada">Arribada (RECI)</option>
 					<option value="Entregada" selected>Entregada</option>

@@ -61,6 +61,21 @@ if (statusSelect.value === 'Entregada') {
   warrantyDateInput.required = false;
 }
 
+if (soldByReciSelect.value === 'false') {
+  warrantyDateInput.value = null;
+  warrantyDateInput.disabled = true;
+  warrantyDateInput.required = false;
+  warrantyDateInput.classList.add('disabled-select');
+  deliveryEstimateInput.value = null;
+  deliveryEstimateInput.disabled = true;
+  deliveryEstimateInput.classList.add('disabled-select');
+  deliveryEstimateInput.required = false;
+  statusSelect.value = '';
+  statusSelect.disabled = true;
+  statusSelect.required = false;
+  statusSelect.classList.add('disabled-select');
+}
+
 statusSelect.addEventListener('change', function () {
   if (statusSelect.value === 'Entregada') {
     deliveryEstimateInput.value = null;
