@@ -58,6 +58,7 @@ class BodyKitsController {
 
       if (plate === '') plate = null;
       if (warrantyDate === '') warrantyDate = null;
+      if (status === '') status = null;
 
       const bodyKit = {
         client,

@@ -37,15 +37,24 @@
 				<label for="client">Nombre de Cliente</label>
 				<input type="text" name="clientName" value="{{clientName}}" style="text-transform: uppercase;" readonly />
 			</div>
+
 			<div class="form-field hidden">
 				<label for="client">ID Cliente</label>
 				<input type="text" id="client-id" name="client" value="{{clientId}}" readonly />
 			</div>
+
 			<div class="form-field">
 				<label for="serial-input">Nº Serie <span class="text-red-500">*</span></label>
 				<input type="text" class="uppercase" pattern="[A-Za-z0-9]+" name="serialNumber" id="serial-input"
 					maxlength="17" required />
 			</div>
+
+			<div class="form-field hidden">
+				<label for="fibrasil-id-input">ID Fibrasil <span class="text-red-500">*</span></label>
+				<input type="text" class="uppercase" pattern="[A-Za-z0-9]+" name="serialNumber" id="serial-input"
+					maxlength="17" />
+			</div>
+
 			<div class="form-field">
 				<label for="plate-input">Matrícula <span class="text-yellow-500">*</span></label>
 				<input type="text" id="plate-input" name="plate" placeholder="ATP1234" style="text-transform: uppercase;"
@@ -142,6 +151,7 @@
 					<option value="Otro">Otro (avisar a mauro)</option>
 				</select>
 			</div>
+
 			<div class="form-field">
 				<label for="truckModel-input">Modelo del camión</label>
 				<input type="text" name="truckModel" id="truckModel-input" class="uppercase">
@@ -173,7 +183,7 @@
 
 
 		<div class="w-full flex justify-end">
-			<button class="button-success mt-4" role="submit" id="submit-button">Guardar</button>
+			<button class="button-success mt-4" type="submit" id="submit-button">Guardar</button>
 		</div>
 	</form>
 </main>

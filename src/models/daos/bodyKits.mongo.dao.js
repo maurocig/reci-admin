@@ -19,7 +19,7 @@ const bodyKitSchema = new Schema(
     soldByReci: { type: Schema.Types.Boolean },
     warrantyDate: { type: Date, default: null },
     chassis: { type: String, uppercase: true, default: null },
-    status: { type: String, enum: ['Producción', 'Arribada', 'Entregada'], required: true },
+    status: { type: String, enum: ['Producción', 'Arribada', 'Entregada', null], required: false },
     deliveryEstimate: { type: Date, default: null },
     truckBrand: { type: String, uppercase: true, default: null },
     truckModel: { type: String, uppercase: true, default: null },
