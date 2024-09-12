@@ -29,8 +29,8 @@ if (soldByReciSelect.value === 'false') {
 
   statusSelect.value = '';
   statusSelect.disabled = true;
-  statusSelect.required = false;
   statusSelect.classList.add('disabled-select');
+  statusSelect.required = false;
 }
 
 soldByReciSelect.addEventListener('change', (e) => {
