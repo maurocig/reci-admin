@@ -32,8 +32,8 @@ module.exports = {
     return matches;
   },
   isInWarranty: function (warrantyDate) {
-    const today = moment().tz('America/Montevideo').format('YYYY/MM/DD');
-    const warrantyEndDate = moment(warrantyDate).tz('America/Montevideo').format('YYYY/MM/DD');
+    const today = moment().tz('UTC').format('YYYY/MM/DD');
+    const warrantyEndDate = moment(warrantyDate).tz('UTC').format('YYYY/MM/DD');
     const isWarrantyActive = moment(today).isBefore(warrantyEndDate);
     return isWarrantyActive;
   },

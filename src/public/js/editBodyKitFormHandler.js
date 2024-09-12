@@ -16,14 +16,33 @@ const warrantyDateInput = document.getElementById('warranty-input');
 const wheelbaseInput = document.getElementById('wheelbase-input');
 const observationsInput = document.getElementById('observations-input');
 
+if (soldByReciSelect.value === 'false') {
+  warrantyDateInput.value = null;
+  warrantyDateInput.disabled = true;
+  warrantyDateInput.required = false;
+  warrantyDateInput.classList.add('disabled-select');
+
+  deliveryEstimateInput.value = null;
+  deliveryEstimateInput.disabled = true;
+  deliveryEstimateInput.classList.add('disabled-select');
+  deliveryEstimateInput.required = false;
+
+  statusSelect.value = '';
+  statusSelect.disabled = true;
+  statusSelect.required = false;
+  statusSelect.classList.add('disabled-select');
+}
+
 soldByReciSelect.addEventListener('change', (e) => {
   soldByReci = soldByReciSelect.value === 'true';
   if (soldByReci) {
     warrantyDateInput.required = true;
     warrantyDateInput.disabled = false;
     warrantyDateInput.classList.remove('disabled-select');
+
     deliveryEstimateInput.disabled = false;
     deliveryEstimateInput.classList.remove('disabled-select');
+
     statusSelect.required = true;
     statusSelect.disabled = false;
     statusSelect.classList.remove('disabled-select');
@@ -32,9 +51,11 @@ soldByReciSelect.addEventListener('change', (e) => {
     warrantyDateInput.required = false;
     warrantyDateInput.disabled = true;
     warrantyDateInput.classList.add('disabled-select');
+
     deliveryEstimateInput.value = null;
     deliveryEstimateInput.disabled = true;
     deliveryEstimateInput.classList.add('disabled-select');
+
     statusSelect.required = false;
     statusSelect.value = '';
     statusSelect.disabled = true;
@@ -59,21 +80,6 @@ if (statusSelect.value === 'Entregada') {
   warrantyDateInput.disabled = true;
   warrantyDateInput.classList.add('disabled-select');
   warrantyDateInput.required = false;
-}
-
-if (soldByReciSelect.value === 'false') {
-  warrantyDateInput.value = null;
-  warrantyDateInput.disabled = true;
-  warrantyDateInput.required = false;
-  warrantyDateInput.classList.add('disabled-select');
-  deliveryEstimateInput.value = null;
-  deliveryEstimateInput.disabled = true;
-  deliveryEstimateInput.classList.add('disabled-select');
-  deliveryEstimateInput.required = false;
-  statusSelect.value = '';
-  statusSelect.disabled = true;
-  statusSelect.required = false;
-  statusSelect.classList.add('disabled-select');
 }
 
 statusSelect.addEventListener('change', function () {
