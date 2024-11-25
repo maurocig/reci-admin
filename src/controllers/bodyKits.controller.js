@@ -25,11 +25,19 @@ class BodyKitsController {
     const { id } = req.params;
     try {
       const bodyKit = await bodyKitsDao.getByIdAndPopulate(id);
-      const scripts = [
-        { script: '/js/formatDate.js' },
-        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-      ];
-      res.status(HTTP_STATUS.OK).render('pages/bodyKits/show', { bodyKit, scripts });
+      console.log(bodyKit);
+
+      if (!bodyKit) {
+        res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .render('pages/404', { message: 'La carrocería no existe o fue eliminada' });
+      } else {
+        const scripts = [
+          { script: '/js/formatDate.js' },
+          { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+        ];
+        res.status(HTTP_STATUS.OK).render('pages/bodyKits/show', { bodyKit, scripts });
+      }
     } catch (error) {
       next(error);
     }

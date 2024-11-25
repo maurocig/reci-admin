@@ -48,7 +48,13 @@ class ServicesController {
     try {
       const service = await servicesDao.getByIdAndPopulate(id);
 
-      res.status(HTTP_STATUS.OK).render('pages/services/show', { service });
+      if (!service) {
+        res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .render('pages/404', { message: 'El servicio no existe o fue eliminado' });
+      } else {
+        res.status(HTTP_STATUS.OK).render('pages/services/show', { service });
+      }
     } catch (error) {
       next(error);
     }

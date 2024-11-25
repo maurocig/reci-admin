@@ -46,7 +46,7 @@ class BodyKitsMongoDao extends MongoContainer {
   }
 
   async getByIdAndPopulate(id) {
-    const bodyKit = await this.model
+    let bodyKit = await this.model
       .findById(id)
       .populate('client', 'name')
       .populate('pendingTasks', ['taskDescription', 'completed'])
@@ -56,6 +56,11 @@ class BodyKitsMongoDao extends MongoContainer {
         options: { sort: { serviceDate: 'desc' } },
       })
       .lean();
+
+    if (!bodyKit) {
+      return (bodyKit = null);
+    }
+
     return bodyKit;
   }
 

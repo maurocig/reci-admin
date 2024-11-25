@@ -26,12 +26,19 @@ class RefUnitsController {
     const { id } = req.params;
     try {
       const refUnit = await refUnitsDao.getByIdAndPopulate(id);
-      const scripts = [
-        { script: '/js/formatDate.js' },
-        { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
-      ];
 
-      res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit, scripts });
+      if (!refUnit) {
+        res
+          .status(HTTP_STATUS.NOT_FOUND)
+          .render('pages/404', { message: 'El equipo no existe o fue eliminado' });
+      } else {
+        const scripts = [
+          { script: '/js/formatDate.js' },
+          { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+        ];
+
+        res.status(HTTP_STATUS.OK).render('pages/refUnits/show', { refUnit, scripts });
+      }
     } catch (error) {
       next(error);
     }
