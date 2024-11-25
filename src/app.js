@@ -62,7 +62,6 @@ app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('src/public'));
-app.use(errorMiddleware);
 // put request in html form
 app.use(methodOverride('_method'));
 app.use(bodyParser.json());
@@ -89,7 +88,8 @@ app.post('/upload', upload.any(), async (req, res) => {
     for (let f = 0; f < files.length; f += 1) {
       let driveFolder;
       if (serviceId) {
-        driveFolder = process.env.SERVICES_UPLOAD_FOLDER;
+        driveFolder = process.e;
+        nv.SERVICES_UPLOAD_FOLDER;
       } else if (refunitId) {
         driveFolder = process.env.REFUNITS_UPLOAD_FOLDER;
       } else {
@@ -145,3 +145,5 @@ const uploadFile = async (fileObject, folder) => {
 };
 
 // upload files to google drive (refUnits)
+
+app.use(errorMiddleware);

@@ -44,6 +44,8 @@ class RefUnitsMongoDao extends MongoContainer {
       })
       .populate('attachments')
       .lean();
+
+    console.log('refUnit!!!!:', refUnit);
     return refUnit;
   }
 
