@@ -19,8 +19,8 @@ const observationsInput = document.getElementById('observations-input');
 if (soldByReciSelect.value === 'false') {
   warrantyDateInput.value = null;
   warrantyDateInput.disabled = true;
-  warrantyDateInput.required = false;
   warrantyDateInput.classList.add('disabled-select');
+  warrantyDateInput.required = false;
 
   deliveryEstimateInput.value = null;
   deliveryEstimateInput.disabled = true;
@@ -72,7 +72,15 @@ if (statusSelect.value === 'Entregada') {
   warrantyDateInput.disabled = false;
   warrantyDateInput.required = true;
   warrantyDateInput.classList.remove('disabled-select');
-} else {
+} else if (statusSelect.value === 'Arribada') {
+  deliveryEstimateInput.disabled = false;
+  deliveryEstimateInput.classList.remove('disabled-select');
+
+  warrantyDateInput.value = null;
+  warrantyDateInput.disabled = true;
+  warrantyDateInput.classList.add('disabled-select');
+  warrantyDateInput.required = false;
+} else if (statusSelect.value === 'Producción') {
   deliveryEstimateInput.disabled = false;
   deliveryEstimateInput.classList.remove('disabled-select');
 
@@ -92,7 +100,7 @@ statusSelect.addEventListener('change', function () {
     warrantyDateInput.disabled = false;
     warrantyDateInput.required = true;
     warrantyDateInput.classList.remove('disabled-select');
-  } else {
+  } else if (statusSelect.value === 'Arribada') {
     deliveryEstimateInput.value = null;
     deliveryEstimateInput.disabled = false;
     deliveryEstimateInput.classList.remove('disabled-select');
