@@ -38,9 +38,17 @@ class ClientsController {
       const bodyKits = await bodyKitsDao.getAll({ client: id });
       const services = await servicesDao.getAllWithRefUnits({ client: id });
 
-      res
-        .status(HTTP_STATUS.OK)
-        .render('pages/clients/show', { client, refUnits, bodyKits, services });
+      if (!client) {
+        res.status(HTTP_STATUS.NOT_FOUND).render('pages/error', {
+          message: 'El cliente no existe o fue eliminado',
+          details:
+            'Si creés que se trata de un error, comunicate con el administrador para solucionar el problema',
+        });
+      } else {
+        res
+          .status(HTTP_STATUS.OK)
+          .render('pages/clients/show', { client, refUnits, bodyKits, services });
+      }
     } catch (error) {
       next(error);
     }

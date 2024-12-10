@@ -28,9 +28,11 @@ class RefUnitsController {
       const refUnit = await refUnitsDao.getByIdAndPopulate(id);
 
       if (!refUnit) {
-        res
-          .status(HTTP_STATUS.NOT_FOUND)
-          .render('pages/404', { message: 'El equipo no existe o fue eliminado' });
+        res.status(HTTP_STATUS.NOT_FOUND).render('pages/error', {
+          message: 'El equipo no existe o fue eliminado',
+          details:
+            'Si creés que se trata de un error, comunicate con el administrador para solucionar el problema',
+        });
       } else {
         const scripts = [
           { script: '/js/formatDate.js' },

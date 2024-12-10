@@ -114,7 +114,6 @@ class ServicesController {
       const addedService = await bodyKitsDao.addService(service.bodyKit, newServiceId);
       res.json({ id: newServiceId, status: 200 });
     } catch (error) {
-      console.log('error in saveService controller', error);
       next(error);
     }
   }
@@ -189,7 +188,7 @@ class ServicesController {
       ];
       res.render('pages/bodykitServices/new', { bodyKit, scripts, bodyKitId });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 

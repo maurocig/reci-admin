@@ -25,12 +25,14 @@ class BodyKitsController {
     const { id } = req.params;
     try {
       const bodyKit = await bodyKitsDao.getByIdAndPopulate(id);
-      console.log(bodyKit);
 
       if (!bodyKit) {
-        res
-          .status(HTTP_STATUS.NOT_FOUND)
-          .render('pages/404', { message: 'La carrocería no existe o fue eliminada' });
+        res.status(HTTP_STATUS.NOT_FOUND);
+        res.status(HTTP_STATUS.NOT_FOUND).render('pages/error', {
+          message: 'La carrocería no existe o fue eliminada',
+          details:
+            'Si creés que se trata de un error, comunicate con el administrador para solucionar el problema',
+        });
       } else {
         const scripts = [
           { script: '/js/formatDate.js' },
@@ -95,7 +97,7 @@ class BodyKitsController {
 
         if (bodyKits.length > 0) {
           const error = new Error('La matrícula ya existe');
-          console.log('Error matrícula duplicada: ', error);
+          console.error('Error: Matrícula duplicada: ', error);
           error.status = HTTP_STATUS.BAD_REQUEST;
           throw error;
         }
@@ -139,7 +141,7 @@ class BodyKitsController {
       ];
       res.render('pages/bodyKits/new', { clientId, clientName, scripts });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 
@@ -249,7 +251,6 @@ class BodyKitsController {
       const response = successResponse(updatedBodyKit);
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }
@@ -265,7 +266,6 @@ class BodyKitsController {
         res.status(HTTP_STATUS.OK).render('pages/bodyKits', { bodyKits });
       }
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

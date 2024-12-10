@@ -49,9 +49,11 @@ class ServicesController {
       const service = await servicesDao.getByIdAndPopulate(id);
 
       if (!service) {
-        res
-          .status(HTTP_STATUS.NOT_FOUND)
-          .render('pages/404', { message: 'El servicio no existe o fue eliminado' });
+        res.status(HTTP_STATUS.NOT_FOUND).render('pages/error', {
+          message: 'El servicio no existe o fue eliminado',
+          details:
+            'Si creés que se trata de un error, comunicate con el administrador para solucionar el problema',
+        });
       } else {
         res.status(HTTP_STATUS.OK).render('pages/services/show', { service });
       }

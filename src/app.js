@@ -80,8 +80,6 @@ const auth = new google.auth.GoogleAuth({
 app.post('/upload', upload.any(), async (req, res) => {
   const { serviceId, refunitId } = req.body;
   try {
-    console.log(req.body);
-    console.log(req.files);
     const { files } = req;
     const filesResponse = [];
 
@@ -93,14 +91,13 @@ app.post('/upload', upload.any(), async (req, res) => {
       } else if (refunitId) {
         driveFolder = process.env.REFUNITS_UPLOAD_FOLDER;
       } else {
-        console.log('no serviceId or refunitId');
+        console.error('Error al subir archivo: no se especificó el serviceId o refUnitId.');
       }
       const data = await uploadFile(files[f], driveFolder);
       const file = { name: data.name, id: data.id };
       filesResponse.push(file);
     }
 
-    console.log(filesResponse);
     if (serviceId) {
       const updatedService = await servicesDao.addAttachments(serviceId, filesResponse);
     } else if (refunitId) {
@@ -108,7 +105,6 @@ app.post('/upload', upload.any(), async (req, res) => {
     }
     res.json({ serviceId, refunitId });
   } catch (e) {
-    console.log(e);
     res.send(e.message);
   }
 });
@@ -140,7 +136,7 @@ const uploadFile = async (fileObject, folder) => {
     console.log(`Uploaded file ${data.name} ${data.id} ${data.mimeType}`);
     return data;
   } catch (e) {
-    console.log(e);
+    console.error('Error al subir archivo: ', e);
   }
 };
 

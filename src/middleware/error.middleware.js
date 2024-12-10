@@ -8,7 +8,7 @@ const errorMiddleware = (error, req, res, next) => {
   const errorMessage = error.message || 'There was an unexpected error';
   const errorDetails = error.message ? null : error;
 
-  console.log('ERROR!!!', error);
+  console.error('[middleware] Error: ', error);
 
   if (error instanceof mongoose.Error.CastError && error.kind === 'ObjectId') {
     res.status(HTTP_STATUS.BAD_REQUEST).render('pages/error', {
@@ -17,7 +17,7 @@ const errorMiddleware = (error, req, res, next) => {
     });
   } else {
     res
-      .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+      .status(HTTP_STATUS.INTERNAL_ERROR)
       .render('pages/error', { message: errorMessage, details: errorDetails });
   }
 

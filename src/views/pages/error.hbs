@@ -1,0 +1,23 @@
+{{>navbar}}
+
+<script src="https://kit.fontawesome.com/29f13514cf.js" crossorigin="anonymous"></script>
+<main style="height: calc(100vh - 80px); position: relative" class="mt-[80px] ">
+	{{!-- <h1 class='title'>RECI Importaciones</h1> --}}
+	<div class="flex flex-col items-center justify-center w-full ">
+		<div
+			class="flex flex-col justify-center max-w-[600px] items-center py-6 px-8 lg:px-12 md:mt-[100px] bg-white/10 rounded-lg gap-2">
+			<i class="material-icons text-yellow-400 icon-clients" style="font-size: 55px; padding-top: .5rem">warning</i>
+			<h1 class="text-xl font-normal font-bold text-center text-white/90">{{message}}</h1>
+			{{#if details}}
+			<p class="text-md text-white/80 text-center">{{details}}</p>
+			{{else}}
+			<p class="text-md text-white/80 text-center">Si creés que se trata de un error, contactate con el
+				administrador.</p>
+			{{/if}}
+			<a href="javascript:history.back()"
+				class="flex flex-row gap-2 mt-4 bg-emerald-600 border-0 px-4 py-2 text-white">
+				<i class="material-icons text-white">arrow_back</i>Volver</a>
+		</div>
+	</div>
+
+</main>

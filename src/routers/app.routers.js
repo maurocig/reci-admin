@@ -153,4 +153,11 @@ router.get('/buscar', async (req, res) => {
   return res.redirect('/busqueda');
 });
 
+router.get('*', (req, res) => {
+  res.render('pages/error', {
+    message: 'Error 404',
+    details: 'La página a la que intentás acceder no existe',
+  });
+});
+
 module.exports = router;
