@@ -86,8 +86,7 @@ app.post('/upload', upload.any(), async (req, res) => {
     for (let f = 0; f < files.length; f += 1) {
       let driveFolder;
       if (serviceId) {
-        driveFolder = process.e;
-        nv.SERVICES_UPLOAD_FOLDER;
+        driveFolder = process.env.SERVICES_UPLOAD_FOLDER;
       } else if (refunitId) {
         driveFolder = process.env.REFUNITS_UPLOAD_FOLDER;
       } else {
@@ -114,6 +113,8 @@ app.use('/', routes);
 
 module.exports = app;
 
+app.use(errorMiddleware);
+
 // upload files to google drive (services)
 const uploadFile = async (fileObject, folder) => {
   try {
@@ -127,8 +128,6 @@ const uploadFile = async (fileObject, folder) => {
       requestBody: {
         name: fileObject.originalname,
         parents: [folder],
-
-        //   parents: ['1CM02t464IkvuaqJz4eYHS9Msscl73m2C'], // ventasreci@gmail.com google drive folder.
       },
       fields: 'id,name,mimeType',
     });
@@ -141,5 +140,3 @@ const uploadFile = async (fileObject, folder) => {
 };
 
 // upload files to google drive (refUnits)
-
-app.use(errorMiddleware);

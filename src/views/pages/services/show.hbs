@@ -395,12 +395,15 @@
 			method: 'POST',
 			body: new FormData(formElem),
 		}).then(async (response) => {
+
 			console.log("Successfully uploaded to drive")
 			submitButton.textContent = 'Listo!';
+
 			const { serviceId } = await response.json();
 			console.log('service id: ', serviceId)
 			window.location.href = `/servicios/${serviceId}`
-		}).catch(error => {
+
+		}).catch((error) => {
 			console.log('was not uploaded' + error)
 			console.error(error);
 			alert('Hubo un error al subir el archivo: ', error);
