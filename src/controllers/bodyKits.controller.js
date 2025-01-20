@@ -97,7 +97,7 @@ class BodyKitsController {
 
         if (bodyKits.length > 0) {
           const error = new Error('La matrícula ya existe');
-          console.error('Error: Matrícula duplicada: ', error);
+          console.error('Error: Matrícula duplicada. ', error);
           error.status = HTTP_STATUS.BAD_REQUEST;
           throw error;
         }
