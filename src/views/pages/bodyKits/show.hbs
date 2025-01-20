@@ -261,6 +261,103 @@
 			</a>
 		</section>
 
+		<section class="rounded-lg w-full h-full">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">attach_file</i>
+				Adjuntos
+			</h2>
+
+			{{#if service.attachments}}
+			<div class="flex flex-col gap-4 w-full items-center">
+				<div class="flex flex-col gap-4 w-full">
+					{{#each service.attachments}}
+					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
+						class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
+						<i class="material-icons">picture_as_pdf</i>
+						<div class="truncate">{{this.name}}</div>
+					</a>
+					{{/each}}
+				</div>
+				{{/if}}
+
+				{{!-- <button class="hover:opacity-90 w-fit transition bg-emerald-500 flex items-center p-3 gap-2">
+					<i class="material-icons text-[30px]">upload_file</i>
+					<span class="font-semibold ">Subir archivos</span>
+				</button> --}}
+
+				<form class="flex flex-col md:flex-row gap-4" id="attachments-form">
+					<div class="custom-file-input">
+						<input id="file-input" type="file" name="Files" required multiple class="hidden" />
+						<label for="file-input" id="file-input-label"
+							class="w-fit transition h-[50px] px-6 cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 flex items-center p-3 gap-2"
+							tabindex="0">
+							<i class="material-icons text-[30px]">folder</i>
+							<span class="font-semibold max-w-[200px]">Seleccionar archivos</span>
+						</label>
+					</div>
+					<input name="serviceId" id="service-id" type="text" class="hidden" value="{{service._id}}">
+					<button id="submit-button" type="submit"
+						class="hover:opacity-90 px-4 w-fit font-semibold h-[50px] transition cursor-pointer bg-gray-400 text-gray-600 flex items-center p-3 gap-2"
+						disabled>
+						<i class="material-icons text-[30px]">file_upload</i>
+						</span class=''>Subir a Drive</span>
+					</button>
+				</form>
+			</div>
+	</div>
+	</div>
+
+	{{!-- List all fixes --}}
+	<div class="w-full grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2">
+		<section class="w-full">
+			<h2 class="mt-0 subtitle" style="display: flex;">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">check</i>
+				Tareas realizadas en servicios
+			</h2>
+
+			{{#if bodyKit.services}}
+			<div class="table-container" style="width: 100%; min-width: 300px; ">
+				<table>
+					<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+						<th class="hidden py-2 text-start sm:table-cell">Tarea</th>
+						<th class="py-2 w-[100px]"># Orden</th>
+						<th class="py-2 w-[50px]">Fecha</th>
+						{{!-- <th class="py-2 w-[50px] hidden sm:table-cell">Repuestos</th> --}}
+						{{!-- <th class="hidden py-2 text-center sm:table-cell">Repuestos</th> --}}
+					</tr>
+					{{#each bodyKit.services}}
+					{{#each this.fixes}}
+					{{#if (isOdd @../index)}}
+					<tr class="bg-cyan-600/5">
+						{{else}}
+					<tr>
+						{{/if}}
+						<td class="whitespace-normal">
+							<a class="whitespace-normal" href="/servicios-carrocerias/{{../this._id}}">{{this.fixName}}</a>
+						</td>
+						<td class="hidden sm:table-cell ">
+							<a href="/servicios-carrocerias/{{../this._id}}">{{../this.orderNumber}}</a>
+						</td>
+						<td>
+							<a href="/servicios-carrocerias/{{../this._id}}">{{formatDate ../this.serviceDate}}</a>
+						</td>
+						{{!-- <td class="hidden text-center sm:table-cell">
+						<a href="/servicios-carrocerias/{{../this._id}}">{{../this.parts.length}}</a>
+					</td> --}}
+					</tr>
+					{{/each}}
+					{{/each}}
+				</table>
+			</div>
+			{{else}}
+			<h3 class="no-elements center" style="font-size: 1.1rem;">
+				No hay servicios registrados.
+			</h3>
+			{{/if}}
+		</section>
+
 		{{!-- Tareas Pendientes --}}
 		<section id="pendingTasks">
 			<h2 class="mt-0 subtitle" style="display: flex;">
@@ -313,7 +410,6 @@
 										alt=""></span>
 							</a>
 						</td>
-
 					</tr>
 					{{/each}}
 				</table>
@@ -341,61 +437,73 @@
 					Agregar
 				</button>
 			</form>
-
 		</section>
 	</div>
-
-	{{!-- List all fixes --}}
-	<section class="w-full">
-		<h2 class="mt-0 subtitle" style="display: flex;">
-			<i class="material-icons icon-clients center"
-				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">check</i>
-			Tareas realizadas en servicios
-		</h2>
-
-		{{#if bodyKit.services}}
-		<div class="table-container" style="width: 100%; min-width: 300px; ">
-			<table>
-				<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
-					<th class="hidden py-2 text-start sm:table-cell">Tarea</th>
-					<th class="py-2 w-[100px]"># Orden</th>
-					<th class="py-2 w-[50px]">Fecha</th>
-					{{!-- <th class="py-2 w-[50px] hidden sm:table-cell">Repuestos</th> --}}
-					{{!-- <th class="hidden py-2 text-center sm:table-cell">Repuestos</th> --}}
-				</tr>
-				{{#each bodyKit.services}}
-				{{#each this.fixes}}
-				{{#if (isOdd @../index)}}
-				<tr class="bg-cyan-600/5">
-					{{else}}
-				<tr>
-					{{/if}}
-					<td class="whitespace-normal">
-						<a class="whitespace-normal" href="/servicios-carrocerias/{{../this._id}}">{{this.fixName}}</a>
-					</td>
-					<td class="hidden sm:table-cell ">
-						<a href="/servicios-carrocerias/{{../this._id}}">{{../this.orderNumber}}</a>
-					</td>
-					<td>
-						<a href="/servicios-carrocerias/{{../this._id}}">{{formatDate ../this.serviceDate}}</a>
-					</td>
-					{{!-- <td class="hidden text-center sm:table-cell">
-						<a href="/servicios-carrocerias/{{../this._id}}">{{../this.parts.length}}</a>
-					</td> --}}
-				</tr>
-				{{/each}}
-				{{/each}}
-			</table>
-		</div>
-		{{else}}
-		<h3 class="no-elements center" style="font-size: 1.1rem;">
-			No hay servicios registrados en esta carrocería.
-		</h3>
-		{{/if}}
-
-	</section>
 </main>
 
 {{#each scripts}}
 <script src="{{script}}"></script>
 {{/each}}
+
+<script>
+	const fileInput = document.getElementById('file-input');
+	const fileInputLabel = document.getElementById('file-input-label');
+	const serviceId = document.getElementById('service-id').value;
+	const formElem = document.getElementById('attachments-form');
+	const submitButton = document.getElementById('submit-button');
+
+	fileInput.addEventListener('change', function () {
+		if (fileInput.files && fileInput.files.length > 0) {
+			let fileName = '';
+			fileInputLabel.classList.remove('text-emerald-400')
+			fileInputLabel.classList.add('bg-emerald-400', 'text-slate-800')
+			submitButton.disabled = false;
+			submitButton.classList.remove('bg-gray-500', 'text-gray-600')
+			submitButton.classList.add('bg-emerald-400', 'text-slate-800')
+			if (fileInput.files.length === 1) {
+				fileName = fileInput.files[0].name;
+				console.log(fileName)
+			} else {
+				fileName = fileInput.files.length + ' archivos seleccionados';
+			}
+			fileInputLabel.innerHTML = `<span class='font-semibold truncate max-w-[200px]'>${fileName}</span>`;
+		} else {
+			fileInputLabel = 'Seleccionar archivos';
+		}
+	});
+
+	formElem.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		submitButton.disabled = true;
+		submitButton.classList.remove('bg-emerald-400', 'text-slate-800')
+		submitButton.classList.add('bg-gray-400', 'text-gray-600')
+		submitButton.textContent = 'Subiendo...';
+		submitButton.disabled = true;
+
+		const editButton = document.getElementById('editButton');
+		editButton.classList.add = 'bg-gray-500';
+		editButton.disabled = true;
+
+		console.log('form submitting')
+
+		/*
+			 await fetch('/upload', {
+				 method: 'POST',
+				 body: new FormData(formElem),
+			 }).then(async (response) => {
+				 console.log("Successfully uploaded to drive")
+				 submitButton.textContent = 'Listo!';
+				 const { serviceId } = await response.json();
+				 console.log('service id: ', serviceId)
+				 window.location.href = `/servicios/${serviceId}`
+			 }).catch((error) => {
+				 console.log('was not uploaded' + error)
+				 console.error(error);
+				 alert('Hubo un error al subir el archivo: ', error);
+			 });
+		*/
+
+	});
+
+</script>
