@@ -207,7 +207,7 @@
 		</div>
 
 		<a href="/carrocerias/editar/{{bodyKit._id}}">
-			<button class="button-new">
+			<button class="button-new" id="editButton">
 				<i class="material-icons clients-icon center">edit</i>
 				Editar
 			</button>
@@ -248,9 +248,7 @@
 			</div>
 
 			{{else}}
-			<h3 class="no-elements center" style="font-size: 1.1rem;">No hay servicios registrados en
-				esta
-				carrocería.</h3>
+			<h3 class="no-elements center" style="font-size: 1.1rem;">No hay servicios registrados.</h3>
 			{{/if}}
 
 			<a href="/servicios-carrocerias/nuevo/{{bodyKit._id}}">
@@ -268,10 +266,10 @@
 				Adjuntos
 			</h2>
 
-			{{#if service.attachments}}
+			{{#if bodyKit.attachments}}
 			<div class="flex flex-col gap-4 w-full items-center">
 				<div class="flex flex-col gap-4 w-full">
-					{{#each service.attachments}}
+					{{#each bodyKit.attachments}}
 					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
 						class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
 						<i class="material-icons">picture_as_pdf</i>
@@ -296,7 +294,7 @@
 							<span class="font-semibold max-w-[200px]">Seleccionar archivos</span>
 						</label>
 					</div>
-					<input name="serviceId" id="service-id" type="text" class="hidden" value="{{service._id}}">
+					<input name="bodykitId" id="bodykit-id" type="text" class="hidden" value="{{bodyKit._id}}">
 					<button id="submit-button" type="submit"
 						class="hover:opacity-90 px-4 w-fit font-semibold h-[50px] transition cursor-pointer bg-gray-400 text-gray-600 flex items-center p-3 gap-2"
 						disabled>
@@ -305,7 +303,7 @@
 					</button>
 				</form>
 			</div>
-	</div>
+		</section>
 	</div>
 
 	{{!-- List all fixes --}}
@@ -417,7 +415,7 @@
 
 			{{else}}
 			<h3 class="no-elements center" style="font-size: 1.1rem;">
-				No hay tareas pendientes en esta carrocería.
+				No hay tareas pendientes.
 			</h3>
 			{{/if}}
 
@@ -448,7 +446,7 @@
 <script>
 	const fileInput = document.getElementById('file-input');
 	const fileInputLabel = document.getElementById('file-input-label');
-	const serviceId = document.getElementById('service-id').value;
+	const bodykitId = document.getElementById('bodykit-id').value;
 	const formElem = document.getElementById('attachments-form');
 	const submitButton = document.getElementById('submit-button');
 
@@ -487,22 +485,20 @@
 
 		console.log('form submitting')
 
-		/*
-			 await fetch('/upload', {
-				 method: 'POST',
-				 body: new FormData(formElem),
-			 }).then(async (response) => {
-				 console.log("Successfully uploaded to drive")
-				 submitButton.textContent = 'Listo!';
-				 const { serviceId } = await response.json();
-				 console.log('service id: ', serviceId)
-				 window.location.href = `/servicios/${serviceId}`
-			 }).catch((error) => {
-				 console.log('was not uploaded' + error)
-				 console.error(error);
-				 alert('Hubo un error al subir el archivo: ', error);
-			 });
-		*/
+		await fetch('/upload', {
+			method: 'POST',
+			body: new FormData(formElem),
+		}).then(async (response) => {
+			console.log("Successfully uploaded to drive")
+			submitButton.textContent = 'Listo!';
+			const { bodykitId } = await response.json();
+			console.log('bodykit id: ', bodykitId)
+			window.location.href = `/carrocerias/${bodykitId}`
+		}).catch((error) => {
+			console.log('was not uploaded' + error)
+			console.error(error);
+			alert('Hubo un error al subir el archivo: ', error);
+		});
 
 	});
 

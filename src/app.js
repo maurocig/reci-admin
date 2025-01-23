@@ -16,13 +16,14 @@ const passport = require('./middleware/passport');
 const routes = require('./routers/app.routers');
 const errorMiddleware = require('./middleware/error.middleware');
 const upload = multer();
-const { ServicesDao, RefUnitsDao } = require('./models/daos/app.daos');
+const { ServicesDao, RefUnitsDao, BodyKitsDao } = require('./models/daos/app.daos');
 const servicesController = require('./controllers/services.controller.js');
 
 const app = express();
 const { engine } = Handlebars;
 const servicesDao = new ServicesDao();
 const refunitsDao = new RefUnitsDao();
+const bodykitsDao = new BodyKitsDao();
 
 // View engine
 app.set('view engine', 'hbs');
@@ -78,7 +79,7 @@ const auth = new google.auth.GoogleAuth({
 });
 
 app.post('/upload', upload.any(), async (req, res) => {
-  const { serviceId, refunitId } = req.body;
+  const { serviceId, refunitId, bodykitId } = req.body;
   try {
     const { files } = req;
     const filesResponse = [];
@@ -89,6 +90,8 @@ app.post('/upload', upload.any(), async (req, res) => {
         driveFolder = process.env.SERVICES_UPLOAD_FOLDER;
       } else if (refunitId) {
         driveFolder = process.env.REFUNITS_UPLOAD_FOLDER;
+      } else if (bodykitId) {
+        driveFolder = process.env.BODYKITS_UPLOAD_FOLDER;
       } else {
         console.error('Error al subir archivo: no se especificó el serviceId o refUnitId.');
       }
@@ -101,8 +104,10 @@ app.post('/upload', upload.any(), async (req, res) => {
       const updatedService = await servicesDao.addAttachments(serviceId, filesResponse);
     } else if (refunitId) {
       const updatedRefunit = await refunitsDao.addAttachments(refunitId, filesResponse);
+    } else if (bodykitId) {
+      const updatedBodykit = await bodykitsDao.addAttachments(bodykitId, filesResponse);
     }
-    res.json({ serviceId, refunitId });
+    res.json({ serviceId, refunitId, bodykitId });
   } catch (e) {
     res.send(e.message);
   }

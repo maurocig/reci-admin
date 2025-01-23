@@ -33,6 +33,7 @@ const bodyKitSchema = new Schema(
     availability: { type: String, enum: ['Vendida', 'Stock'], default: 'Vendida' },
     services: [{ type: Schema.Types.ObjectId, ref: 'bodykitServices', sparse: true }],
     pendingTasks: [{ type: Schema.Types.ObjectId, ref: 'pendingtasks', sparse: true }],
+    attachments: [{ type: Object }],
   },
   {
     timestamps: true,
@@ -149,6 +150,24 @@ class BodyKitsMongoDao extends MongoContainer {
       .populate(collectionRef)
       .lean();
     return bodyKit;
+  }
+
+  async addAttachments(bodykitId, fileReferences) {
+    const bodykit = await this.model.findOne({ _id: bodykitId }, { __v: 0 });
+    if (!bodykit) {
+      const message = `Unit with id ${bodykit} does not exist in our records.`;
+      console.log(message);
+      throw new HttpError(404, message);
+    }
+
+    let updatedBodykit = {};
+    fileReferences.forEach(async (fileReference) => {
+      updatedBodykit = await this.model.updateOne(
+        { _id: bodykitId },
+        { $addToSet: { attachments: fileReference } }
+      );
+    });
+    return bodykitId;
   }
 }
 

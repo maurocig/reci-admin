@@ -236,8 +236,8 @@
 			</div>
 
 			{{else}}
-			<h3 class="no-elements center" style="font-size: 1.1rem;">
-				No hay tareas pendientes en este equipo.
+			<h3 class="no-elements center mb-3" style="font-size: 1.1rem;">
+				No hay tareas pendientes.
 			</h3>
 			{{/if}}
 
@@ -253,7 +253,7 @@
 				<input type="hidden" value="{{refUnit.client._id}}" name="client">
 
 				<button class="button-success center" type="submit">
-					<i class="ml-0 material-icons clients-icon center">schedule</i>
+					<i class="ml-0 material-icons clients-icon center">add_circle</i>
 					Agregar
 				</button>
 			</form>
@@ -308,7 +308,7 @@
 	</section>
 
 	{{!-- List all fixes --}}
-	<section class="w-full">
+	<section class="w-full mt-6">
 		<h2 class="mt-0 subtitle" style="display: flex;">
 			<i class="material-icons icon-clients center"
 				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">check</i>
