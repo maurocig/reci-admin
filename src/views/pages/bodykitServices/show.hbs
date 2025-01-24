@@ -25,7 +25,8 @@
 		<a href="/carrocerias/{{service.bodyKit._id}}">
 			<button class="flex items-center text-slate-200 ">
 				<span class="button-icon-container">
-					<i class="material-icons icon-clients center" style="display: inline; margin-right: .5rem;">local_shipping</i>
+					<i class="material-icons icon-clients center"
+						style="display: inline; margin-right: .5rem;">local_shipping</i>
 				</span>
 				{{#if service.bodyKit.plate}}
 				{{service.bodyKit.plate}}
@@ -272,32 +273,134 @@
 		</section>
 	</div>
 
-	<section class="mt-6 mb-0">
-		<h2 class="flex mt-0 subtitle">
-			<i class="material-icons icon-clients center"
-				style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">visibility</i>
-			Observaciones
-		</h2>
-		{{#if service.observations}}
-		<table>
-			<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
-				<th class="py-2">Descripción</th>
-			</tr>
-			<tr>
-				<td class="p-4 uppercase">{{service.observations}}</td>
-			</tr>
-		</table>
-		{{else}}
-		<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">Sin observaciones</h3>
-		{{/if}}
+	<div class="grid mt-6 grid-cols-1 gap-8 sm:gap-6 md:grid-cols-2">
+		<section class="mb-0">
+			<h2 class="flex mt-0 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">visibility</i>
+				Observaciones
+			</h2>
+			{{#if service.observations}}
+			<table>
+				<tr class="bg-slate-200 hover:bg-slate-200" style="padding-block: 0 !important;">
+					<th class="py-2">Descripción</th>
+				</tr>
+				<tr>
+					<td class="p-4 uppercase">{{service.observations}}</td>
+				</tr>
+			</table>
+			{{else}}
+			<h3 class="no-elements center" style="margin-top: 1rem; font-size: 1.1rem;">Sin observaciones</h3>
+			{{/if}}
+		</section>
 
-	</section>
+		<section class="rounded-lg w-full h-full">
+			<h2 class="flex mt-0 mb-4 subtitle">
+				<i class="material-icons icon-clients center"
+					style=" display: inline; margin:0 .5rem 0 0; font-size: 1.3rem; align-self: center;">attach_file</i>
+				Adjuntos
+			</h2>
+			{{#if service.attachments}}
+			<div class="flex flex-col gap-4 w-full items-center">
+				<div class="flex flex-col gap-4 w-full">
+					{{#each service.attachments}}
+					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
+						class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
+						<i class="material-icons">attach_file</i>
+						<div class="truncate">{{this.name}}</div>
+					</a>
+					{{/each}}
+				</div>
+				{{/if}}
+
+				<form class="flex flex-col md:flex-row gap-4" id="attachments-form">
+					<div class="custom-file-input">
+						<input id="file-input" type="file" name="Files" required multiple class="hidden" />
+						<label for="file-input" id="file-input-label"
+							class="w-fit transition h-[50px] px-6 cursor-pointer bg-transparent border-2 border-emerald-400 text-emerald-400 flex items-center p-3 gap-2"
+							tabindex="0">
+							<i class="material-icons text-[30px]">folder</i>
+							<span class="font-semibold max-w-[200px]">Seleccionar archivos</span>
+						</label>
+					</div>
+					<input name="bodykitServiceId" id="bodykit-service-id" type="text" class="hidden"
+						value="{{service._id}}">
+					<button id="submit-button" type="submit"
+						class="hover:opacity-90 px-4 w-fit font-semibold h-[50px] transition cursor-pointer bg-gray-400 text-gray-600 flex items-center p-3 gap-2"
+						disabled>
+						<i class="material-icons text-[30px]">file_upload</i>
+						</span class=''>Subir a Drive</span>
+					</button>
+				</form>
+			</div>
+		</section>
+	</div>
 
 	<a href="/servicios-carrocerias/editar/{{service._id}}">
-		<button class="mt-4 button-new">
+		<button class="mt-4 button-new" id="editButton">
 			<i class="material-icons clients-icon center ">edit</i>
 			Editar
 		</button>
 	</a>
-
 </main>
+
+<script>
+	const fileInput = document.getElementById('file-input');
+	const fileInputLabel = document.getElementById('file-input-label');
+	const bodykitServiceId = document.getElementById('bodykit-service-id').value;
+	const formElem = document.getElementById('attachments-form');
+	const submitButton = document.getElementById('submit-button');
+
+	fileInput.addEventListener('change', function () {
+		if (fileInput.files && fileInput.files.length > 0) {
+			let fileName = '';
+			fileInputLabel.classList.remove('text-emerald-400')
+			fileInputLabel.classList.add('bg-emerald-400', 'text-slate-800')
+			submitButton.disabled = false;
+			submitButton.classList.remove('bg-gray-500', 'text-gray-600')
+			submitButton.classList.add('bg-emerald-400', 'text-slate-800')
+			if (fileInput.files.length === 1) {
+				fileName = fileInput.files[0].name;
+				console.log(fileName)
+			} else {
+				fileName = fileInput.files.length + ' archivos seleccionados';
+			}
+			fileInputLabel.innerHTML = `<span class='font-semibold truncate max-w-[200px]'>${fileName}</span>`;
+		} else {
+			fileInputLabel = 'Seleccionar archivos';
+		}
+	});
+
+	formElem.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		submitButton.disabled = true;
+		submitButton.classList.remove('bg-emerald-400', 'text-slate-800')
+		submitButton.classList.add('bg-gray-400', 'text-gray-600')
+		submitButton.textContent = 'Subiendo...';
+		submitButton.disabled = true;
+
+		const editButton = document.getElementById('editButton');
+		editButton.classList.add = 'bg-gray-500';
+		editButton.disabled = true;
+
+		console.log('form submitting')
+		console.log('service id: ', bodykitServiceId)
+
+		await fetch('/upload', {
+			method: 'POST',
+			body: new FormData(formElem),
+		}).then(async (response) => {
+			console.log("Successfully uploaded to drive")
+			submitButton.textContent = 'Listo!';
+			const { bodykitServiceId } = await response.json();
+			console.log('bodykit id: ', bodykitServiceId)
+			window.location.href = `/servicios-carrocerias/${bodykitServiceId}`
+		}).catch((error) => {
+			console.log('was not uploaded' + error)
+			console.error(error);
+			alert('Hubo un error al subir el archivo: ', error);
+		});
+	});
+
+</script>

@@ -230,17 +230,6 @@ class ServicesController {
       next(error);
     }
   }
-
-  //   async uploadAttachment(req, res, next) {
-  //     const { serviceId } = req.body;
-  //     const attachment = req.files[0];
-  //     try {
-  //       const service = await servicesDao.addAttachments(serviceId, attachment);
-  //       res.status(HTTP_STATUS.OK).json(service);
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
 }
 
 module.exports = new ServicesController();

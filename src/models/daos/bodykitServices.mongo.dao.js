@@ -16,6 +16,7 @@ const serviceSchema = new Schema(
     fixes: [{ type: Object, required: true }],
     observations: { type: String },
     technician: { type: String },
+    attachments: [{ type: Object }],
   },
   {
     timestamps: true,
@@ -80,6 +81,25 @@ class BodykitServicesMongoDao extends MongoContainer {
       .populate('bodyKit', ['plate', 'model', 'serialNumber'])
       .lean();
     return documents;
+  }
+
+  async addAttachments(bodykitServiceId, fileReferences) {
+    const bodykitService = await this.model.findOne({ _id: bodykitServiceId }, { __v: 0 });
+
+    if (!bodykitService) {
+      const message = `Service with id ${bodykitServiceId} does not exist in our records.`;
+      console.log(message);
+      throw new HttpError(404, message);
+    }
+
+    let updatedService = {};
+    fileReferences.forEach(async (fileReference) => {
+      updatedService = await this.model.updateOne(
+        { _id: bodykitServiceId },
+        { $addToSet: { attachments: fileReference } }
+      );
+    });
+    return bodykitServiceId;
   }
 }
 

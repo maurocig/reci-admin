@@ -96,22 +96,6 @@ class ServicesMongoDao extends MongoContainer {
     return service;
   }
 
-  async addAttachments(serviceId, attachment) {
-    const service = await this.model.findOne({ _id: serviceId }, { __v: 0 });
-
-    if (!service) {
-      const message = `Service with id ${serviceId} does not exist in our records.`;
-      throw new HttpError(404, message);
-    }
-
-    const updatedRefUnit = await this.model.updateOne(
-      { _id: serviceId },
-      { $addToSet: { attachments: attachment } }
-    );
-
-    return updatedRefUnit;
-  }
-
   async removePendingTask(refUnitId, pendingTaskId) {
     const refUnit = await this.model.findOne({ _id: refUnitId }, { __v: 0 });
     if (refUnit) {
