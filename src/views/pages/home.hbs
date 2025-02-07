@@ -2,10 +2,77 @@
 {{>navbar}}
 
 <script src="https://kit.fontawesome.com/29f13514cf.js" crossorigin="anonymous"></script>
-<main style="height: calc(100vh - 80px); position: relative" class="mt-[80px] ">
+
+<main style="height: calc(100vh - 110px); position: relative" class="mt-[110px] flex flex-col justify-between">
+	<form class="flex-col items-center justify-center w-full gap-4 hidden md:flex" action="/buscar">
+		<div class="flex gap-4 w-full md:w-[70vw] justify-start gap-4 max-w-[400px]">
+			{{!-- type selector --}}
+			<div class="flex flex-col h-full gap-2">
+				<label for="type-select" class="text-slate-400">Buscar</label>
+				<select class="p-1" id="type-select" name="type">
+					{{!-- <option value="todo">Todo</option> --}}
+					<option value="equipos">Equipos</option>
+					<option value="carrocerias">Carrocerías</option>
+					<option value="servicios">Servicios</option>
+					<option value="todos">Todos</option>
+					{{!-- <option value="tareas">Tareas</option> --}}
+				</select>
+			</div>
+
+			{{!-- radio selector NOT WORKING --}}
+			<div class="flex-col hidden">
+				<label class="text-slate-400">Buscar</label>
+				<div id="type-select" name="type" class="flex p-1 text-xs bg-slate-200/10">
+					<label for="equipos"
+						class="px-4 py-2 bg-gray-200 rounded btn-radio text-slate-800 hover:cursor-pointer ">
+						<input type="radio" id="equipos" name="type" value="equipos" class="hidden"
+							onclick="changeColor(this)">
+						Equipos
+					</label>
+					<label for="carrocerias"
+						class="px-4 py-2 transition rounded btn-radio bg-slate-800/0 text-slate-200 hover:cursor-pointer hover:bg-slate-200/10 hover:text-slate-200">
+						<input type="radio" id="carrocerias" name="type" value="carrocerias" class="hidden"
+							onclick="changeColor(this)">
+						Carrocerías
+					</label>
+					<label for="servicios"
+						class="px-4 py-2 transition rounded btn-radio hover:cursor-pointer bg-slate-800/0 text-slate-200 hover:bg-slate-200/10 hover:text-slate-200">
+						<input type="radio" id="servicios" name="type" value="servicios" class="hidden"
+							onclick="changeColor(this)">
+						Servicios
+					</label>
+					<label for="servicios"
+						class="px-4 py-2 transition rounded btn-radio hover:cursor-pointer bg-slate-800/0 text-slate-200 hover:bg-slate-200/10 hover:text-slate-200">
+						<input type="radio" id="servicios" name="type" value="servicios" class="hidden"
+							onclick="changeColor(this)">
+						Servicios
+					</label>
+				</div>
+			</div>
+
+			{{!-- field select --}}
+			<div class="flex flex-col h-full gap-2">
+				<label for="field-select" class="text-slate-400 ">Por</label>
+				<select id="field-select" name="field" class="p-1 h-full">
+					{{!-- have to specify height in css because of safari --}}
+				</select>
+			</div>
+		</div>
+
+		{{!-- search field --}}
+		<div class="flex items-center w-full md:w-[70vw] max-w-[400px]">
+			<input type="text" name="query" id="search-input" placeholder="Buscar equipos por matrícula"
+				style="border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important" autofocus
+				class="w-full p-2 px-4 text-lg rounded-l-lg focus:outline-none focus:bg-white/90">
+			<button type="submit" style="border-top-left-radius: 0px !important; border-bottom-left-radius: 0px !important"
+				class="inline py-[10px] w-[45px] bg-white rounded-r-lg border-box w-1/4 self-center"><i
+					class="inline text-slate-800 material-icons">search</i></button>
+		</div>
+	</form>
+
 	{{!-- <h1 class='title'>RECI Importaciones</h1> --}}
 	<div class="flex flex-col items-center justify-center w-full ">
-		<div class="grid grid-cols-2 md:grid-cols-3 md:max-w-[600px] lg:max-w-[800px] gap-4 p-4 md:mt-[100px]">
+		<div class="grid grid-cols-2 md:grid-cols-3 md:max-w-[600px] lg:max-w-[800px] gap-4 p-4">
 			<a href="/clientes">
 				<div class="container-icon-home hover:bg-white/5 transition-all">
 					{{!-- <i class="fa-regular fa-users"></i> --}}
@@ -49,13 +116,14 @@
 	<div style="text-align: center; width: 100%; margin-bottom: 10px; color: white;" class="mt-4">
 		{{!-- Actualizaciones --}}
 		<div
-			class="text-white hidden min-h-[70px] justify-center items-center text-sm pb-4 md:flex flex-col space-y-3 bottom-0 mt-28 w-full text-center">
-			<div class="hidden sm:flex text-xs border border-emerald-400/20 bg-emerald-400/10 w-fit p-8 flex-col gap-3">
+			class="text-white hidden min-h-[70px] justify-center items-center text-sm pb-4 md:flex flex-col space-y-3 bottom-0 w-full text-center">
+			<div
+				class="hidden sm:flex text-xs border border-emerald-400/20 bg-emerald-400/10 w-fit px-8 pt-6 pb-3 flex-col gap-3">
 				<a href="https://reci.uy/actualizaciones" class="group hover:no-underline text-emerald-300/50"
 					target="_blank">
 					<li class="list-none text-gray-100/80 flex items-center gap-2 text-sm">
 						<i class="material-icons text-emerald-400 text-green-400 text-sm">lens</i>
-						<span class=" text-slate-200/80 hover:text-emerald-400/80 font-semibold text-sm">Actualización
+						<span class=" text-slate-200/80 hover:text-emerald-400/80 font-semibold text-sm">Versión
 							1.6 <span class="font-thin text-sm">– Adjuntos en carrocerías y servicios de
 								carrocería</span>
 						</span>
@@ -68,11 +136,74 @@
 						<span class="text-slate-200/80 text-sm font-semibold">Último backup </span> <span>•</span> 20/1/25
 					</div>
 				</li>
+				<a href="/auth/logout" class="hover:underline text-red-300/90 text-end text-sm">
+					Cerrar sesión
+				</a>
 			</div>
 		</div>
 
-		<a href="/auth/logout" class="hover:underline text-red-300/90">
-			Cerrar sesión
-		</a>
 	</div>
 </main>
+
+<script>
+	const typeSelect = document.getElementById('type-select');
+	const fieldSelect = document.getElementById('field-select');
+	const searchInput = document.getElementById('search-input');
+
+	// default fields for refUnits
+	let fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+	fieldSelect.innerHTML = fields.map((field) => `<option value="${field.value}">${field.label}</option>`).join('');
+
+	let selectedType = 'equipos';
+	let selectedField;
+
+	// change fields based on type (select)
+	typeSelect.addEventListener('change', (e) => {
+		const type = e.target.value;
+
+		switch (type) {
+			case 'equipos':
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				selectedType = 'equipos';
+				break;
+			case 'carrocerias':
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº serie', value: 'serialNumber' }, { label: 'Nº chasis', value: 'chassis' }, { label: 'Proveedor', value: 'provider' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' },];
+				selectedType = 'carrocerias';
+				break;
+			case 'servicios':
+				fields = [{ label: 'Matrícula', value: 'plate' }, { label: 'Nº orden', value: 'orderNumber' }, { label: 'Modelo', value: 'model' }, { label: 'Cliente', value: 'client' }, { label: 'Nº serie', value: 'serialNumber' },];
+				selectedType = 'servicios';
+				break;
+			case 'todos':
+				fields = [{ label: 'Matrícula', value: 'plate' }];
+				selectedType = 'todos';
+				break;
+		}
+
+		fieldSelect.innerHTML = fields.map((field) => `<option value="${field.value}">${field.label}</option>`).join('');
+		selectedField = fields.find((f) => f.value === fieldSelect.value).label
+		searchInput.placeholder = `Buscar ${selectedType} por ${lowerFirstLetter(selectedField)}`;
+	})
+
+	function lowerFirstLetter(str) {
+		return str.charAt(0).toLowerCase() + str.slice(1);
+	}
+
+	// update the input placeholder when a field is selected
+	fieldSelect.addEventListener('change', (e) => {
+		const field = fields.find((f) => f.value === e.target.value);
+		searchInput.placeholder = `Buscar ${selectedType} por ${lowerFirstLetter(field.label)} `;
+	});
+
+	function changeColor(radio) {
+		// Reset all buttons to the default color
+		document.querySelectorAll('.btn-radio').forEach(function (btn) {
+			btn.classList.remove('bg-slate-200', 'text-slate-800',);
+			btn.classList.add('bg-slate-800/0', 'text-slate-200', 'hover:bg-slate-200/10', 'hover:text-slate-200');
+		});
+
+		// Change the color of the selected button
+		radio.parentElement.classList.remove('bg-slate-800/0', 'text-slate-200', 'hover:bg-slate-200/10', 'hover:text-slate-200');
+		radio.parentElement.classList.add('bg-slate-200', 'text-slate-800');
+	}
+</script + script>

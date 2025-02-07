@@ -153,5 +153,3 @@ const uploadFile = async (fileObject, folder) => {
     console.error('Error al subir archivo: ', e);
   }
 };
-
-// upload files to google drive (refUnits)
