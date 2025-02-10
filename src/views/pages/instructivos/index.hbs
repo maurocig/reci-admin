@@ -1,0 +1,59 @@
+{{>navbar}}
+
+<main class="mt-[80px]">
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center"
+		style="font-size: 50px; display: block; margin-bottom: .2rem;">info_outline</i>
+	<h1 class="title">Instructivos</h1>
+	{{!-- <p>Esta página permite realizar búsquedas en diferentes categorías, como equipos, carrocerías, servicios y tareas.
+		Simplemente ingrese el término de búsqueda en el campo de texto y seleccione la categoría deseada en el menú
+		desplegable.</p> --}}
+
+	<div class="flex flex-col items-center justify-center w-full ">
+		<div class="grid grid-cols-2 md:grid-cols-3 md:max-w-[600px] lg:max-w-[800px] gap-4 p-4">
+			<a href="/equipos">
+				<div class="container-icon-home hover:bg-white/5 transition-all">
+					<i class="material-icons icon-clients " style="font-size: 50px; padding-top: .8rem;">ac_unit</i>
+					<span class="card-home-title ">Equipos</span>
+				</div>
+			</a>
+			<a href="/carrocerias">
+				<div class="container-icon-home hover:bg-white/5 transition-all">
+					<i class="material-icons icon-clients" style="font-size: 45px; padding-top: .8rem;">local_shipping</i>
+					<span class="card-home-title">Carrocerías</span>
+				</div>
+			</a>
+			<a href="/servicios">
+				<div class="container-icon-home hover:bg-white/5 transition-all">
+					<i class="material-icons icon-clients" style="font-size: 45px; padding-top: .8rem;">build</i>
+					<span class="card-home-title">Servicios</span>
+				</div>
+			</a>
+			<a href="/tareas">
+				<div class="container-icon-home hover:bg-white/5 transition-all">
+					<i class="material-icons icon-clients" style="font-size: 55px; padding-top: .5rem">schedule</i>
+					<span class="card-home-title">Tareas</span>
+				</div>
+			</a>
+			<a href="/instructivos/datalogger">
+				<div class="container-icon-home hover:bg-white/5 transition-all">
+					{{!-- <i class="fa-regular fa-users"></i> --}}
+					<i class="material-icons icon-clients" style="font-size: 50px; padding-top: .8rem;">insert_chart</i>
+					<span class="card-home-title">Data logger</span>
+				</div>
+			</a>
+		</div>
+	</div>
+
+
+</main>

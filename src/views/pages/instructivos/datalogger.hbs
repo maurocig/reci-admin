@@ -1,0 +1,127 @@
+{{>navbar}}
+
+<main class="mt-[80px]">
+	<a onclick="window.history.back()">
+		<button class="go-back">
+			<i class="material-icons">arrow_back</i>
+		</button>
+	</a>
+	<a href="/">
+		<button class="go-back">
+			<i class="material-icons">home</i>
+		</button>
+	</a>
+
+	<i class="material-icons icon-clients center"
+		style="font-size: 50px; display: block; margin-bottom: .2rem;">insert_chart</i>
+	<h1 class="title">Instructivos: Data logger</h1>
+	{{!-- <p>Esta página permite realizar búsquedas en diferentes categorías, como equipos, carrocerías, servicios y tareas.
+		Simplemente ingrese el término de búsqueda en el campo de texto y seleccione la categoría deseada en el menú
+		desplegable.</p> --}}
+
+	<div class="flex flex-col gap-4">
+		<h2 class="text-slate-300 text-xl font-semibold mb-4">
+			1. Importar datos del data logger
+		</h2>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/1.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Abrimos el software de la marca del data logger, en este caso es el software de Extech.
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/2.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Insertamos el dispositivo usb y una vez reconocido, click en 'Connect'.
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/3.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				En la esquina superior izquierda, click en el primer ícono para iniciar la descarga de datos desde el
+				datalogger.
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/4.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Click en Download para descargar los datos
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/5.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Seleccionamos la carpeta donde queremos guardar el archivo, ubicada en Escritorio > DATALOGGER
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/6.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Para nombrar el archivo usamos el siguiente formato: CLIENTE-MODELO-DD-MM-AA (nombre del cliente, modelo de
+				equipo y fecha en la que fue tomada la lectura). Seleccionamos el texto ingresado y
+				Control + C para
+				copiar.</br>
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/7.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Una vez finalizada la copia de datos, hacemos click en 'View'
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/8.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Y luego en File > Print (o Control + P)
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/9.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				En el campo 'Nombre', click en la flecha selectora y seleccionamos 'Microsoft Print to PDF' y luego
+				'Aceptar'
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/10.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Volvemos a insertar el nombre con el formato ya especificado (Control + V para pegar) y luego 'Guardar'
+			</span>
+		</div>
+	</div>
+
+	<div class="flex flex-col gap-4 mt-10">
+		<h2 class="text-slate-300 text-xl font-semibold mb-4">
+			2. Subir los datos al sistema de RECI
+		</h2>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/11.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				<div>
+					Luego de ingresado el <b class="font-bold">servicio</b> del equipo, en la seccion 'Adjuntos', click en
+					'Seleccionar
+					archivos'
+				</div>
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/13.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				<div>
+					Seleccionamos los archivos <b>.rec</b> y <b>.pdf</b> generados anteriormente en la carpeta <b>Escritorio
+						>
+						DATALOGGER</b> con
+					<b>SHIFT + CLICK</b> para seleccionar múltiples archivos y luego 'Abrir'
+				</div>
+			</span>
+		</div>
+		<div class="grid md:grid-cols-2 text-slate-200 text-lg md:gap-4 lg:gap-6">
+			<img src="/img/datalogger/14.png" alt="Imagen 1">
+			<span class="w-full flex items-center">
+				Click en Subir a Drive y esperamos la carga de los archivos. Comprobamos que los archivos estén listados en
+				la sección adjuntos.
+			</span>
+		</div>
+		<div class="mb-4"></div>
+	</div>
+</main>

@@ -7,6 +7,7 @@ const servicesRoutes = require('./services.routes');
 const bodyKitsRoutes = require('./bodyKits.routes');
 const bodykitServicesRoutes = require('./bodykitServices.routes');
 const pendingTasksRoutes = require('./pendingTasks.routes');
+const instructivosRoutes = require('./instructivos.routes');
 const authRoutes = require('./auth.routes');
 const isAuthorized = require('../middleware/auth.middleware');
 
@@ -43,6 +44,7 @@ router.use('/servicios', servicesRoutes);
 router.use('/carrocerias', bodyKitsRoutes);
 router.use('/servicios-carrocerias', bodykitServicesRoutes);
 router.use('/tareas', pendingTasksRoutes);
+router.use('/instructivos', instructivosRoutes);
 
 router.get('/', (req, res) => {
   const user = req.user;
