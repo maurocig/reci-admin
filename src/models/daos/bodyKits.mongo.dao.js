@@ -155,7 +155,7 @@ class BodyKitsMongoDao extends MongoContainer {
   async addAttachments(bodykitId, fileReferences) {
     const bodykit = await this.model.findOne({ _id: bodykitId }, { __v: 0 });
     if (!bodykit) {
-      const message = `Unit with id ${bodykit} does not exist in our records.`;
+      const message = `Unit with id ${bodykitId} does not exist in our records.`;
       console.log(message);
       throw new HttpError(404, message);
     }
@@ -168,6 +168,19 @@ class BodyKitsMongoDao extends MongoContainer {
       );
     });
     return bodykitId;
+  }
+
+  async deleteAttachment(bodykitId, fileId) {
+    const refunit = await this.model.findOne({ _id: bodykitId }, { __v: 0 });
+    if (!refunit) {
+      const message = `Unit with id ${bodykitId} does not exist in our records.`;
+      console.log(message);
+    }
+    const updatedRefunit = await this.model.updateOne(
+      { _id: bodykitId },
+      { $pull: { attachments: { id: fileId } } }
+    );
+    return updatedRefunit;
   }
 }
 

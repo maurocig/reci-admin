@@ -35,6 +35,7 @@ class RefUnitsController {
         });
       } else {
         const scripts = [
+          { script: '/js/refunitAttachmentsHandler.js' },
           { script: '/js/formatDate.js' },
           { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
         ];

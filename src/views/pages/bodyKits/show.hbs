@@ -270,11 +270,19 @@
 			<div class="flex flex-col gap-4 w-full items-center">
 				<div class="flex flex-col gap-4 w-full">
 					{{#each bodyKit.attachments}}
-					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
-						class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
-						<i class="material-icons">attach_file</i>
-						<div class="truncate">{{this.name}}</div>
-					</a>
+					<div class="flex z-10 hover:opacity-90 transition w-full bg-slate-300 min-h-[85px] gap-2 p-0">
+						<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
+							class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
+							<i class="material-icons">attach_file</i>
+							<div class="truncate">{{this.name}}</div>
+						</a>
+						<div class="w-full flex justify-end events-none z-10">
+							<button id="delete-file-{{this.id}}" class="z-50 w-fit p-3">
+								<i class="events-none material-icons text-[1.3rem] z-10 text-gray-600 hover:text-red-500">delete_forever
+								</i>
+							</button>
+						</div>
+					</div>
 					{{/each}}
 				</div>
 				{{/if}}
@@ -438,7 +446,7 @@
 <script src="{{script}}"></script>
 {{/each}}
 
-<script>
+{{!-- <script>
 	const fileInput = document.getElementById('file-input');
 	const fileInputLabel = document.getElementById('file-input-label');
 	const bodykitId = document.getElementById('bodykit-id').value;
@@ -478,8 +486,6 @@
 		editButton.classList.add = 'bg-gray-500';
 		editButton.disabled = true;
 
-		console.log('form submitting')
-
 		await fetch('/upload', {
 			method: 'POST',
 			body: new FormData(formElem),
@@ -494,7 +500,6 @@
 			console.error(error);
 			alert('Hubo un error al subir el archivo: ', error);
 		});
-
 	});
 
-</script>
+</script> --}}

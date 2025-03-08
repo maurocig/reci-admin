@@ -72,7 +72,6 @@ class RefUnitsMongoDao extends MongoContainer {
 
     if (!refUnit) {
       const message = `RefUnit with id ${refUnitId} does not exist in our records.`;
-      throw new HttpError(404, message);
     }
 
     const updatedRefUnit = await this.model.updateOne(
@@ -101,7 +100,6 @@ class RefUnitsMongoDao extends MongoContainer {
 
     if (!refUnit) {
       const message = `RefUnit with id ${refUnitId} does not exist in our records.`;
-      throw new HttpError(404, message);
     }
 
     const updatedRefUnit = await this.model.updateOne(
@@ -152,6 +150,19 @@ class RefUnitsMongoDao extends MongoContainer {
       );
     });
     return refunitId;
+  }
+
+  async deleteAttachment(refunitId, fileId) {
+    const refunit = await this.model.findOne({ _id: refunitId }, { __v: 0 });
+    if (!refunit) {
+      const message = `Unit with id ${refunitId} does not exist in our records.`;
+      console.log(message);
+    }
+    const updatedRefunit = await this.model.updateOne(
+      { _id: refunitId },
+      { $pull: { attachments: { id: fileId } } }
+    );
+    return updatedRefunit;
   }
 }
 

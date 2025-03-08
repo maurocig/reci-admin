@@ -123,6 +123,34 @@ app.post('/upload', upload.any(), async (req, res) => {
   }
 });
 
+app.post('/delete', async (req, res) => {
+  const { fileId, serviceId, refunitId, bodykitId, bodykitServiceId } = req.body;
+  try {
+    console.log('fileId: ', fileId);
+    if (fileId) {
+      const driveResponse = await google.drive({ version: 'v3', auth }).files.delete({ fileId });
+      console.log('drive response:', await driveResponse);
+
+      console.log(`file ${fileId} deleted`);
+      if (serviceId) {
+        await servicesDao.deleteAttachment(serviceId, fileId);
+      } else if (refunitId) {
+        await refunitsDao.deleteAttachment(refunitId, fileId);
+      } else if (bodykitId) {
+        await bodykitsDao.deleteAttachment(bodykitId, fileId);
+      } else if (bodykitServiceId) {
+        await bodykitServicesDao.deleteAttachment(bodykitServiceId, fileId);
+      }
+
+      res.json({ fileId, serviceId, refunitId, bodykitId, bodykitServiceId });
+    } else {
+      res.send('No se especificó el fileId.');
+    }
+  } catch (e) {
+    res.send(e.message);
+  }
+});
+
 // Routes
 app.use('/', routes);
 
