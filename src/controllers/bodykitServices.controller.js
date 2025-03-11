@@ -48,7 +48,20 @@ class ServicesController {
     try {
       const service = await bodykitServicesDao.getByIdAndPopulate(id);
 
-      res.status(HTTP_STATUS.OK).render('pages/bodykitServices/show', { service });
+      if (!service) {
+        res.status(HTTP_STATUS.NOT_FOUND).render('pages/error', {
+          message: 'El equipo no existe o fue eliminado',
+          details:
+            'Si creés que se trata de un error, comunicate con el administrador para solucionar el problema',
+        });
+      } else {
+        const scripts = [
+          { script: '/js/bodykitServiceAttachmentsHandler.js' },
+          //  { script: '/js/formatDate.js' },
+          { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+        ];
+        res.status(HTTP_STATUS.OK).render('pages/bodykitServices/show', { service, scripts });
+      }
     } catch (error) {
       next(error);
     }

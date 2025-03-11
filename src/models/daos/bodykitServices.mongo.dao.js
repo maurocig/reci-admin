@@ -101,6 +101,19 @@ class BodykitServicesMongoDao extends MongoContainer {
     });
     return bodykitServiceId;
   }
+
+  async deleteAttachment(serviceId, fileId) {
+    const service = await this.model.findOne({ _id: serviceId }, { __v: 0 });
+    if (!service) {
+      const message = `Unit with id ${serviceId} does not exist in our records.`;
+      console.log(message);
+    }
+    const updatedService = await this.model.updateOne(
+      { _id: serviceId },
+      { $pull: { attachments: { id: fileId } } }
+    );
+    return updatedService;
+  }
 }
 
 module.exports = BodykitServicesMongoDao;
