@@ -35,7 +35,7 @@ class BodyKitsController {
         });
       } else {
         const scripts = [
-          { script: '/js/bodyKitAttachmentsHandler.js' },
+          { script: '/js/bodykitAttachmentsHandler.js' },
           { script: '/js/formatDate.js' },
           { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
         ];
