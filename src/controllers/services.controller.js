@@ -55,7 +55,12 @@ class ServicesController {
             'Si creés que se trata de un error, comunicate con el administrador para solucionar el problema',
         });
       } else {
-        res.status(HTTP_STATUS.OK).render('pages/services/show', { service });
+        const scripts = [
+          { script: '/js/serviceAttachmentsHandler.js' },
+          { script: '//cdn.jsdelivr.net/npm/sweetalert2@11' },
+        ];
+
+        res.status(HTTP_STATUS.OK).render('pages/services/show', { service, scripts });
       }
     } catch (error) {
       next(error);

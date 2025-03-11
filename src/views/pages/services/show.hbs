@@ -304,20 +304,28 @@
 			<div class="flex flex-col gap-4 w-full items-center">
 				<div class="flex flex-col gap-4 w-full">
 					{{#each service.attachments}}
-					<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
-						class="flex hover:opacity-90 transition flex-col w-full bg-slate-300 min-h-[85px] gap-2 p-3">
-						<i class="material-icons">picture_as_pdf</i>
-						<div class="truncate">{{this.name}}</div>
-					</a>
+					<div class="flex z-10 hover:opacity-90 transition w-full bg-slate-300 min-h-[85px] gap-2 p-0">
+						<a href="https://drive.google.com/file/d/{{this.id}}/view?usp=drive_link" target="_blank"
+							class="flex flex-col gap-2 text-sky-600 hover:text-sky-600/90 group p-3">
+							<i class="material-icons text-gray-600 text-[1rem]">insert_drive_file</i>
+							<div class="truncate font-semibold flex gap-2 items-center">
+								{{this.name}}
+								<i
+									class="material-icons text-gray-600 text-[1rem] opacity-0 group-hover:opacity-40 transition">launch</i>
+							</div>
+						</a>
+						<div class="w-full flex justify-end events-none z-10">
+							<button id="delete-file-{{this.id}}" class="z-50 w-fit p-3">
+								<i class="events-none material-icons text-[1.3rem] z-10 text-gray-600 hover:text-red-500">delete_forever
+								</i>
+							</button>
+						</div>
+					</div>
 					{{/each}}
 				</div>
 				{{/if}}
 
-				{{!-- <button class="hover:opacity-90 w-fit transition bg-emerald-500 flex items-center p-3 gap-2">
-					<i class="material-icons text-[30px]">upload_file</i>
-					<span class="font-semibold ">Subir archivos</span>
-				</button> --}}
-
+				{{!-- file upload --}}
 				<form class="flex flex-col md:flex-row gap-4" id="attachments-form">
 					<div class="custom-file-input">
 						<input id="file-input" type="file" name="Files" required multiple class="hidden" />
@@ -349,65 +357,6 @@
 
 </main>
 
-<script>
-	const fileInput = document.getElementById('file-input');
-	const fileInputLabel = document.getElementById('file-input-label');
-	const serviceId = document.getElementById('service-id').value;
-	const formElem = document.getElementById('attachments-form');
-	const submitButton = document.getElementById('submit-button');
-
-	fileInput.addEventListener('change', function () {
-		if (fileInput.files && fileInput.files.length > 0) {
-			let fileName = '';
-			fileInputLabel.classList.remove('text-emerald-400')
-			fileInputLabel.classList.add('bg-emerald-400', 'text-slate-800')
-			submitButton.disabled = false;
-			submitButton.classList.remove('bg-gray-500', 'text-gray-600')
-			submitButton.classList.add('bg-emerald-400', 'text-slate-800')
-			if (fileInput.files.length === 1) {
-				fileName = fileInput.files[0].name;
-				console.log(fileName)
-			} else {
-				fileName = fileInput.files.length + ' archivos seleccionados';
-			}
-			fileInputLabel.innerHTML = `<span class='font-semibold truncate max-w-[200px]'>${fileName}</span>`;
-		} else {
-			fileInputLabel = 'Seleccionar archivos';
-		}
-	});
-
-	formElem.addEventListener('submit', async (e) => {
-		e.preventDefault();
-
-		submitButton.disabled = true;
-		submitButton.classList.remove('bg-emerald-400', 'text-slate-800')
-		submitButton.classList.add('bg-gray-400', 'text-gray-600')
-		submitButton.textContent = 'Subiendo...';
-		submitButton.disabled = true;
-
-		const editButton = document.getElementById('editButton');
-		editButton.classList.add = 'bg-gray-500';
-		editButton.disabled = true;
-
-		console.log('form submitting')
-
-		await fetch('/upload', {
-			method: 'POST',
-			body: new FormData(formElem),
-		}).then(async (response) => {
-
-			console.log("Successfully uploaded to drive")
-			submitButton.textContent = 'Listo!';
-
-			const { serviceId } = await response.json();
-			console.log('service id: ', serviceId)
-			window.location.href = `/servicios/${serviceId}`
-
-		}).catch((error) => {
-			console.log('was not uploaded' + error)
-			console.error(error);
-			alert('Hubo un error al subir el archivo: ', error);
-		});
-	});
-
-</script>
+{{#each scripts}}
+<script src="{{script}}"></script>
+{{/each}}
