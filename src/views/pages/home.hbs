@@ -23,10 +23,8 @@
 			<div class="flex-col hidden">
 				<label class="text-slate-400">Buscar</label>
 				<div id="type-select" name="type" class="flex p-1 text-xs bg-slate-200/10">
-					<label for="equipos"
-						class="px-4 py-2 bg-gray-200 rounded btn-radio text-slate-800 hover:cursor-pointer ">
-						<input type="radio" id="equipos" name="type" value="equipos" class="hidden"
-							onclick="changeColor(this)">
+					<label for="equipos" class="px-4 py-2 bg-gray-200 rounded btn-radio text-slate-800 hover:cursor-pointer ">
+						<input type="radio" id="equipos" name="type" value="equipos" class="hidden" onclick="changeColor(this)">
 						Equipos
 					</label>
 					<label for="carrocerias"
@@ -37,8 +35,7 @@
 					</label>
 					<label for="servicios"
 						class="px-4 py-2 transition rounded btn-radio hover:cursor-pointer bg-slate-800/0 text-slate-200 hover:bg-slate-200/10 hover:text-slate-200">
-						<input type="radio" id="servicios" name="type" value="servicios" class="hidden"
-							onclick="changeColor(this)">
+						<input type="radio" id="servicios" name="type" value="servicios" class="hidden" onclick="changeColor(this)">
 						Servicios
 					</label>
 					{{!-- <label for="servicios"
@@ -119,22 +116,21 @@
 			class="text-white hidden min-h-[70px] justify-center items-center text-sm pb-4 md:flex flex-col space-y-3 bottom-0 w-full text-center">
 			<div
 				class="hidden sm:flex text-xs border border-emerald-400/20 bg-emerald-400/10 w-fit px-8 pt-6 pb-3 flex-col gap-3">
-				<a href="https://reci.uy/actualizaciones" class="group hover:no-underline text-emerald-300/50"
-					target="_blank">
+				<a href="https://reci.uy/actualizaciones" class="group hover:no-underline text-emerald-300/50" target="_blank">
 					<li class="list-none text-gray-100/80 flex items-center gap-2 text-sm">
 						<i class="material-icons text-emerald-400 text-green-400 text-sm">lens</i>
 						<span class=" text-slate-200/80 hover:text-emerald-400/80 font-semibold text-sm">Versión
-							1.7 <span class="font-thin text-sm">– Nueva sección de instructivos e instructivo para el data
-								logger.
+							1.7.1 <span class="font-thin text-sm">– Borrado de archivos adjuntos en servicios, equipos y
+								carrocerías
 							</span>
 						</span>
-						<span class="">•</span> 10/2/25
+						<span class="">•</span> 11/3/25
 					</li>
 				</a>
 				<li class="w-full list-none text-sm">
 					<div class=" flex justify-start items-center text-gray-300 text-sm gap-2">
 						<i class="material-icons text-green-400 text-[1.1rem]">storage</i>
-						<span class="text-slate-200/80 text-sm font-semibold">Último backup </span> <span>•</span> 7/2/25
+						<span class="text-slate-200/80 text-sm font-semibold">Último backup </span> <span>•</span> 18/7/25
 					</div>
 				</li>
 				<a href="/auth/logout" class="hover:underline text-red-300/90 text-end text-sm">
